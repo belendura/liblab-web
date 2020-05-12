@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, Suspense } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { getToken } from "./helpers/axiosTokens.helpers";
+
+import { checkUserSession } from "../src/redux/actions/user.actions";
+
+import Header from "./components/header/header.component";
+import Footer from "./components/footer/footer.component";
+
+import { GlobalStyle } from "./global.styles";
+
+const HomePage = React.lazy(() =>
+  import("./pages/homepage/homepage.component")
+);
+const ShopPage = React.lazy(() =>
+  import("./pages/shop-page/shop-page.component")
+);
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = getToken();
+    token && dispatch(checkUserSession());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GlobalStyle />
+      <Header />
+      {/*<Switch>
+          <Suspense fallback={<div>...Is Loading</div>}>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/shop" component={ShopPage} />
+          </Suspense>
+        </Switch>
+        <Footer />*/}
     </div>
   );
 }
