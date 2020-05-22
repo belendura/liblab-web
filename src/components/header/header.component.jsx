@@ -20,7 +20,6 @@ import {
   InstagramIcon,
   HeaderUserContainer,
   HeaderSearchContainer,
-  HeaderSearchLink,
   HeaderSearch,
   HeaderUserLink,
   HeaderUser,
