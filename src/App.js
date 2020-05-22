@@ -17,6 +17,9 @@ const HomePage = React.lazy(() =>
 const ShopPage = React.lazy(() =>
   import("./pages/shop-page/shop-page.component")
 );
+const SearchPage = React.lazy(() =>
+  import("./pages/search-page/search-page.component")
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -30,13 +33,14 @@ function App() {
     <div>
       <GlobalStyle />
       <Header />
-      {/*<Switch>
+      <Switch>
           <Suspense fallback={<div>...Is Loading</div>}>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/shop" component={ShopPage} />
+            <Route exact path="/search" component={SearchPage} />
           </Suspense>
         </Switch>
-        <Footer />*/}
+        <Footer />
     </div>
   );
 }

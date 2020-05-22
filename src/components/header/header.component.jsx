@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  useParams,
+  useLocation,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 
-import { ReactComponent as UserLogo } from "../../assets/user-logo.svg";
-
+import ShopIcon from "../shop-icon/shop-icon.component";
 import CartIcon from "../cart-icon/cart-icon.component";
-import SearchIcon from "../search-icon/search-icon.component";
+import FavIcon from "../fav-icon/fav-icon.component";
 
 import {
   HeaderContainer,
@@ -14,29 +19,56 @@ import {
   HeaderInstagramLink,
   InstagramIcon,
   HeaderUserContainer,
+  HeaderSearchContainer,
+  HeaderSearchLink,
+  HeaderSearch,
   HeaderUserLink,
+  HeaderUser,
+  CloseIcon,
 } from "./header.styles";
 
 const Header = () => {
+  const [searchVisibility, setSearchVisibility] = useState(false);
+  const history = useHistory();
+
   return (
     <HeaderContainer>
       <HeaderLogoContainer to="/">
         <LibLabIcon />
       </HeaderLogoContainer>
       <HeaderShopContainer>
-        <HeaderShopLink to="/shop">SHOP</HeaderShopLink>
+        <ShopIcon />
         <HeaderShopLink to="/about">ABOUT</HeaderShopLink>
-        <HeaderShopLink to="/shope/sale">SALE</HeaderShopLink>
+        <HeaderShopLink to="/shop/sale">SALE</HeaderShopLink>
         <HeaderShopLink to="/contact">CONTACT</HeaderShopLink>
         <HeaderInstagramLink to="/instagram">
           <InstagramIcon />
         </HeaderInstagramLink>
       </HeaderShopContainer>
       <HeaderUserContainer>
-        <SearchIcon />
-        <HeaderUserLink to="/instagram">
-          <UserLogo style={{ height: "40px" }} />
+        <HeaderSearchContainer>
+          {searchVisibility ? (
+            <CloseIcon
+              onClick={() => {
+                console.log("history", history);
+                history.push("/");
+
+                setSearchVisibility(false);
+              }}
+            />
+          ) : (
+            <HeaderSearch
+              onClick={() => {
+                history.push("/search");
+                setSearchVisibility(true);
+              }}
+            />
+          )}
+        </HeaderSearchContainer>
+        <HeaderUserLink to="/login">
+          <HeaderUser />
         </HeaderUserLink>
+        <FavIcon />
         <CartIcon />
       </HeaderUserContainer>
     </HeaderContainer>

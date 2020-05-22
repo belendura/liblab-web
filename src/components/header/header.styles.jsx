@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import { ReactComponent as LibLabLogo } from "../../assets/heart-logo.svg";
 import { ReactComponent as InstagramLogo } from "../../assets/camera-logo.svg";
+import { ReactComponent as SearchLogo } from "../../assets/search-logo.svg";
+import { ReactComponent as UserLogo } from "../../assets/user-logo.svg";
+import { ReactComponent as CloseLogo } from "../../assets/close-logo.svg";
 
 export const HeaderContainer = styled.div`
   height: 70px;
@@ -17,27 +20,36 @@ export const HeaderContainer = styled.div`
     margin-bottom: 20px;
   }
 `;
-export const LibLabIcon = styled(LibLabLogo)`
-  height: 40px;
-`;
 
 export const HeaderLogoContainer = styled(Link)`
-  height: 100%;
-  width: 70px;
+  width: 80px;
   padding: 10px;
+  border: 2px black dotted;
+  margin-right: 20px;
 
   @media screen and (max-width: 800px) {
     width: 50px;
     padding: 0;
   }
 `;
+
+export const LibLabIcon = styled(LibLabLogo)`
+  height: 60px;
+`;
+
 export const HeaderShopContainer = styled.div`
   width: 30%;
-  margin: 0 20px;
   display: flex;
+  border: 2px black dotted;
 `;
+
 export const HeaderShopLink = styled(Link)`
-  padding: 20px;
+  padding: 25px;
+  cursor: pointer;
+
+  &:hover {
+    color: gold;
+  }
 `;
 
 export const HeaderInstagramLink = styled(Link)`
@@ -48,13 +60,45 @@ export const HeaderInstagramLink = styled(Link)`
 
 export const InstagramIcon = styled(InstagramLogo)`
   height: 40px;
+
+  &:hover {
+    fill: gold;
+  }
 `;
 
 export const HeaderUserContainer = styled.div`
-  margin-left: auto;
-  width: 20%;
   display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+  width: 30%;
+  border: 2px black dotted;
 `;
+
+export const HeaderSearchContainer = styled.div`
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    fill: gold;
+  }
+`;
+
+export const HeaderSearch = styled(SearchLogo)`
+  height: 35px;
+`;
+
+export const CloseIcon = styled(CloseLogo)`
+  height: 35px;
+`;
+
 export const HeaderUserLink = styled(Link)`
   padding: 10px;
+
+  &:hover {
+    fill: gold;
+  }
+`;
+
+export const HeaderUser = styled(UserLogo)`
+  height: 35px;
 `;

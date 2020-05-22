@@ -1,14 +1,33 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 
-import { SearchIconContainer, Search } from "./search-icon.styles";
+import {
+  SearchBoxContainer,
+  SearchBoxInput,
+  Search,
+  CloseIcon,
+} from "./search-icon.styles";
 
 const SearchIcon = () => {
-  const dispatch = useDispatch();
+  const [searchField, setSearchField] = useState("");
+
+  const handleChange = (event) => {
+    setSearchField(event.target.value);
+  };
+
   return (
-    <SearchIconContainer onClick={() => dispatch()}>
-      <Search />
-    </SearchIconContainer>
+    <SearchBoxContainer>
+      <SearchBoxInput
+        type="search"
+        value={searchField}
+        placeholder="Search"
+        onChange={handleChange}
+      />
+      {searchField.length ? (
+        <CloseIcon onClick={() => setSearchField("")} />
+      ) : (
+        <Search />
+      )}
+    </SearchBoxContainer>
   );
 };
 
