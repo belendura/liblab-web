@@ -1,5 +1,8 @@
 import { createSelector } from "reselect";
 
-const selectShopIconVisible = (state) => state.visible;
+const selectUser = (state) => state.user;
 
-export const Select 
+export const selectCurrentUser = createSelector(
+  [selectUser],
+  (user) => user.currentUser
+);

@@ -1,15 +1,15 @@
 import React from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { FavIconContainer, FavLink, Fav } from "./fav-icon.styles";
+import { FavIconContainer, Fav } from "./fav-icon.styles";
 
 const FavIcon = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   return (
     <FavIconContainer onClick={() => dispatch()}>
-      <FavLink to="/wishlist">
-        <Fav />
-      </FavLink>
+      <Fav onClick={() => history.push("/wishlist")} />
     </FavIconContainer>
   );
 };

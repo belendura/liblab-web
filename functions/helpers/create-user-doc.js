@@ -1,32 +1,36 @@
-exports.createUserDocument = async (userData) => {
-  const { userAuth, additionalData } = userData;
+const { firestore } = require("./admin");
+
+exports.createUserDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
+  console.log("he pasado por aqui");
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    const { uid, email } = userAuth;
+    const { uid, email, displayName, providerData } = userAuth;
 
-    const { firstName, lastName, proffession } = additionalData;
-
+    let name = displayName;
     const createdAt = Date();
-
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      createdAt,
-      proffession,
-      id: uid,
-    };
-
+    if (providerData[0].providerId === "password") {
+      const { firstName, lastName } = additionalData;
+      name = `${firstName} ${lastName}`;
+    }
     try {
+      const newUser = {
+        displayName: name,
+        email,
+        createdAt,
+        id: uid,
+        ...additionalData,
+      };
       await userRef.set(newUser);
     } catch (error) {
       throw new Error(error.message);
     }
   }
-  return newUser;
+  const userSnapShot = await userRef.get();
+  const user = userSnapShot.data();
+  return user;
 };

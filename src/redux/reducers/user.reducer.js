@@ -1,27 +1,27 @@
 import userActionTypes from "../types/user.types";
 
 const INITIAL_STATE = {
-  user: null,
+  currentUser: null,
   error: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case userActionTypes.SING_IN_SUCCESS:
+    case userActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        currentUser: action.payload,
         error: null,
       };
-    case userActionTypes.SING_OUT_SUCCESS:
+    case userActionTypes.SIGN_OUT_SUCCESS:
       return {
         ...state,
-        user: null,
+        currentUser: null,
         error: null,
       };
-    case userActionTypes.SING_IN_FAILURE:
-    case userActionTypes.SING_UP_FAILURE:
-    case userActionTypes.SING_OUT_FAILURE:
+    case userActionTypes.SIGN_IN_FAILURE:
+    case userActionTypes.SIGN_UP_FAILURE:
+    case userActionTypes.SIGN_OUT_FAILURE:
       return {
         ...state,
         error: action.payload,

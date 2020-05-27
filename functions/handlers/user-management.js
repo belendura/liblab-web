@@ -10,9 +10,8 @@ exports.createUserAuth = async (req, res) => {
       email,
       password
     );
-    const userData = { userAuth, additionalData };
-    const user = createUserDocument(userData);
-    const token = await user.getIdToken();
+    const token = await userAuth.getIdToken();
+    const user = await createUserDocument(userAuth, additionalData);
     return res.status(200).json({ user, token });
   } catch (error) {
     return res.status(500).send(`Error user register ${error.code}`);
@@ -24,8 +23,8 @@ exports.getUser = async (req, res) => {
   const { authId } = req.body;
   try {
     const userRef = firestore.doc(`users/${authId}`);
-    const userSnapshot = await userRef.get();
-    const user = userSnapshot.data();
+    const snapShot = await userRef.get();
+    const user = snapShot.data();
     return res.status(200).json(user);
   } catch (error) {
     return res.status(400).send(error.code);
@@ -49,7 +48,7 @@ exports.logInWithEmailAndPassword = async (req, res) => {
 exports.logInWithGoogle = async (req, res) => {
   const userData = req.body;
   try {
-    const user = createUserDocument(userData);
+    const user = await createUserDocument(userData);
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).send(`Error Google login ${error.code}`);

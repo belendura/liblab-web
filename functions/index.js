@@ -7,6 +7,7 @@ const {
   logInWithEmailAndPassword,
   logInWithGoogle,
 } = require("./handlers/user-management");
+
 const {
   checkIfAuthenticated,
 } = require("../functions/middlewares/authenticate");

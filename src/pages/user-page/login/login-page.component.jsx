@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  emailSignInStart,
+  googleSignInStart,
+} from "../../../redux/actions/user.actions";
 
 import {
   LoginContainer,
@@ -14,8 +19,9 @@ import {
   CreateAccountLink,
 } from "./login-page.styles";
 
-const Login = () => {
+const LoginPage = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
 
   const { email, password } = userData;
 
@@ -26,7 +32,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    //emailSignInStart(email, password);
+    dispatch(emailSignInStart(email, password));
   };
 
   return (
@@ -55,13 +61,19 @@ const Login = () => {
           <CheckInput type="checkbox" value={userData} />
           Remember me
         </CheckLabel>
-        <ForgetPassword>Forgot your Password?</ForgetPassword>
+        <ForgetPassword to="/login">Forgot your Password?</ForgetPassword>
         <LoginButton type="submit">LOG IN</LoginButton>
+        <LoginButton
+          type="button"
+          onClick={() => dispatch(googleSignInStart())}
+        >
+          LOG IN WITH GOOGLE
+        </LoginButton>
+        <CreateAccount>New to LIB-LAB?</CreateAccount>
+        <CreateAccountLink to="/register">Create an account</CreateAccountLink>
       </LoginForm>
-      <CreateAccount>New to LIB-LAB?</CreateAccount>
-      <CreateAccountLink to="/register">Create an account</CreateAccountLink>
     </LoginContainer>
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -12,10 +12,6 @@ export const FavIconContainer = styled.div`
   cursor: pointer;
 `;
 
-export const FavLink = styled(Link)`
-  width: 40px;
-`;
-
 export const Fav = styled(FavLogo)`
   width: 35px;
 

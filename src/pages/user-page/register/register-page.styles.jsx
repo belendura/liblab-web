@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ReactComponent as CheckBoxLogo } from "../../../assets/checkbox.svg";
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
   text-align: center;
   position: relative;
   margin: auto;
@@ -11,16 +11,16 @@ export const LoginContainer = styled.div`
   border: 1px dotted black;
 `;
 
-export const LoginTitle = styled.span`
-  font-size: 40px;
+export const RegisterTitle = styled.span`
+  font-size: 25px;
   font-weight: bold;
   margin: 20px;
 `;
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
-export const LoginInput = styled.input`
+export const RegisterInput = styled.input`
   margin: 20px;
   padding: 10px;
 `;
@@ -47,7 +47,7 @@ export const ForgetPassword = styled(Link)`
   font-weight: bold;
 `;
 
-export const LoginButton = styled.button`
+export const RegisterButton = styled.button`
   margin: 10px 20px;
   padding: 10px 0;
   font-size: 20px;
@@ -63,11 +63,11 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const CreateAccountLink = styled(Link)`
+export const LoginLink = styled(Link)`
   padding: 10px 0;
 `;
 
-export const CreateAccount = styled.span`
+export const Login = styled.span`
   margin-top: 20px;
   font-weight: bold;
 `;

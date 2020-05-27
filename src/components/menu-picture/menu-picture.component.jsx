@@ -7,7 +7,7 @@ const MenuPicture = () => {
   const history = useHistory();
   return (
     <PictureContainer onClick={() => history.push("/shop/women")}>
-      <Title>Woman</Title>
+      <Title to="/shop/women">Woman</Title>
     </PictureContainer>
   );
 };

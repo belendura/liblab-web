@@ -16,7 +16,7 @@ import {
 } from "../actions/user.actions";
 
 export function* onGoogleSignInStart() {
-  yield takeLatest(userActionTypes.GOOGLE_SING_IN_START, signInWithGoogle);
+  yield takeLatest(userActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
 export function* signInWithGoogle() {
@@ -24,14 +24,15 @@ export function* signInWithGoogle() {
     const { user, credential } = yield auth.signInWithPopup(googleProvider);
     const token = credential.accessToken;
     yield call(saveToken, token);
-    yield put(signInSuccess({ user }));
+    const response = yield axiosConfig.post(`/loginOAuth`, user);
+    yield put(signInSuccess(response.data));
   } catch (error) {
     yield put(signInFailure(error));
   }
 }
 
 export function* onEmailSignInStart() {
-  yield takeLatest(userActionTypes.EMAIL_SING_IN_START, signInWithEmail);
+  yield takeLatest(userActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
 export function* signInWithEmail({ payload }) {
@@ -39,45 +40,53 @@ export function* signInWithEmail({ payload }) {
   try {
     const response = yield axiosConfig.post(`/login`, { email, password });
     yield call(saveToken, response.data.token);
-    yield put(signInSuccess({ user: response.data.user }));
+    yield put(signInSuccess(response.data));
   } catch (error) {
     yield put(signInFailure(error));
   }
 }
 
 export function* onSignUpStart() {
-  yield takeLatest(userActionTypes.SING_UP_START, signUp);
+  yield takeLatest(userActionTypes.SIGN_UP_START, signUp);
 }
 
 export function* signUp({ payload }) {
-  const { userCredentials } = payload;
   try {
-    const response = yield axiosConfig.post(`/register`, { userCredentials });
+    const response = yield axiosConfig.post(`/register`, payload);
     call(saveToken, response.data.token);
-    const { email, password } = userCredentials;
-    yield put(signUpSuccess(email, password));
+    yield put(signUpSuccess(response.data.user));
   } catch (error) {
     yield put(signUpFailure(error));
   }
 }
 
+export function* onSignUpSuccess() {
+  yield takeLatest(userActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
+}
+
+export function* signInAfterSignUp({ payload }) {
+  try {
+    yield put(signInSuccess(payload));
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
 export function* onCheckUserSession() {
   yield takeLatest(userActionTypes.CHECK_USER_SESSION, checkUser);
 }
 
 export function* checkUser() {
   try {
-    const response = yield axiosConfig("/checkUserSession");
+    const response = yield axiosConfig.get("/checkUserSession");
     yield put(signInSuccess({ user: response.data.user }));
   } catch (error) {
     yield auth.signOut();
     yield call(removeToken);
-    //redirect?
   }
 }
 
 export function* onSignOutStart() {
-  yield takeLatest(userActionTypes.SING_OUT_START, signOut);
+  yield takeLatest(userActionTypes.SIGN_OUT_START, signOut);
 }
 
 export function* signOut() {
@@ -96,5 +105,6 @@ export function* userSagas() {
     call(onSignUpStart),
     call(onCheckUserSession),
     call(onSignOutStart),
+    call(onSignUpSuccess),
   ]);
 }

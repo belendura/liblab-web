@@ -1,10 +1,11 @@
 import React, { useEffect, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, shallowEqual, useSelector } from "react-redux";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
 
-import { checkUserSession } from "../src/redux/actions/user.actions";
+import { checkUserSession } from "./redux/actions/user.actions";
+import { selectCurrentUser } from "./redux/selectors/user.selectors";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -25,8 +26,17 @@ const LoginPage = React.lazy(() =>
   import("./pages/user-page/login/login-page.component")
 );
 
+const RegisterPage = React.lazy(() =>
+  import("./pages/user-page/register/register-page.component")
+);
+
+const UserPage = React.lazy(() =>
+  import("./pages/user-page/user/user-page.component")
+);
+
 function App() {
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser, shallowEqual);
 
   useEffect(() => {
     const token = getToken();
@@ -42,7 +52,19 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/search" component={SearchPage} />
-          <Route exact path="/login" component={LoginPage} />
+          <Route
+            exact
+            path="/login"
+            render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
+          />
+          <Route
+            exact
+            path="/register"
+            render={() =>
+              currentUser ? <Redirect to="/" /> : <RegisterPage />
+            }
+          />
+          <Route exact path="/user" component={UserPage} />
         </Suspense>
       </Switch>
       <Footer />

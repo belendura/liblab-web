@@ -1,7 +1,7 @@
 import userActionTypes from "../types/user.types";
 
 export const emailSignInStart = (email, password) => ({
-  type: userActionTypes.EMAIL_SING_IN_START,
+  type: userActionTypes.EMAIL_SIGN_IN_START,
   payload: {
     email,
     password,
@@ -9,7 +9,7 @@ export const emailSignInStart = (email, password) => ({
 });
 
 export const googleSignInStart = () => ({
-  type: userActionTypes.GOOGLE_SING_IN_START,
+  type: userActionTypes.GOOGLE_SIGN_IN_START,
 });
 
 export const signInSuccess = (user) => ({
@@ -18,22 +18,22 @@ export const signInSuccess = (user) => ({
 });
 
 export const signInFailure = (error) => ({
-  type: userActionTypes.SING_IN_FAILURE,
+  type: userActionTypes.SIGN_IN_FAILURE,
   payload: error,
 });
 
-export const SignUpStart = (userCredentials) => ({
-  type: userActionTypes.GOOGLE_SING_IN_START,
+export const signUpStart = (userCredentials) => ({
+  type: userActionTypes.SIGN_UP_START,
   payload: userCredentials,
 });
 
-export const signUpSuccess = (email, password) => ({
-  type: userActionTypes.SIGN_IN_SUCCESS,
-  payload: { email, password },
+export const signUpSuccess = (userCredentials) => ({
+  type: userActionTypes.SIGN_UP_SUCCESS,
+  payload: userCredentials,
 });
 
 export const signUpFailure = (error) => ({
-  type: userActionTypes.SING_IN_FAILURE,
+  type: userActionTypes.SIGN_UP_FAILURE,
   payload: error,
 });
 

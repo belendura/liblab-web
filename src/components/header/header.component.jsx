@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import {
-  useParams,
-  useLocation,
-  useHistory,
-  useRouteMatch,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
+
+import { selectCurrentUser } from "../../redux/selectors/user.selectors";
 
 import ShopIcon from "../shop-icon/shop-icon.component";
 import CartIcon from "../cart-icon/cart-icon.component";
@@ -16,19 +14,19 @@ import {
   HeaderLogoContainer,
   HeaderShopContainer,
   HeaderShopLink,
-  HeaderInstagramLink,
   InstagramIcon,
   HeaderUserContainer,
   HeaderSearchContainer,
   HeaderSearch,
-  HeaderUserLink,
   HeaderUser,
+  HeaderUserLogged,
   CloseIcon,
 } from "./header.styles";
 
 const Header = () => {
   const [searchVisibility, setSearchVisibility] = useState(false);
   const history = useHistory();
+  const currentUser = useSelector(selectCurrentUser, shallowEqual);
 
   return (
     <HeaderContainer>
@@ -40,9 +38,8 @@ const Header = () => {
         <HeaderShopLink to="/about">ABOUT</HeaderShopLink>
         <HeaderShopLink to="/shop/sale">SALE</HeaderShopLink>
         <HeaderShopLink to="/contact">CONTACT</HeaderShopLink>
-        <HeaderInstagramLink to="/instagram">
-          <InstagramIcon />
-        </HeaderInstagramLink>
+
+        <InstagramIcon onClick={() => history.push("/instagram")} />
       </HeaderShopContainer>
       <HeaderUserContainer>
         <HeaderSearchContainer>
@@ -51,7 +48,6 @@ const Header = () => {
               onClick={() => {
                 console.log("history", history);
                 history.push("/");
-
                 setSearchVisibility(false);
               }}
             />
@@ -64,9 +60,21 @@ const Header = () => {
             />
           )}
         </HeaderSearchContainer>
-        <HeaderUserLink to="/login">
-          <HeaderUser />
-        </HeaderUserLink>
+        {currentUser ? (
+          <HeaderUserLogged
+            onClick={() => {
+              history.push("/user");
+            }}
+          >
+            {currentUser.displayName}
+          </HeaderUserLogged>
+        ) : (
+          <HeaderUser
+            onClick={() => {
+              history.push("/login");
+            }}
+          />
+        )}
         <FavIcon />
         <CartIcon />
       </HeaderUserContainer>

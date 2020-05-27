@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { CartIconContainer, Cart, CartIconCount } from "./cart-icon.styles";
 

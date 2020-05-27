@@ -52,14 +52,9 @@ export const HeaderShopLink = styled(Link)`
   }
 `;
 
-export const HeaderInstagramLink = styled(Link)`
-  margin-left: auto;
-  padding: 10px;
-  cursor: pointer;
-`;
-
 export const InstagramIcon = styled(InstagramLogo)`
   height: 40px;
+  cursor: pointer;
 
   &:hover {
     fill: gold;
@@ -69,6 +64,7 @@ export const InstagramIcon = styled(InstagramLogo)`
 export const HeaderUserContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-left: auto;
   width: 30%;
   border: 2px black dotted;
@@ -91,14 +87,17 @@ export const CloseIcon = styled(CloseLogo)`
   height: 35px;
 `;
 
-export const HeaderUserLink = styled(Link)`
-  padding: 10px;
-
+export const HeaderUser = styled(UserLogo)`
+  height: 35px;
+  cursor: pointer;
   &:hover {
     fill: gold;
   }
 `;
 
-export const HeaderUser = styled(UserLogo)`
-  height: 35px;
+export const HeaderUserLogged = styled.span`
+  cursor: pointer;
+  &:hover {
+    color: gold;
+  }
 `;

@@ -1,22 +1,12 @@
-const admin = require("../helpers/admin");
-
-const getAuthToken = async (authorizationHeader, res) => {
-  let authToken;
-  if (authorizationHeader && authorizationHeader.split(" ")[1] === "Bearer") {
-    return (authToken = authorizationHeader.split(" ")[1]);
-  }
-
-  if (!authToken) {
-    res.status(403).json({ error: "No token provided" });
-  }
-};
+const { adminAuth } = require("../helpers/admin");
 
 exports.checkIfAuthenticated = async (req, res, next) => {
   const { authorization } = req.headers;
+
   let authToken;
 
-  if (authorization && authorization.split(" ")[1] === "Bearer") {
-    authToken = authorizationHeader.split(" ")[1];
+  if (authorization && authorization.split(" ")[0] === "Bearer") {
+    authToken = authorization.split(" ")[1].trim();
   }
 
   if (!authToken) {
@@ -24,8 +14,8 @@ exports.checkIfAuthenticated = async (req, res, next) => {
   }
 
   try {
-    let checkRevoked = true;
-    const user = await admin.auth().verifyIdToken(authToken, checkRevoked);
+    const user = await adminAuth.verifyIdToken(authToken);
+
     req.body.authId = user.uid;
     return next();
   } catch (error) {

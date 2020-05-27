@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import SearchIcon from "../../components/search-icon/search-icon.component";
 import {
