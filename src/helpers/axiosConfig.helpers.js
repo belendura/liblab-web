@@ -3,13 +3,13 @@ import { getToken } from "./axiosTokens.helpers";
 
 const axiosConfig = axios.create({
   baseURL: "http://localhost:5001/liblab-web/europe-west3/backendServer",
-  headers: {
+  /* headers: {
     "Content-Type": "application/json",
-  },
+  },*/
 });
 
 axiosConfig.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const token = getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

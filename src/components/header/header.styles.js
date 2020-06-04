@@ -12,7 +12,6 @@ export const HeaderContainer = styled.div`
   width: 100%;
   display: flex;
   margin-top: 20px;
-  margin-bottom: 25px;
 
   @media screen and (max-width: 800px) {
     height: 60px;

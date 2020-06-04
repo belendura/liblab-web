@@ -5,13 +5,14 @@ import {
   googleSignInStart,
 } from "../../../redux/actions/user.actions";
 
+import Button from "../../../components/button/button.component";
+
 import {
   LoginContainer,
   LoginTitle,
   LoginForm,
   LoginInput,
   ForgetPassword,
-  LoginButton,
   CheckLabel,
   CheckInput,
   CheckBox,
@@ -61,14 +62,19 @@ const LoginPage = () => {
           <CheckInput type="checkbox" value={userData} />
           Remember me
         </CheckLabel>
-        <ForgetPassword to="/login">Forgot your Password?</ForgetPassword>
-        <LoginButton type="submit">LOG IN</LoginButton>
-        <LoginButton
+        <ForgetPassword to="/reset-password">
+          Forgot your Password?
+        </ForgetPassword>
+        <Button type="submit" color="standard">
+          LOG IN
+        </Button>
+        <Button
           type="button"
+          color="standard"
           onClick={() => dispatch(googleSignInStart())}
         >
           LOG IN WITH GOOGLE
-        </LoginButton>
+        </Button>
         <CreateAccount>New to LIB-LAB?</CreateAccount>
         <CreateAccountLink to="/register">Create an account</CreateAccountLink>
       </LoginForm>

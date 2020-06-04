@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../../redux/actions/user.actions";
+import Button from "../../../components/button/button.component";
 
 import {
   RegisterContainer,
   RegisterTitle,
   RegisterForm,
   RegisterInput,
-  RegisterButton,
   CheckLabel,
   CheckInput,
   CheckBox,
@@ -80,7 +80,9 @@ const RegisterPage = () => {
           <CheckInput type="checkbox" value={userData} />
           Remember me
         </CheckLabel>
-        <RegisterButton type="submit">CREATE USER</RegisterButton>
+        <Button type="submit" color="standard">
+          CREATE USER
+        </Button>
         <Login>Have an account?</Login>
         <LoginLink to="/login">Log in here</LoginLink>
       </RegisterForm>

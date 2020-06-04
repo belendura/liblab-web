@@ -30,6 +30,10 @@ const RegisterPage = React.lazy(() =>
   import("./pages/user-page/register/register-page.component")
 );
 
+const ResetPasswordPage = React.lazy(() =>
+  import("./pages/user-page/reset-password/reset-password.component")
+);
+
 const UserPage = React.lazy(() =>
   import("./pages/user-page/user/user-page.component")
 );
@@ -39,6 +43,7 @@ function App() {
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
 
   useEffect(() => {
+    console.log("currentUser", currentUser);
     const token = getToken();
     token && dispatch(checkUserSession());
   }, []);
@@ -62,6 +67,13 @@ function App() {
             path="/register"
             render={() =>
               currentUser ? <Redirect to="/" /> : <RegisterPage />
+            }
+          />
+          <Route
+            exact
+            path="/reset-password"
+            render={() =>
+              currentUser ? <Redirect to="/" /> : <ResetPasswordPage />
             }
           />
           <Route exact path="/user" component={UserPage} />

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import { ReactComponent as FavLogo } from "../../assets/heart-logo.svg";
 

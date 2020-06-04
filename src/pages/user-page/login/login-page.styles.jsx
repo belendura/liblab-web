@@ -44,7 +44,12 @@ export const CheckBox = styled(CheckBoxLogo)`
 
 export const ForgetPassword = styled(Link)`
   padding: 10px;
+
   font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    color: gold;
+  }
 `;
 
 export const LoginButton = styled.button`

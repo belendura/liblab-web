@@ -47,22 +47,6 @@ export const ForgetPassword = styled(Link)`
   font-weight: bold;
 `;
 
-export const RegisterButton = styled.button`
-  margin: 10px 20px;
-  padding: 10px 0;
-  font-size: 20px;
-  background-color: grey;
-  color: white;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    color: black;
-    background-color: #d3d0c6;
-  }
-`;
-
 export const LoginLink = styled(Link)`
   padding: 10px 0;
 `;

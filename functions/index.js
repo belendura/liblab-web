@@ -3,9 +3,11 @@ const cors = require("cors");
 const express = require("express");
 const {
   getUser,
-  createUserAuth,
+  createUser,
   logInWithEmailAndPassword,
   logInWithGoogle,
+  logOut,
+  resetPassword,
 } = require("./handlers/user-management");
 
 const {
@@ -16,12 +18,16 @@ const app = express();
 
 app.use(cors());
 
-app.get("/checkUserSession", checkIfAuthenticated, getUser);
+app.get("/check-user-session", checkIfAuthenticated, getUser);
 
 app.post("/login", logInWithEmailAndPassword);
 
 app.post("/loginOAuth", logInWithGoogle);
 
-app.post("/register", createUserAuth);
+app.post("/register", createUser);
+
+app.get("/logout", logOut);
+
+app.post("/reset-password", resetPassword);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

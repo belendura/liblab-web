@@ -3,7 +3,6 @@ const { firestore } = require("./admin");
 exports.createUserDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
-  console.log("he pasado por aqui");
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
@@ -30,7 +29,18 @@ exports.createUserDocument = async (userAuth, additionalData) => {
       throw new Error(error.message);
     }
   }
+
+  return user.id;
+};
+
+exports.getUserDocument = async (userId) => {
+  if (!userId) return;
+
+  const userRef = firestore.doc(`users/${userId}`);
   const userSnapShot = await userRef.get();
-  const user = userSnapShot.data();
-  return user;
+
+  if (userSnapShot.exists) {
+    const user = userSnapShot.data();
+    return user;
+  }
 };

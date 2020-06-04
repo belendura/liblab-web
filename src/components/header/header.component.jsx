@@ -27,7 +27,6 @@ const Header = () => {
   const [searchVisibility, setSearchVisibility] = useState(false);
   const history = useHistory();
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
-
   return (
     <HeaderContainer>
       <HeaderLogoContainer to="/">

@@ -1,6 +1,6 @@
 import React from "react";
 
-import MenuPicture from "../../menu-picture/menu-picture.component";
+import MenuPicture from "../../shop-overview/shop-overview.component";
 import {
   ShopDropDownContainer,
   MenuContainer,
