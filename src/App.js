@@ -43,7 +43,6 @@ function App() {
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
 
   useEffect(() => {
-    console.log("currentUser", currentUser);
     const token = getToken();
     token && dispatch(checkUserSession());
   }, []);

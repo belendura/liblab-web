@@ -1,10 +1,16 @@
 import React from "react";
 
-import MenuPicture from "../../shop-overview/shop-overview.component";
+import ShopOverview from "../../shop-overview/shop-overview.component";
+
+import image_2 from "../../../assets/images/image_2.jpg";
+import image_3 from "../../../assets/images/image_3.jpg";
+import image_4 from "../../../assets/images/image_4.jpg";
+import image from "../../../assets/images/drying-clothes.jpg";
+
 import {
   ShopDropDownContainer,
   MenuContainer,
-  PictureContainer,
+  ShopOverviewContainer,
   CollectionContainer,
   CollectionLink,
   CategoryLink,
@@ -47,11 +53,11 @@ const ShopDropDown = () => {
           <CategoryLink to="/shop/unisex/scrubs">Scrubs</CategoryLink>
         </CollectionContainer>
       </MenuContainer>
-      <PictureContainer>
-        <MenuPicture />
-        <MenuPicture />
-        <MenuPicture />
-      </PictureContainer>
+      <ShopOverviewContainer>
+        <ShopOverview title="women" url={image_2} />
+        <ShopOverview title="men" url={image_3} />
+        <ShopOverview title="best-sellers" url={image} />
+      </ShopOverviewContainer>
     </ShopDropDownContainer>
   );
 };

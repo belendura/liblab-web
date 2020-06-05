@@ -14,7 +14,7 @@ const BestSellersList = () => {
         url={image_1}
         description={"Scrub DIANA"}
         price={"75 EUR"}
-        newItem={false}
+        newItem={true}
       />
       <ShopItem
         url={image_2}
@@ -26,7 +26,7 @@ const BestSellersList = () => {
         url={image_4}
         description={"Scrub LILA"}
         price={"60 EUR"}
-        newItem={false}
+        newItem={true}
       />
     </BestSellersListContainer>
   );

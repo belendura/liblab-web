@@ -1,12 +1,13 @@
 import React from "react";
 import CategoryTitle from "../../components/category/category-title/category-title.component";
 import BestSellersList from "../../components/best-sellers/best-sellers-list/best-sellers-list.component";
+import CategoriesList from "../../components/categories/categories-list/categories-list.component";
 import {
   HomePageContainer,
   CarruselContainer,
   BestSellersContainer,
-  WomenContainer,
-  MenContainer,
+  CategoriesContainer,
+  InstagramContainer,
 } from "./homepage.styles";
 
 const HomePage = () => {
@@ -20,8 +21,10 @@ const HomePage = () => {
         <CategoryTitle title={title} description={description} url={url} />
         <BestSellersList />
       </BestSellersContainer>
-      <WomenContainer>Women</WomenContainer>
-      <MenContainer>Men</MenContainer>
+      <CategoriesContainer>
+        <CategoriesList />
+      </CategoriesContainer>
+      <InstagramContainer>Instagram</InstagramContainer>
     </HomePageContainer>
   );
 };

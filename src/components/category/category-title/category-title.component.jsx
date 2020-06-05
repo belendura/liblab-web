@@ -1,11 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import Button from "../../button/button.component";
 import {
   CategoryTitleContainer,
   CategoryTitleStyled,
   CategoryDescription,
-  CategoryButton,
 } from "./category-title.styles";
 
 const CategoryTitle = ({ title, description, url }) => {
@@ -15,9 +15,9 @@ const CategoryTitle = ({ title, description, url }) => {
     <CategoryTitleContainer>
       <CategoryTitleStyled>{title}</CategoryTitleStyled>
       <CategoryDescription>{description}</CategoryDescription>
-      <CategoryButton onClick={() => history.push(`/shop/${url}`)}>
+      <Button color="standard" onClick={() => history.push(`/shop/${url}`)}>
         SHOP NOW
-      </CategoryButton>
+      </Button>
     </CategoryTitleContainer>
   );
 };

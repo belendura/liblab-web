@@ -9,8 +9,6 @@ export const ShopDropDownContainer = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  /* padding: 20px;*/
-  /*border: 1px solid blue;*/
   background-color: white;
   top: 110px;
   z-index: 5;
@@ -24,7 +22,7 @@ export const MenuContainer = styled.div`
   padding: 10px;
 `;
 
-export const PictureContainer = styled.div`
+export const ShopOverviewContainer = styled.div`
   width: 60vw;
   display: flex;
   justify-content: space-between;

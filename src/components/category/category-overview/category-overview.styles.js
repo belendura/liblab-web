@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import image from "../../assets/images/drying-clothes.jpg";
 
-export const PictureContainer = styled.div`
-  background-image: url(${image});
+export const CategoryOverviewContainer = styled.div`
+  background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  margin: 30px;
+  height: 250px;
   width: 180px;
+  margin: 15px;
   border: 1px dotted red;
   display: flex;
   justify-content: center;
@@ -17,6 +17,8 @@ export const PictureContainer = styled.div`
 
 export const Title = styled(Link)`
   color: white;
+  font-size: 20px;
   font-weight: bold;
   bottom: 30px;
+  text-transform: uppercase;
 `;

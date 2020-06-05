@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import {
   ShopItemContainer,
   ShopItemPicture,
   ShopItemFooter,
+  ShopItemFooterDetails,
   ShopItemDescription,
   ShopItemPrice,
   ShopItemFav,
@@ -13,14 +14,24 @@ import {
 
 const ShopItem = ({ url, description, price, newItem }) => {
   const history = useHistory();
-  console.log("url in ShopItem", url);
+  // console.log(newItem);
+  let newText = "";
+
+  useEffect(() => {
+    newText = newItem ? "new" : "eyyy";
+  });
+
   return (
     <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
+      {/* {console.log("newText:", newText)} */}
       <ShopItemPicture url={url} />
       <ShopItemFav />
       <ShopItemFooter>
-        <ShopItemDescription>{description}</ShopItemDescription>
-        <ShopItemPrice>{price}</ShopItemPrice>
+        <ShopItemNew>{newText}</ShopItemNew>
+        <ShopItemFooterDetails>
+          <ShopItemDescription>{description}</ShopItemDescription>
+          <ShopItemPrice>{price}</ShopItemPrice>
+        </ShopItemFooterDetails>
       </ShopItemFooter>
     </ShopItemContainer>
   );

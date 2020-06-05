@@ -8,6 +8,8 @@ export const ResetPasswordContainer = styled.div`
   margin-top: 100px;
   width: 40vw;
   border: 1px dotted black;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ResetPasswordTitle = styled.span`
@@ -17,7 +19,6 @@ export const ResetPasswordTitle = styled.span`
 `;
 
 export const ResetPasswordSubtitle = styled.span`
-  /* margin: 10px;*/
   padding: 10px;
   font-size: 12px;
 `;

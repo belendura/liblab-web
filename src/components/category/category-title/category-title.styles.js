@@ -19,18 +19,3 @@ export const CategoryDescription = styled.span`
   margin: auto;
   font-size: 12px;
 `;
-export const CategoryButton = styled.button`
-  margin: 10px 20px;
-  padding: 10px;
-  font-size: 20px;
-  background-color: grey;
-  color: white;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    color: black;
-    background-color: #d3d0c6;
-  }
-`;

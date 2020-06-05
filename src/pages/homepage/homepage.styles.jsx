@@ -17,12 +17,12 @@ export const BestSellersContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const WomenContainer = styled.div`
+export const CategoriesContainer = styled.div`
   height: 300px;
   border: 2px dotted black;
 `;
 
-export const MenContainer = styled.div`
+export const InstagramContainer = styled.div`
   height: 300px;
   border: 2px dotted black;
 `;

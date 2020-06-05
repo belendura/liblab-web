@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import image from "../../assets/images/drying-clothes.jpg";
 
 export const ShopOverviewContainer = styled.div`
-  background-image: url(${image});
+  background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -17,6 +16,7 @@ export const ShopOverviewContainer = styled.div`
 
 export const Title = styled(Link)`
   color: white;
+  text-transform: uppercase;
   font-weight: bold;
   bottom: 30px;
 `;

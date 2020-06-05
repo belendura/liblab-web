@@ -13,7 +13,7 @@ const standardStyled = css`
 `;
 
 const getButtonStyles = (props) => {
-  switch (props) {
+  switch (props.color) {
     case "standard":
       return standardStyled;
 
@@ -21,6 +21,7 @@ const getButtonStyles = (props) => {
       break;
   }
 };
+
 export const ButtonStyled = styled.button`
   margin: 10px 20px;
   padding: 10px 0;

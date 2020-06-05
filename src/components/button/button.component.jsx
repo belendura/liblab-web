@@ -2,8 +2,8 @@ import React from "react";
 
 import { ButtonStyled } from "./button.styles";
 
-const Button = ({ color }) => {
-  return <ButtonStyled color={color} />;
+const Button = ({ children, color }) => {
+  return <ButtonStyled color={color}>{children}</ButtonStyled>;
 };
 
 export default Button;
