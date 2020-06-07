@@ -5,8 +5,6 @@ import { CategoryOverviewContainer, Title } from "./category-overview.styles";
 
 const CategoryOverview = ({ title, url }) => {
   const history = useHistory();
-  console.log("title in CategoryOverview", title);
-  console.log("He pasado por aqui");
   return (
     <CategoryOverviewContainer
       url={url}
