@@ -2,6 +2,9 @@ import React, { useEffect, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 
+import { SCRUBS_TEST } from "./firebase/scrubs";
+import { addNewDocuments } from "./firebase/firebase.utils";
+
 import { getToken } from "./helpers/axiosTokens.helpers";
 
 import { checkUserSession } from "./redux/actions/user.actions";
@@ -45,6 +48,10 @@ function App() {
   useEffect(() => {
     const token = getToken();
     token && dispatch(checkUserSession());
+  }, []);
+
+  useEffect(() => {
+    addNewDocuments("collections/women/scrubs", SCRUBS_TEST);
   }, []);
 
   return (
