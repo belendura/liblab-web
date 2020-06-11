@@ -1,12 +1,12 @@
 import React from "react";
-import CategoryTitle from "../../components/category/category-title/category-title.component";
+import CollectionTitle from "../../components/collection/collection-title/collection-title.component";
 import BestSellersList from "../../components/best-sellers/best-sellers-list/best-sellers-list.component";
-import CategoriesList from "../../components/categories/categories-list/categories-list.component";
+import CollectionsList from "../../components/collections/collections-list/collections-list.component";
 import {
   HomePageContainer,
   CarruselContainer,
   BestSellersContainer,
-  CategoriesContainer,
+  CollectionsContainer,
   InstagramContainer,
 } from "./homepage.styles";
 
@@ -18,12 +18,12 @@ const HomePage = () => {
     <HomePageContainer>
       <CarruselContainer>Carrusel</CarruselContainer>
       <BestSellersContainer>
-        <CategoryTitle title={title} description={description} url={url} />
+        <CollectionTitle title={title} description={description} url={url} />
         <BestSellersList />
       </BestSellersContainer>
-      <CategoriesContainer>
-        <CategoriesList />
-      </CategoriesContainer>
+      <CollectionsContainer>
+        <CollectionsList />
+      </CollectionsContainer>
       <InstagramContainer>Instagram</InstagramContainer>
     </HomePageContainer>
   );

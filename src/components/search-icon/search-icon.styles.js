@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as SearchLogo } from "../../assets/search-logo.svg";
-import { ReactComponent as CloseLogo } from "../../assets/close-logo.svg";
+import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg";
+import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
 export const SearchBoxContainer = styled.div`
   position: relative;

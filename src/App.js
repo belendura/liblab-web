@@ -2,7 +2,7 @@ import React, { useEffect, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 
-import { SCRUBS_TEST } from "./firebase/scrubs";
+import { SCRUBS } from "./firebase/scrubs";
 import { addNewDocuments } from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
@@ -50,9 +50,9 @@ function App() {
     token && dispatch(checkUserSession());
   }, []);
 
-  useEffect(() => {
-    addNewDocuments("collections/women/scrubs", SCRUBS_TEST);
-  }, []);
+  // useEffect(() => {
+  //   addNewDocuments("collections/women/scrubs", SCRUBS);
+  // }, []);
 
   return (
     <div>
@@ -61,7 +61,7 @@ function App() {
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop/:collection/:section" component={ShopPage} />
           <Route exact path="/search" component={SearchPage} />
           <Route
             exact

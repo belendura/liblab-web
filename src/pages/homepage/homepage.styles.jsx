@@ -17,7 +17,7 @@ export const BestSellersContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const CategoriesContainer = styled.div`
+export const CollectionsContainer = styled.div`
   height: 300px;
   border: 2px dotted black;
 `;

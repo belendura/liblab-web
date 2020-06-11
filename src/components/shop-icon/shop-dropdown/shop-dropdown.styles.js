@@ -22,7 +22,7 @@ export const MenuContainer = styled.div`
   padding: 10px;
 `;
 
-export const ShopOverviewContainer = styled.div`
+export const CollectionOverviewContainer = styled.div`
   width: 60vw;
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,11 @@
 const { auth } = require("../helpers/firebase");
 //const { firestore } = require("../helpers/admin");
-const { createUserDocument, getUserDocument } = require("../helpers/firestore");
+const {
+  createUserDocument,
+  getUserDocument,
+  getCollectionDocuments,
+} = require("../helpers/firestore");
+
 const { actionCodesettings } = require("../config/urlConfig");
 
 //Create User Auth with Email and Password
@@ -86,5 +91,20 @@ exports.resetPassword = async (req, res) => {
     await auth.sendPasswordResetEmail(email);
   } catch (error) {
     return res.status(500).send(`Error reset Password ${error}`);
+  }
+};
+
+//Shop Collection/Section
+exports.fetchCollections = async (req, res) => {
+  const { collection, section } = req.body;
+
+  try {
+    const sectionData = await getCollectionDocuments(collection, section);
+
+    return res.status(200).send(sectionData);
+  } catch (error) {
+    return res
+      .status(500)
+      .send(`Error getting documents from collection ${error}`);
   }
 };

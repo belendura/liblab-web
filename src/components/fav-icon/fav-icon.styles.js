@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { ReactComponent as FavLogo } from "../../assets/heart-logo.svg";
+import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
 
 export const FavIconContainer = styled.div`
   width: 45px;

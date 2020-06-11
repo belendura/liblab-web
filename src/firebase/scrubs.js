@@ -25,6 +25,7 @@ export const SCRUBS = [
     BestSeller: false,
     Sale: false,
     Discount: 20,
+    Url: "gs://liblab-web.appspot.com/Women/Scrubs/Scrubs-Suit-1.webp",
   },
   {
     Reference: "REFSCW20001SA",
@@ -52,6 +53,7 @@ export const SCRUBS = [
     BestSeller: false,
     Sale: false,
     Discount: 20,
+    Url: "gs://liblab-web.appspot.com/Women/Scrubs/Scrubs-Suit-2.webp",
   },
   {
     Reference: "REFSCW20001RE",
@@ -79,26 +81,6 @@ export const SCRUBS = [
     BestSeller: false,
     Sale: false,
     Discount: 20,
-  },
-];
-
-export const SCRUBS_TEST = [
-  {
-    Reference: "REFSCW20001BG",
-    Name: "DIANA",
-    Description: "Three-Pocket Scrub",
-    Color: "#485E70",
-  },
-  {
-    Reference: "REFSCW20001SA",
-    Name: "DIANA",
-    Description: "Three-Pocket Scrub",
-    Color: "#AD9D6B",
-  },
-  {
-    Reference: "REFSCW20001RE",
-    Name: "DIANA",
-    Description: "Three-Pocket Scrub",
-    Color: "#AD7F6B",
+    Url: "gs://liblab-web.appspot.com/Women/Scrubs/Scrubs-Suit-3.webp",
   },
 ];

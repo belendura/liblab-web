@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as LibLabLogo } from "../../assets/heart-logo.svg";
-import { ReactComponent as InstagramLogo } from "../../assets/camera-logo.svg";
-import { ReactComponent as SearchLogo } from "../../assets/search-logo.svg";
-import { ReactComponent as UserLogo } from "../../assets/user-logo.svg";
-import { ReactComponent as CloseLogo } from "../../assets/close-logo.svg";
+import { ReactComponent as LibLabLogo } from "../../assets/icons/heart-logo.svg";
+import { ReactComponent as InstagramLogo } from "../../assets/icons/camera-logo.svg";
+import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg";
+import { ReactComponent as UserLogo } from "../../assets/icons/user-logo.svg";
+import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
 export const HeaderContainer = styled.div`
   height: 70px;

@@ -16,11 +16,9 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 export const addNewDocuments = async (collectionKey, data) => {
   if (!data) return;
 
-  console.log("collectionKey", collectionKey);
   const batch = firestore.batch();
 
   data.forEach((item) => {
-    console.log("item", item);
     const docRef = firestore.doc(`${collectionKey}/${item.Reference}`);
     batch.set(docRef, item);
   });

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ReactComponent as CheckBoxLogo } from "../../../assets/checkbox.svg";
+import { ReactComponent as CheckBoxLogo } from "../../../assets/icons/checkbox.svg";
 
 export const RegisterContainer = styled.div`
   text-align: center;

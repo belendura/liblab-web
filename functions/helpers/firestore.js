@@ -26,7 +26,7 @@ exports.createUserDocument = async (userAuth, additionalData) => {
       };
       await userRef.set(newUser);
     } catch (error) {
-      throw new Error(error.message);
+      throw new Error(error);
     }
   }
 
@@ -43,4 +43,23 @@ exports.getUserDocument = async (userId) => {
     const user = userSnapShot.data();
     return user;
   }
+};
+
+exports.getCollectionDocuments = async (collection, section) => {
+  if (!collection || !section) return;
+
+  const querySnapshot = await firestore
+    .collection(`collections/${collection}/${section}`)
+    .get();
+
+  let sectionData = [];
+  try {
+    sectionData = querySnapshot.docs.map((doc) => {
+      return doc.data();
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+
+  return sectionData;
 };

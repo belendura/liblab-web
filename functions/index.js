@@ -8,11 +8,16 @@ const {
   logInWithGoogle,
   logOut,
   resetPassword,
+  fetchCollections,
 } = require("./handlers/user-management");
 
 const {
   checkIfAuthenticated,
 } = require("../functions/middlewares/authenticate");
+
+const {
+  checkCollectionAndSection,
+} = require("../functions/middlewares/collection-section");
 
 const app = express();
 
@@ -29,5 +34,11 @@ app.post("/register", createUser);
 app.get("/logout", logOut);
 
 app.post("/reset-password", resetPassword);
+
+app.get(
+  "/shop/:collection/:section",
+  checkCollectionAndSection,
+  fetchCollections
+);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

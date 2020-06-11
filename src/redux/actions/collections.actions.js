@@ -1,8 +1,8 @@
 import collectionsActionTypes from "../types/collections.types";
 
-export const fetchCollectionsStart = (collection) => ({
+export const fetchCollectionsStart = (collection, section) => ({
   type: collectionsActionTypes.FETCH_COLLECTIONS_START,
-  payload: collection,
+  payload: { collection, section },
 });
 
 export const fetchCollectionsSuccess = (collections) => ({

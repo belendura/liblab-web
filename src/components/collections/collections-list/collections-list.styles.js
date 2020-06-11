@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CategoriesListContainer = styled.div`
+export const CollectionsListContainer = styled.div`
   display: flex;
   padding: 10px;
   display: flex;
