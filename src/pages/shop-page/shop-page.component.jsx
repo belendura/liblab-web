@@ -7,7 +7,7 @@ import { fetchCollectionsStart } from "../../redux/actions/collections.actions";
 import CollectionCover from "../../components/collection/collection-cover/collection-cover.component";
 import CollectionFilterList from "../../components/collection/collection-filter-list/collection-filter-list.component";
 
-import image_3 from "../../assets/images/image_3.jpg";
+import watching_the_sea from "../../assets/images/watching-the-sea.jpg";
 
 import { ShopPageContainer } from "./shop-page.styles";
 
@@ -22,7 +22,7 @@ const ShopPage = () => {
 
   return (
     <ShopPageContainer>
-      <CollectionCover url={image_3} />
+      <CollectionCover url={watching_the_sea} />
       <CollectionFilterList />
     </ShopPageContainer>
   );

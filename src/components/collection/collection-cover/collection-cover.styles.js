@@ -5,7 +5,8 @@ export const CollectionCoverContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 250px;
+  height: 300px;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -13,6 +14,8 @@ export const CollectionCoverContainer = styled.div`
 
 export const CollectionCoverTitle = styled.span`
   font-size: 20px;
-  text-transform: uppercase();
+  color: white;
+  text-transform: uppercase;
+  margin: 0 20px;
   font-weight: bold;
 `;

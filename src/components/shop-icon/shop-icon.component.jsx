@@ -13,7 +13,7 @@ const ShopIcon = () => {
         onMouseEnter={() => setVisibility(true)}
         onMouseLeave={() => setVisibility(false)}
       >
-        <ShopLink to="/shop/women">SHOP</ShopLink>
+        <ShopLink to="/shop/women/scrubs">SHOP</ShopLink>
         {visibility && <ShopDropDown />}
       </ShopIconContainer>
     </div>

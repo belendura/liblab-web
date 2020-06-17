@@ -20,8 +20,8 @@ export function* fetchCollections({ payload }) {
   const { collection, section } = payload;
   try {
     const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
-    console.log("response collection saga:", response.data);
-    yield put(fetchCollectionsSuccess({ section: response.data }));
+
+    yield put(fetchCollectionsSuccess(response.data));
   } catch (error) {
     yield put(fetchCollectionsFailure(error));
   }
