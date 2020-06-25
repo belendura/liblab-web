@@ -1,21 +1,17 @@
 import React from "react";
 
-import { useSelector, shallowEqual } from "react-redux";
-
-import CollectionFilterColor from "../collection-filter-color/collection-filter-color.component";
-import CollectionFilterSize from "../collection-filter-size/collection-filter-size.component";
+import CollectionFilterMenu from "../collection-filter-menu/collection-filter-menu.component";
 import CollectionOrder from "../collection-order/collection-order.component";
-import CollectionFilterFit from "../collection-filter-fit/collection-filter-fit.component";
+import CollectionViewOptions from "../collection-view-options/collection-view.component";
 
 import { CollectionFilterContainer } from "./collection-filter.styles";
 
 const CollectionFilter = () => {
   return (
     <CollectionFilterContainer>
-      <CollectionFilterColor />
-      <CollectionFilterSize />
-      <CollectionFilterFit />
+      <CollectionFilterMenu />
       <CollectionOrder />
+      <CollectionViewOptions />
     </CollectionFilterContainer>
   );
 };

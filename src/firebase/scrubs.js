@@ -26,7 +26,7 @@ export const SCRUBS = [
     New: true,
     BestSeller: false,
     Sale: false,
-    Discount: [],
+    Discount: 0,
     Url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub01.jpg?alt=media&token=de2373a9-735b-4f3c-848e-830dd17b303e",
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub02.jpg?alt=media&token=ccf3309b-c6f7-44c5-8f37-9206c7e42eac",
@@ -60,7 +60,7 @@ export const SCRUBS = [
     New: false,
     BestSeller: false,
     Sale: false,
-    Discount: [],
+    Discount: 0,
     Url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub02.jpg?alt=media&token=ccf3309b-c6f7-44c5-8f37-9206c7e42eac",
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub04.jpg?alt=media&token=4e9387be-8b13-4f26-8fc7-d14cd753e255",
@@ -94,7 +94,7 @@ export const SCRUBS = [
     New: false,
     BestSeller: false,
     Sale: true,
-    Discount: [20],
+    Discount: 20,
     Url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub05.jpg?alt=media&token=1bd9d2c3-84f5-495d-9eca-bc975bca7c9f",
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub06.jpg?alt=media&token=22788dcf-4d94-4e4c-a983-2c65954918b9",
@@ -128,7 +128,7 @@ export const SCRUBS = [
     New: false,
     BestSeller: false,
     Sale: true,
-    Discount: [40],
+    Discount: 40,
     Url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub06.jpg?alt=media&token=22788dcf-4d94-4e4c-a983-2c65954918b9",
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub03.jpg?alt=media&token=1785a8d4-82ab-452d-bb4d-d6405523af43",
@@ -162,7 +162,7 @@ export const SCRUBS = [
     New: false,
     BestSeller: false,
     Sale: false,
-    Discount: [],
+    Discount: 0,
     Url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub08.jpg?alt=media&token=8899f7de-c4d8-4f02-85a4-3fe17b815f10",
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub09.jpg?alt=media&token=5d5f0b38-e63c-44fb-8be9-c45b7b50aad0",
@@ -197,7 +197,7 @@ export const SCRUBS = [
     New: true,
     BestSeller: false,
     Sale: false,
-    Discount: [],
+    Discount: 0,
     Url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub09.jpg?alt=media&token=5d5f0b38-e63c-44fb-8be9-c45b7b50aad0",
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub08.jpg?alt=media&token=8899f7de-c4d8-4f02-85a4-3fe17b815f10",

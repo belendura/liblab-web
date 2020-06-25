@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as LibLabLogo } from "../../assets/icons/heart-logo.svg";
+import { ReactComponent as LibLab_Logo } from "../../assets/icons/heart-logo.svg";
 import { ReactComponent as InstagramLogo } from "../../assets/icons/camera-logo.svg";
 import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg";
 import { ReactComponent as UserLogo } from "../../assets/icons/user-logo.svg";
@@ -32,7 +32,7 @@ export const HeaderLogoContainer = styled(Link)`
   }
 `;
 
-export const LibLabIcon = styled(LibLabLogo)`
+export const LibLabLogo = styled(LibLab_Logo)`
   height: 60px;
 `;
 
@@ -51,7 +51,7 @@ export const HeaderShopLink = styled(Link)`
   }
 `;
 
-export const InstagramIcon = styled(InstagramLogo)`
+export const InstagramMenu = styled(InstagramLogo)`
   height: 40px;
   cursor: pointer;
 
@@ -82,7 +82,7 @@ export const HeaderSearch = styled(SearchLogo)`
   height: 35px;
 `;
 
-export const CloseIcon = styled(CloseLogo)`
+export const CloseMenu = styled(CloseLogo)`
   height: 35px;
 `;
 

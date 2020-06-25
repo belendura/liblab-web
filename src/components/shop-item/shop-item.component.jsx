@@ -30,14 +30,11 @@ const ShopItem = ({
 }) => {
   const history = useHistory();
   const [visibility, setVisibility] = useState(false);
-  const [salePrices, setSalePrices] = useState([]);
+  const [salePrice, setSalePrice] = useState(0);
 
   useEffect(() => {
-    if (discount.length > 0 && sale) console.log("discount", discount);
-    setSalePrices(
-      discount.map((item) => Math.round(price - (item * price) / 100))
-    );
-  }, [discount]);
+    sale && setSalePrice(Math.round(price - (discount * price) / 100));
+  }, []);
 
   return (
     <ShopItemContainer
@@ -75,12 +72,21 @@ const ShopItem = ({
           <ShopItemFav />
         </ShopItemFooterDetails>
         <ShopItemPriceContainer>
-          <ShopItemPrice sale={sale}>{price}EUR</ShopItemPrice>
-          {sale &&
-            discount.length > 0 &&
-            salePrices.forEach((itemPrice) => (
-              <ShopItemPrice sale={sale}>{itemPrice}EUR</ShopItemPrice>
-            ))}
+          {!sale && (
+            <ShopItemPrice sale={sale} discounted={false}>
+              {price}EUR
+            </ShopItemPrice>
+          )}
+          {sale && (
+            <ShopItemPrice sale={sale} discounted={false}>
+              {price}EUR
+            </ShopItemPrice>
+          )}
+          {sale && (
+            <ShopItemPrice sale={sale} discounted={true}>
+              {salePrice}EUR
+            </ShopItemPrice>
+          )}
         </ShopItemPriceContainer>
       </ShopItemFooter>
     </ShopItemContainer>

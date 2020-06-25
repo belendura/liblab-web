@@ -4,23 +4,23 @@ import { shallowEqual, useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../redux/selectors/user.selectors";
 
-import ShopIcon from "../shop-icon/shop-icon.component";
-import CartIcon from "../cart-icon/cart-icon.component";
-import FavIcon from "../fav-icon/fav-icon.component";
+import ShopMenu from "../shop-menu/shop-menu.component";
+import CartMenu from "../cart-menu/cart-menu.component";
+import FavMenu from "../fav-menu/fav-menu.component";
 
 import {
   HeaderContainer,
-  LibLabIcon,
+  LibLabLogo,
   HeaderLogoContainer,
   HeaderShopContainer,
   HeaderShopLink,
-  InstagramIcon,
+  InstagramMenu,
   HeaderUserContainer,
   HeaderSearchContainer,
   HeaderSearch,
   HeaderUser,
   HeaderUserLogged,
-  CloseIcon,
+  CloseMenu,
 } from "./header.styles";
 
 const Header = () => {
@@ -30,20 +30,20 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderLogoContainer to="/">
-        <LibLabIcon />
+        <LibLabLogo />
       </HeaderLogoContainer>
       <HeaderShopContainer>
-        <ShopIcon />
+        <ShopMenu />
         <HeaderShopLink to="/about">ABOUT</HeaderShopLink>
         <HeaderShopLink to="/shop/sale">SALE</HeaderShopLink>
         <HeaderShopLink to="/contact">CONTACT</HeaderShopLink>
 
-        <InstagramIcon onClick={() => history.push("/instagram")} />
+        <InstagramMenu onClick={() => history.push("/instagram")} />
       </HeaderShopContainer>
       <HeaderUserContainer>
         <HeaderSearchContainer>
           {searchVisibility ? (
-            <CloseIcon
+            <CloseMenu
               onClick={() => {
                 console.log("history", history);
                 history.push("/");
@@ -74,8 +74,8 @@ const Header = () => {
             }}
           />
         )}
-        <FavIcon />
-        <CartIcon />
+        <FavMenu />
+        <CartMenu />
       </HeaderUserContainer>
     </HeaderContainer>
   );

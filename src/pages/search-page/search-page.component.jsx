@@ -1,6 +1,6 @@
 import React from "react";
 
-import SearchIcon from "../../components/search-icon/search-icon.component";
+import SearchMenu from "../../components/search-menu/search-menu.component";
 import {
   SearchPageContainer,
   SearchResultContainer,
@@ -9,7 +9,7 @@ import {
 const SearchPage = () => {
   return (
     <SearchPageContainer>
-      <SearchIcon />
+      <SearchMenu />
       <SearchResultContainer />
     </SearchPageContainer>
   );

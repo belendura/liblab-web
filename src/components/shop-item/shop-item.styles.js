@@ -16,8 +16,19 @@ const UnavailableSize = css`
 const NewItem = css`
   background-color: grey;
 `;
+
 const Sale = css`
   background-color: red;
+`;
+
+const OriginalPrice = css`
+  color: grey;
+  text-decoration: line-through;
+  text-decoration-color: black;
+`;
+
+const SalePrice = css`
+  color: red;
 `;
 
 const getSizesStyles = (props) => {
@@ -27,6 +38,12 @@ const getSizesStyles = (props) => {
 const getNewItemStyles = (props) => {
   if (props.sale) return Sale;
   return props.new ? NewItem : null;
+};
+
+const getPriceStyles = (props) => {
+  if (!props.sale) return null;
+  else if (props.sale && !props.discounted) return OriginalPrice;
+  else return SalePrice;
 };
 
 export const ShopItemContainer = styled.div`
@@ -98,6 +115,9 @@ export const ShopItemPriceContainer = styled.div`
 
 export const ShopItemPrice = styled.span`
   font-size: 12px;
+  margin-right: 10px;
+  color: black;
+  ${getPriceStyles};
 `;
 
 export const ShopItemFav = styled(FavLogo)`
