@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ButtonStyled } from "../../button/button.styles";
 
 export const CollectionFilterColorContainer = styled.div`
   display: flex;

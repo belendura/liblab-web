@@ -10,12 +10,12 @@ import {
 
 const CollectionFilterColorOption = ({ id, handleChange }) => {
   const { code, name, dark } = id;
-  console.log("dark", dark);
   const [checked, setChecked] = useState(false);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;
     setChecked(checked);
+    handleChange(event);
   };
   return (
     <CollectionFilterColorOptionContainer>
@@ -23,7 +23,7 @@ const CollectionFilterColorOption = ({ id, handleChange }) => {
         type="checkbox"
         id={name}
         color={code}
-        onChange={(handleChange, handleOptionChange)}
+        onChange={handleOptionChange}
       />
       <CollectionFilterColorOptionStyled checked={checked} code={code}>
         <Icon viewBox="0 0 24 24" dark={dark}>

@@ -14,15 +14,15 @@ const CollectionFilterSizeOption = ({ id, handleChange }) => {
   const handleOptionChange = (event) => {
     const { checked } = event.target;
     setChecked(checked);
+    handleChange(event);
   };
 
   return (
     <CollectionFilterSizeOptionContainer>
-      {console.log("checked option", checked)}
       <CollectionFilterSizeOptionInput
         type="checkBox"
         id={id}
-        onChange={(handleChange, handleOptionChange)}
+        onChange={handleOptionChange}
       />
       <CollectionFilterSizeOptionStyled checked={checked}>
         <Icon viewBox="0 0 24 24">

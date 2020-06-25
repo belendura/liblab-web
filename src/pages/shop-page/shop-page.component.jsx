@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { fetchCollectionsStart } from "../../redux/actions/collections.actions";
 
 import CollectionCover from "../../components/collection/collection-cover/collection-cover.component";
-import CollectionFilterList from "../../components/collection/collection-filter-list/collection-filter-list.component";
+import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
+import CollectionList from "../../components/collection/collection-list/collection-list.component";
 
 import watching_the_sea from "../../assets/images/watching-the-sea.jpg";
 
@@ -22,8 +23,9 @@ const ShopPage = () => {
 
   return (
     <ShopPageContainer>
-      <CollectionCover url={watching_the_sea} />
-      <CollectionFilterList />
+      <CollectionCover url={watching_the_sea} title={section} />
+      <CollectionFilter />
+      <CollectionList />
     </ShopPageContainer>
   );
 };

@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-import { selectSectionColors } from "../../../redux/selectors/collections.selector";
+import {
+  selectSectionColors,
+  selectFilteredSizes,
+  selectFilteredFit,
+} from "../../../redux/selectors/collections.selector";
+import { filterColors } from "../../../redux/actions/collections.actions";
 
 import CollectionFilterColorOption from "./collection-filter-color-option/collection-filter-color-option.component";
 
@@ -13,11 +18,18 @@ import {
 
 const CollectionFilterColor = () => {
   const [colors, setColors] = useState([]);
-  const colorOptions = useSelector(selectSectionColors, shallowEqual);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log("colors", colors);
-  // }, [colors]);
+  const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
+  const filteredFit = useSelector(selectFilteredFit, shallowEqual);
+  const colorOptions = useSelector(
+    (state) => selectSectionColors(state, filteredSizes, filteredFit),
+    shallowEqual
+  );
+
+  useEffect(() => {
+    dispatch(filterColors(colors));
+  }, [colors]);
 
   const handleChange = (event) => {
     const { checked, id } = event.target;
@@ -35,7 +47,7 @@ const CollectionFilterColor = () => {
       <CollectionFilterColorOptionContainer>
         {colorOptions
           ? colorOptions.map((colorItem, index) => (
-              <label>
+              <label key={index}>
                 <CollectionFilterColorOption
                   key={index}
                   id={colorItem}

@@ -1,11 +1,18 @@
-import React, { useState } from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-import { selectSectionSizes } from "../../../redux/selectors/collections.selector";
+import { filterSizes } from "../../../redux/actions/collections.actions";
+
+import {
+  selectSectionSizes,
+  selectFilteredColors,
+  selectFilteredFit,
+} from "../../../redux/selectors/collections.selector";
 
 import CollectionFilterSizeOption from "./collection-filter-size-option/collection-filter-size-option.component";
 
 import {
+  CollectionFilterContainer,
   CollectionFilterSizeContainer,
   CollectionFilterSizeTitle,
   CollectionFilterSizeOptionContainer,
@@ -13,9 +20,18 @@ import {
 
 const CollectionFilterSize = () => {
   const [sizes, setSizes] = useState([]);
-
-  const sizeOptions = useSelector(selectSectionSizes, shallowEqual);
   const dispatch = useDispatch();
+
+  const filteredColors = useSelector(selectFilteredColors, shallowEqual);
+  const filteredFit = useSelector(selectFilteredFit, shallowEqual);
+  const sizeOptions = useSelector(
+    (state) => selectSectionSizes(state, filteredColors, filteredFit),
+    shallowEqual
+  );
+
+  useEffect(() => {
+    dispatch(filterSizes(sizes));
+  }, [sizes]);
 
   const handleChange = (event) => {
     const { checked, id } = event.target;
@@ -28,23 +44,24 @@ const CollectionFilterSize = () => {
   };
 
   return (
-    <CollectionFilterSizeContainer>
-      {console.log("sizes", sizes)}
-      <CollectionFilterSizeTitle>Size</CollectionFilterSizeTitle>
-      <CollectionFilterSizeOptionContainer>
-        {sizeOptions
-          ? sizeOptions.map((sizeItem, index) => (
-              <label>
-                <CollectionFilterSizeOption
-                  key={index}
-                  id={sizeItem}
-                  handleChange={handleChange}
-                />
-              </label>
-            ))
-          : null}
-      </CollectionFilterSizeOptionContainer>
-    </CollectionFilterSizeContainer>
+    <CollectionFilterContainer>
+      <CollectionFilterSizeContainer>
+        <CollectionFilterSizeTitle>Size</CollectionFilterSizeTitle>
+        <CollectionFilterSizeOptionContainer>
+          {sizeOptions
+            ? sizeOptions.map((sizeItem, index) => (
+                <label key={index}>
+                  <CollectionFilterSizeOption
+                    key={index}
+                    id={sizeItem}
+                    handleChange={handleChange}
+                  />
+                </label>
+              ))
+            : null}
+        </CollectionFilterSizeOptionContainer>
+      </CollectionFilterSizeContainer>
+    </CollectionFilterContainer>
   );
 };
 

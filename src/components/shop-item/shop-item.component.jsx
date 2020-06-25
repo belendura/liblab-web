@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+// import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -7,31 +8,80 @@ import {
   ShopItemFooter,
   ShopItemFooterDetails,
   ShopItemDescription,
+  ShopItemPriceContainer,
   ShopItemPrice,
   ShopItemFav,
   ShopItemNew,
+  ShopItemSizesContainer,
+  ShopItemSizesTitle,
+  ShopItemSizes,
+  ShopItemSizesItemContainer,
+  ShopItemNewText,
 } from "./shop-item.styles";
 
-const ShopItem = ({ url, description, price, newItem }) => {
+const ShopItem = ({
+  url,
+  description,
+  price,
+  sizes,
+  newItem,
+  sale,
+  discount,
+}) => {
   const history = useHistory();
-  // console.log(newItem);
-  let newText = "";
+  const [visibility, setVisibility] = useState(false);
+  const [salePrices, setSalePrices] = useState([]);
 
   useEffect(() => {
-    newText = newItem ? "new" : "eyyy";
-  });
+    if (discount.length > 0 && sale) console.log("discount", discount);
+    setSalePrices(
+      discount.map((item) => Math.round(price - (item * price) / 100))
+    );
+  }, [discount]);
 
   return (
-    <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
-      {/* {console.log("newText:", newText)} */}
-      <ShopItemPicture url={url} />
-      <ShopItemFav />
+    <ShopItemContainer
+      onClick={() => history.push(`/shop/${description}`)}
+      onMouseEnter={() => setVisibility(true)}
+      onMouseLeave={() => setVisibility(false)}
+    >
+      <ShopItemPicture url={url[0]}>
+        {sale && (
+          <ShopItemNew sale={sale} new={newItem}>
+            <ShopItemNewText>{discount}%</ShopItemNewText>
+          </ShopItemNew>
+        )}
+        {newItem && (
+          <ShopItemNew sale={sale} new={newItem}>
+            <ShopItemNewText>NEW</ShopItemNewText>
+          </ShopItemNew>
+        )}
+        {visibility && (
+          <ShopItemSizesContainer>
+            <ShopItemSizesTitle>Add size</ShopItemSizesTitle>
+            <ShopItemSizesItemContainer>
+              {sizes.map((item, index) => (
+                <ShopItemSizes key={index} units={item.units}>
+                  {item.size}
+                </ShopItemSizes>
+              ))}
+            </ShopItemSizesItemContainer>
+          </ShopItemSizesContainer>
+        )}
+      </ShopItemPicture>
       <ShopItemFooter>
-        <ShopItemNew>{newText}</ShopItemNew>
         <ShopItemFooterDetails>
           <ShopItemDescription>{description}</ShopItemDescription>
-          <ShopItemPrice>{price}</ShopItemPrice>
+          <ShopItemFav />
         </ShopItemFooterDetails>
+        <ShopItemPriceContainer>
+          <ShopItemPrice sale={sale}>{price}EUR</ShopItemPrice>
+          {sale &&
+            discount.length > 0 &&
+            salePrices.forEach((itemPrice) => (
+              <ShopItemPrice sale={sale}>{itemPrice}EUR</ShopItemPrice>
+            ))}
+        </ShopItemPriceContainer>
       </ShopItemFooter>
     </ShopItemContainer>
   );

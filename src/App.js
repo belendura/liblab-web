@@ -2,8 +2,8 @@ import React, { useEffect, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 
-import { SCRUBS } from "./firebase/scrubs";
-import { addNewDocuments } from "./firebase/firebase.utils";
+// import { SCRUBS } from "./firebase/scrubs";
+// import { addNewDocuments } from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
 

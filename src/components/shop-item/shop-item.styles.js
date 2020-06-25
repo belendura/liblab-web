@@ -1,23 +1,78 @@
-import styled from "styled-components";
-
+import styled, { css } from "styled-components";
 import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
+
+const AvailableSize = css`
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    color: white;
+  }
+`;
+const UnavailableSize = css`
+  color: grey;
+`;
+
+const NewItem = css`
+  background-color: grey;
+`;
+const Sale = css`
+  background-color: red;
+`;
+
+const getSizesStyles = (props) => {
+  return props.units > 0 ? AvailableSize : UnavailableSize;
+};
+
+const getNewItemStyles = (props) => {
+  if (props.sale) return Sale;
+  return props.new ? NewItem : null;
+};
 
 export const ShopItemContainer = styled.div`
   margin: 15px;
-  width: 180px;
-  border: 1px dotted red;
+  width: 240px;
+  height: auto;
+  border: 1px dotted black;
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 
 export const ShopItemPicture = styled.div`
   background-image: url(${(props) => props.url});
-  width: 100%;
-  height: 85%;
+  width: auto;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
+`;
+
+export const ShopItemSizesContainer = styled.div`
+  position: absolute;
+  bottom: 0px;
+  background-color: rgb(192, 192, 192);
+  opacity: 0.5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40%;
+`;
+
+export const ShopItemSizesTitle = styled.span`
+  padding: 2px;
+`;
+
+export const ShopItemSizesItemContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ShopItemSizes = styled.span`
+  margin: 5px;
+  ${getSizesStyles}
 `;
 
 export const ShopItemFooter = styled.div`
@@ -29,10 +84,16 @@ export const ShopItemFooter = styled.div`
 export const ShopItemFooterDetails = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 2px 0;
 `;
 
 export const ShopItemDescription = styled.span`
   font-size: 12px;
+`;
+
+export const ShopItemPriceContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const ShopItemPrice = styled.span`
@@ -41,10 +102,7 @@ export const ShopItemPrice = styled.span`
 
 export const ShopItemFav = styled(FavLogo)`
   width: 20px;
-  position: absolute;
-  bottom: 45px;
-  right: 15px;
-  fill: white;
+  fill: black;
   cursor: pointer;
 
   &:hover {
@@ -52,9 +110,20 @@ export const ShopItemFav = styled(FavLogo)`
   }
 `;
 
-export const ShopItemNew = styled.span`
-  font-size: 12px;
+export const ShopItemNew = styled.div`
+  position: absolute;
+  top: 10px;
+  width: 20%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${getNewItemStyles};
+`;
+
+export const ShopItemNewText = styled.span`
   text-transform: uppercase;
   font-weight: bold;
-  margin: auto;
+  color: white;
 `;
