@@ -4,14 +4,22 @@ import CollectionFilterMenu from "../collection-filter-menu/collection-filter-me
 import CollectionOrder from "../collection-order/collection-order.component";
 import CollectionViewOptions from "../collection-view-options/collection-view.component";
 
-import { CollectionFilterContainer } from "./collection-filter.styles";
+import {
+  CollectionFilterContainer,
+  CollectionOrderContainer,
+  CollectionFilterMenuContainer,
+} from "./collection-filter.styles";
 
 const CollectionFilter = () => {
   return (
     <CollectionFilterContainer>
-      <CollectionFilterMenu />
-      <CollectionOrder />
-      <CollectionViewOptions />
+      <CollectionFilterMenuContainer>
+        <CollectionFilterMenu />
+      </CollectionFilterMenuContainer>
+      <CollectionOrderContainer>
+        <CollectionOrder />
+        <CollectionViewOptions />
+      </CollectionOrderContainer>
     </CollectionFilterContainer>
   );
 };

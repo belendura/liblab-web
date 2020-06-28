@@ -6,6 +6,7 @@ import {
   CollectionFilterMenuContainer,
   CollectionFilterMenuLogo,
   CollectionFilterMenuText,
+  CollectionFilterSidebarContainer,
 } from "./collection-filter-menu.styles";
 
 const CollectionFilterMenu = () => {
@@ -19,7 +20,10 @@ const CollectionFilterMenu = () => {
       >
         <CollectionFilterMenuLogo />
         <CollectionFilterMenuText>Filter</CollectionFilterMenuText>
-        {visibility && <CollectionFilterSidebar />}
+        {/* {visibility && <CollectionFilterSidebar />} */}
+        <CollectionFilterSidebarContainer>
+          <CollectionFilterSidebar />
+        </CollectionFilterSidebarContainer>
       </CollectionFilterMenuContainer>
     </div>
   );

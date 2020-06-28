@@ -7,11 +7,10 @@ export const CollectionFilterContainer = styled.div`
 
 export const CollectionFilterSizeContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 20vw;
+ flex-direction: column; 
+  width: 180px;; 
   margin 10px;
   border: 1px dashed black;
-  
 `;
 
 export const CollectionFilterSizeTitle = styled.span`

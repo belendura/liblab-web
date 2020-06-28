@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 export const CollectionViewContainer = styled.div`
   display: flex;
-  align-items: flex-start;
-  width: 5vw;
+  align-items: center;
+  width: 60px;
   margin 10px;
+  border: 1px dotted black;
 `;
 
 export const CollectionViewText = styled.span`
@@ -20,5 +21,4 @@ export const CollectionViewOption = styled.span`
 export const CollectionViewSeparator = styled.div`
   border-left: 1px solid black;
   height: 18px;
-  margin: 0 5px;
 `;

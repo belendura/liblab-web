@@ -3,10 +3,8 @@ import styled from "styled-components";
 export const CollectionFilterFitContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20vw;
   margin 10px;
   border: 1px dashed black;
-  
 `;
 
 export const CollectionFilterFitTitle = styled.span`
