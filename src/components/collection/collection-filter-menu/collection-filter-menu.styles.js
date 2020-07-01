@@ -4,18 +4,14 @@ import { ReactComponent as FilterLogo } from "../../../assets/icons/filter-logo.
 
 export const CollectionFilterSidebarContainer = styled.div`
   position: absolute;
-  width: 200px;
-  padding: 10px;
-  border: 1px solid black;
-  background-color: white;
   top: 500px;
   left: -200px;
   z-index: 5;
 
-  transition: all 2s ease-in-out;
-  -webkit-transition: all 2s ease-in-out; /** Chrome & Safari **/
-  -moz-transition: all 2s ease-in-out; /** Firefox **/
-  -o-transition: all 2s ease-in-out; /** Opera **/
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+  -moz-transition: all 1s ease-in-out; /** Firefox **/
+  -o-transition: all 1s ease-in-out; /** Opera **/
 `;
 
 export const CollectionFilterMenuContainer = styled.div`

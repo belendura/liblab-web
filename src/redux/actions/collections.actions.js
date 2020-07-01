@@ -20,9 +20,9 @@ export const filterCollections = (colors, sizes, fit) => ({
   payload: { colors, sizes, fit },
 });
 
-export const filterColors = (colors) => ({
+export const filterColors = (color) => ({
   type: collectionsActionTypes.FILTER_COLORS,
-  payload: colors,
+  payload: color,
 });
 
 export const filterSizes = (sizes) => ({
@@ -33,4 +33,14 @@ export const filterSizes = (sizes) => ({
 export const filterFit = (fit) => ({
   type: collectionsActionTypes.FILTER_FIT,
   payload: fit,
+});
+
+export const ascendingOrder = (filteredSection) => ({
+  type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_ASCENDING,
+  payload: filteredSection,
+});
+
+export const descendingOrder = (filteredSection) => ({
+  type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_DESCENDING,
+  payload: filteredSection,
 });

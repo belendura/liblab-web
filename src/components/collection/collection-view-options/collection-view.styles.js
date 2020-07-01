@@ -10,12 +10,12 @@ export const CollectionViewContainer = styled.div`
 
 export const CollectionViewText = styled.span`
   font-size: 14px;
-  margin-right: 5px;
 `;
 
 export const CollectionViewOption = styled.span`
   font-size: 14px;
   cursor: pointer;
+  margin: 0 5px;
 `;
 
 export const CollectionViewSeparator = styled.div`

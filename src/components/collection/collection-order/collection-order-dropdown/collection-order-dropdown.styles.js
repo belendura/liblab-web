@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const CollectionOrderDropDownContainer = styled.div`
   position: absolute;
-  left: 200;
-  right: 0;
+  right: 200px;
   height: auto;
-  width: 20vw;
+  width: 140px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: white;
   top: 500px;
   z-index: 5;

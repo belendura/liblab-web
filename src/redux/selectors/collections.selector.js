@@ -21,46 +21,7 @@ export const selectFilteredFit = createSelector(
   (collections) => (collections ? collections.filteredFit : null)
 );
 
-// export const selectSectionColors = createSelector([selectSection], (section) =>
-//   section
-//     ? section
-//         .reduce((accumulator, arrayItem) => {
-//           return (accumulator = [...accumulator, arrayItem["Color"]]);
-//         }, [])
-//         .reduce((accum, item) => {
-//           return accum.includes(item) ? accum : [...accum, item];
-//         }, [])
-//     : null
-// );
-
-// export const selectSectionSizes = createSelector(
-//   [selectSection, (_, colors) => colors],
-//   (section, colors) =>
-//     section
-//       ? section
-//           .reduce((accumulator, arrayItem) => {
-//             colors.length &&
-//               colors.forEach((colorItem) => {
-//                 if (arrayItem["Color"].name === colorItem)
-//                   arrayItem["Sizes"].map((item) => {
-//                     accumulator = [...accumulator, item.size];
-//                     return accumulator;
-//                   });
-//               });
-//             !colors.length &&
-//               arrayItem["Sizes"].map((item) => {
-//                 accumulator = [...accumulator, item.size];
-//                 return accumulator;
-//               });
-//             return accumulator;
-//           }, [])
-//           .reduce((accum, item) => {
-//             return accum.includes(item) ? accum : [...accum, item];
-//           }, [])
-//       : null
-// );
-
-export const selectSectionColors = createSelector(
+export const selectSectionColorOptions = createSelector(
   [selectSection, (_, sizes, fit) => ({ sizes, fit })],
   (section, { sizes, fit }) =>
     section
@@ -103,47 +64,7 @@ export const selectSectionColors = createSelector(
       : null
 );
 
-// export const selectSectionColors = createSelector(
-//   [selectSection, (_, sizes, fit) => ({ sizes, fit })],
-//   (section, { sizes, fit }) =>
-//     section
-//       ? section
-//           .reduce((accumulator, arrayItem) => {
-//             sizes.length &&
-//               fit.length &&
-//               sizes.forEach((sizeItem) => {
-//                 if (arrayItem["Sizes"].includes(sizeItem))
-//                   if (fit.includes(arrayItem["Fit"])) {
-//                     accumulator = [...accumulator, arrayItem["Color"]];
-//                   }
-//                 return accumulator;
-//               });
-//             if (!sizes.length && fit.length) {
-//               if (fit.includes(arrayItem["Fit"])) {
-//                 accumulator = [...accumulator, arrayItem["Color"]];
-//               }
-//               return accumulator;
-//             }
-//             if (sizes.length && !fit.length) {
-//               sizes.forEach((sizeItem) => {
-//                 arrayItem["Sizes"].forEach((item) => {
-//                   if (item.size === sizeItem)
-//                     accumulator = [...accumulator, arrayItem["Color"]];
-//                 });
-//               });
-//               return accumulator;
-//             }
-//             if (!sizes.length && !fit.length) {
-//               return (accumulator = [...accumulator, arrayItem["Color"]]);
-//             }
-//           }, [])
-//           .reduce((accum, item) => {
-//             return accum.includes(item) ? accum : [...accum, item];
-//           }, [])
-//       : null
-// );
-
-export const selectSectionSizes = createSelector(
+export const selectSectionSizeOptions = createSelector(
   [selectSection, (_, colors, fit) => ({ colors, fit })],
   (section, { colors, fit }) =>
     section
@@ -192,7 +113,7 @@ export const selectSectionSizes = createSelector(
       : null
 );
 
-export const selectSectionFit = createSelector(
+export const selectSectionFitOptions = createSelector(
   [selectSection, (_, colors, sizes) => ({ colors, sizes })],
   (section, { colors, sizes }) =>
     section

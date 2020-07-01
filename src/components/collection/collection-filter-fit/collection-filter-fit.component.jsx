@@ -4,7 +4,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { filterFit } from "../../../redux/actions/collections.actions";
 
 import {
-  selectSectionFit,
+  selectSectionFitOptions,
   selectFilteredColors,
   selectFilteredSizes,
 } from "../../../redux/selectors/collections.selector";
@@ -25,7 +25,7 @@ const CollectionFilterFit = () => {
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
 
   const fitOptions = useSelector(
-    (state) => selectSectionFit(state, filteredColors, filteredSizes),
+    (state) => selectSectionFitOptions(state, filteredColors, filteredSizes),
     shallowEqual
   );
 
