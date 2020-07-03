@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { getSalePrice } from "../../helpers/collections.helpers";
+import { getOrderedFilteredSectionUpdated } from "../utils/collections.utils";
 
 const selectCollection = (state) => state.collections;
 
@@ -22,14 +23,19 @@ export const selectFilteredFit = createSelector(
   (collections) => (collections ? collections.filteredFit : null)
 );
 
-export const selectDescendingOrder = createSelector(
+export const selectDescendingOrdered = createSelector(
   [selectCollection],
-  (collections) => (collections ? collections.descendingOrder : null)
+  (collections) => (collections ? collections.descendingOrdered : null)
 );
 
-export const selectAscendingOrder = createSelector(
+export const selectAscendingOrdered = createSelector(
   [selectCollection],
-  (collections) => (collections ? collections.ascendingOrder : null)
+  (collections) => (collections ? collections.ascendingOrdered : null)
+);
+
+export const selectReducedDisplayedItems = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.reducedDisplayedItems : null)
 );
 
 export const selectSectionColorOptions = createSelector(

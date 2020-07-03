@@ -15,11 +15,6 @@ export const fetchCollectionsFailure = (error) => ({
   payload: error,
 });
 
-export const filterCollections = (colors, sizes, fit) => ({
-  type: collectionsActionTypes.FILTER_COLLECTIONS,
-  payload: { colors, sizes, fit },
-});
-
 export const filterColors = (color) => ({
   type: collectionsActionTypes.FILTER_COLORS,
   payload: color,
@@ -41,4 +36,16 @@ export const ascendingOrder = () => ({
 
 export const descendingOrder = () => ({
   type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_DESCENDING,
+});
+
+export const resetOrder = () => ({
+  type: collectionsActionTypes.RESET_ORDER_COLLECTIONS,
+});
+
+export const reduceDisplayedItems = () => ({
+  type: collectionsActionTypes.REDUCE_DISPLAYED_ITEMS,
+});
+
+export const enlargeDisplayedItems = () => ({
+  type: collectionsActionTypes.ENLARGE_DISPLAYED_ITEMS,
 });

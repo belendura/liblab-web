@@ -6,6 +6,7 @@ export const CollectionFilterColorContainer = styled.div`
   justify-content:space-between;
   margin 10px;
   border: 1px dashed black;
+  
 `;
 
 export const CollectionFilterColorTitle = styled.span`

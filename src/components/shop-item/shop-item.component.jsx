@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
+import { getAvailableUnits } from "../../helpers/collections.helpers";
 
 import {
   ShopItemContainer,
@@ -16,6 +18,9 @@ import {
   ShopItemSizes,
   ShopItemSizesItemContainer,
   ShopItemNewText,
+  ShopItemArrowLeftContainer,
+  ShopItemArrowLeft,
+  ShopItemArrowRight,
 } from "./shop-item.styles";
 
 const ShopItem = ({
@@ -30,14 +35,39 @@ const ShopItem = ({
 }) => {
   const history = useHistory();
   const [visibility, setVisibility] = useState(false);
+  const [displayedView, setDisplayedView] = useState(0);
+
+  useEffect(() => {
+    const availableUnits = getAvailableUnits(sizes);
+  }, [sizes]);
+
+  const displayedViewForward = (event) => {
+    displayedView < url.length - 1
+      ? setDisplayedView(displayedView + 1)
+      : setDisplayedView(0);
+  };
+
+  const displayedViewBackward = (event) => {
+    displayedView > 0
+      ? setDisplayedView(displayedView - 1)
+      : setDisplayedView(url.length - 1);
+  };
 
   return (
     <ShopItemContainer
-      onClick={() => history.push(`/shop/${description}`)}
+      //onClick={() => history.push(`/shop/${description}`)}
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
     >
-      <ShopItemPicture url={url[0]}>
+      <ShopItemArrowLeftContainer>
+        <ShopItemArrowLeft onClick={displayedViewBackward} />
+      </ShopItemArrowLeftContainer>
+
+      <ShopItemArrowRight onClick={displayedViewForward} />
+      <ShopItemPicture
+        onClick={() => history.push(`/shop/${description}`)}
+        url={url[displayedView]}
+      >
         {sale && (
           <ShopItemNew sale={sale} new={newItem}>
             <ShopItemNewText>{discount}%</ShopItemNewText>

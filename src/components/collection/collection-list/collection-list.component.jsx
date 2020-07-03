@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
+import { getOrderedFilteredSectionUpdated } from "../../../helpers/collections.helpers";
+
 import {
-  selectFilteredSection,
   selectFilteredColors,
   selectFilteredSizes,
   selectFilteredFit,
-  selectDescendingOrder,
-  selectAscendingOrder,
+  selectDescendingOrdered,
+  selectAscendingOrdered,
   selectFilteredSectionUpdated,
+  selectReducedDisplayedItems,
 } from "../../../redux/selectors/collections.selector";
 
 import ShopItem from "../../shop-item/shop-item.component";
@@ -19,14 +21,12 @@ const CollectionList = () => {
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
-  const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
-  const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
-
-  // const sectionItems = useSelector(
-  //   (state) =>
-  //     selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
-  //   shallowEqual
-  // );
+  const descendingOrdered = useSelector(selectDescendingOrdered, shallowEqual);
+  const ascendingOrdered = useSelector(selectAscendingOrdered, shallowEqual);
+  const reducedDisplayedItems = useSelector(
+    selectReducedDisplayedItems,
+    shallowEqual
+  );
 
   const filteredSectionUpdated = useSelector(
     (state) =>
@@ -39,25 +39,14 @@ const CollectionList = () => {
     shallowEqual
   );
 
-  let orderedFilteredSectionUpdated = [];
-
-  if (filteredSectionUpdated) {
-    orderedFilteredSectionUpdated = [...filteredSectionUpdated];
-
-    if (descendingOrder) {
-      orderedFilteredSectionUpdated = filteredSectionUpdated.sort(function (
-        i,
-        j
-      ) {
-        return j.LastPrice - i.LastPrice;
-      });
-    }
-  }
+  const orderedFilteredSectionUpdated = getOrderedFilteredSectionUpdated(
+    filteredSectionUpdated,
+    ascendingOrdered,
+    descendingOrdered
+  );
 
   return (
-    <CollectionListContainer>
-      {console.log("ordered section", orderedFilteredSectionUpdated)}
-      {console.log("filteredSectionUpdated", filteredSectionUpdated)}
+    <CollectionListContainer reducedDisplayedItems={reducedDisplayedItems}>
       {orderedFilteredSectionUpdated
         ? orderedFilteredSectionUpdated.map((item, index) => {
             return (

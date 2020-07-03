@@ -2,10 +2,15 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import {
+  reduceDisplayedItems,
+  enlargeDisplayedItems,
+} from "../../../redux/actions/collections.actions";
+
+import {
   CollectionViewContainer,
   CollectionViewText,
   CollectionViewOption,
-  CollectionViewSeparator 
+  CollectionViewSeparator,
 } from "./collection-view.styles";
 
 const CollectionViewOptions = () => {
@@ -13,9 +18,13 @@ const CollectionViewOptions = () => {
   return (
     <CollectionViewContainer>
       <CollectionViewText>Ver</CollectionViewText>
-      <CollectionViewOption>2</CollectionViewOption>
-      <CollectionViewSeparator/>
-      <CollectionViewOption>4</CollectionViewOption>
+      <CollectionViewOption onClick={() => dispatch(reduceDisplayedItems())}>
+        2
+      </CollectionViewOption>
+      <CollectionViewSeparator />
+      <CollectionViewOption onClick={() => dispatch(enlargeDisplayedItems())}>
+        4
+      </CollectionViewOption>
     </CollectionViewContainer>
   );
 };

@@ -13,7 +13,6 @@ export const CollectionOrderContainer = styled.div`
 
 export const CollectionOrderText = styled.span`
   padding: 10px 0;
-  text-transform: uppercase;
   font-weight: bold;
   font-size: 12px;
 `;

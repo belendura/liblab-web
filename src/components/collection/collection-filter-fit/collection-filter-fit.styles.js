@@ -5,6 +5,7 @@ export const CollectionFilterFitContainer = styled.div`
   flex-direction: column;
   margin 10px;
   border: 1px dashed black;
+ 
 `;
 
 export const CollectionFilterFitTitle = styled.span`

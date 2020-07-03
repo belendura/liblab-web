@@ -7,6 +7,9 @@ export const CollectionFilterSidebarContainer = styled.div`
   top: 500px;
   left: -200px;
   z-index: 5;
+  width: 20px;
+  border: 3px solid gold;
+  height: auto;
 
   transition: all 1s ease-in-out;
   -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
@@ -21,7 +24,6 @@ export const CollectionFilterMenuContainer = styled.div`
   cursor: pointer;
   border: 1px dotted black;
   heigth: 70px;
-
 
 
   &:hover {

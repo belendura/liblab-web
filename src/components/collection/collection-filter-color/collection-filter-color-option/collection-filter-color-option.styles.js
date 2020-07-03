@@ -15,6 +15,7 @@ export const CollectionFilterColorOptionContainer = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  width: 16px;
 `;
 
 export const CollectionFilterColorOptionInput = styled.input`

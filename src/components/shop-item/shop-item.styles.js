@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
+import { ReactComponent as ArrowLeftLogo } from "../../assets/icons/arrow-left.svg";
+import { ReactComponent as ArrowRightLogo } from "../../assets/icons/arrow-right.svg";
 
 const AvailableSize = css`
   color: black;
@@ -53,6 +55,7 @@ export const ShopItemContainer = styled.div`
   border: 1px dotted black;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const ShopItemPicture = styled.div`
@@ -75,7 +78,7 @@ export const ShopItemSizesContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 40%;
+  height: 25%;
 `;
 
 export const ShopItemSizesTitle = styled.span`
@@ -146,4 +149,30 @@ export const ShopItemNewText = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   color: white;
+`;
+
+export const ShopItemArrowLeftContainer = styled.div`
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  cursor: pointer;
+  z-index: 5;
+  border: 1px solid black;
+`;
+
+export const ShopItemArrowLeft = styled(ArrowLeftLogo)`
+  height: 12px;
+  cursor: pointer;
+  z-index: 5;
+`;
+
+export const ShopItemArrowRight = styled(ArrowRightLogo)`
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  cursor: pointer;
+  z-index: 2;
 `;
