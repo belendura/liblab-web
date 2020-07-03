@@ -45,7 +45,6 @@ const CollectionFilterColor = () => {
 
   return (
     <CollectionFilterColorContainer>
-      {console.log("filteredColors", filteredColors)}
       <CollectionFilterColorTitle>Color</CollectionFilterColorTitle>
       <CollectionFilterColorOptionContainer>
         {colorOptions

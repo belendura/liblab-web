@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -23,6 +22,7 @@ const ShopItem = ({
   url,
   description,
   price,
+  lastPrice,
   sizes,
   newItem,
   sale,
@@ -30,11 +30,6 @@ const ShopItem = ({
 }) => {
   const history = useHistory();
   const [visibility, setVisibility] = useState(false);
-  const [salePrice, setSalePrice] = useState(0);
-
-  useEffect(() => {
-    sale && setSalePrice(Math.round(price - (discount * price) / 100));
-  }, []);
 
   return (
     <ShopItemContainer
@@ -84,7 +79,7 @@ const ShopItem = ({
           )}
           {sale && (
             <ShopItemPrice sale={sale} discounted={true}>
-              {salePrice}EUR
+              {lastPrice}EUR
             </ShopItemPrice>
           )}
         </ShopItemPriceContainer>

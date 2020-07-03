@@ -55,6 +55,7 @@ const CollectionFilterSize = () => {
                     key={index}
                     id={sizeItem}
                     handleChange={handleChange}
+                    sizeOptions={sizeOptions}
                   />
                 </label>
               ))

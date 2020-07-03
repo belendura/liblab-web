@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { getSalePrice } from "../../helpers/collections.helpers";
 
 const selectCollection = (state) => state.collections;
 
@@ -19,6 +20,16 @@ export const selectFilteredSizes = createSelector(
 export const selectFilteredFit = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.filteredFit : null)
+);
+
+export const selectDescendingOrder = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.descendingOrder : null)
+);
+
+export const selectAscendingOrder = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.ascendingOrder : null)
 );
 
 export const selectSectionColorOptions = createSelector(
@@ -253,5 +264,16 @@ export const selectFilteredSection = createSelector(
           .reduce((accum, item) => {
             return accum.includes(item) ? accum : [...accum, item];
           }, [])
+      : null
+);
+
+export const selectFilteredSectionUpdated = createSelector(
+  [selectFilteredSection],
+  (filteredSection) =>
+    filteredSection
+      ? filteredSection.map((arrayItem) => ({
+          ...arrayItem,
+          LastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
+        }))
       : null
 );

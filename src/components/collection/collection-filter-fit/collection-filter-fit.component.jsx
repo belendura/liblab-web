@@ -54,6 +54,7 @@ const CollectionFilterFit = () => {
                   key={index}
                   id={fitItem}
                   handleChange={handleChange}
+                  fitOptions={fitOptions}
                 />
               </label>
             ))

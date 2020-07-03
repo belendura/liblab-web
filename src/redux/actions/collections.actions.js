@@ -35,12 +35,10 @@ export const filterFit = (fit) => ({
   payload: fit,
 });
 
-export const ascendingOrder = (filteredSection) => ({
+export const ascendingOrder = () => ({
   type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_ASCENDING,
-  payload: filteredSection,
 });
 
-export const descendingOrder = (filteredSection) => ({
+export const descendingOrder = () => ({
   type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_DESCENDING,
-  payload: filteredSection,
 });

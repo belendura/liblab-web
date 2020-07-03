@@ -14,12 +14,6 @@ import {
 const CollectionOrderDropDown = ({ setVisibility }) => {
   const dispatch = useDispatch();
 
-  // const ascendingOrder = () => {
-  //   filteredCollection.sort((i, j) => {
-  //     i;
-  //     return i - j;
-  //   });
-  // };
   return (
     <CollectionOrderDropDownContainer onMouseLeave={() => setVisibility(false)}>
       <CollectionOrderText
@@ -30,7 +24,12 @@ const CollectionOrderDropDown = ({ setVisibility }) => {
       >
         Price Low to High
       </CollectionOrderText>
-      <CollectionOrderText onClick={() => setVisibility(false)}>
+      <CollectionOrderText
+        onClick={() => {
+          setVisibility(false);
+          dispatch(descendingOrder());
+        }}
+      >
         Price High to Low
       </CollectionOrderText>
     </CollectionOrderDropDownContainer>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -14,23 +14,16 @@ import {
 
 const ShopItemPreview = ({ url, description, price, newItem }) => {
   const history = useHistory();
-  // console.log(newItem);
-  let newText = "";
-
-  useEffect(() => {
-    newText = newItem ? "new" : "eyyy";
-  });
 
   return (
     <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
-      {/* {console.log("newText:", newText)} */}
       <ShopItemPicture url={url} />
       <ShopItemFav />
       <ShopItemFooter>
-        <ShopItemNew>{newText}</ShopItemNew>
+        <ShopItemNew>New</ShopItemNew>
         <ShopItemFooterDetails>
           <ShopItemDescription>{description}</ShopItemDescription>
-          <ShopItemPrice>{price}EUR </ShopItemPrice>
+          <ShopItemPrice>{price}EUR</ShopItemPrice>
         </ShopItemFooterDetails>
       </ShopItemFooter>
     </ShopItemContainer>

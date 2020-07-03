@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, shallowEqual } from "react-redux";
+
+import { selectFilteredSizes } from "../../../../redux/selectors/collections.selector";
 
 import {
   CollectionFilterSizeOptionContainer,
@@ -8,8 +11,14 @@ import {
   Icon,
 } from "./collection-filter-size-option.styles";
 
-const CollectionFilterSizeOption = ({ id, handleChange }) => {
+const CollectionFilterSizeOption = ({ id, handleChange, sizeOptions }) => {
   const [checked, setChecked] = useState(false);
+
+  const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
+
+  useEffect(() => {
+    filteredSizes.includes(id) ? setChecked(true) : setChecked(false);
+  }, [sizeOptions]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

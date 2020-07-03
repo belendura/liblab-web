@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, shallowEqual } from "react-redux";
+
+import { selectFilteredFit } from "../../../../redux/selectors/collections.selector";
 
 import {
   CollectionFilterFitOptionContainer,
@@ -8,8 +11,13 @@ import {
   Icon,
 } from "./collection-filter-fit-option.styles";
 
-const CollectionFilterFitOption = ({ id, handleChange }) => {
+const CollectionFilterFitOption = ({ id, handleChange, fitOptions }) => {
   const [checked, setChecked] = useState(false);
+  const filteredFit = useSelector(selectFilteredFit, shallowEqual);
+
+  useEffect(() => {
+    filteredFit.includes(id) ? setChecked(true) : setChecked(false);
+  }, [fitOptions]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

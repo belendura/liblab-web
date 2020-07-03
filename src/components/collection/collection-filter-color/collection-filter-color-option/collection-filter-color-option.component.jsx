@@ -33,7 +33,6 @@ const CollectionFilterColorOption = ({ id, handleChange, colorOptions }) => {
         id={name}
         color={code}
         onChange={handleOptionChange}
-        checked={checked}
       />
       <CollectionFilterColorOptionStyled checked={checked} code={code}>
         <Icon viewBox="0 0 24 24" dark={dark}>
