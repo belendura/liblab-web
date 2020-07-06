@@ -18,6 +18,6 @@ export const CollectionFilterColorTitle = styled.span`
 
 export const CollectionFilterColorOptionContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(1200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   padding: 5px;
 `;

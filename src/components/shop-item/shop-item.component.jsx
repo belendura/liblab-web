@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import { getAvailableUnits } from "../../helpers/collections.helpers";
+import Circle from "../circle/circle.component";
 
 import {
   ShopItemContainer,
@@ -18,9 +19,9 @@ import {
   ShopItemSizes,
   ShopItemSizesItemContainer,
   ShopItemNewText,
-  ShopItemArrowLeftContainer,
   ShopItemArrowLeft,
   ShopItemArrowRight,
+  ShopItemColorsContainer,
 } from "./shop-item.styles";
 
 const ShopItem = ({
@@ -32,6 +33,7 @@ const ShopItem = ({
   newItem,
   sale,
   discount,
+  availableColors,
 }) => {
   const history = useHistory();
   const [visibility, setVisibility] = useState(false);
@@ -59,9 +61,8 @@ const ShopItem = ({
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
     >
-      <ShopItemArrowLeftContainer>
-        <ShopItemArrowLeft onClick={displayedViewBackward} />
-      </ShopItemArrowLeftContainer>
+      {console.log("availableColors", availableColors)}
+      <ShopItemArrowLeft onClick={displayedViewBackward} />
 
       <ShopItemArrowRight onClick={displayedViewForward} />
       <ShopItemPicture
@@ -113,6 +114,11 @@ const ShopItem = ({
             </ShopItemPrice>
           )}
         </ShopItemPriceContainer>
+        <ShopItemColorsContainer>
+          {availableColors.map((item, index) => (
+            <Circle color={item} key={index} />
+          ))}
+        </ShopItemColorsContainer>
       </ShopItemFooter>
     </ShopItemContainer>
   );

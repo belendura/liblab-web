@@ -50,8 +50,8 @@ const getPriceStyles = (props) => {
 
 export const ShopItemContainer = styled.div`
   margin: 15px;
-  width: 240px;
-  height: auto;
+  width: 280px;
+  height: 500px;
   border: 1px dotted black;
   display: flex;
   flex-direction: column;
@@ -151,21 +151,13 @@ export const ShopItemNewText = styled.span`
   color: white;
 `;
 
-export const ShopItemArrowLeftContainer = styled.div`
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  cursor: pointer;
-  z-index: 5;
-  border: 1px solid black;
-`;
-
 export const ShopItemArrowLeft = styled(ArrowLeftLogo)`
   height: 12px;
+  position: absolute;
   cursor: pointer;
-  z-index: 5;
+  top: 50%;
+  left: 10px;
+  z-index: 2;
 `;
 
 export const ShopItemArrowRight = styled(ArrowRightLogo)`
@@ -175,4 +167,10 @@ export const ShopItemArrowRight = styled(ArrowRightLogo)`
   right: 10px;
   cursor: pointer;
   z-index: 2;
+`;
+
+export const ShopItemColorsContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
 `;

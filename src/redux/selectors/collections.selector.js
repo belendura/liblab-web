@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
-import { getSalePrice } from "../../helpers/collections.helpers";
-import { getOrderedFilteredSectionUpdated } from "../utils/collections.utils";
+import {
+  getSalePrice,
+  getAvailableColors,
+} from "../../helpers/collections.helpers";
 
 const selectCollection = (state) => state.collections;
 
@@ -280,6 +282,10 @@ export const selectFilteredSectionUpdated = createSelector(
       ? filteredSection.map((arrayItem) => ({
           ...arrayItem,
           LastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
+          AvailableColors: getAvailableColors(
+            filteredSection,
+            arrayItem["Name"]
+          ),
         }))
       : null
 );

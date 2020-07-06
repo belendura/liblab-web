@@ -26,3 +26,17 @@ export const getAvailableUnits = (sizes) => {
   }, 0);
   return availableUnits;
 };
+
+export const getAvailableColors = (section, name) => {
+  const availableColors = section
+    .reduce((accumulator, arrayItem) => {
+      if (arrayItem["Name"] === name) {
+        accumulator = [...accumulator, arrayItem["Color"]];
+      }
+      return accumulator;
+    }, [])
+    .reduce((accum, index) => {
+      return accum.includes(index) ? accum : [...accum, index];
+    }, []);
+  return availableColors;
+};

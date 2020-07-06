@@ -47,6 +47,7 @@ const CollectionList = () => {
 
   return (
     <CollectionListContainer reducedDisplayedItems={reducedDisplayedItems}>
+      {console.log(orderedFilteredSectionUpdated)}
       {orderedFilteredSectionUpdated
         ? orderedFilteredSectionUpdated.map((item, index) => {
             return (
@@ -60,6 +61,7 @@ const CollectionList = () => {
                 newItem={item.New}
                 sale={item.Sale}
                 discount={item.Discount}
+                availableColors={item.AvailableColors}
               />
             );
           })

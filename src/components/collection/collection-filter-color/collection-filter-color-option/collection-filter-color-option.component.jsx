@@ -34,11 +34,11 @@ const CollectionFilterColorOption = ({ id, handleChange, colorOptions }) => {
         color={code}
         onChange={handleOptionChange}
       />
-      {/* <CollectionFilterColorOptionStyled checked={checked} code={code}>
+      <CollectionFilterColorOptionStyled checked={checked} code={code}>
         <Icon viewBox="0 0 24 24" dark={dark}>
           <polyline points="20 6 9 17 4 12" />
-        </Icon> 
-      </CollectionFilterColorOptionStyled> */}
+        </Icon>
+      </CollectionFilterColorOptionStyled>
       <CollectionFilterColorOptionLabel>
         {name}
       </CollectionFilterColorOptionLabel>
