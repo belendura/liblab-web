@@ -18,8 +18,7 @@ const CollectionOrderDropDown = ({
   descendingOrdered,
 }) => {
   const dispatch = useDispatch();
-  console.log("ascendingOrdered", ascendingOrdered);
-  console.log("descendingOrdered", descendingOrdered);
+
   return (
     <CollectionOrderDropDownContainer onMouseLeave={() => setVisibility(false)}>
       {(ascendingOrdered || descendingOrdered) && (

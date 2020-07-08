@@ -1,8 +1,5 @@
 import { createSelector } from "reselect";
-import {
-  getSalePrice,
-  getAvailableColors,
-} from "../../helpers/collections.helpers";
+import { getItems } from "../../helpers/collections.helpers";
 
 const selectCollection = (state) => state.collections;
 
@@ -275,17 +272,34 @@ export const selectFilteredSection = createSelector(
       : null
 );
 
+// export const selectFilteredSectionUpdated = createSelector(
+//   [selectFilteredSection],
+//   (filteredSection) =>
+//     filteredSection
+//       ? filteredSection.map((arrayItem) => ({
+//           ...arrayItem,
+//           LastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
+//           AvailableColors: getAvailableColors(
+//             filteredSection,
+//             arrayItem["Name"]
+//           ),
+//         }))
+//       : null
+// );
+
 export const selectFilteredSectionUpdated = createSelector(
   [selectFilteredSection],
   (filteredSection) =>
     filteredSection
-      ? filteredSection.map((arrayItem) => ({
-          ...arrayItem,
-          LastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
-          AvailableColors: getAvailableColors(
+      ? filteredSection.reduce((accumulator, arrayItem) => {
+          const items = getItems(
             filteredSection,
-            arrayItem["Name"]
-          ),
-        }))
+            arrayItem["Name"],
+            arrayItem["Color"]
+          );
+
+          accumulator.push(items);
+          return accumulator;
+        }, [])
       : null
 );

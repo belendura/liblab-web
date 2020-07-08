@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   filteredColors: [],
   filteredSizes: [],
   filteredFit: [],
+  differentColor: {},
   ascendingOrdered: false,
   descendingOrdered: false,
   reducedDisplayedItems: false,
@@ -61,6 +62,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         reducedDisplayedItems: false,
         error: null,
       };
+
     case collectionsActionTypes.FETCH_COLLECTIONS_FAILURE:
       return {
         ...state,

@@ -47,23 +47,9 @@ const CollectionList = () => {
 
   return (
     <CollectionListContainer reducedDisplayedItems={reducedDisplayedItems}>
-      {console.log(orderedFilteredSectionUpdated)}
       {orderedFilteredSectionUpdated
         ? orderedFilteredSectionUpdated.map((item, index) => {
-            return (
-              <ShopItem
-                key={index}
-                url={item.Url}
-                description={item.Name}
-                price={item.Price}
-                lastPrice={item.LastPrice}
-                sizes={item.Sizes}
-                newItem={item.New}
-                sale={item.Sale}
-                discount={item.Discount}
-                availableColors={item.AvailableColors}
-              />
-            );
+            return <ShopItem key={index} item={item} />;
           })
         : null}
     </CollectionListContainer>

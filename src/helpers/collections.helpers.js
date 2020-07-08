@@ -28,15 +28,48 @@ export const getAvailableUnits = (sizes) => {
 };
 
 export const getAvailableColors = (section, name) => {
-  const availableColors = section
-    .reduce((accumulator, arrayItem) => {
-      if (arrayItem["Name"] === name) {
-        accumulator = [...accumulator, arrayItem["Color"]];
-      }
-      return accumulator;
-    }, [])
-    .reduce((accum, index) => {
-      return accum.includes(index) ? accum : [...accum, index];
-    }, []);
+  const availableColors = section.reduce((accumulator, arrayItem) => {
+    if (arrayItem["Name"] === name) {
+      accumulator = [...accumulator, arrayItem["Color"]];
+    }
+    return accumulator;
+  }, []);
   return availableColors;
+};
+
+export const getItems = (section, name, color) => {
+  const availableItems = section.reduce((accumulator, arrayItem) => {
+    arrayItem["Name"] === name &&
+      arrayItem["Color"] === color &&
+      accumulator.unshift({
+        url: arrayItem.Url,
+        description: arrayItem.Description,
+        name: arrayItem.Name,
+        price: arrayItem.Price,
+        sizes: arrayItem.Sizes,
+        newarrayItem: arrayItem.New,
+        sale: arrayItem.Sale,
+        discount: arrayItem.Discount,
+        lastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
+        color: arrayItem["Color"],
+        availableColors: getAvailableColors(section, arrayItem["Name"]),
+      });
+    arrayItem["Name"] === name &&
+      arrayItem["Color"] !== color &&
+      accumulator.push({
+        url: arrayItem.Url,
+        description: arrayItem.Description,
+        name: arrayItem.Name,
+        price: arrayItem.Price,
+        sizes: arrayItem.Sizes,
+        newarrayItem: arrayItem.New,
+        sale: arrayItem.Sale,
+        discount: arrayItem.Discount,
+        lastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
+        color: arrayItem["Color"],
+        availableColors: getAvailableColors(section, arrayItem["Name"]),
+      });
+    return accumulator;
+  }, []);
+  return availableItems;
 };

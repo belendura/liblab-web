@@ -8,6 +8,6 @@ export const CollectionListContainer = styled.div`
       : "repeat(4, minmax(240px, 1fr))"};
   object-fit: cover;
   gap: 20px;
-  height: 90vh;
+  height: 95vh;
   margin: 10px 0px;
 `;
