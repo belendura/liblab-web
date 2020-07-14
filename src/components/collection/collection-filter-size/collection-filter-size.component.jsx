@@ -52,7 +52,6 @@ const CollectionFilterSize = () => {
             ? sizeOptions.map((sizeItem, index) => (
                 <label key={index}>
                   <CollectionFilterSizeOption
-                    key={index}
                     id={sizeItem}
                     handleChange={handleChange}
                     sizeOptions={sizeOptions}

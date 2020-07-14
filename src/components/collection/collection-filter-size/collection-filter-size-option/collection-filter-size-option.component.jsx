@@ -11,14 +11,14 @@ import {
   Icon,
 } from "./collection-filter-size-option.styles";
 
-const CollectionFilterSizeOption = ({ id, handleChange, sizeOptions }) => {
+const CollectionFilterSizeOption = ({ id, handleChange }) => {
   const [checked, setChecked] = useState(false);
 
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
 
   useEffect(() => {
     filteredSizes.includes(id) ? setChecked(true) : setChecked(false);
-  }, [sizeOptions]);
+  }, [filteredSizes]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

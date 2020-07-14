@@ -21,6 +21,10 @@ const HomePage = React.lazy(() =>
 const ShopPage = React.lazy(() =>
   import("./pages/shop-page/shop-page.component")
 );
+
+const ShopItemPage = React.lazy(() =>
+  import("./pages/shop-item-page/shop-item-page.component")
+);
 const SearchPage = React.lazy(() =>
   import("./pages/search-page/search-page.component")
 );
@@ -61,7 +65,11 @@ function App() {
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>
           <Route exact path="/" component={HomePage} />
-          <Route path="/shop/:collection/:section" component={ShopPage} />
+          <Route exact path="/shop/:collection/:section" component={ShopPage} />
+          <Route
+            path="/shop/:collection/:section/:name-:reference.html"
+            component={ShopItemPage}
+          />
           <Route exact path="/search" component={SearchPage} />
           <Route
             exact

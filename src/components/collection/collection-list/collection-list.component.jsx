@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { getOrderedFilteredSectionUpdated } from "../../../helpers/collections.helpers";
+import { getOrderedFilteredSection } from "../../../helpers/collections.helpers";
 
 import {
   selectFilteredColors,
@@ -9,7 +9,7 @@ import {
   selectFilteredFit,
   selectDescendingOrdered,
   selectAscendingOrdered,
-  selectFilteredSectionUpdated,
+  selectFilteredSection,
   selectReducedDisplayedItems,
 } from "../../../redux/selectors/collections.selector";
 
@@ -17,7 +17,7 @@ import ShopItem from "../../shop-item/shop-item.component";
 
 import { CollectionListContainer } from "./collection-list.styles";
 
-const CollectionList = () => {
+const CollectionList = ({ params }) => {
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
@@ -28,28 +28,26 @@ const CollectionList = () => {
     shallowEqual
   );
 
-  const filteredSectionUpdated = useSelector(
+  const filteredSection = useSelector(
     (state) =>
-      selectFilteredSectionUpdated(
-        state,
-        filteredColors,
-        filteredSizes,
-        filteredFit
-      ),
+      selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
     shallowEqual
   );
 
-  const orderedFilteredSectionUpdated = getOrderedFilteredSectionUpdated(
-    filteredSectionUpdated,
+  const orderedFilteredSection = getOrderedFilteredSection(
+    filteredSection,
     ascendingOrdered,
     descendingOrdered
   );
 
   return (
     <CollectionListContainer reducedDisplayedItems={reducedDisplayedItems}>
-      {orderedFilteredSectionUpdated
-        ? orderedFilteredSectionUpdated.map((item, index) => {
-            return <ShopItem key={index} item={item} />;
+      {console.log("filteredColors", filteredColors)}
+      {console.log("filteredSizes", filteredSizes)}
+      {console.log("filteredFit", filteredFit)}
+      {orderedFilteredSection
+        ? orderedFilteredSection.map((item, index) => {
+            return <ShopItem key={index} item={item} params={params} />;
           })
         : null}
     </CollectionListContainer>

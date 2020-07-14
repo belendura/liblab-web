@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import Button from "../../button/button.component";
+import CustomButton from "../../custom-button/custom-button.component";
 import {
   CollectionTitleContainer,
   CollectionTitleStyled,
@@ -15,9 +15,12 @@ const CollectionTitle = ({ title, description, url }) => {
     <CollectionTitleContainer>
       <CollectionTitleStyled>{title}</CollectionTitleStyled>
       <CollectionDescription>{description}</CollectionDescription>
-      <Button color="standard" onClick={() => history.push(`/shop/${url}`)}>
+      <CustomButton
+        color="standard"
+        onClick={() => history.push(`/shop/${url}`)}
+      >
         SHOP NOW
-      </Button>
+      </CustomButton>
     </CollectionTitleContainer>
   );
 };

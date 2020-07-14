@@ -25,7 +25,7 @@ const ShopPage = () => {
     <ShopPageContainer>
       <CollectionCover url={watching_the_sea} title={section} />
       <CollectionFilter />
-      <CollectionList />
+      <CollectionList params={params} />
     </ShopPageContainer>
   );
 };

@@ -51,10 +51,8 @@ const CollectionFilterFit = () => {
           ? fitOptions.map((fitItem, index) => (
               <label key={index}>
                 <CollectionFilterFitOption
-                  key={index}
                   id={fitItem}
                   handleChange={handleChange}
-                  fitOptions={fitOptions}
                 />
               </label>
             ))

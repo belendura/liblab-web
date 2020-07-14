@@ -3,7 +3,6 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 import {
   selectSectionColorOptions,
-  selectFilteredColors,
   selectFilteredSizes,
   selectFilteredFit,
 } from "../../../redux/selectors/collections.selector";
@@ -21,7 +20,6 @@ const CollectionFilterColor = () => {
   const [colors, setColors] = useState([]);
   const dispatch = useDispatch();
 
-  const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
   const colorOptions = useSelector(
@@ -48,13 +46,12 @@ const CollectionFilterColor = () => {
       <CollectionFilterColorTitle>Color</CollectionFilterColorTitle>
       <CollectionFilterColorOptionContainer>
         {colorOptions
-          ? colorOptions.map((colorItem, index) => {
+          ? colorOptions.map((colorItem) => {
               return (
                 <label key={colorItem.code}>
                   <CollectionFilterColorOption
                     id={colorItem}
                     handleChange={handleChange}
-                    colorOptions={colorOptions}
                   />
                 </label>
               );

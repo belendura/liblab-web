@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ReactComponent as CheckBoxLogo } from "../../../assets/icons/checkbox.svg";
 
 export const LoginContainer = styled.div`
   text-align: center;
@@ -25,21 +24,49 @@ export const LoginInput = styled.input`
   padding: 10px;
 `;
 
+// export const CheckLabel = styled.label`
+//   padding: 10px;
+// `;
+
 export const CheckLabel = styled.label`
-  padding: 10px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+
+// export const CheckInput = styled.input`
+//   padding: 10px;
+//   margin: 20px 0;
+//   width: 30px;
+//   &:focus {
+//     background-color: grey;
+//   }
+// `;
 
 export const CheckInput = styled.input`
-  padding: 10px;
-  margin: 20px 0;
-  width: 30px;
-  &:focus {
-    background-color: grey;
-  }
+  display: none;
 `;
 
-export const CheckBox = styled(CheckBoxLogo)`
-  height: 30px;
+export const Icon = styled.svg`
+  stroke: black;
+  stroke-width: 4px;
+  fill: none;
+  margin-bottom: 4px;
+`;
+
+export const CheckInputStyled = styled.div`
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+  transition: all 150ms;
+
+  ${Icon} {
+    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+  }
 `;
 
 export const ForgetPassword = styled(Link)`

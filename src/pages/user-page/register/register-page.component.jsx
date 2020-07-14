@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../../redux/actions/user.actions";
-import Button from "../../../components/button/button.component";
+import CustomButton from "../../../components/custom-button/custom-button.component";
 
 import {
   RegisterContainer,
@@ -10,7 +10,8 @@ import {
   RegisterInput,
   CheckLabel,
   CheckInput,
-  CheckBox,
+  CheckInputStyled,
+  Icon,
   Login,
   LoginLink,
 } from "./register-page.styles";
@@ -22,6 +23,7 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
+  const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
   const { firstName, lastName, email, password } = userData;
@@ -29,6 +31,11 @@ const RegisterPage = () => {
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserData({ ...userData, [name]: value });
+  };
+
+  const handleCheckBoxChange = (event) => {
+    const { checked } = event.target;
+    setChecked(checked);
   };
 
   const handleSubmit = async (event) => {
@@ -75,14 +82,24 @@ const RegisterPage = () => {
           value={password}
           label="password"
         />
+
         <CheckLabel>
-          <CheckBox />
-          <CheckInput type="checkbox" value={userData} />
+          <CheckInput
+            type="checkbox"
+            value={userData}
+            onChange={handleCheckBoxChange}
+          />
+          <CheckInputStyled checked={checked}>
+            <Icon viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </Icon>
+          </CheckInputStyled>
           Remember me
         </CheckLabel>
-        <Button type="submit" color="standard">
+
+        <CustomButton type="submit" color="standard">
           CREATE USER
-        </Button>
+        </CustomButton>
         <Login>Have an account?</Login>
         <LoginLink to="/login">Log in here</LoginLink>
       </RegisterForm>

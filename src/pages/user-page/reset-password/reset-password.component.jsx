@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { resetPasswordStart } from "../../../redux/actions/user.actions";
 
-import Button from "../../../components/button/button.component";
+import CustomButton from "../../../components/custom-button/custom-button.component";
 
 import {
   ResetPasswordContainer,
@@ -44,9 +44,9 @@ const ResetPasswordPage = () => {
           label="email"
           required
         />
-        <Button type="submit" color="standard">
+        <CustomButton type="submit" color="standard">
           SUBMIT
-        </Button>
+        </CustomButton>
         <CancelLink to="/login">Cancel</CancelLink>
       </ResetPasswordForm>
     </ResetPasswordContainer>

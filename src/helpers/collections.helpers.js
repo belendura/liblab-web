@@ -2,20 +2,20 @@ export const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
-export const getOrderedFilteredSectionUpdated = (
-  filteredSectionUpdated,
+export const getOrderedFilteredSection = (
+  filteredSection,
   ascendingOrdered,
   descendingOrdered
 ) => {
   if (!descendingOrdered && !ascendingOrdered) {
-    return filteredSectionUpdated;
+    return filteredSection;
   } else if (ascendingOrdered) {
-    return filteredSectionUpdated.sort(function (i, j) {
-      return i.LastPrice - j.LastPrice;
+    return filteredSection.sort((i, j) => {
+      return i[0].LastPrice - j[0].LastPrice;
     });
   } else if (descendingOrdered) {
-    return filteredSectionUpdated.sort(function (i, j) {
-      return j.LastPrice - i.LastPrice;
+    return filteredSection.sort((i, j) => {
+      return j[0].LastPrice - i[0].LastPrice;
     });
   }
 };
@@ -39,36 +39,18 @@ export const getAvailableColors = (section, name) => {
 
 export const getItems = (section, name, color) => {
   const availableItems = section.reduce((accumulator, arrayItem) => {
+    const extendedItem = {
+      ...arrayItem,
+      LastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
+      AvailableColors: getAvailableColors(section, arrayItem["Name"]),
+      AvailableUnits: getAvailableUnits(arrayItem["Sizes"]),
+    };
     arrayItem["Name"] === name &&
       arrayItem["Color"] === color &&
-      accumulator.unshift({
-        url: arrayItem.Url,
-        description: arrayItem.Description,
-        name: arrayItem.Name,
-        price: arrayItem.Price,
-        sizes: arrayItem.Sizes,
-        newarrayItem: arrayItem.New,
-        sale: arrayItem.Sale,
-        discount: arrayItem.Discount,
-        lastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
-        color: arrayItem["Color"],
-        availableColors: getAvailableColors(section, arrayItem["Name"]),
-      });
+      accumulator.unshift(extendedItem);
     arrayItem["Name"] === name &&
       arrayItem["Color"] !== color &&
-      accumulator.push({
-        url: arrayItem.Url,
-        description: arrayItem.Description,
-        name: arrayItem.Name,
-        price: arrayItem.Price,
-        sizes: arrayItem.Sizes,
-        newarrayItem: arrayItem.New,
-        sale: arrayItem.Sale,
-        discount: arrayItem.Discount,
-        lastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
-        color: arrayItem["Color"],
-        availableColors: getAvailableColors(section, arrayItem["Name"]),
-      });
+      accumulator.push(extendedItem);
     return accumulator;
   }, []);
   return availableItems;

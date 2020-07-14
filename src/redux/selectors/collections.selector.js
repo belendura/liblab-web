@@ -174,22 +174,38 @@ export const selectSectionFitOptions = createSelector(
       : null
 );
 
-export const selectFilteredSection = createSelector(
-  [selectSection, (_, colors, sizes, fit) => ({ colors, sizes, fit })],
-  (section, { colors, sizes, fit }) =>
+export const selectSectionExtended = createSelector(
+  [selectSection],
+  (section) =>
     section
-      ? section
+      ? section.reduce((accumulator, arrayItem) => {
+          const items = getItems(
+            section,
+            arrayItem["Name"],
+            arrayItem["Color"]
+          );
+          accumulator.push(items);
+          return accumulator;
+        }, [])
+      : null
+);
+
+export const selectFilteredSection = createSelector(
+  [selectSectionExtended, (_, colors, sizes, fit) => ({ colors, sizes, fit })],
+  (sectionExtended, { colors, sizes, fit }) =>
+    sectionExtended
+      ? sectionExtended
           .reduce((accumulator, arrayItem) => {
             colors.length &&
               sizes.length &&
               fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem[0]["Color"].name === colorItem)
                   sizes.forEach((sizeItem) => {
-                    arrayItem["Sizes"].forEach((item) => {
+                    arrayItem[0]["Sizes"].forEach((item) => {
                       if (item.size === sizeItem) {
                         fit.forEach((fitItem) => {
-                          if (fitItem === arrayItem["Fit"])
+                          if (fitItem === arrayItem[0]["Fit"])
                             accumulator = [...accumulator, arrayItem];
                         });
                       }
@@ -201,9 +217,9 @@ export const selectFilteredSection = createSelector(
               sizes.length &&
               !fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem[0]["Color"].name === colorItem)
                   sizes.forEach((sizeItem) => {
-                    arrayItem["Sizes"].forEach((item) => {
+                    arrayItem[0]["Sizes"].forEach((item) => {
                       if (item.size === sizeItem)
                         accumulator = [...accumulator, arrayItem];
                       return accumulator;
@@ -214,9 +230,9 @@ export const selectFilteredSection = createSelector(
               !sizes.length &&
               fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem[0]["Color"].name === colorItem)
                   fit.forEach((fitItem) => {
-                    if (arrayItem["Fit"] === fitItem)
+                    if (arrayItem[0]["Fit"] === fitItem)
                       accumulator = [...accumulator, arrayItem];
                     return accumulator;
                   });
@@ -228,7 +244,7 @@ export const selectFilteredSection = createSelector(
                 arrayItem["Sizes"].forEach((item) => {
                   if (item.size === sizeItem)
                     fit.forEach((fitItem) => {
-                      if (arrayItem["Fit"] === fitItem)
+                      if (arrayItem[0]["Fit"] === fitItem)
                         accumulator = [...accumulator, arrayItem];
                       return accumulator;
                     });
@@ -238,7 +254,7 @@ export const selectFilteredSection = createSelector(
               !sizes.length &&
               !fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem[0]["Color"].name === colorItem)
                   accumulator = [...accumulator, arrayItem];
                 return accumulator;
               });
@@ -246,7 +262,7 @@ export const selectFilteredSection = createSelector(
               sizes.length &&
               !fit.length &&
               sizes.forEach((sizeItem) => {
-                arrayItem["Sizes"].forEach((item) => {
+                arrayItem[0]["Sizes"].forEach((item) => {
                   if (item.size === sizeItem)
                     accumulator = [...accumulator, arrayItem];
                   return accumulator;
@@ -256,7 +272,7 @@ export const selectFilteredSection = createSelector(
               !sizes.length &&
               fit.length &&
               fit.forEach((fitItem) => {
-                if (arrayItem["Fit"] === fitItem)
+                if (arrayItem[0]["Fit"] === fitItem)
                   accumulator = [...accumulator, arrayItem];
                 return accumulator;
               });
@@ -272,34 +288,14 @@ export const selectFilteredSection = createSelector(
       : null
 );
 
-// export const selectFilteredSectionUpdated = createSelector(
-//   [selectFilteredSection],
-//   (filteredSection) =>
-//     filteredSection
-//       ? filteredSection.map((arrayItem) => ({
-//           ...arrayItem,
-//           LastPrice: getSalePrice(arrayItem["Price"], arrayItem["Discount"]),
-//           AvailableColors: getAvailableColors(
-//             filteredSection,
-//             arrayItem["Name"]
-//           ),
-//         }))
-//       : null
-// );
-
-export const selectFilteredSectionUpdated = createSelector(
-  [selectFilteredSection],
-  (filteredSection) =>
-    filteredSection
-      ? filteredSection.reduce((accumulator, arrayItem) => {
-          const items = getItems(
-            filteredSection,
-            arrayItem["Name"],
-            arrayItem["Color"]
-          );
-
-          accumulator.push(items);
-          return accumulator;
-        }, [])
+export const selectItem = createSelector(
+  [selectSectionExtended, (_, reference) => ({ reference })],
+  (sectionExtended, { reference }) =>
+    sectionExtended
+      ? sectionExtended.filter((arrayItem) => {
+          if (arrayItem[0]["Reference"] === reference) {
+            return arrayItem;
+          }
+        })
       : null
 );

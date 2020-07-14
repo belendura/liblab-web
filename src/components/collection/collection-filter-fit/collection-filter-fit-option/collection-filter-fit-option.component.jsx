@@ -11,13 +11,13 @@ import {
   Icon,
 } from "./collection-filter-fit-option.styles";
 
-const CollectionFilterFitOption = ({ id, handleChange, fitOptions }) => {
+const CollectionFilterFitOption = ({ id, handleChange }) => {
   const [checked, setChecked] = useState(false);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
 
   useEffect(() => {
     filteredFit.includes(id) ? setChecked(true) : setChecked(false);
-  }, [fitOptions]);
+  }, [filteredFit]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

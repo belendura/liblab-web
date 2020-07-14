@@ -11,14 +11,14 @@ import {
   Icon,
 } from "./collection-filter-color-option.styles";
 
-const CollectionFilterColorOption = ({ id, handleChange, colorOptions }) => {
+const CollectionFilterColorOption = ({ id, handleChange }) => {
   const { code, name, dark } = id;
   const [checked, setChecked] = useState(false);
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
 
   useEffect(() => {
     filteredColors.includes(name) ? setChecked(true) : setChecked(false);
-  }, [colorOptions]);
+  }, [filteredColors]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

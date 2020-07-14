@@ -20,7 +20,7 @@ const ShopItemPreview = ({ url, description, price, newItem }) => {
       <ShopItemPicture url={url} />
       <ShopItemFav />
       <ShopItemFooter>
-        <ShopItemNew>New</ShopItemNew>
+        <ShopItemNew newItem={newItem}> NEW</ShopItemNew>
         <ShopItemFooterDetails>
           <ShopItemDescription>{description}</ShopItemDescription>
           <ShopItemPrice>{price}EUR</ShopItemPrice>

@@ -29,6 +29,7 @@ export const ShopItemFooter = styled.div`
 export const ShopItemFooterDetails = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 5px 0;
 `;
 
 export const ShopItemDescription = styled.span`
@@ -57,4 +58,7 @@ export const ShopItemNew = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   margin: auto;
+  color: ${(props) => {
+    return props.newItem ? "black" : "transparent";
+  }};
 `;

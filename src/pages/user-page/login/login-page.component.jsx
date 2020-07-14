@@ -5,7 +5,7 @@ import {
   googleSignInStart,
 } from "../../../redux/actions/user.actions";
 
-import Button from "../../../components/button/button.component";
+import CustomButton from "../../../components/custom-button/custom-button.component";
 
 import {
   LoginContainer,
@@ -15,12 +15,14 @@ import {
   ForgetPassword,
   CheckLabel,
   CheckInput,
-  CheckBox,
+  CheckInputStyled,
+  Icon,
   CreateAccount,
   CreateAccountLink,
 } from "./login-page.styles";
 
 const LoginPage = () => {
+  const [checked, setChecked] = useState(false);
   const [userData, setUserData] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
 
@@ -29,6 +31,11 @@ const LoginPage = () => {
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserData({ ...userData, [name]: value });
+  };
+
+  const handleCheckBoxChange = (event) => {
+    const { checked } = event.target;
+    setChecked(checked);
   };
 
   const handleSubmit = async (event) => {
@@ -56,25 +63,34 @@ const LoginPage = () => {
           name="password"
           value={password}
           label="password"
+          required
         />
         <CheckLabel>
-          <CheckBox />
-          <CheckInput type="checkbox" value={userData} />
+          <CheckInput
+            type="checkbox"
+            value={userData}
+            onChange={handleCheckBoxChange}
+          />
+          <CheckInputStyled checked={checked}>
+            <Icon viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </Icon>
+          </CheckInputStyled>
           Remember me
         </CheckLabel>
         <ForgetPassword to="/reset-password">
           Forgot your Password?
         </ForgetPassword>
-        <Button type="submit" color="standard">
+        <CustomButton type="submit" color="standard">
           LOG IN
-        </Button>
-        <Button
+        </CustomButton>
+        <CustomButton
           type="button"
           color="standard"
           onClick={() => dispatch(googleSignInStart())}
         >
           LOG IN WITH GOOGLE
-        </Button>
+        </CustomButton>
         <CreateAccount>New to LIB-LAB?</CreateAccount>
         <CreateAccountLink to="/register">Create an account</CreateAccountLink>
       </LoginForm>

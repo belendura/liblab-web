@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-
 import { useHistory } from "react-router-dom";
 
 import { getAvailableUnits } from "../../helpers/collections.helpers";
+
+// import {
+//   selectItem,
+//   selectAvailableUnits,
+// } from "../../redux/selectors/collections.selector";
 
 import Circle from "../circle/circle.component";
 
@@ -26,32 +30,37 @@ import {
   ShopItemColorsContainer,
 } from "./shop-item.styles";
 
-const ShopItem = ({ item }) => {
+const ShopItem = ({ item, params }) => {
   const history = useHistory();
   const [visibility, setVisibility] = useState(false);
   const [displayedView, setDisplayedView] = useState(0);
   const [displayedItem, setDisplayedItem] = useState(0);
+  const { collection, section } = params;
 
   const {
-    url,
-    description,
-    name,
-    price,
-    lastPrice,
-    sizes,
-    newItem,
-    sale,
-    discount,
-    color,
-    availableColors,
+    Url,
+    Reference,
+    Name,
+    Price,
+    LastPrice,
+    Sizes,
+    NewItem,
+    Sale,
+    Discount,
+    Color,
+    AvailableColors,
+    AvailableUnits,
   } = item[displayedItem];
 
   useEffect(() => {
-    const availableUnits = getAvailableUnits(sizes);
-  }, [sizes]);
+    const checkSoldOut = () => {
+      const availableUnits = getAvailableUnits(Sizes);
+      return availableUnits;
+    };
+  }, [Sizes]);
 
   const displayedViewForward = (event) => {
-    displayedView < url.length - 1
+    displayedView < Url.length - 1
       ? setDisplayedView(displayedView + 1)
       : setDisplayedView(0);
   };
@@ -59,12 +68,12 @@ const ShopItem = ({ item }) => {
   const displayedViewBackward = (event) => {
     displayedView > 0
       ? setDisplayedView(displayedView - 1)
-      : setDisplayedView(url.length - 1);
+      : setDisplayedView(Url.length - 1);
   };
 
   const handleDifferentColor = (event) => {
     const { id } = event.target;
-    setDisplayedItem(item.findIndex((item) => item["color"].name === id));
+    setDisplayedItem(item.findIndex((item) => item["Color"].name === id));
   };
 
   return (
@@ -77,24 +86,30 @@ const ShopItem = ({ item }) => {
 
       <ShopItemArrowRight onClick={displayedViewForward} />
       <ShopItemPicture
-        onClick={() => history.push(`/shop/${description}`)}
-        url={url[displayedView]}
+        onClick={() =>
+          history.push(
+            `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
+          )
+        }
+        url={Url[displayedView]}
       >
-        {sale && (
-          <ShopItemNew sale={sale} new={newItem}>
-            <ShopItemNewText>{discount}%</ShopItemNewText>
+        {Sale && (
+          <ShopItemNew sale={Sale} new={NewItem}>
+            <ShopItemNewText>{Discount}%</ShopItemNewText>
           </ShopItemNew>
         )}
-        {newItem && (
-          <ShopItemNew sale={sale} new={newItem}>
+        {NewItem && (
+          <ShopItemNew sale={Sale} new={NewItem}>
             <ShopItemNewText>NEW</ShopItemNewText>
           </ShopItemNew>
         )}
         {visibility && (
           <ShopItemSizesContainer>
-            <ShopItemSizesTitle>Add size</ShopItemSizesTitle>
+            <ShopItemSizesTitle>
+              {AvailableUnits ? "Add size" : "Sold OUT"}
+            </ShopItemSizesTitle>
             <ShopItemSizesItemContainer>
-              {sizes.map((item, index) => {
+              {Sizes.map((item, index) => {
                 const { units, size } = item;
                 return (
                   <ShopItemSizes key={index} units={units}>
@@ -108,35 +123,35 @@ const ShopItem = ({ item }) => {
       </ShopItemPicture>
       <ShopItemFooter>
         <ShopItemFooterDetails>
-          <ShopItemDescription>{name}</ShopItemDescription>
+          <ShopItemDescription>{Name}</ShopItemDescription>
           <ShopItemFav />
         </ShopItemFooterDetails>
         <ShopItemPriceContainer>
-          {!sale && (
-            <ShopItemPrice sale={sale} discounted={false}>
-              {price}EUR
+          {!Sale && (
+            <ShopItemPrice sale={Sale} discounted={false}>
+              {Price}EUR
             </ShopItemPrice>
           )}
-          {sale && (
-            <ShopItemPrice sale={sale} discounted={false}>
-              {price}EUR
+          {Sale && (
+            <ShopItemPrice sale={Sale} discounted={false}>
+              {Price}EUR
             </ShopItemPrice>
           )}
-          {sale && (
-            <ShopItemPrice sale={sale} discounted={true}>
-              {lastPrice}EUR
+          {Sale && (
+            <ShopItemPrice sale={Sale} discounted={true}>
+              {LastPrice}EUR
             </ShopItemPrice>
           )}
         </ShopItemPriceContainer>
         <ShopItemColorsContainer>
-          {availableColors.map((item, index) => {
+          {AvailableColors.map((item, index) => {
             const { code, name } = item;
             return (
               <Circle
                 key={index}
                 code={code}
                 name={name}
-                color={color}
+                color={Color}
                 size={"medium"}
                 handleDifferentColor={handleDifferentColor}
               />
