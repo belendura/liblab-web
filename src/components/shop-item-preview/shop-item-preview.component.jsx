@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import FavIcon from "../fav/fav.component";
+
 import {
   ShopItemContainer,
   ShopItemPicture,
@@ -8,7 +10,7 @@ import {
   ShopItemFooterDetails,
   ShopItemDescription,
   ShopItemPrice,
-  ShopItemFav,
+  ShopItemFavContainer,
   ShopItemNew,
 } from "./shop-item-preview.styles";
 
@@ -18,7 +20,9 @@ const ShopItemPreview = ({ url, description, price, newItem }) => {
   return (
     <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
       <ShopItemPicture url={url} />
-      <ShopItemFav />
+      <ShopItemFavContainer>
+        <FavIcon theme="clear" size="small" />
+      </ShopItemFavContainer>
       <ShopItemFooter>
         <ShopItemNew newItem={newItem}> NEW</ShopItemNew>
         <ShopItemFooterDetails>

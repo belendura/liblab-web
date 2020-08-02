@@ -42,9 +42,6 @@ const CollectionList = ({ params }) => {
 
   return (
     <CollectionListContainer reducedDisplayedItems={reducedDisplayedItems}>
-      {console.log("filteredColors", filteredColors)}
-      {console.log("filteredSizes", filteredSizes)}
-      {console.log("filteredFit", filteredFit)}
       {orderedFilteredSection
         ? orderedFilteredSection.map((item, index) => {
             return <ShopItem key={index} item={item} params={params} />;

@@ -18,10 +18,3 @@ export const Fav = styled(FavLogo)`
     fill: gold;
   }
 `;
-
-export const FavMenuSelected = styled.span`
-  position: absolute;
-  font-size: 18px;
-  font-weight: bold;
-  top: 28px;
-`;

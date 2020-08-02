@@ -8,5 +8,4 @@ export const CollectionFilterContainer = styled.div`
   padding: 10px;
   border: 1px solid black;
   background-color: white;
-  ${"" /* z-index: 10; */}
 `;

@@ -123,16 +123,6 @@ export const ShopItemPrice = styled.span`
   ${getPriceStyles};
 `;
 
-export const ShopItemFav = styled(FavLogo)`
-  width: 20px;
-  fill: black;
-  cursor: pointer;
-
-  &:hover {
-    fill: gold;
-  }
-`;
-
 export const ShopItemNew = styled.div`
   position: absolute;
   top: 10px;

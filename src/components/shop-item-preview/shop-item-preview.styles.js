@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
-
 export const ShopItemContainer = styled.div`
   margin: 15px;
   width: 180px;
@@ -40,17 +38,10 @@ export const ShopItemPrice = styled.span`
   font-size: 12px;
 `;
 
-export const ShopItemFav = styled(FavLogo)`
-  width: 20px;
+export const ShopItemFavContainer = styled.div`
   position: absolute;
   bottom: 45px;
   right: 15px;
-  fill: white;
-  cursor: pointer;
-
-  &:hover {
-    fill: gold;
-  }
 `;
 
 export const ShopItemNew = styled.span`

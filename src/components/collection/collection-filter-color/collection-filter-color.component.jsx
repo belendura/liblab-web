@@ -46,9 +46,9 @@ const CollectionFilterColor = () => {
       <CollectionFilterColorTitle>Color</CollectionFilterColorTitle>
       <CollectionFilterColorOptionContainer>
         {colorOptions
-          ? colorOptions.map((colorItem) => {
+          ? colorOptions.map((colorItem, index) => {
               return (
-                <label key={colorItem.code}>
+                <label key={index}>
                   <CollectionFilterColorOption
                     id={colorItem}
                     handleChange={handleChange}

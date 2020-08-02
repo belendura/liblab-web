@@ -5,9 +5,6 @@ import {
   PictureContainer,
 } from "./shop-item-pictures.styles";
 const ShopItemPictures = ({ url }) => {
-  console.log("url", url);
-  const [firstItem, secondItem, thirdItem] = url;
-  console.log("firstItem", firstItem);
   return (
     <ShopItemPicturesContainer>
       {url

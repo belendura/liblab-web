@@ -67,7 +67,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop/:collection/:section" component={ShopPage} />
           <Route
-            path="/shop/:collection/:section/:name-:reference.html"
+            path="/shop/:collection/:section/:name-:reference/:color"
             component={ShopItemPage}
           />
           <Route exact path="/search" component={SearchPage} />

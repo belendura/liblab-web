@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, shallowEqual } from "react-redux";
 
@@ -10,24 +10,31 @@ import ShopItemData from "../../components/shop-item-details/shop-item-data/shop
 import { ShopItemPageContainer } from "./shop-item-page.styles";
 const ShopItemPage = () => {
   const params = useParams();
-  const { reference } = params;
+  const { reference, color } = params;
+  const [displayedItem, setDisplayedItem] = useState(0);
 
   const selectedItem = useSelector((state) =>
-    selectItem(state, reference, shallowEqual)
+    selectItem(state, reference, color, shallowEqual)
   );
+
+  const handleDifferentColor = (event) => {
+    const { id } = event.target;
+    setDisplayedItem(
+      selectedItem.findIndex((item) => item["Color"].name === id)
+    );
+  };
 
   return (
     <ShopItemPageContainer>
-      {selectedItem && selectedItem.length
-        ? console.log("selected item 0", selectedItem[0].Url)
-        : null}
-      {selectedItem && selectedItem.length
-        ? console.log("selected item", selectedItem)
-        : null}
-      {selectedItem && selectedItem.length ? (
-        <ShopItemPictures url={selectedItem} />
+      {selectedItem ? (
+        <ShopItemPictures url={selectedItem[displayedItem].Url} />
       ) : null}
-      {/* {selectedItem ? <ShopItemData item={selectedItem} /> : null} */}
+      {selectedItem ? (
+        <ShopItemData
+          item={selectedItem[displayedItem]}
+          handleDifferentColor={handleDifferentColor}
+        />
+      ) : null}
     </ShopItemPageContainer>
   );
 };

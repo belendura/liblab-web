@@ -18,8 +18,10 @@ export const addNewDocuments = async (collectionKey, data) => {
 
   const batch = firestore.batch();
 
+  let i = 0;
   data.forEach((item) => {
-    const docRef = firestore.doc(`${collectionKey}/${item.Reference}`);
+    const docRef = firestore.doc(`${collectionKey}/${item.Reference}` + `${i}`);
+    i++;
     batch.set(docRef, item);
   });
 

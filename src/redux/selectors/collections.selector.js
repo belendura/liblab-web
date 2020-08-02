@@ -289,13 +289,17 @@ export const selectFilteredSection = createSelector(
 );
 
 export const selectItem = createSelector(
-  [selectSectionExtended, (_, reference) => ({ reference })],
-  (sectionExtended, { reference }) =>
+  [selectSectionExtended, (_, reference, color) => ({ reference, color })],
+  (sectionExtended, { reference, color }) =>
     sectionExtended
-      ? sectionExtended.filter((arrayItem) => {
-          if (arrayItem[0]["Reference"] === reference) {
-            return arrayItem;
+      ? sectionExtended.reduce((accumulator, arrayItem) => {
+          if (
+            arrayItem[0]["Reference"] === reference &&
+            arrayItem[0]["Color"].name === color
+          ) {
+            arrayItem.forEach((item) => accumulator.push(item));
           }
-        })
+          return accumulator;
+        }, [])
       : null
 );

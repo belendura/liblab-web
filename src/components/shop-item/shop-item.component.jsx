@@ -9,6 +9,7 @@ import { getAvailableUnits } from "../../helpers/collections.helpers";
 // } from "../../redux/selectors/collections.selector";
 
 import Circle from "../circle/circle.component";
+import FavIcon from "../fav/fav.component";
 
 import {
   ShopItemContainer,
@@ -18,7 +19,6 @@ import {
   ShopItemDescription,
   ShopItemPriceContainer,
   ShopItemPrice,
-  ShopItemFav,
   ShopItemNew,
   ShopItemSizesContainer,
   ShopItemSizesTitle,
@@ -88,7 +88,8 @@ const ShopItem = ({ item, params }) => {
       <ShopItemPicture
         onClick={() =>
           history.push(
-            `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
+            `/shop/${collection}/${section}/${Name}-${Reference}/${Color.name}`
+            // `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
           )
         }
         url={Url[displayedView]}
@@ -124,19 +125,14 @@ const ShopItem = ({ item, params }) => {
       <ShopItemFooter>
         <ShopItemFooterDetails>
           <ShopItemDescription>{Name}</ShopItemDescription>
-          <ShopItemFav />
+          <FavIcon theme="dark" size="small" />
         </ShopItemFooterDetails>
         <ShopItemPriceContainer>
-          {!Sale && (
+          {
             <ShopItemPrice sale={Sale} discounted={false}>
               {Price}EUR
             </ShopItemPrice>
-          )}
-          {Sale && (
-            <ShopItemPrice sale={Sale} discounted={false}>
-              {Price}EUR
-            </ShopItemPrice>
-          )}
+          }
           {Sale && (
             <ShopItemPrice sale={Sale} discounted={true}>
               {LastPrice}EUR
