@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { getAvailableUnits } from "../../helpers/collections.helpers";
 
-// import {
-//   selectItem,
-//   selectAvailableUnits,
-// } from "../../redux/selectors/collections.selector";
+import { selectShopItem } from "../../redux/actions/collections.actions";
 
 import Circle from "../circle/circle.component";
 import FavIcon from "../fav/fav.component";
@@ -32,6 +30,7 @@ import {
 
 const ShopItem = ({ item, params }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [displayedView, setDisplayedView] = useState(0);
   const [displayedItem, setDisplayedItem] = useState(0);
@@ -81,6 +80,7 @@ const ShopItem = ({ item, params }) => {
       //onClick={() => history.push(`/shop/${description}`)}
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
+      onClick={() => dispatch(selectShopItem(item[displayedItem]))}
     >
       <ShopItemArrowLeft onClick={displayedViewBackward} />
 

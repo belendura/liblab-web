@@ -35,8 +35,8 @@ const ItemDetails = ({ title, text, textVisible, setTextVisible }) => {
           })
         : null}
       {textVisible && title === "Care"
-        ? text.map((item) => {
-            return <div>CARE</div>;
+        ? text.map((item, index) => {
+            return <div key={index}>CARE</div>;
           })
         : null}
     </ItemDetailsContainer>

@@ -303,3 +303,22 @@ export const selectItem = createSelector(
         }, [])
       : null
 );
+
+export const selectSelectedShopItem = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.selectedItem : null)
+);
+
+// export const selectSelectedCartItem = createSelector(
+//   [selectSelectedShopItem],
+//   (selectedItem) => {
+//     selectedItem
+//       ? Object.entries(selectedItem).reduce((accu, item) => {
+//           const [key, value] = item;
+//           console.log("key", key);
+//           console.log("value", value);
+//           return accu;
+//         }, {})
+//       : null;
+//   }
+// );

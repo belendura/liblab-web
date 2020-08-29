@@ -10,6 +10,7 @@ const collectionsActionTypes = {
   FILTER_FIT: "FILTER_FIT",
   REDUCE_DISPLAYED_ITEMS: "REDUCE_DISPLAYED_ITEMS",
   ENLARGE_DISPLAYED_ITEMS: "ENLARGE_DISPLAYED_ITEMS",
+  SELECT_ITEM: "SELECT_ITEM",
 };
 
 export default collectionsActionTypes;

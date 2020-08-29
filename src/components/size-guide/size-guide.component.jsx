@@ -6,8 +6,6 @@ const SizeGuide = ({ setSizeGuideVisible }) => {
   const wrapperRef = useRef(null);
 
   const handleHideDropdown = (event) => {
-    console.log("event.key", event);
-
     if (event.key === "Escape" || event.key === " ") {
       setSizeGuideVisible(false);
     }

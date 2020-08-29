@@ -3,10 +3,12 @@ import { useHistory } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../redux/selectors/user.selectors";
+import { selectCartHidden } from "../../redux/selectors/cart.selectors";
 
 import ShopMenu from "../shop-menu/shop-menu.component";
 import CartMenu from "../cart-menu/cart-menu.component";
 import FavMenu from "../fav-menu/fav-menu.component";
+import CartDropdown from "../cart-menu/cart-dropdown/cart-dropdown.component";
 
 import {
   HeaderContainer,
@@ -27,6 +29,10 @@ const Header = () => {
   const [searchVisibility, setSearchVisibility] = useState(false);
   const history = useHistory();
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
+  const selectedCartDropdownHidden = useSelector(
+    selectCartHidden,
+    shallowEqual
+  );
   return (
     <HeaderContainer>
       <HeaderLogoContainer to="/">
@@ -76,6 +82,7 @@ const Header = () => {
         )}
         <FavMenu />
         <CartMenu />
+        {!selectedCartDropdownHidden && <CartDropdown />}
       </HeaderUserContainer>
     </HeaderContainer>
   );

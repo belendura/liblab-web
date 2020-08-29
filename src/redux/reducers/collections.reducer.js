@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   descendingOrdered: false,
   reducedDisplayedItems: false,
   error: null,
+  selectedItem: null,
 };
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
@@ -62,7 +63,12 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         reducedDisplayedItems: false,
         error: null,
       };
-
+    case collectionsActionTypes.SELECT_ITEM:
+      return {
+        ...state,
+        selectedItem: action.payload,
+        error: null,
+      };
     case collectionsActionTypes.FETCH_COLLECTIONS_FAILURE:
       return {
         ...state,

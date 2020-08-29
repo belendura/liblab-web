@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+
+import {
+  addItem,
+  clearSize,
+  toogleCartHidden,
+} from "../../../redux/actions/cart.actions";
+import { selectShopItem } from "../../../redux/actions/collections.actions";
+
+import {
+  selectCartHidden,
+  selectSizeItem,
+} from "../../../redux/selectors/cart.selectors";
+import { selectSelectedShopItem } from "../../../redux/selectors/collections.selector";
 
 import Circle from "../../circle/circle.component";
 import CustomButton from "../../custom-button/custom-button.component";
 import FavIcon from "../../fav/fav.component";
 import SizeGuide from "../../size-guide/size-guide.component";
 import ItemDetails from "../../item-details/item-details.component";
+import SelectSize from "../../select-size/select-size.component";
 
 import {
   ShopItemDataContainer,
@@ -18,14 +33,9 @@ import {
   ShopItemDataColorsContainer,
   ShopItemDataColorsOptionContainer,
   ShopItemDataColorName,
-  ShopItemDataSelectSizesContainer,
-  ShopItemDataSelectSize,
-  ShopItemDataOptionSize,
   ShopItemDataSizeGuideContainer,
   ShopItemDataGuideSize,
   SizeHanger,
-  DescriptionContainer,
-  FabricContainer,
   ShippingInformation,
   Reviews,
   LineStyled,
@@ -54,6 +64,21 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [fabricVisible, setFabricVisible] = useState(false);
   const [careVisible, setCareVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(selectShopItem(item));
+    dispatch(clearSize());
+  }, [Color]);
+
+  const selectedCartDropdownHidden = useSelector(
+    selectCartHidden,
+    shallowEqual
+  );
+  const selectedShopItem = useSelector(selectSelectedShopItem, shallowEqual);
+
+  const selectedSize = useSelector(selectSizeItem, shallowEqual);
+
   return (
     <ShopItemDataContainer>
       <ShopItemDataName>{Name}</ShopItemDataName>
@@ -91,19 +116,7 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
         </ShopItemDataColorsOptionContainer>
         <ShopItemDataColorName>{Color.name}</ShopItemDataColorName>
       </ShopItemDataColorsContainer>
-      <ShopItemDataSelectSizesContainer>
-        <ShopItemDataSelectSize name="sizes" id="sizes" required>
-          <ShopItemDataOptionSize>Select size</ShopItemDataOptionSize>
-          {Sizes.map((item, index) => {
-            const { size, units } = item;
-            return (
-              <ShopItemDataOptionSize key={index} value={size} units={units}>
-                {size}
-              </ShopItemDataOptionSize>
-            );
-          })}
-        </ShopItemDataSelectSize>
-      </ShopItemDataSelectSizesContainer>
+      <SelectSize sizes={Sizes} selectedSize={selectedSize} />
       <ShopItemDataSizeGuideContainer>
         <SizeHanger />
         <ShopItemDataGuideSize onClick={() => setSizeGuideVisible(true)}>
@@ -113,6 +126,16 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
           <SizeGuide setSizeGuideVisible={setSizeGuideVisible} />
         ) : null}
       </ShopItemDataSizeGuideContainer>
+      <CustomButton
+        onClick={() => {
+          if (selectedSize) {
+            dispatch(addItem(selectedShopItem, selectedSize));
+            selectedCartDropdownHidden && dispatch(toogleCartHidden());
+          } else alert("Please, select size first");
+        }}
+      >
+        Add to bag
+      </CustomButton>
       <ItemDetails
         title="Details"
         text={Details}

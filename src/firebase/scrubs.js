@@ -1,5 +1,6 @@
 export const SCRUBS = [
   {
+    Collection: "scrub",
     Reference: "REFSCW20001BG",
     Name: "DIANA",
     Description: "Three-Pocket Scrub",
@@ -39,6 +40,7 @@ export const SCRUBS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "scrub",
     Reference: "REFSCW20001BG",
     Name: "DIANA",
     Description: "Three-Pocket Scrub",
@@ -78,6 +80,7 @@ export const SCRUBS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "scrub",
     Reference: "REFSCW20001BG",
     Name: "DIANA",
     Description: "Three-Pocket Scrub",
@@ -117,6 +120,7 @@ export const SCRUBS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "scrub",
     Reference: "REFSCW20003WH",
     Name: "BERTA",
     Description: "Three-Pocket Scrub",
@@ -156,6 +160,7 @@ export const SCRUBS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "scrub",
     Reference: "REFSCW20001ST",
     Name: "SARAH",
     Description: "Three-Pocket Scrub",
@@ -195,6 +200,7 @@ export const SCRUBS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "scrub",
     Reference: "REFSCW20003RE",
     Name: "CLAUDIA",
     Description: "Three-Pocket Scrub",

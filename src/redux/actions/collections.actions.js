@@ -49,3 +49,8 @@ export const reduceDisplayedItems = () => ({
 export const enlargeDisplayedItems = () => ({
   type: collectionsActionTypes.ENLARGE_DISPLAYED_ITEMS,
 });
+
+export const selectShopItem = (item) => ({
+  type: collectionsActionTypes.SELECT_ITEM,
+  payload: item,
+});
