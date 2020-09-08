@@ -1,4 +1,5 @@
-import { cartActionTypes } from "../types/cart.types";
+import cartActionTypes from "../types/cart.types";
+
 import { addItemToCart, removeItemFromCart } from "../utils/cart.utils";
 
 const INITIAL_STATE = {
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case cartActionTypes.TOOGLE_CART_HIDDEN:
+    case cartActionTypes.TOGGLE_CART_HIDDEN:
       return {
         ...state,
         hidden: !state.hidden,
@@ -23,6 +24,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           action.payload.item,
           action.payload.selectedSize
         ),
+      };
+    case cartActionTypes.UPDATE_CART_SUCCESS:
+      return {
+        ...state,
+        cartItems: action.payload,
       };
     case cartActionTypes.SELECT_SIZE:
       return {
@@ -39,22 +45,15 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, action.payload),
       };
-    case cartActionTypes.CLEAR_ITEM_FROM_CART:
-      return {
-        ...state,
-        cartItems: state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
-        ),
-      };
     case cartActionTypes.CLEAR_CART:
       return {
         ...state,
         cartItems: [],
       };
-    case cartActionTypes.ORDER_ITEMS_FAILURE:
+    case cartActionTypes.UPDATE_CART_FAILURE:
       return {
         ...state,
-        error: true,
+        error: action.payload,
       };
     default:
       return state;

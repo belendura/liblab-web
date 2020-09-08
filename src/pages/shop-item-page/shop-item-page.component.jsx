@@ -35,6 +35,8 @@ const ShopItemPage = () => {
           handleDifferentColor={handleDifferentColor}
         />
       ) : null}
+      <div>You may also like</div>
+      <div>Recent view</div>
     </ShopItemPageContainer>
   );
 };

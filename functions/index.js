@@ -8,8 +8,9 @@ const {
   logInWithGoogle,
   logOut,
   resetPassword,
-  fetchCollections,
 } = require("./handlers/user-management");
+
+const { fetchCollections } = require("./handlers/collections-management");
 
 const {
   checkIfAuthenticated,

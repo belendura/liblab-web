@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
-import { getItems } from "../../helpers/collections.helpers";
+
+import { getItems } from "../utils/collections.utils";
 
 const selectCollection = (state) => state.collections;
 
@@ -174,7 +175,7 @@ export const selectSectionFitOptions = createSelector(
       : null
 );
 
-export const selectSectionExtended = createSelector(
+export const selectExtendedSection = createSelector(
   [selectSection],
   (section) =>
     section
@@ -191,10 +192,10 @@ export const selectSectionExtended = createSelector(
 );
 
 export const selectFilteredSection = createSelector(
-  [selectSectionExtended, (_, colors, sizes, fit) => ({ colors, sizes, fit })],
-  (sectionExtended, { colors, sizes, fit }) =>
-    sectionExtended
-      ? sectionExtended
+  [selectExtendedSection, (_, colors, sizes, fit) => ({ colors, sizes, fit })],
+  (extendedSection, { colors, sizes, fit }) =>
+    extendedSection
+      ? extendedSection
           .reduce((accumulator, arrayItem) => {
             colors.length &&
               sizes.length &&
@@ -289,10 +290,10 @@ export const selectFilteredSection = createSelector(
 );
 
 export const selectItem = createSelector(
-  [selectSectionExtended, (_, reference, color) => ({ reference, color })],
-  (sectionExtended, { reference, color }) =>
-    sectionExtended
-      ? sectionExtended.reduce((accumulator, arrayItem) => {
+  [selectExtendedSection, (_, reference, color) => ({ reference, color })],
+  (extendedSection, { reference, color }) =>
+    extendedSection
+      ? extendedSection.reduce((accumulator, arrayItem) => {
           if (
             arrayItem[0]["Reference"] === reference &&
             arrayItem[0]["Color"].name === color
@@ -308,17 +309,3 @@ export const selectSelectedShopItem = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.selectedItem : null)
 );
-
-// export const selectSelectedCartItem = createSelector(
-//   [selectSelectedShopItem],
-//   (selectedItem) => {
-//     selectedItem
-//       ? Object.entries(selectedItem).reduce((accu, item) => {
-//           const [key, value] = item;
-//           console.log("key", key);
-//           console.log("value", value);
-//           return accu;
-//         }, {})
-//       : null;
-//   }
-// );

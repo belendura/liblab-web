@@ -4,7 +4,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   addItem,
   clearSize,
-  toogleCartHidden,
+  toggleCartHidden,
 } from "../../../redux/actions/cart.actions";
 import { selectShopItem } from "../../../redux/actions/collections.actions";
 
@@ -16,7 +16,7 @@ import { selectSelectedShopItem } from "../../../redux/selectors/collections.sel
 
 import Circle from "../../circle/circle.component";
 import CustomButton from "../../custom-button/custom-button.component";
-import FavIcon from "../../fav/fav.component";
+import FavIcon from "../../wishlist/wishlist.component";
 import SizeGuide from "../../size-guide/size-guide.component";
 import ItemDetails from "../../item-details/item-details.component";
 import SelectSize from "../../select-size/select-size.component";
@@ -130,7 +130,7 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
         onClick={() => {
           if (selectedSize) {
             dispatch(addItem(selectedShopItem, selectedSize));
-            selectedCartDropdownHidden && dispatch(toogleCartHidden());
+            selectedCartDropdownHidden && dispatch(toggleCartHidden());
           } else alert("Please, select size first");
         }}
       >

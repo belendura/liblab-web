@@ -1,26 +1,16 @@
-import { all, call, takeLatest, put } from "redux-saga/effects";
+import { takeLatest, put, all, call } from "redux-saga/effects";
 
-import axiosConfig from "../../helpers/axiosConfig.helpers";
+import userActionTypes from "../types/user.types";
+import { clearCart } from "../actions/cart.actions";
 
-import cartActionTypes from "../types/cart.types";
-
-import {} from "../actions/cart.actions";
-
-export function* onOrderItemsStart() {
-  yield takeLatest(collectionsActionTypes.ORDER_ITEMS_START, orderItems);
+export function* clearCartOnSignOut() {
+  yield put(clearCart());
 }
 
-export function* orderItems({ payload }) {
-  const { collection, section } = payload;
-  try {
-    const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
-
-    yield put(orderItensSuccess(response.data));
-  } catch (error) {
-    yield put(orderItemsFailure(error));
-  }
+export function* onSignOutSucces() {
+  yield takeLatest(userActionTypes.SIGN_OUT_SUCCESS, clearCartOnSignOut);
 }
 
 export function* cartSagas() {
-  yield all([call(onOrderItemsStart)]);
+  yield all([call(onSignOutSucces)]);
 }

@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import { getAvailableUnits } from "../../helpers/collections.helpers";
 
 import { selectShopItem } from "../../redux/actions/collections.actions";
+import { toggleItem } from "../../redux/actions/wishlist.actions";
 
 import Circle from "../circle/circle.component";
-import FavIcon from "../fav/fav.component";
+import WishlistIcon from "../wishlist/wishlist.component";
 
 import {
   ShopItemContainer,
@@ -51,12 +52,12 @@ const ShopItem = ({ item, params }) => {
     AvailableUnits,
   } = item[displayedItem];
 
-  useEffect(() => {
-    const checkSoldOut = () => {
-      const availableUnits = getAvailableUnits(Sizes);
-      return availableUnits;
-    };
-  }, [Sizes]);
+  // useEffect(() => {
+  //   const checkSoldOut = () => {
+  //     const availableUnits = getAvailableUnits(Sizes);
+  //     return availableUnits;
+  //   };
+  // }, [Sizes]);
 
   const displayedViewForward = (event) => {
     displayedView < Url.length - 1
@@ -80,18 +81,18 @@ const ShopItem = ({ item, params }) => {
       //onClick={() => history.push(`/shop/${description}`)}
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
-      onClick={() => dispatch(selectShopItem(item[displayedItem]))}
     >
       <ShopItemArrowLeft onClick={displayedViewBackward} />
 
       <ShopItemArrowRight onClick={displayedViewForward} />
       <ShopItemPicture
-        onClick={() =>
+        onClick={() => {
+          dispatch(selectShopItem(item[displayedItem]));
           history.push(
             `/shop/${collection}/${section}/${Name}-${Reference}/${Color.name}`
             // `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
-          )
-        }
+          );
+        }}
         url={Url[displayedView]}
       >
         {Sale && (
@@ -125,7 +126,7 @@ const ShopItem = ({ item, params }) => {
       <ShopItemFooter>
         <ShopItemFooterDetails>
           <ShopItemDescription>{Name}</ShopItemDescription>
-          <FavIcon theme="dark" size="small" />
+          <WishlistIcon theme="dark" size="small" item={item[displayedItem]} />
         </ShopItemFooterDetails>
         <ShopItemPriceContainer>
           {

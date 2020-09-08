@@ -4,6 +4,13 @@ import { saveToken, removeToken } from "../../helpers/axiosTokens.helpers";
 import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import { auth, googleProvider } from "../../firebase/firebase.utils";
+
+import { updateCartSuccess, updateCartFailure } from "../actions/cart.actions";
+import {
+  updateWishlistSuccess,
+  updateWishlistFailure,
+} from "../actions/wishlist.actions";
+
 import userActionTypes from "../types/user.types";
 
 import {
@@ -18,12 +25,18 @@ import {
   resetPasswordFailure,
 } from "../actions/user.actions";
 
-export function* signInWithGoogle() {
+export function* signInWithGoogle({ payload }) {
+  const { cart, wishlist } = payload;
   try {
     const { user, credential } = yield auth.signInWithPopup(googleProvider);
     const token = credential.accessToken;
     yield call(saveToken, token);
-    const response = yield axiosConfig.post("/loginOAuth", user);
+    const response = yield axiosConfig.post(
+      "/loginOAuth",
+      user,
+      cart,
+      wishlist
+    );
     yield put(signInSuccess(response.data));
   } catch (error) {
     yield put(signInFailure(error));
@@ -35,11 +48,16 @@ export function* onGoogleSignInStart() {
 }
 
 export function* signInWithEmail({ payload }) {
-  const { email, password } = payload;
+  const { email, password, cart, wishlist } = payload;
   try {
-    const response = yield axiosConfig.post("/login", { email, password });
+    const response = yield axiosConfig.post("/login", {
+      email,
+      password,
+      cart,
+      wishlist,
+    });
     call(saveToken, response.data.token);
-    yield put(signInSuccess(response.data.user));
+    yield put(signInSuccess(response.data));
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -49,9 +67,26 @@ export function* onEmailSignInStart() {
   yield takeLatest(userActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
+export function* updateCartAfterSignIn({
+  payload: { updatedCart, updatedWishlist },
+}) {
+  try {
+    yield put(updateCartSuccess(updatedCart));
+    yield put(updateWishlistSuccess(updatedWishlist));
+  } catch (error) {
+    yield put(updateCartFailure(error));
+    yield put(updateWishlistFailure(error));
+  }
+}
+
+export function* onSignInSuccess() {
+  yield takeLatest(userActionTypes.SIGN_IN_SUCCESS, updateCartAfterSignIn);
+}
+
 export function* signUp({ payload }) {
   try {
     const response = yield axiosConfig.post("/register", payload);
+
     call(saveToken, response.data.token);
     yield put(signUpSuccess(response.data.user));
   } catch (error) {
@@ -124,5 +159,6 @@ export function* userSagas() {
     call(onSignOutStart),
     call(onSignUpSuccess),
     call(onResetPasswordStart),
+    call(onSignInSuccess),
   ]);
 }

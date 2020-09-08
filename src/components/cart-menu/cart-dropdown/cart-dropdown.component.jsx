@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { toogleCartHidden } from "../../../redux/actions/cart.actions";
+import { toggleCartHidden } from "../../../redux/actions/cart.actions";
 
 import {
   selectCartItems,
@@ -39,11 +39,11 @@ const CartDropDown = () => {
       {selectedCartItems.length ? (
         <CustomButton
           onClick={() => {
-            history.push("/login");
-            dispatch(toogleCartHidden());
+            history.push("/checkout/login");
+            dispatch(toggleCartHidden());
           }}
         >
-          Order
+          CHECKOUT
         </CustomButton>
       ) : null}
     </CartDropDownContainer>

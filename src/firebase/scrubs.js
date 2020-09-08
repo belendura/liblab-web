@@ -38,6 +38,7 @@ export const SCRUBS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub13.jpg?alt=media&token=4535a4c9-d0cd-4db2-8495-ba123e31f94c",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Wishlist: false,
   },
   {
     Collection: "scrub",
@@ -78,6 +79,7 @@ export const SCRUBS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub17.jpg?alt=media&token=3ae0cebb-1112-4342-831d-da3900446c07",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Wishlist: false,
   },
   {
     Collection: "scrub",
@@ -118,6 +120,7 @@ export const SCRUBS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub21.jpg?alt=media&token=101b9473-2544-4b13-babd-d52fbe54d722",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Wishlist: false,
   },
   {
     Collection: "scrub",
@@ -158,6 +161,7 @@ export const SCRUBS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub25.jpg?alt=media&token=8491d980-2557-4be6-818b-24919a290089",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Wishlist: false,
   },
   {
     Collection: "scrub",
@@ -198,6 +202,7 @@ export const SCRUBS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub21.jpg?alt=media&token=101b9473-2544-4b13-babd-d52fbe54d722",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Wishlist: false,
   },
   {
     Collection: "scrub",
@@ -239,5 +244,6 @@ export const SCRUBS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FScrubs%2Fwomen_scrub13.jpg?alt=media&token=4535a4c9-d0cd-4db2-8495-ba123e31f94c",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Wishlist: false,
   },
 ];

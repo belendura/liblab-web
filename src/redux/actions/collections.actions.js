@@ -54,3 +54,8 @@ export const selectShopItem = (item) => ({
   type: collectionsActionTypes.SELECT_ITEM,
   payload: item,
 });
+
+export const toggleWishlist = (item) => ({
+  type: collectionsActionTypes.TOGGLE_WISHLIST,
+  payload: item,
+});

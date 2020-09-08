@@ -1,7 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import FavIcon from "../fav/fav.component";
+import { toggleItem } from "../../redux/actions/wishlist.actions";
+
+import WishlistIcon from "../wishlist/wishlist.component";
 
 import {
   ShopItemContainer,
@@ -10,19 +13,25 @@ import {
   ShopItemFooterDetails,
   ShopItemDescription,
   ShopItemPrice,
-  ShopItemFavContainer,
+  ShopItemWishlistContainer,
   ShopItemNew,
 } from "./shop-item-preview.styles";
 
 const ShopItemPreview = ({ url, description, price, newItem }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
       <ShopItemPicture url={url} />
-      <ShopItemFavContainer>
-        <FavIcon theme="clear" size="small" />
-      </ShopItemFavContainer>
+      <ShopItemWishlistContainer>
+        {/* <WishlistIcon
+          theme="clear"
+          size="small"
+
+          onClick={() => dispatch(toggleItem())}
+        /> */}
+      </ShopItemWishlistContainer>
       <ShopItemFooter>
         <ShopItemNew newItem={newItem}> NEW</ShopItemNew>
         <ShopItemFooterDetails>

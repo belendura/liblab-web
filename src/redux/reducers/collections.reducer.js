@@ -1,4 +1,5 @@
 import collectionsActionTypes from "../types/collections.types";
+import { addToWishlist } from "../utils/collections.utils";
 
 const INITIAL_STATE = {
   section: null,
@@ -23,6 +24,11 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         descendingOrdered: false,
         reducedDisplayedItems: false,
         error: null,
+      };
+    case collectionsActionTypes.TOGGLE_WISHLIST:
+      return {
+        ...state,
+        section: addToWishlist(state.section, action.payload),
       };
     case collectionsActionTypes.FILTER_COLORS:
       return { ...state, filteredColors: action.payload, error: null };

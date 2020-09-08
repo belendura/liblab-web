@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-import { toogleCartHidden } from "../../redux/actions/cart.actions";
+import { toggleCartHidden } from "../../redux/actions/cart.actions";
 import { selectCartItemsCount } from "../../redux/selectors/cart.selectors";
 
 import { CartMenuContainer, Cart, CartMenuCount } from "./cart-menu.styles";
@@ -13,7 +13,7 @@ const CartMenu = () => {
     shallowEqual
   );
   return (
-    <CartMenuContainer onClick={() => dispatch(toogleCartHidden())}>
+    <CartMenuContainer onClick={() => dispatch(toggleCartHidden())}>
       <Cart />
       <CartMenuCount>{selectedCartItemsCount}</CartMenuCount>
     </CartMenuContainer>

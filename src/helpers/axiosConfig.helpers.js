@@ -3,9 +3,9 @@ import { getToken } from "./axiosTokens.helpers";
 
 const axiosConfig = axios.create({
   baseURL: "http://localhost:5001/liblab-web/europe-west3/backendServer",
-  /* headers: {
-    "Content-Type": "application/json",
-  },*/
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
 
 axiosConfig.interceptors.request.use(
@@ -14,6 +14,7 @@ axiosConfig.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {

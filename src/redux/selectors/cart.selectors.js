@@ -19,17 +19,21 @@ export const selectSizeItem = createSelector(
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
   (cartItems) =>
-    cartItems.reduce(
-      (accumulatedQuantity, cartItem) =>
-        accumulatedQuantity + cartItem.quantity,
-      0
-    )
+    cartItems.length > 0
+      ? cartItems.reduce(
+          (accumulatedQuantity, cartItem) =>
+            accumulatedQuantity + cartItem.quantity,
+          0
+        )
+      : 0
 );
 
 export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
-  cartItems.reduce(
-    (accumulatedQuantity, cartItem) =>
-      accumulatedQuantity + cartItem.quantity * cartItem.LastPrice,
-    0
-  )
+  cartItems.length > 0
+    ? cartItems.reduce(
+        (accumulatedQuantity, cartItem) =>
+          accumulatedQuantity + cartItem.quantity * cartItem.LastPrice,
+        0
+      )
+    : 0
 );

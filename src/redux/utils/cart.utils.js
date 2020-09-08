@@ -1,4 +1,6 @@
 export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
+  console.log("cartItems", cartItems);
+  console.log("cartItemToAdd", cartItemToAdd);
   const { Reference, Url, Name, LastPrice, Color } = cartItemToAdd;
 
   const existingCartItem = cartItems.find(
@@ -9,7 +11,6 @@ export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
   );
 
   if (existingCartItem) {
-    console.log("existing article!!!!");
     return cartItems.map((cartItem) =>
       cartItem.Reference === cartItemToAdd.Reference &&
       cartItem.Color.name === cartItemToAdd.Color.name &&

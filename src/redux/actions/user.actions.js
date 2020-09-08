@@ -1,15 +1,18 @@
 import userActionTypes from "../types/user.types";
 
-export const emailSignInStart = (email, password) => ({
+export const emailSignInStart = (email, password, cart, wishlist) => ({
   type: userActionTypes.EMAIL_SIGN_IN_START,
   payload: {
     email,
     password,
+    cart,
+    wishlist,
   },
 });
 
-export const googleSignInStart = () => ({
+export const googleSignInStart = (cart, wishlist) => ({
   type: userActionTypes.GOOGLE_SIGN_IN_START,
+  payload: { cart, wishlist },
 });
 
 export const signInSuccess = (user) => ({

@@ -38,7 +38,7 @@ export const ShopItemPrice = styled.span`
   font-size: 12px;
 `;
 
-export const ShopItemFavContainer = styled.div`
+export const ShopItemWishlistContainer = styled.div`
   position: absolute;
   bottom: 45px;
   right: 15px;

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   emailSignInStart,
   googleSignInStart,
 } from "../../../redux/actions/user.actions";
+
+import { selectCartItems } from "../../../redux/selectors/cart.selectors";
+import { selectWishlistItems } from "../../../redux/selectors/wishlist.selectors";
 
 import CustomButton from "../../../components/custom-button/custom-button.component";
 
@@ -28,6 +31,10 @@ const LoginPage = () => {
 
   const { email, password } = userData;
 
+  const cart = useSelector(selectCartItems, shallowEqual);
+  const wishlist = useSelector(selectWishlistItems, shallowEqual);
+  console.log("wishlist", wishlist);
+
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserData({ ...userData, [name]: value });
@@ -40,7 +47,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(emailSignInStart(email, password));
+    dispatch(emailSignInStart(email, password, cart, wishlist));
   };
 
   return (
@@ -87,7 +94,7 @@ const LoginPage = () => {
         <CustomButton
           type="button"
           color="standard"
-          onClick={() => dispatch(googleSignInStart())}
+          onClick={() => dispatch(googleSignInStart(cart, wishlist))}
         >
           LOG IN WITH GOOGLE
         </CustomButton>

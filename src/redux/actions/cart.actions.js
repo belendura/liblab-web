@@ -1,7 +1,7 @@
-import { cartActionTypes } from "../types/cart.types";
+import cartActionTypes from "../types/cart.types";
 
-export const toogleCartHidden = () => ({
-  type: cartActionTypes.TOOGLE_CART_HIDDEN,
+export const toggleCartHidden = () => ({
+  type: cartActionTypes.TOGGLE_CART_HIDDEN,
 });
 
 export const addItem = (item, selectedSize) => ({
@@ -23,25 +23,21 @@ export const removeItem = (item) => ({
   payload: item,
 });
 
-export const clearItemFromCart = (item) => ({
-  type: cartActionTypes.CLEAR_ITEM_FROM_CART,
-  payload: item,
-});
-
 export const clearCart = () => ({
   type: cartActionTypes.CLEAR_CART,
 });
 
-export const orderItemsStart = (cartItems) => ({
-  type: cartActionTypes.ORDER_ITEMS_START,
-  payload: cartItems,
+export const updateCartSuccess = (updatedCart) => ({
+  type: cartActionTypes.UPDATE_CART_SUCCESS,
+  payload: updatedCart,
 });
 
-export const orderItemsSuccess = () => ({
-  type: cartActionTypes.ORDER_ITEMS_SUCCESS,
-});
-
-export const orderItemsFailure = (error) => ({
-  type: cartActionTypes.ORDER_ITEMS_FAILURE,
+export const updateCartFailure = (error) => ({
+  type: cartActionTypes.UPDATE_CART_FAILURE,
   payload: error,
 });
+
+// export const clearItemFromCart = (item) => ({
+//   type: cartActionTypes.CLEAR_ITEM_FROM_CART,
+//   payload: item,
+// });

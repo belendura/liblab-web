@@ -1,9 +1,10 @@
 const { auth } = require("../helpers/firebase");
-//const { firestore } = require("../helpers/admin");
+// const { firestore } = require("../helpers/admin");
 const {
   createUserDocument,
   getUserDocument,
-  getCollectionDocuments,
+  updateUserCartDocument,
+  updateUserWishlistDocument,
 } = require("../helpers/firestore");
 
 const { actionCodesettings } = require("../config/urlConfig");
@@ -16,11 +17,12 @@ exports.createUser = async (req, res) => {
       email,
       password
     );
+
     const token = await userAuth.getIdToken();
-    const currentUser = auth.currentUser;
+    // const currentUser = auth.currentUser; /////To Delete
+    const currentUser = userAuth;
     await currentUser.sendEmailVerification(actionCodesettings);
-    const userId = await createUserDocument(userAuth, additionalData);
-    const user = await getUserDocument(userId);
+    const user = await createUserDocument(userAuth, additionalData);
     return res.status(200).json({ user, token });
   } catch (error) {
     return res.status(500).send(`Error user register ${error}`);
@@ -40,21 +42,30 @@ exports.getUser = async (req, res) => {
 
 //LogIn with Email and Password
 exports.logInWithEmailAndPassword = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, cart, wishlist } = req.body;
 
   try {
     const { user: userAuth } = await auth.signInWithEmailAndPassword(
       email,
       password
     );
+
     const { uid } = userAuth;
+
     if (userAuth.emailVerified) {
       const token = await userAuth.getIdToken();
       const user = await getUserDocument(uid);
-      return res.status(200).json({ user, token });
+      const updatedCart = await updateUserCartDocument(user, cart);
+      const updatedWishlist = await updateUserWishlistDocument(user, wishlist);
+
+      return res
+        .status(200)
+        .json({ user, token, updatedCart, updatedWishlist });
     } else {
       const currentUser = auth.currentUser;
+
       await currentUser.sendEmailVerification(actionCodesettings);
+
       return res.status(500).send(`Error email not verified`);
     }
   } catch (error) {
@@ -64,11 +75,13 @@ exports.logInWithEmailAndPassword = async (req, res) => {
 
 //LogIn with Google
 exports.logInWithGoogle = async (req, res) => {
-  const userData = req.body;
+  const { userData, cart, wishlist } = req.body;
   try {
-    const userId = await createUserDocument(userData);
-    const user = await getUserDocument(userId);
-    return res.status(200).json(user);
+    const user = await createUserDocument(userData);
+    const updatedCart = await updateUserCartDocument(user, cart);
+    const updatedWishlist = await updateUserWishlistDocument(user, wishlist);
+
+    return res.status(200).json(user, updatedCart, updatedWishlist);
   } catch (error) {
     return res.status(500).send(`Error Google login ${error}`);
   }
@@ -91,20 +104,5 @@ exports.resetPassword = async (req, res) => {
     await auth.sendPasswordResetEmail(email);
   } catch (error) {
     return res.status(500).send(`Error reset Password ${error}`);
-  }
-};
-
-//Shop Collection/Section
-exports.fetchCollections = async (req, res) => {
-  const { collection, section } = req.body;
-
-  try {
-    const sectionData = await getCollectionDocuments(collection, section);
-
-    return res.status(200).send(sectionData);
-  } catch (error) {
-    return res
-      .status(500)
-      .send(`Error getting documents from collection ${error}`);
   }
 };

@@ -33,6 +33,10 @@ const LoginPage = React.lazy(() =>
   import("./pages/user-page/login/login-page.component")
 );
 
+const CheckOutPage = React.lazy(() =>
+  import("./pages/user-page/check-out/check-out-page.component")
+);
+
 const RegisterPage = React.lazy(() =>
   import("./pages/user-page/register/register-page.component")
 );
@@ -52,6 +56,7 @@ function App() {
   useEffect(() => {
     const token = getToken();
     token && dispatch(checkUserSession());
+    console.log("token", token);
   }, []);
 
   // useEffect(() => {
@@ -88,6 +93,17 @@ function App() {
             path="/reset-password"
             render={() =>
               currentUser ? <Redirect to="/" /> : <ResetPasswordPage />
+            }
+          />
+          <Route
+            exact
+            path="/checkout/login"
+            render={() =>
+              currentUser ? (
+                <Redirect to="/checkout/shipping" />
+              ) : (
+                <CheckOutPage />
+              )
             }
           />
           <Route exact path="/user" component={UserPage} />

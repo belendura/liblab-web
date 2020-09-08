@@ -7,7 +7,7 @@ import { selectCartHidden } from "../../redux/selectors/cart.selectors";
 
 import ShopMenu from "../shop-menu/shop-menu.component";
 import CartMenu from "../cart-menu/cart-menu.component";
-import FavMenu from "../fav-menu/fav-menu.component";
+import WishlistMenu from "../wishlist-menu/wishlist-menu.component";
 import CartDropdown from "../cart-menu/cart-dropdown/cart-dropdown.component";
 
 import {
@@ -80,7 +80,7 @@ const Header = () => {
             }}
           />
         )}
-        <FavMenu />
+        <WishlistMenu />
         <CartMenu />
         {!selectedCartDropdownHidden && <CartDropdown />}
       </HeaderUserContainer>
