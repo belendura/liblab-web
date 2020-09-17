@@ -55,7 +55,7 @@ const ShopDropDown = () => {
         </CollectionContainer>
       </MenuContainer>
       <CollectionOverviewContainer>
-        <CollectionOverview title="women" url={image_2} size="small" />
+        <CollectionOverview title="women/scrubs" url={image_2} size="small" />
         <CollectionOverview title="men" url={image_3} size="small" />
         <CollectionOverview title="best-sellers" url={image} size="small" />
       </CollectionOverviewContainer>

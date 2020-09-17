@@ -10,7 +10,10 @@ const {
   resetPassword,
 } = require("./handlers/user-management");
 
-const { fetchCollections } = require("./handlers/collections-management");
+const {
+  fetchCollection,
+  fetchSection,
+} = require("./handlers/collections-management");
 
 const {
   checkIfAuthenticated,
@@ -18,6 +21,7 @@ const {
 
 const {
   checkCollectionAndSection,
+  checkCollection,
 } = require("../functions/middlewares/collection-section");
 
 const app = express();
@@ -36,10 +40,8 @@ app.get("/logout", logOut);
 
 app.post("/reset-password", resetPassword);
 
-app.get(
-  "/shop/:collection/:section",
-  checkCollectionAndSection,
-  fetchCollections
-);
+app.get("/shop/:collection/:section", checkCollectionAndSection, fetchSection);
+
+app.get("/shop/:collection", checkCollection, fetchCollection);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

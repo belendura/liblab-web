@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { fetchCollectionsStart } from "../../redux/actions/collections.actions";
+import { fetchSectionStart } from "../../redux/actions/collections.actions";
 
 import CollectionCover from "../../components/collection/collection-cover/collection-cover.component";
 import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
@@ -18,8 +18,8 @@ const ShopPage = () => {
   const { collection, section } = params;
 
   useEffect(() => {
-    dispatch(fetchCollectionsStart(collection, section));
-  }, [fetchCollectionsStart]);
+    dispatch(fetchSectionStart(collection, section));
+  }, [fetchSectionStart]);
 
   return (
     <ShopPageContainer>

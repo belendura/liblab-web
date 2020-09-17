@@ -1,17 +1,32 @@
 import collectionsActionTypes from "../types/collections.types";
 
-export const fetchCollectionsStart = (collection, section) => ({
-  type: collectionsActionTypes.FETCH_COLLECTIONS_START,
+export const fetchCollectionStart = (condition) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_START,
+  payload: { condition },
+});
+
+export const fetchCollectionSuccess = (collection) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_SUCCESS,
+  payload: collection,
+});
+
+export const fetchCollectionFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_FAILURE,
+  payload: error,
+});
+
+export const fetchSectionStart = (collection, section) => ({
+  type: collectionsActionTypes.FETCH_SECTION_START,
   payload: { collection, section },
 });
 
-export const fetchCollectionsSuccess = (collections) => ({
-  type: collectionsActionTypes.FETCH_COLLECTIONS_SUCCESS,
-  payload: collections,
+export const fetchSectionSuccess = (section) => ({
+  type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
+  payload: section,
 });
 
-export const fetchCollectionsFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_COLLECTIONS_FAILURE,
+export const fetchSectionFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_SECTION_FAILURE,
   payload: error,
 });
 
@@ -31,15 +46,15 @@ export const filterFit = (fit) => ({
 });
 
 export const ascendingOrder = () => ({
-  type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_ASCENDING,
+  type: collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING,
 });
 
 export const descendingOrder = () => ({
-  type: collectionsActionTypes.ORDER_COLLECTIONS_PRICE_DESCENDING,
+  type: collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING,
 });
 
 export const resetOrder = () => ({
-  type: collectionsActionTypes.RESET_ORDER_COLLECTIONS,
+  type: collectionsActionTypes.RESET_ORDER_SECTION,
 });
 
 export const reduceDisplayedItems = () => ({

@@ -6,28 +6,47 @@ import collectionsActionTypes from "../types/collections.types";
 import wishlistActionTypes from "../types/wishlist.types";
 
 import {
-  fetchCollectionsSuccess,
-  fetchCollectionsFailure,
+  fetchCollectionSuccess,
+  fetchCollectionFailure,
+  fetchSectionSuccess,
+  fetchSectionFailure,
 } from "../actions/collections.actions";
 
-export function* fetchCollections({ payload }) {
-  const { collection, section } = payload;
+export function* fetchCollection({ payload }) {
+  const { condition } = payload;
+
   try {
-    const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
+    const response = yield axiosConfig.get(`/shop/${condition}`);
     console.log("response", response);
-    yield put(fetchCollectionsSuccess(response.data));
+    yield put(fetchCollectionSuccess(response.data));
   } catch (error) {
-    yield put(fetchCollectionsFailure(error));
+    yield put(fetchCollectionFailure(error));
   }
 }
 
-export function* onfetchCollectionsStart() {
+export function* onFetchCollectionStart() {
   yield takeLatest(
-    collectionsActionTypes.FETCH_COLLECTIONS_START,
-    fetchCollections
+    collectionsActionTypes.FETCH_COLLECTION_START,
+    fetchCollection
   );
 }
 
+export function* fetchSection({ payload }) {
+  const { collection, section } = payload;
+  try {
+    const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
+
+    console.log("response", response);
+    yield put(fetchSectionSuccess(response.data));
+  } catch (error) {
+    yield put(fetchSectionFailure(error));
+  }
+}
+
+export function* onFetchSectionStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_SECTION_START, fetchSection);
+}
+
 export function* collectionsSagas() {
-  yield all([call(onfetchCollectionsStart)]);
+  yield all([call(onFetchCollectionStart), call(onFetchSectionStart)]);
 }

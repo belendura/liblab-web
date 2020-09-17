@@ -25,12 +25,11 @@ const ShopItemPreview = ({ url, description, price, newItem }) => {
     <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
       <ShopItemPicture url={url} />
       <ShopItemWishlistContainer>
-        {/* <WishlistIcon
+        <WishlistIcon
           theme="clear"
           size="small"
-
           onClick={() => dispatch(toggleItem())}
-        /> */}
+        />
       </ShopItemWishlistContainer>
       <ShopItemFooter>
         <ShopItemNew newItem={newItem}> NEW</ShopItemNew>

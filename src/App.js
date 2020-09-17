@@ -49,6 +49,10 @@ const UserPage = React.lazy(() =>
   import("./pages/user-page/user/user-page.component")
 );
 
+const WishlistPage = React.lazy(() =>
+  import("./pages/wishlist-page/wishlist-page.component")
+);
+
 function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
@@ -60,7 +64,7 @@ function App() {
   }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/women/scrubs", SCRUBS);
+  //   addNewDocuments("collections/unisex/scrubs", SCRUBS);
   // }, []);
 
   return (
@@ -107,6 +111,7 @@ function App() {
             }
           />
           <Route exact path="/user" component={UserPage} />
+          <Route exact path="/wishlist" component={WishlistPage} />
         </Suspense>
       </Switch>
       <Footer />

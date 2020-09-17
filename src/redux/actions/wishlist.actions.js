@@ -14,6 +14,12 @@ export const removeItem = (item) => ({
   type: wishlistActionTypes.REMOVE_ITEM,
   payload: item,
 });
+
+export const addToCart = (item) => ({
+  type: wishlistActionTypes.ADD_TO_CART,
+  payload: item,
+});
+
 export const selectSize = (item) => ({
   type: wishlistActionTypes.SELECT_SIZE,
   payload: item,

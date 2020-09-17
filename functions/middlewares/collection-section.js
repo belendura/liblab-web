@@ -12,3 +12,15 @@ exports.checkCollectionAndSection = (req, res, next) => {
   req.body.section = section;
   return next();
 };
+
+exports.checkCollection = (req, res, next) => {
+  const path = req.url.split("/shop/")[1].trim();
+  const condition = path.split("/")[0];
+
+  if (!condition) {
+    return;
+  }
+
+  req.body.condition = condition;
+  return next();
+};

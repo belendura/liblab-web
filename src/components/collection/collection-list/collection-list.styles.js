@@ -7,7 +7,7 @@ export const CollectionListContainer = styled.div`
       ? "repeat(2, minmax(240px, 1fr))"
       : "repeat(4, minmax(240px, 1fr))"};
   object-fit: cover;
-  gap: 20px;
+  grid-gap: 20px;
   height: 95vh;
   margin: 10px 0px;
 `;

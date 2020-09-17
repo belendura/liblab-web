@@ -25,6 +25,7 @@ import {
   ShopItemDataContainer,
   ShopItemDataName,
   ShopItemDataReference,
+  ShopItemDataDescription,
   ShopItemDataPriceContainer,
   ShopItemDataPrice,
   ShopItemDataLastPrice,
@@ -36,7 +37,6 @@ import {
   ShopItemDataSizeGuideContainer,
   ShopItemDataGuideSize,
   SizeHanger,
-  ShippingInformation,
   Reviews,
   LineStyled,
 } from "./shop-item-data.styles";
@@ -83,6 +83,7 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
     <ShopItemDataContainer>
       <ShopItemDataName>{Name}</ShopItemDataName>
       <ShopItemDataReference>{Reference}</ShopItemDataReference>
+      <ShopItemDataDescription>{Description}</ShopItemDataDescription>
       <ShopItemDataPriceContainer>
         <ShopItemDataPrice sale={Sale} discounted={false}>
           {Price}EUR

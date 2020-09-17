@@ -45,23 +45,53 @@ exports.getUserDocument = async (userId) => {
   }
 };
 
-exports.getCollectionDocuments = async (collection, section) => {
+exports.getCollectionDocuments = async (condition) => {
+  const documentRefs = await firestore
+    .collection("collections")
+    .listDocuments(); //WOMEN / MEN / UNISEX
+
+  try {
+    const collectionData = documentRefs.forEach((docRef) => {
+      return docRef.listCollections().then((collections) => {
+        const collectData = collections.map(async (colRef) => {
+          // console.log("colection id", `${colRef.id}`);
+          return await colRef
+            .where(condition, "==", true)
+            .get()
+            .then((querySnapshot) => {
+              const queryData = querySnapshot.docs.map((docSnapshot) =>
+                docSnapshot.data()
+              );
+              // console.log("queryData", queryData);
+              return queryData;
+            });
+        });
+        console.log("collectData", collectData);
+        return collectData;
+      });
+    });
+    console.log("collectionData", collectionData);
+    return collectionData;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getSectionDocuments = async (collection, section) => {
   if (!collection || !section) return;
 
   const querySnapshot = await firestore
     .collection(`collections/${collection}/${section}`)
     .get();
 
-  let sectionData = [];
   try {
-    sectionData = querySnapshot.docs.map((doc) => {
+    const sectionData = querySnapshot.docs.map((doc) => {
       return doc.data();
     });
+    return sectionData;
   } catch (error) {
     throw new Error(error);
   }
-
-  return sectionData;
 };
 
 exports.updateUserCartDocument = async (user, cart) => {
@@ -143,7 +173,7 @@ exports.updateUserCartDocument = async (user, cart) => {
         console.log("filteredUserCart", filteredUserCart);
         const newUserCart = filteredUserCart.concat(filteredCart);
         console.log("newUserCart", newUserCart);
-        await cartRef.update({ cart: newUserCart });
+        await cartRef.update({ cart: newUserCart }, { merge: true });
       }
       const updatedSnapShot = await cartRef.get();
       const updatedUserCart = updatedSnapShot.data();
@@ -212,9 +242,12 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
           []
         );
 
-        // const newUserWishlist = oldUserWishlist.concat(filteredWishlist);
-        // console.log("newUserWishlist", newUserWishlist);
-        await wishlistRef.update({ wishlist: filteredWishlist }, { merge: true });
+        const newUserWishlist = oldUserWishlist.concat(filteredWishlist);
+        console.log("newUserWishlist", newUserWishlist);
+        await wishlistRef.update(
+          { wishlist: newUserWishlist },
+          { merge: true }
+        );
       }
       const updatedSnapShot = await wishlistRef.get();
       const updatedUserWishlist = updatedSnapShot.data();

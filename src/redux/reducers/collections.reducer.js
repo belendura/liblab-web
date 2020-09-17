@@ -16,7 +16,8 @@ const INITIAL_STATE = {
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case collectionsActionTypes.FETCH_COLLECTIONS_SUCCESS:
+    case collectionsActionTypes.FETCH_COLLECTION_SUCCESS:
+    case collectionsActionTypes.FETCH_SECTION_SUCCESS:
       return {
         ...state,
         section: action.payload,
@@ -36,21 +37,21 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, filteredSizes: action.payload, error: null };
     case collectionsActionTypes.FILTER_FIT:
       return { ...state, filteredFit: action.payload, error: null };
-    case collectionsActionTypes.ORDER_COLLECTIONS_PRICE_DESCENDING:
+    case collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING:
       return {
         ...state,
         ascendingOrdered: false,
         descendingOrdered: true,
         error: null,
       };
-    case collectionsActionTypes.ORDER_COLLECTIONS_PRICE_ASCENDING:
+    case collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING:
       return {
         ...state,
         ascendingOrdered: true,
         descendingOrdered: false,
         error: null,
       };
-    case collectionsActionTypes.RESET_ORDER_COLLECTIONS:
+    case collectionsActionTypes.RESET_ORDER_SECTION:
       return {
         ...state,
         ascendingOrdered: false,
@@ -75,7 +76,8 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         selectedItem: action.payload,
         error: null,
       };
-    case collectionsActionTypes.FETCH_COLLECTIONS_FAILURE:
+    case collectionsActionTypes.FETCH_COLLECTION_FAILURE:
+    case collectionsActionTypes.FETCH_SECTION_FAILURE:
       return {
         ...state,
         section: null,
@@ -84,7 +86,6 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         reducedDisplayedItems: false,
         error: action.payload,
       };
-
     default:
       return state;
   }

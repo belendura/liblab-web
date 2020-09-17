@@ -40,6 +40,7 @@ const ShopItem = ({ item, params }) => {
   const {
     Url,
     Reference,
+    Description,
     Name,
     Price,
     LastPrice,
@@ -125,7 +126,7 @@ const ShopItem = ({ item, params }) => {
       </ShopItemPicture>
       <ShopItemFooter>
         <ShopItemFooterDetails>
-          <ShopItemDescription>{Name}</ShopItemDescription>
+          <ShopItemDescription>{Description}</ShopItemDescription>
           <WishlistIcon theme="dark" size="small" item={item[displayedItem]} />
         </ShopItemFooterDetails>
         <ShopItemPriceContainer>

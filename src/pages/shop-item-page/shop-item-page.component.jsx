@@ -7,7 +7,10 @@ import { selectItem } from "../../redux/selectors/collections.selector";
 import ShopItemPictures from "../../components/shop-item-details/shop-item-pictures/shop-item-pictures.component";
 import ShopItemData from "../../components/shop-item-details/shop-item-data/shop-item-data.component";
 
-import { ShopItemPageContainer } from "./shop-item-page.styles";
+import {
+  ShopItemPageContainer,
+  ShopItemContainer,
+} from "./shop-item-page.styles";
 const ShopItemPage = () => {
   const params = useParams();
   const { reference, color } = params;
@@ -26,15 +29,17 @@ const ShopItemPage = () => {
 
   return (
     <ShopItemPageContainer>
-      {selectedItem ? (
-        <ShopItemPictures url={selectedItem[displayedItem].Url} />
-      ) : null}
-      {selectedItem ? (
-        <ShopItemData
-          item={selectedItem[displayedItem]}
-          handleDifferentColor={handleDifferentColor}
-        />
-      ) : null}
+      <ShopItemContainer>
+        {selectedItem ? (
+          <ShopItemPictures url={selectedItem[displayedItem].Url} />
+        ) : null}
+        {selectedItem ? (
+          <ShopItemData
+            item={selectedItem[displayedItem]}
+            handleDifferentColor={handleDifferentColor}
+          />
+        ) : null}
+      </ShopItemContainer>
       <div>You may also like</div>
       <div>Recent view</div>
     </ShopItemPageContainer>

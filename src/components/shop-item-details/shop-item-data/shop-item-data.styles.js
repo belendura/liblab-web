@@ -35,10 +35,6 @@ const getPriceStyles = (props) => {
   else return SalePrice;
 };
 
-// const changeArrowDirection = (props) => {
-//   props. ?
-// };
-
 export const ShopItemDataContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,6 +49,10 @@ export const ShopItemDataName = styled.span`
   font-size: 20px;
   font-weight: bold;
   margin: 10px;
+`;
+
+export const ShopItemDataDescription = styled.span`
+  padding: 10px;
 `;
 
 export const ShopItemDataReference = styled.span`
@@ -173,16 +173,6 @@ export const ShopItemDataGuideSize = styled.span`
   &:hover {
     color: gold;
   }
-`;
-
-export const DescriptionContainer = styled.div`
-  padding: 10px;
-`;
-export const FabricContainer = styled.div`
-  padding: 10px;
-`;
-export const ShippingInformation = styled.div`
-  padding: 10px;
 `;
 
 export const Reviews = styled.div`
