@@ -1,6 +1,6 @@
 import wishlistActionTypes from "../types/wishlist.types";
 
-import { toggleItem } from "../utils/wishlist.utils";
+import { updateWishlist } from "../utils/wishlist.utils";
 
 const INITIAL_STATE = {
   wishlistItems: [],
@@ -10,12 +10,18 @@ const INITIAL_STATE = {
 
 const wishlistReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case wishlistActionTypes.TOGGLE_ITEM:
+    case wishlistActionTypes.TOGGLE_WISHLIST_ITEM:
       return {
         ...state,
-        wishlistItems: toggleItem(state.wishlistItems, action.payload),
+        wishlistItems: updateWishlist(state.wishlistItems, action.payload),
       };
-
+    case wishlistActionTypes.REMOVE_ITEM_FROM_WISHLIST:
+      return {
+        ...state,
+        wishlistItems: state.wishlistItems.filter((item) => {
+          return item !== action.payload;
+        }),
+      };
     case wishlistActionTypes.SELECT_SIZE:
       return {
         ...state,
@@ -26,7 +32,6 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
         ...state,
         selectedSize: "",
       };
-
     case wishlistActionTypes.SELECT_SIZE:
       return {
         ...state,
@@ -37,7 +42,6 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
         ...state,
         selectedSize: "",
       };
-
     case wishlistActionTypes.CLEAR_WISHLIST:
       return {
         ...state,

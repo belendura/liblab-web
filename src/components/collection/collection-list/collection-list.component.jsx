@@ -1,49 +1,60 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { getOrderedFilteredSection } from "../../../helpers/collections.helpers";
+import { setSectionOrder } from "../../../redux/utils/collections.utils";
 
 import {
+  selectSection,
   selectFilteredColors,
   selectFilteredSizes,
   selectFilteredFit,
-  selectDescendingOrdered,
-  selectAscendingOrdered,
   selectFilteredSection,
-  selectReducedDisplayedItems,
-} from "../../../redux/selectors/collections.selector";
+  selectAscendingOrder,
+  selectDescendingOrder,
+  selectGridView,
+} from "../../../redux/selectors/collections.selectors";
+
+import { selectWishlistItems } from "../../../redux/selectors/wishlist.selectors";
 
 import ShopItem from "../../shop-item/shop-item.component";
 
 import { CollectionListContainer } from "./collection-list.styles";
 
 const CollectionList = ({ params }) => {
-  const filteredColors = useSelector(selectFilteredColors, shallowEqual);
-  const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
-  const filteredFit = useSelector(selectFilteredFit, shallowEqual);
-  const descendingOrdered = useSelector(selectDescendingOrdered, shallowEqual);
-  const ascendingOrdered = useSelector(selectAscendingOrdered, shallowEqual);
-  const reducedDisplayedItems = useSelector(
-    selectReducedDisplayedItems,
-    shallowEqual
-  );
+  // const filteredColors = useSelector(selectFilteredColors, shallowEqual);
+  // const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
+  // const filteredFit = useSelector(selectFilteredFit, shallowEqual);
 
-  const filteredSection = useSelector(
-    (state) =>
-      selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
-    shallowEqual
-  );
+  const gridView = useSelector(selectGridView, shallowEqual);
 
-  const orderedFilteredSection = getOrderedFilteredSection(
-    filteredSection,
-    ascendingOrdered,
-    descendingOrdered
+  const section = useSelector(selectSection, shallowEqual);
+  const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
+
+  // const filteredSection = useSelector(
+  //   (state) =>
+  //     selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
+  //   shallowEqual
+  // );
+
+  // const updatedWishlistSection = useSelector(
+  //   (state) => selectUpdatedWishlistSection(state, wishlistItems),
+  //   shallowEqual
+  // );
+
+  const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
+  const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
+
+  const updatedSection = setSectionOrder(
+    section,
+    ascendingOrder,
+    descendingOrder
   );
 
   return (
-    <CollectionListContainer reducedDisplayedItems={reducedDisplayedItems}>
-      {orderedFilteredSection
-        ? orderedFilteredSection.map((item, index) => {
+    <CollectionListContainer gridView={gridView}>
+      {/* {console.log("section in ", section)} */}
+      {updatedSection
+        ? updatedSection.map((item, index) => {
             return <ShopItem key={index} item={item} params={params} />;
           })
         : null}

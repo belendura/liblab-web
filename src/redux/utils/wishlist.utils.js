@@ -1,19 +1,4 @@
-export const toggleItem = (wishlistItems, item) => {
-  const {
-    Reference,
-    Url,
-    Name,
-    LastPrice,
-    Color,
-    Sizes,
-    NewItem,
-    Sale,
-    Price,
-    Discount,
-    AvailableUnits,
-    AvailableColors,
-  } = item;
-
+export const updateWishlist = (wishlistItems, item) => {
   const existingWishlistItem = wishlistItems.find(
     (wishlistItem) =>
       wishlistItem.Reference === item.Reference &&
@@ -32,18 +17,7 @@ export const toggleItem = (wishlistItems, item) => {
     return [
       ...wishlistItems,
       {
-        Reference: Reference,
-        Url: Url[0],
-        Name: Name,
-        Price: Price,
-        LastPrice: LastPrice,
-        Color: Color,
-        Sizes: Sizes,
-        NewItem: NewItem,
-        Discount: Discount,
-        Sale: Sale,
-        AvailableUnits: AvailableUnits,
-        AvailableColors: AvailableColors,
+        ...item,
         quantity: 1,
       },
     ];

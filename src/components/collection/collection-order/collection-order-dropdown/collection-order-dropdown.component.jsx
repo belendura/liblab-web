@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  ascendingOrder,
-  descendingOrder,
+  setAscendingOrder,
+  setDescendingOrder,
   resetOrder,
 } from "../../../../redux/actions/collections.actions";
 
@@ -14,14 +14,14 @@ import {
 
 const CollectionOrderDropDown = ({
   setVisibility,
-  ascendingOrdered,
-  descendingOrdered,
+  ascendingOrder,
+  descendingOrder,
 }) => {
   const dispatch = useDispatch();
 
   return (
     <CollectionOrderDropDownContainer onMouseLeave={() => setVisibility(false)}>
-      {(ascendingOrdered || descendingOrdered) && (
+      {(ascendingOrder || descendingOrder) && (
         <CollectionOrderText
           onClick={() => {
             setVisibility(false);
@@ -31,21 +31,21 @@ const CollectionOrderDropDown = ({
           Sort By
         </CollectionOrderText>
       )}
-      {!ascendingOrdered && (
+      {!ascendingOrder && (
         <CollectionOrderText
           onClick={() => {
             setVisibility(false);
-            dispatch(ascendingOrder());
+            dispatch(setAscendingOrder());
           }}
         >
           Price Low to High
         </CollectionOrderText>
       )}
-      {!descendingOrdered && (
+      {!descendingOrder && (
         <CollectionOrderText
           onClick={() => {
             setVisibility(false);
-            dispatch(descendingOrder());
+            dispatch(setDescendingOrder());
           }}
         >
           Price High to Low

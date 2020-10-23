@@ -1,19 +1,20 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { toggleWishlist } from "../../redux/actions/collections.actions";
+import { toggleSectionWishlist } from "../../redux/actions/collections.actions";
 
 import { WishlistContainer } from "./wishlist.styles";
 
 const WishlistIcon = ({ theme, size, item }) => {
   const dispatch = useDispatch();
-  // const { Wishlist } = item;
+  const { Wishlist } = item;
+  // console.log("Wishlist", Wishlist.toString());
   return (
     <WishlistContainer
       theme={theme}
       size={size}
-      // wishlist={Wishlist.toString()}
-      onClick={() => dispatch(toggleWishlist(item))}
+      wishlist={Wishlist.toString()}
+      onClick={() => dispatch(toggleSectionWishlist(item))}
     />
   );
 };

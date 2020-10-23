@@ -19,11 +19,6 @@ const {
   checkIfAuthenticated,
 } = require("../functions/middlewares/authenticate");
 
-const {
-  checkCollectionAndSection,
-  checkCollection,
-} = require("../functions/middlewares/collection-section");
-
 const app = express();
 
 app.use(cors());
@@ -40,8 +35,8 @@ app.get("/logout", logOut);
 
 app.post("/reset-password", resetPassword);
 
-app.get("/shop/:collection/:section", checkCollectionAndSection, fetchSection);
+app.get("/shop/:collection/:section", fetchSection);
 
-app.get("/shop/:collection", checkCollection, fetchCollection);
+app.get("/shop/:condition", fetchCollection);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

@@ -7,7 +7,7 @@ import {
   selectSectionFitOptions,
   selectFilteredColors,
   selectFilteredSizes,
-} from "../../../redux/selectors/collections.selector";
+} from "../../../redux/selectors/collections.selectors";
 
 import CollectionFilterFitOption from "./collection-filter-fit-option/collection-filter-fit-option.component";
 

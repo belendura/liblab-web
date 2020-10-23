@@ -64,7 +64,7 @@ function App() {
   }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/unisex/scrubs", SCRUBS);
+  //   addNewDocuments("collections/women/scrubs", SCRUBS);
   // }, []);
 
   return (

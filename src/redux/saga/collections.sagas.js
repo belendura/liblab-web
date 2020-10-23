@@ -3,31 +3,31 @@ import { all, call, takeLatest, put } from "redux-saga/effects";
 import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import collectionsActionTypes from "../types/collections.types";
-import wishlistActionTypes from "../types/wishlist.types";
+import { getExtendedItems } from "../utils/collections.utils";
 
 import {
-  fetchCollectionSuccess,
-  fetchCollectionFailure,
+  fetchCollectionByConditionSuccess,
+  fetchCollectionByConditionFailure,
   fetchSectionSuccess,
   fetchSectionFailure,
 } from "../actions/collections.actions";
 
-export function* fetchCollection({ payload }) {
+export function* fetchCollectionByCondition({ payload }) {
   const { condition } = payload;
 
   try {
     const response = yield axiosConfig.get(`/shop/${condition}`);
-    console.log("response", response);
-    yield put(fetchCollectionSuccess(response.data));
+    const sectionExtended = getExtendedItems(response.data);
+    yield put(fetchCollectionByConditionSuccess(sectionExtended));
   } catch (error) {
-    yield put(fetchCollectionFailure(error));
+    yield put(fetchCollectionByConditionFailure(error));
   }
 }
 
-export function* onFetchCollectionStart() {
+export function* onFetchCollectionByConditionStart() {
   yield takeLatest(
-    collectionsActionTypes.FETCH_COLLECTION_START,
-    fetchCollection
+    collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
+    fetchCollectionByCondition
   );
 }
 
@@ -35,9 +35,8 @@ export function* fetchSection({ payload }) {
   const { collection, section } = payload;
   try {
     const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
-
-    console.log("response", response);
-    yield put(fetchSectionSuccess(response.data));
+    const sectionExtended = getExtendedItems(response.data);
+    yield put(fetchSectionSuccess(sectionExtended));
   } catch (error) {
     yield put(fetchSectionFailure(error));
   }
@@ -48,5 +47,8 @@ export function* onFetchSectionStart() {
 }
 
 export function* collectionsSagas() {
-  yield all([call(onFetchCollectionStart), call(onFetchSectionStart)]);
+  yield all([
+    call(onFetchCollectionByConditionStart),
+    call(onFetchSectionStart),
+  ]);
 }

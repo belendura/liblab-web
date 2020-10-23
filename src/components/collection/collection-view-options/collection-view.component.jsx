@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  reduceDisplayedItems,
-  enlargeDisplayedItems,
+  resetGridView,
+  setGridView,
 } from "../../../redux/actions/collections.actions";
 
 import {
@@ -18,11 +18,11 @@ const CollectionViewOptions = () => {
   return (
     <CollectionViewContainer>
       <CollectionViewText>Ver</CollectionViewText>
-      <CollectionViewOption onClick={() => dispatch(reduceDisplayedItems())}>
+      <CollectionViewOption onClick={() => dispatch(resetGridView())}>
         2
       </CollectionViewOption>
       <CollectionViewSeparator />
-      <CollectionViewOption onClick={() => dispatch(enlargeDisplayedItems())}>
+      <CollectionViewOption onClick={() => dispatch(setGridView())}>
         4
       </CollectionViewOption>
     </CollectionViewContainer>

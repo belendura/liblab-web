@@ -1,23 +1,23 @@
 import wishlistActionTypes from "../types/wishlist.types";
 
-export const toggleItem = (item) => ({
-  type: wishlistActionTypes.TOGGLE_ITEM,
+export const toggleWishlistItem = (item) => ({
+  type: wishlistActionTypes.TOGGLE_WISHLIST_ITEM,
   payload: item,
 });
 
-export const addItem = (item) => ({
-  type: wishlistActionTypes.ADD_ITEM,
+export const addItemToWishlist = (item) => ({
+  type: wishlistActionTypes.ADD_ITEM_TO_WISHLIST,
   payload: { item },
 });
 
-export const removeItem = (item) => ({
-  type: wishlistActionTypes.REMOVE_ITEM,
+export const removeItemFromWishlist = (item) => ({
+  type: wishlistActionTypes.REMOVE_ITEM_FROM_WISHLIST,
   payload: item,
 });
 
-export const addToCart = (item) => ({
-  type: wishlistActionTypes.ADD_TO_CART,
-  payload: item,
+export const addFromWishlistToCart = (item, selectedSize) => ({
+  type: wishlistActionTypes.ADD_FROM_WISHLIST_TO_CART,
+  payload: { item, selectedSize },
 });
 
 export const selectSize = (item) => ({

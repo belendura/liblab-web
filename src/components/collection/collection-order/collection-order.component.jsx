@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
 import {
-  selectAscendingOrdered,
-  selectDescendingOrdered,
-} from "../../../redux/selectors/collections.selector";
+  selectAscendingOrder,
+  selectDescendingOrder,
+} from "../../../redux/selectors/collections.selectors";
 
 import CollectionOrderDropDown from "./collection-order-dropdown/collection-order-dropdown.component";
+
 import {
   CollectionOrderContainer,
   CollectionOrderText,
@@ -15,22 +16,22 @@ import {
 
 const CollectionOrder = () => {
   const [visibility, setVisibility] = useState(false);
-  const descendingOrdered = useSelector(selectDescendingOrdered, shallowEqual);
-  const ascendingOrdered = useSelector(selectAscendingOrdered, shallowEqual);
+  const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
+  const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
 
   return (
     <CollectionOrderContainer>
       <CollectionOrderText onClick={() => setVisibility(!visibility)}>
-        {!descendingOrdered && !ascendingOrdered && "Sort by"}
-        {!descendingOrdered && ascendingOrdered && "Price Low to High"}
-        {descendingOrdered && !ascendingOrdered && "Price High to Low"}
+        {!descendingOrder && !ascendingOrder && "Sort by"}
+        {!descendingOrder && ascendingOrder && "Price Low to High"}
+        {descendingOrder && !ascendingOrder && "Price High to Low"}
       </CollectionOrderText>
       <CollectionOrderIcon onClick={() => setVisibility(!visibility)} />
       {visibility && (
         <CollectionOrderDropDown
           setVisibility={setVisibility}
-          ascendingOrdered={ascendingOrdered}
-          descendingOrdered={descendingOrdered}
+          ascendingOrder={ascendingOrder}
+          descendingOrder={descendingOrder}
         />
       )}
     </CollectionOrderContainer>

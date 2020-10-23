@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { getAvailableUnits } from "../../helpers/collections.helpers";
+// import { getAvailableUnits } from "../../helpers/collections.helpers";
 
 import { selectShopItem } from "../../redux/actions/collections.actions";
 import { toggleItem } from "../../redux/actions/wishlist.actions";
@@ -74,7 +74,9 @@ const ShopItem = ({ item, params }) => {
 
   const handleDifferentColor = (event) => {
     const { id } = event.target;
-    setDisplayedItem(item.findIndex((item) => item["Color"].name === id));
+    setDisplayedItem(
+      item.findIndex((itemDisplayed) => itemDisplayed["Color"].name === id)
+    );
   };
 
   return (

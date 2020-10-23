@@ -1,5 +1,5 @@
 import collectionsActionTypes from "../types/collections.types";
-import { addToWishlist } from "../utils/collections.utils";
+import { toggleSectionWishlist } from "../utils/collections.utils";
 
 const INITIAL_STATE = {
   section: null,
@@ -7,29 +7,29 @@ const INITIAL_STATE = {
   filteredSizes: [],
   filteredFit: [],
   differentColor: {},
-  ascendingOrdered: false,
-  descendingOrdered: false,
-  reducedDisplayedItems: false,
+  gridView: false,
+  ascendingOrder: false,
+  descendingOrder: false,
   error: null,
   selectedItem: null,
 };
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case collectionsActionTypes.FETCH_COLLECTION_SUCCESS:
+    case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
     case collectionsActionTypes.FETCH_SECTION_SUCCESS:
       return {
         ...state,
         section: action.payload,
-        ascendingOrdered: false,
-        descendingOrdered: false,
-        reducedDisplayedItems: false,
+        gridView: false,
+        ascendingOrder: false,
+        descendingOrder: false,
         error: null,
       };
-    case collectionsActionTypes.TOGGLE_WISHLIST:
+    case collectionsActionTypes.TOGGLE_SECTION_WISHLIST:
       return {
         ...state,
-        section: addToWishlist(state.section, action.payload),
+section: toggleSectionWishlist(state.section, action.payload),
       };
     case collectionsActionTypes.FILTER_COLORS:
       return { ...state, filteredColors: action.payload, error: null };
@@ -37,37 +37,37 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, filteredSizes: action.payload, error: null };
     case collectionsActionTypes.FILTER_FIT:
       return { ...state, filteredFit: action.payload, error: null };
-    case collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING:
-      return {
-        ...state,
-        ascendingOrdered: false,
-        descendingOrdered: true,
-        error: null,
-      };
     case collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING:
       return {
         ...state,
-        ascendingOrdered: true,
-        descendingOrdered: false,
+        ascendingOrder: true,
+        descendingOrder: false,
+        error: null,
+      };
+    case collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING:
+      return {
+        ...state,
+        ascendingOrder: false,
+        descendingOrder: true,
         error: null,
       };
     case collectionsActionTypes.RESET_ORDER_SECTION:
       return {
         ...state,
-        ascendingOrdered: false,
-        descendingOrdered: false,
+        ascendingOrder: false,
+        descendingOrder: false,
         error: null,
       };
-    case collectionsActionTypes.REDUCE_DISPLAYED_ITEMS:
+    case collectionsActionTypes.RESET_GRID_VIEW:
       return {
         ...state,
-        reducedDisplayedItems: true,
+        gridView: false,
         error: null,
       };
-    case collectionsActionTypes.ENLARGE_DISPLAYED_ITEMS:
+    case collectionsActionTypes.SET_GRID_VIEW:
       return {
         ...state,
-        reducedDisplayedItems: false,
+        gridView: true,
         error: null,
       };
     case collectionsActionTypes.SELECT_ITEM:
@@ -81,9 +81,8 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         section: null,
-        ascendingOrdered: false,
-        descendingOrdered: true,
-        reducedDisplayedItems: false,
+        ascendingOrder: false,
+        descendingOrder: false,
         error: action.payload,
       };
     default:

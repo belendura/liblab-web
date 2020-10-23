@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { selectFilteredSizes } from "../../../../redux/selectors/collections.selector";
+import { selectFilteredSizes } from "../../../../redux/selectors/collections.selectors";
 
 import {
   CollectionFilterSizeOptionContainer,

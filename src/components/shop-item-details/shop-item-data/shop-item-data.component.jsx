@@ -12,11 +12,11 @@ import {
   selectCartHidden,
   selectSizeItem,
 } from "../../../redux/selectors/cart.selectors";
-import { selectSelectedShopItem } from "../../../redux/selectors/collections.selector";
+import { selectSelectedShopItem } from "../../../redux/selectors/collections.selectors";
 
 import Circle from "../../circle/circle.component";
 import CustomButton from "../../custom-button/custom-button.component";
-import FavIcon from "../../wishlist/wishlist.component";
+import WishlistIcon from "../../wishlist/wishlist.component";
 import SizeGuide from "../../size-guide/size-guide.component";
 import ItemDetails from "../../item-details/item-details.component";
 import SelectSize from "../../select-size/select-size.component";
@@ -25,6 +25,7 @@ import {
   ShopItemDataContainer,
   ShopItemDataName,
   ShopItemDataReference,
+  ShopItemDescriptionContainer,
   ShopItemDataDescription,
   ShopItemDataPriceContainer,
   ShopItemDataPrice,
@@ -35,8 +36,6 @@ import {
   ShopItemDataColorsOptionContainer,
   ShopItemDataColorName,
   ShopItemDataSizeGuideContainer,
-  ShopItemDataGuideSize,
-  SizeHanger,
   Reviews,
   LineStyled,
 } from "./shop-item-data.styles";
@@ -60,7 +59,6 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
     Care,
   } = item;
 
-  const [sizeGuideVisible, setSizeGuideVisible] = useState(false);
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [fabricVisible, setFabricVisible] = useState(false);
   const [careVisible, setCareVisible] = useState(false);
@@ -83,7 +81,10 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
     <ShopItemDataContainer>
       <ShopItemDataName>{Name}</ShopItemDataName>
       <ShopItemDataReference>{Reference}</ShopItemDataReference>
-      <ShopItemDataDescription>{Description}</ShopItemDataDescription>
+      <ShopItemDescriptionContainer>
+        <ShopItemDataDescription>{Description}</ShopItemDataDescription>
+        <WishlistIcon theme="dark" size="medium" item={item} />
+      </ShopItemDescriptionContainer>
       <ShopItemDataPriceContainer>
         <ShopItemDataPrice sale={Sale} discounted={false}>
           {Price}EUR
@@ -119,13 +120,7 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
       </ShopItemDataColorsContainer>
       <SelectSize sizes={Sizes} selectedSize={selectedSize} />
       <ShopItemDataSizeGuideContainer>
-        <SizeHanger />
-        <ShopItemDataGuideSize onClick={() => setSizeGuideVisible(true)}>
-          Size Guide
-        </ShopItemDataGuideSize>
-        {sizeGuideVisible ? (
-          <SizeGuide setSizeGuideVisible={setSizeGuideVisible} />
-        ) : null}
+        <SizeGuide />
       </ShopItemDataSizeGuideContainer>
       <CustomButton
         onClick={() => {

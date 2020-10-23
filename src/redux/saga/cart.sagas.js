@@ -13,14 +13,18 @@ export function* onSignOutSucces() {
   yield takeLatest(userActionTypes.SIGN_OUT_SUCCESS, clearCartOnSignOut);
 }
 
-export function* addItemToCart({ payload }) {
-  yield put(addItem(payload));
+export function* addItemFromWishlistToCart({ payload }) {
+  const { item, selectedSize } = payload;
+  yield put(addItem(item, selectedSize));
 }
 
-export function* onAddToCart() {
-  yield takeLatest(wishlistActionTypes.ADD_TO_CART, addItemToCart);
+export function* onAddFromWishlistToCart() {
+  yield takeLatest(
+    wishlistActionTypes.ADD_FROM_WISHLIST_TO_CART,
+    addItemFromWishlistToCart
+  );
 }
 
 export function* cartSagas() {
-  yield all([call(onSignOutSucces), call(onAddToCart)]);
+  yield all([call(onSignOutSucces), call(onAddFromWishlistToCart)]);
 }

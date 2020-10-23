@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { ReactComponent as BasketLogo } from "../../../assets/icons/basket-logo.svg";
+
 const AvailableSize = css`
   color: black;
   font-weight: bold;
@@ -138,6 +140,23 @@ export const WishlistItemNewText = styled.span`
   color: white;
 `;
 
-export const WishlistItemColorsContainer = styled.div`
+export const WishlistItemColorsBasketContainer = styled.div`
   margin: 5px 0;
+  border: thin solid red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const WishlistItemBasketContainer = styled.div`
+  margin-left: auto;
+`;
+
+export const WishlistItemBasket = styled(BasketLogo)`
+  cursor: pointer;
+  width: 20px;
+
+  &:hover {
+    fill: gold;
+  }
 `;

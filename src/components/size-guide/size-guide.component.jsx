@@ -1,34 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 
-import { SizeGuideContainer } from "./size-guide.styles";
+import SizeGuideDetails from "./size-guide-details/size-guide-details.component";
+import {
+  SizeGuideContainer,
+  SizeHanger,
+  SizeGuideIcon,
+} from "./size-guide.styles";
 
-const SizeGuide = ({ setSizeGuideVisible }) => {
-  const wrapperRef = useRef(null);
-
-  const handleHideDropdown = (event) => {
-    if (event.key === "Escape" || event.key === " ") {
-      setSizeGuideVisible(false);
-    }
-  };
-
-  const handleClickOutside = (event) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-      setSizeGuideVisible(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, false);
-    document.addEventListener("keydown", handleHideDropdown, false);
-    return () => {
-      document.removeEventListener("keydown", handleHideDropdown, false);
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, []);
-
+const SizeGuide = () => {
+  const [sizeGuideVisible, setSizeGuideVisible] = useState(false);
   return (
-    <SizeGuideContainer ref={wrapperRef} onClick={() => handleClickOutside()}>
-      <p>SIZE GUIDE CONTAINER</p>
+    <SizeGuideContainer>
+      <SizeHanger />
+      <SizeGuideIcon onClick={() => setSizeGuideVisible(true)}>
+        Size Guide
+      </SizeGuideIcon>
+      {sizeGuideVisible ? (
+        <SizeGuideDetails setSizeGuideVisible={setSizeGuideVisible} />
+      ) : null}
     </SizeGuideContainer>
   );
 };

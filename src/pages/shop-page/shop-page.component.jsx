@@ -19,7 +19,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     dispatch(fetchSectionStart(collection, section));
-  }, [fetchSectionStart]);
+  }, []);
 
   return (
     <ShopPageContainer>

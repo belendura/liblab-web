@@ -17,25 +17,22 @@ import {
   ShopItemNew,
 } from "./shop-item-preview.styles";
 
-const ShopItemPreview = ({ url, description, price, newItem }) => {
+const ShopItemPreview = ({ item }) => {
+  const { Url, Description, LastPrice, New } = item;
   const history = useHistory();
   const dispatch = useDispatch();
 
   return (
-    <ShopItemContainer onClick={() => history.push(`/shop/${description}`)}>
-      <ShopItemPicture url={url} />
-      <ShopItemWishlistContainer>
-        <WishlistIcon
-          theme="clear"
-          size="small"
-          onClick={() => dispatch(toggleItem())}
-        />
-      </ShopItemWishlistContainer>
+    <ShopItemContainer onClick={() => history.push(`/shop/${Description}`)}>
+      <ShopItemPicture url={Url[0]} />
       <ShopItemFooter>
-        <ShopItemNew newItem={newItem}> NEW</ShopItemNew>
+        <ShopItemNew newItem={New}> NEW</ShopItemNew>
+        <ShopItemWishlistContainer>
+          <WishlistIcon theme="dark" size="small" item={item} />
+        </ShopItemWishlistContainer>
         <ShopItemFooterDetails>
-          <ShopItemDescription>{description}</ShopItemDescription>
-          <ShopItemPrice>{price}EUR</ShopItemPrice>
+          <ShopItemDescription>{Description}</ShopItemDescription>
+          <ShopItemPrice>{LastPrice}EUR</ShopItemPrice>
         </ShopItemFooterDetails>
       </ShopItemFooter>
     </ShopItemContainer>

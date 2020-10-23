@@ -51,6 +51,12 @@ export const ShopItemDataName = styled.span`
   margin: 10px;
 `;
 
+export const ShopItemDescriptionContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 export const ShopItemDataDescription = styled.span`
   padding: 10px;
 `;

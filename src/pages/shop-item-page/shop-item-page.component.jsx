@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { selectItem } from "../../redux/selectors/collections.selector";
+import { selectItem } from "../../redux/selectors/collections.selectors";
 
 import ShopItemPictures from "../../components/shop-item-details/shop-item-pictures/shop-item-pictures.component";
 import ShopItemData from "../../components/shop-item-details/shop-item-data/shop-item-data.component";

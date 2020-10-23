@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-import { getAvailableUnits } from "../../../helpers/collections.helpers";
-import { addToCart } from "../../../redux/actions/wishlist.actions";
+import { selectSizeItem } from "../../../redux/selectors/wishlist.selectors";
+
+import {
+  addFromWishlistToCart,
+  removeItemFromWishlist,
+  selectSize,
+} from "../../../redux/actions/wishlist.actions";
 
 import CustomButton from "../../custom-button/custom-button.component";
 import Circle from "../../circle/circle.component";
+import SizeGuide from "../../size-guide/size-guide.component";
 
 import {
   WishlistItemContainer,
@@ -21,16 +27,18 @@ import {
   WishlistItemSizes,
   WishlistItemSizesItemContainer,
   WishlistItemNewText,
-  WishlistItemColorsContainer,
+  WishlistItemColorsBasketContainer,
+  WishlistItemBasketContainer,
+  WishlistItemBasket,
 } from "./wishlist-item.styles";
 
 const WishlistItem = ({ item }) => {
   const [visibility, setVisibility] = useState(false);
   const dispatch = useDispatch();
 
+  const selectedSize = useSelector(selectSizeItem, shallowEqual);
   const {
     Url,
-    Reference,
     Name,
     LastPrice,
     Discount,
@@ -39,7 +47,6 @@ const WishlistItem = ({ item }) => {
     Price,
     Sizes,
     Color,
-    AvailableColors,
     AvailableUnits,
   } = item;
 
@@ -48,7 +55,7 @@ const WishlistItem = ({ item }) => {
   return (
     <WishlistItemContainer>
       <WishlistItemPicture
-        url={Url}
+        url={Url[0]}
         onMouseEnter={() => setVisibility(true)}
         onMouseLeave={() => setVisibility(false)}
       >
@@ -71,12 +78,17 @@ const WishlistItem = ({ item }) => {
               {Sizes.map((item, index) => {
                 const { units, size } = item;
                 return (
-                  <WishlistItemSizes key={index} units={units}>
+                  <WishlistItemSizes
+                    key={index}
+                    units={units}
+                    onClick={() => dispatch(selectSize(size))}
+                  >
                     {size}
                   </WishlistItemSizes>
                 );
               })}
             </WishlistItemSizesItemContainer>
+            <SizeGuide />
           </WishlistItemSizesContainer>
         )}
       </WishlistItemPicture>
@@ -96,14 +108,20 @@ const WishlistItem = ({ item }) => {
             </WishlistItemPrice>
           )}
         </WishlistItemPriceContainer>
-        <WishlistItemColorsContainer>
+        <WishlistItemColorsBasketContainer>
           <Circle code={code} name={name} color={Color} size={"medium"} />
-        </WishlistItemColorsContainer>
+          <WishlistItemBasketContainer>
+            <WishlistItemBasket
+              onClick={() => dispatch(removeItemFromWishlist(item))}
+            />
+          </WishlistItemBasketContainer>
+        </WishlistItemColorsBasketContainer>
       </WishlistItemFooter>
       <CustomButton
         onClick={() => {
-          setVisibility(true);
-          dispatch(addToCart(item));
+          !selectedSize && setVisibility(true);
+          selectedSize && setVisibility(false);
+          selectedSize && dispatch(addFromWishlistToCart(item, selectedSize));
         }}
       >
         ADD TO CART

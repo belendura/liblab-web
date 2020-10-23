@@ -48,30 +48,43 @@ exports.getUserDocument = async (userId) => {
 exports.getCollectionDocuments = async (condition) => {
   const documentRefs = await firestore
     .collection("collections")
-    .listDocuments(); //WOMEN / MEN / UNISEX
+    .listDocuments();
+
+  const collectionsRefs = await documentRefs.reduce(
+    async (prevoiusPromise, docRef) => {
+      let accum = await prevoiusPromise;
+      const res = await docRef.listCollections();
+
+      accum = [...accum, ...res];
+
+      return accum;
+    },
+    Promise.resolve([])
+  );
 
   try {
-    const collectionData = documentRefs.forEach((docRef) => {
-      return docRef.listCollections().then((collections) => {
-        const collectData = collections.map(async (colRef) => {
-          // console.log("colection id", `${colRef.id}`);
-          return await colRef
-            .where(condition, "==", true)
-            .get()
-            .then((querySnapshot) => {
-              const queryData = querySnapshot.docs.map((docSnapshot) =>
-                docSnapshot.data()
-              );
-              // console.log("queryData", queryData);
-              return queryData;
-            });
-        });
-        console.log("collectData", collectData);
-        return collectData;
-      });
-    });
-    console.log("collectionData", collectionData);
-    return collectionData;
+    const queryItems = await Promise.all(
+      collectionsRefs.map(async (colRef) => {
+        return await colRef
+          .where(condition, "==", true)
+          .get()
+          .then((querySnapshot) => {
+            const queryItems = querySnapshot.docs.map((docSnapshot) =>
+              docSnapshot.data()
+            );
+            return queryItems;
+          });
+      })
+    );
+
+    const collectionsItems = queryItems.reduce((accum, item) => {
+      return [...accum, ...item];
+    }, []);
+    const filteredCollectionsItems = collectionsItems.reduce((accum, item) => {
+      return accum.includes(item) ? accum : [...accum, item];
+    }, []);
+
+    return filteredCollectionsItems;
   } catch (error) {
     throw new Error(error);
   }
@@ -187,8 +200,6 @@ exports.updateUserCartDocument = async (user, cart) => {
 
 exports.updateUserWishlistDocument = async (user, wishlist) => {
   if (!user) return wishlist;
-  console.log("wishlist", wishlist);
-  console.log("user", user);
 
   const wishlistRef = firestore.doc(`wishlists/${user.id}`);
 

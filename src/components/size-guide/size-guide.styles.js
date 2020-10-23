@@ -1,14 +1,23 @@
 import styled from "styled-components";
 
+import { ReactComponent as HangerLogo } from "../../assets/icons/hanger.svg";
+
 export const SizeGuideContainer = styled.div`
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  margin-top: -50px;
-  margin-left: -50px;
-  width: 50vw;
-  height: 70vh;
-  background-color: white;
-  z-index: 5;
-  border: thin solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+export const SizeHanger = styled(HangerLogo)`
+  width: 24px;
+  height: auto;
+`;
+
+export const SizeGuideIcon = styled.span`
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 10px;
+
+  &:hover {
+    color: gold;
+  }
 `;

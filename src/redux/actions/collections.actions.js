@@ -1,17 +1,17 @@
 import collectionsActionTypes from "../types/collections.types";
 
-export const fetchCollectionStart = (condition) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_START,
+export const fetchCollectionByConditionStart = (condition) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
   payload: { condition },
 });
 
-export const fetchCollectionSuccess = (collection) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_SUCCESS,
+export const fetchCollectionByConditionSuccess = (collection) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS,
   payload: collection,
 });
 
-export const fetchCollectionFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_FAILURE,
+export const fetchCollectionByConditionFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE,
   payload: error,
 });
 
@@ -45,11 +45,11 @@ export const filterFit = (fit) => ({
   payload: fit,
 });
 
-export const ascendingOrder = () => ({
+export const setAscendingOrder = () => ({
   type: collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING,
 });
 
-export const descendingOrder = () => ({
+export const setDescendingOrder = () => ({
   type: collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING,
 });
 
@@ -57,12 +57,12 @@ export const resetOrder = () => ({
   type: collectionsActionTypes.RESET_ORDER_SECTION,
 });
 
-export const reduceDisplayedItems = () => ({
-  type: collectionsActionTypes.REDUCE_DISPLAYED_ITEMS,
+export const resetGridView = () => ({
+  type: collectionsActionTypes.RESET_GRID_VIEW,
 });
 
-export const enlargeDisplayedItems = () => ({
-  type: collectionsActionTypes.ENLARGE_DISPLAYED_ITEMS,
+export const setGridView = () => ({
+  type: collectionsActionTypes.SET_GRID_VIEW,
 });
 
 export const selectShopItem = (item) => ({
@@ -70,7 +70,7 @@ export const selectShopItem = (item) => ({
   payload: item,
 });
 
-export const toggleWishlist = (item) => ({
-  type: collectionsActionTypes.TOGGLE_WISHLIST,
+export const toggleSectionWishlist = (item) => ({
+  type: collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
   payload: item,
 });

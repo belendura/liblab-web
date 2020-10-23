@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { fetchCollectionStart } from "../../redux/actions/collections.actions";
+import { fetchCollectionByConditionStart } from "../../redux/actions/collections.actions";
 
 import CollectionTitle from "../../components/collection/collection-title/collection-title.component";
 import BestSellersList from "../../components/best-sellers/best-sellers-list/best-sellers-list.component";
@@ -21,8 +21,8 @@ const HomePage = () => {
   const url = "best-sellers";
 
   useEffect(() => {
-    dispatch(fetchCollectionStart("BestSeller"));
-  }, [fetchCollectionStart]);
+    dispatch(fetchCollectionByConditionStart("BestSeller"));
+  }, []);
 
   return (
     <HomePageContainer>

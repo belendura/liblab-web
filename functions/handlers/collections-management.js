@@ -5,7 +5,8 @@ const {
 
 //Shop Collection/Section
 exports.fetchSection = async (req, res) => {
-  const { collection, section } = req.body;
+  // const { collection, section } = req.body;
+  const { collection, section } = req.params;
 
   try {
     const sectionData = await getSectionDocuments(collection, section);
@@ -20,11 +21,10 @@ exports.fetchSection = async (req, res) => {
 
 //Shop Collection
 exports.fetchCollection = async (req, res) => {
-  const { condition } = req.body;
+  const { condition } = req.params;
   try {
-    const collectionData = await getCollectionDocuments(condition);
-    console.log("collectionData", collectionData);
-    return res.status(200).send(collectionData);
+    const collectionItems = await getCollectionDocuments(condition);
+    return res.status(200).send(collectionItems);
   } catch (error) {
     return res
       .status(500)

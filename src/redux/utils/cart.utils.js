@@ -1,6 +1,6 @@
 export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
-  console.log("cartItems", cartItems);
   console.log("cartItemToAdd", cartItemToAdd);
+  console.log("selectedSize", selectedSize);
   const { Reference, Url, Name, LastPrice, Color } = cartItemToAdd;
 
   const existingCartItem = cartItems.find(

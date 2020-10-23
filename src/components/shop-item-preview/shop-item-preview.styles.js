@@ -7,6 +7,7 @@ export const ShopItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  padding-bottom: 5px;
 `;
 
 export const ShopItemPicture = styled.div`
@@ -39,9 +40,11 @@ export const ShopItemPrice = styled.span`
 `;
 
 export const ShopItemWishlistContainer = styled.div`
+  ${"" /* display: flex;
+  justify-content: space-between; */}
   position: absolute;
-  bottom: 45px;
-  right: 15px;
+  bottom: 25px;
+  right: 10px;
 `;
 
 export const ShopItemNew = styled.span`

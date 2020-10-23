@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { selectFilteredColors } from "../../../../redux/selectors/collections.selector";
+import { selectFilteredColors } from "../../../../redux/selectors/collections.selectors";
 
 import {
   CollectionFilterColorOptionContainer,
