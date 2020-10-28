@@ -10,6 +10,7 @@ import { getToken } from "./helpers/axiosTokens.helpers";
 import { checkUserSession } from "./redux/actions/user.actions";
 import { selectCurrentUser } from "./redux/selectors/user.selectors";
 
+import Banner from "./components/banner/banner.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
 
@@ -70,6 +71,7 @@ function App() {
   return (
     <div>
       <GlobalStyle />
+      <Banner />
       <Header />
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>

@@ -1,8 +1,8 @@
 import collectionsActionTypes from "../types/collections.types";
 
-export const fetchCollectionByConditionStart = (condition) => ({
+export const fetchCollectionByConditionStart = (condition, wishlistItems) => ({
   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
-  payload: { condition },
+  payload: { condition, wishlistItems },
 });
 
 export const fetchCollectionByConditionSuccess = (collection) => ({
@@ -15,9 +15,9 @@ export const fetchCollectionByConditionFailure = (error) => ({
   payload: error,
 });
 
-export const fetchSectionStart = (collection, section) => ({
+export const fetchSectionStart = (collection, section, wishlistItems) => ({
   type: collectionsActionTypes.FETCH_SECTION_START,
-  payload: { collection, section },
+  payload: { collection, section, wishlistItems },
 });
 
 export const fetchSectionSuccess = (section) => ({

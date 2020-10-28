@@ -3,7 +3,10 @@ import { all, call, takeLatest, put } from "redux-saga/effects";
 import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import collectionsActionTypes from "../types/collections.types";
-import { getExtendedItems } from "../utils/collections.utils";
+import {
+  getExtendedItems,
+  updateSectionWishlist,
+} from "../utils/collections.utils";
 
 import {
   fetchCollectionByConditionSuccess,
@@ -13,12 +16,16 @@ import {
 } from "../actions/collections.actions";
 
 export function* fetchCollectionByCondition({ payload }) {
-  const { condition } = payload;
+  const { condition, wishlistItems } = payload;
 
   try {
     const response = yield axiosConfig.get(`/shop/${condition}`);
-    const sectionExtended = getExtendedItems(response.data);
-    yield put(fetchCollectionByConditionSuccess(sectionExtended));
+    const updatedSectionWishlist = updateSectionWishlist(
+      response.data,
+      wishlistItems
+    );
+    const extendedSection = getExtendedItems(updatedSectionWishlist);
+    yield put(fetchCollectionByConditionSuccess(extendedSection));
   } catch (error) {
     yield put(fetchCollectionByConditionFailure(error));
   }
@@ -32,11 +39,16 @@ export function* onFetchCollectionByConditionStart() {
 }
 
 export function* fetchSection({ payload }) {
-  const { collection, section } = payload;
+  const { collection, section, wishlistItems } = payload;
   try {
     const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
-    const sectionExtended = getExtendedItems(response.data);
-    yield put(fetchSectionSuccess(sectionExtended));
+    const updatedSectionWishlist = updateSectionWishlist(
+      response.data,
+      wishlistItems
+    );
+    // console.log("updatedSectionWishlist", updatedSectionWishlist);
+    const extendedSection = getExtendedItems(updatedSectionWishlist);
+    yield put(fetchSectionSuccess(extendedSection));
   } catch (error) {
     yield put(fetchSectionFailure(error));
   }

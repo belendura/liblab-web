@@ -7,29 +7,26 @@ import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg
 import { ReactComponent as UserLogo } from "../../assets/icons/user-logo.svg";
 import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
-export const HeaderContainer = styled.div`
-  height: 70px;
+export const HeaderContainer = styled.nav`
   width: 100%;
   display: flex;
-  margin-top: 20px;
+  position: fixed;
+  border: thin solid black;
+  margin: 0;
 
-  @media screen and (max-width: 800px) {
-    height: 60px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
+   @media screen and (max-width: 600px) {
+    padding: 0;
 `;
 
 export const HeaderLogoContainer = styled(Link)`
-  width: 80px;
+  width: 60%;
   padding: 10px;
-  border: 2px black dotted;
-  margin-right: 20px;
+  border: thin solid black;
 
-  @media screen and (max-width: 800px) {
+  ${"" /* @media only screen and (max-width: 600px) {
     width: 50px;
     padding: 0;
-  }
+  } */}
 `;
 
 export const LibLabLogo = styled(LibLab_Logo)`
@@ -39,7 +36,7 @@ export const LibLabLogo = styled(LibLab_Logo)`
 export const HeaderShopContainer = styled.div`
   width: 30%;
   display: flex;
-  border: 2px black dotted;
+  border: thin solid black;
 `;
 
 export const HeaderShopLink = styled(Link)`
@@ -66,7 +63,7 @@ export const HeaderUserContainer = styled.div`
   align-items: center;
   margin-left: auto;
   width: 30%;
-  border: 2px black dotted;
+  border: thin solid black;
 `;
 
 export const HeaderSearchContainer = styled.div`

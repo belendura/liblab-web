@@ -30,7 +30,6 @@ const getExtendedSection = (section) => {
         LastPrice: getSalePrice(item["Price"], item["Discount"]),
         AvailableColors: getAvailableColors(section, item["Name"]),
         AvailableUnits: getAvailableUnits(item["Sizes"]),
-        Wishlist: false,
       },
     ]);
   }, []);
@@ -63,31 +62,28 @@ export const getExtendedItems = (section) => {
   return newItems;
 };
 
-export const updateSectionWishlist = (wishlistItems, item) => {
-  wishlistItems.length &&
-    wishlistItems.map((wishlistItem) => {
-      if (
-        wishlistItem["Reference"] === item["Reference"] &&
-        wishlistItem["Color"] === item["Color"]
-      )
-        item["Wishlist"] = true;
-    });
-  return item["Wishlist"];
+export const updateSectionWishlist = (section, wishlistItems) => {
+  const updatedSection = section.reduce((accumulator, sectionItem) => {
+    sectionItem["Wishlist"] = false;
+
+    wishlistItems.length &&
+      wishlistItems.map((wishlistItem) => {
+        if (
+          wishlistItem["Name"] === sectionItem["Name"] &&
+          wishlistItem["Color"].name === sectionItem["Color"].name
+        ) {
+          sectionItem["Wishlist"] = true;
+        }
+      });
+
+    accumulator.push(sectionItem);
+    return accumulator;
+  }, []);
+
+  return updatedSection;
 };
 
-// export const toggleSectionWishlist = (section, item) => {
-//   const newSection = section.map((sectionItem) => {
-//     return sectionItem.Reference === item.Reference &&
-//       sectionItem.Color === item.Color
-//       ? { ...sectionItem, Wishlist: !sectionItem.Wishlist }
-//       : sectionItem;
-//   });
-//   console.log("newSection", newSection);
-//   return newSection;
-// };
-
 export const toggleSectionWishlist = (section, item) => {
-  console.log("item", item);
   const newSection = section.map((sectionItem) => {
     if (sectionItem.length > 1) {
       const indexItem = sectionItem.findIndex((findItem) => {
@@ -135,4 +131,64 @@ export const setSectionOrder = (section, ascendingOrder, descendingOrder) => {
       return j[0].LastPrice - i[0].LastPrice;
     });
   return updatedSection;
+};
+
+export const setSectionColorsFilter = (section, colors) => {
+  return (
+    (!colors.length && section) ||
+    (colors.length &&
+      section.reduce((accu, sectionItem) => {
+        colors.includes(sectionItem[0].Color.name) && accu.push(sectionItem);
+        return accu;
+      }, []))
+  );
+};
+
+export const setSectionSizesFilter = (section, sizes) => {
+  return (
+    (!sizes.length && section) ||
+    (sizes.length &&
+      section.reduce((accu, sectionItem) => {
+        sectionItem[0].Sizes.map((sizeItem) => {
+          return sizes.includes(sizeItem.size) && accu.push(sectionItem);
+        });
+        return accu;
+      }, []))
+  );
+};
+
+export const setSectionFitFilter = (section, fit) => {
+  return (
+    (!fit.length && section) ||
+    (fit.length &&
+      section.reduce((accu, sectionItem) => {
+        fit.includes(sectionItem[0].Fit) && accu.push(sectionItem);
+        return accu;
+      }, []))
+  );
+};
+
+export const setSectionFilter = (section, colors, sizes, fit) => {
+  const filteredColors = setSectionColorsFilter(section, colors);
+  const filteredSizes = setSectionSizesFilter(section, sizes);
+  const filteredFit = setSectionFitFilter(section, fit);
+
+  const newSection = filteredSizes.reduce((accu, sizeItem) => {
+    filteredColors.filter((colorItem) => {
+      if (sizeItem[0].Color.name === colorItem[0].Color.name)
+        filteredFit.filter((fitItem) => {
+          if (
+            sizeItem[0].Color.name === colorItem[0].Color.name &&
+            fitItem[0].Fit === sizeItem[0].Fit
+          )
+            accu.push(sizeItem);
+        });
+    });
+    return accu;
+  }, []);
+  const data = newSection.reduce((accum, item) => {
+    return accum.includes(item) ? accum : [...accum, item];
+  }, []);
+
+  return data;
 };

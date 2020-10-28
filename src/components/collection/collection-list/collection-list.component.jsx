@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { setSectionOrder } from "../../../redux/utils/collections.utils";
+import {
+  setSectionOrder,
+  setSectionFilter,
+} from "../../../redux/utils/collections.utils";
 
 import {
   selectSection,
@@ -14,45 +17,38 @@ import {
   selectGridView,
 } from "../../../redux/selectors/collections.selectors";
 
-import { selectWishlistItems } from "../../../redux/selectors/wishlist.selectors";
-
 import ShopItem from "../../shop-item/shop-item.component";
 
 import { CollectionListContainer } from "./collection-list.styles";
 
 const CollectionList = ({ params }) => {
-  // const filteredColors = useSelector(selectFilteredColors, shallowEqual);
-  // const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
-  // const filteredFit = useSelector(selectFilteredFit, shallowEqual);
-
-  const gridView = useSelector(selectGridView, shallowEqual);
-
-  const section = useSelector(selectSection, shallowEqual);
-  const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
-
-  // const filteredSection = useSelector(
-  //   (state) =>
-  //     selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
-  //   shallowEqual
-  // );
-
-  // const updatedWishlistSection = useSelector(
-  //   (state) => selectUpdatedWishlistSection(state, wishlistItems),
-  //   shallowEqual
-  // );
+  const [updatedSection, setUpdatedSection] = useState(null);
+  const filteredColors = useSelector(selectFilteredColors, shallowEqual);
+  const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
+  const filteredFit = useSelector(selectFilteredFit, shallowEqual);
 
   const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
   const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
+  const gridView = useSelector(selectGridView, shallowEqual);
+  const section = useSelector(selectSection, shallowEqual);
 
-  const updatedSection = setSectionOrder(
-    section,
-    ascendingOrder,
-    descendingOrder
+  const filteredSection = useSelector(
+    (state) =>
+      selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
+    shallowEqual
   );
+
+  useEffect(() => {
+    setUpdatedSection(
+      () =>
+        filteredSection &&
+        setSectionOrder(filteredSection, ascendingOrder, descendingOrder)
+    );
+  }, [filteredSection, ascendingOrder, descendingOrder]);
 
   return (
     <CollectionListContainer gridView={gridView}>
-      {/* {console.log("section in ", section)} */}
+      {console.log("updatedSection", updatedSection)}
       {updatedSection
         ? updatedSection.map((item, index) => {
             return <ShopItem key={index} item={item} params={params} />;

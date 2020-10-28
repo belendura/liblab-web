@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
 import { fetchSectionStart } from "../../redux/actions/collections.actions";
 
 import CollectionCover from "../../components/collection/collection-cover/collection-cover.component";
@@ -17,8 +18,10 @@ const ShopPage = () => {
   const params = useParams();
   const { collection, section } = params;
 
+  const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
+
   useEffect(() => {
-    dispatch(fetchSectionStart(collection, section));
+    dispatch(fetchSectionStart(collection, section, wishlistItems));
   }, []);
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
+import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
 import { fetchCollectionByConditionStart } from "../../redux/actions/collections.actions";
 
 import CollectionTitle from "../../components/collection/collection-title/collection-title.component";
@@ -19,9 +20,12 @@ const HomePage = () => {
   const title = "Best Sellers";
   const description = "Shop our most wanted items.";
   const url = "best-sellers";
+  const condition = title;
+
+  const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
 
   useEffect(() => {
-    dispatch(fetchCollectionByConditionStart("BestSeller"));
+    dispatch(fetchCollectionByConditionStart(condition, wishlistItems));
   }, []);
 
   return (

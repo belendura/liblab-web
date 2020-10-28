@@ -1,28 +1,27 @@
 import styled from "styled-components";
 
 export const HomePageContainer = styled.div`
-  margin: auto;
   overflow-y: hidden;
 `;
 
 export const CarruselContainer = styled.div`
   height: 300px;
-  border: 2px dotted black;
+  border: thick solid pink;
 `;
 
 export const BestSellersContainer = styled.div`
   height: 300px;
-  border: 2px dotted black;
+  border: thin solid black;
   display: flex;
   justify-content: space-between;
 `;
 
 export const CollectionsContainer = styled.div`
   height: 300px;
-  border: 2px dotted black;
+  border: thin solid black;
 `;
 
 export const InstagramContainer = styled.div`
   height: 300px;
-  border: 2px dotted black;
+  border: thin solid black;
 `;
