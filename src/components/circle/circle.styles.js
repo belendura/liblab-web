@@ -1,37 +1,38 @@
 import styled, { css } from "styled-components";
 
-const mediumSizeStyled = css`
-  height: 20px;
-  width: 20px;
+const mediumSizeStyles = css`
+  height: 12px;
+  width: 12px;
 `;
 
-const selectedColorStyled = css`
-  border: 1px solid black;
+const selectedColorStyles = css`
+  border: thin solid black;
 `;
 const getSizeStyles = (props) => {
-  return props.size === "medium" ? mediumSizeStyled : null;
+  return props.size === "medium" ? mediumSizeStyles : null;
 };
 
 const getSelectedColorStyles = (props) => {
-  return props.color.name === props.name ? selectedColorStyled : null;
+  return props.color.name === props.name ? selectedColorStyles : null;
 };
 
-export const CircleContainer = styled.div`
-  ${getSelectedColorStyles};
-  margin-right: 10px;
-  cursor: pointer;
-  height: 30px;
-  width: 30px;
+export const Container = styled.div`
+  height: 16px;
+  width: 16px;
   border-radius: 50%;
-  position: relative;
+  margin-right: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  ${getSelectedColorStyles};
 `;
 
-export const CircleStyled = styled.span`
-  ${getSizeStyles};
-  background-color: ${(props) => `${props.code}`};
+export const CircleMenu = styled.span`
   border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  top: 4px;
-  left: 4px;
+  background-color: ${(props) => `${props.code}`};
+
+  ${getSizeStyles};
 `;

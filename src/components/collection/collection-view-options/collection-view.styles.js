@@ -1,24 +1,24 @@
 import styled from "styled-components";
 
-export const CollectionViewContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
-  width: 60px;
-  margin 10px;
-  border: 1px dotted black;
+  height: 100%;
+  padding: 5px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const CollectionViewText = styled.span`
-  font-size: 14px;
+export const Title = styled.span`
+  font-size: 10px;
 `;
 
-export const CollectionViewOption = styled.span`
-  font-size: 14px;
-  cursor: pointer;
+export const ViewOption = styled.span`
+  font-size: 10px;
   margin: 0 5px;
+  cursor: pointer;
 `;
 
-export const CollectionViewSeparator = styled.div`
+export const Separator = styled.div`
   border-left: 1px solid black;
-  height: 18px;
+  height: 14px;
 `;

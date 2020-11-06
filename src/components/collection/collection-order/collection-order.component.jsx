@@ -8,11 +8,7 @@ import {
 
 import CollectionOrderDropDown from "./collection-order-dropdown/collection-order-dropdown.component";
 
-import {
-  CollectionOrderContainer,
-  CollectionOrderText,
-  CollectionOrderIcon,
-} from "./collection-order.styles";
+import { Container, OrderOption, Arrow } from "./collection-order.styles";
 
 const CollectionOrder = () => {
   const [visibility, setVisibility] = useState(false);
@@ -20,13 +16,13 @@ const CollectionOrder = () => {
   const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
 
   return (
-    <CollectionOrderContainer>
-      <CollectionOrderText onClick={() => setVisibility(!visibility)}>
+    <Container>
+      <OrderOption onClick={() => setVisibility(!visibility)}>
         {!descendingOrder && !ascendingOrder && "Sort by"}
         {!descendingOrder && ascendingOrder && "Price Low to High"}
         {descendingOrder && !ascendingOrder && "Price High to Low"}
-      </CollectionOrderText>
-      <CollectionOrderIcon onClick={() => setVisibility(!visibility)} />
+      </OrderOption>
+      <Arrow onClick={() => setVisibility(!visibility)} />
       {visibility && (
         <CollectionOrderDropDown
           setVisibility={setVisibility}
@@ -34,7 +30,7 @@ const CollectionOrder = () => {
           descendingOrder={descendingOrder}
         />
       )}
-    </CollectionOrderContainer>
+    </Container>
   );
 };
 

@@ -51,11 +51,11 @@ exports.getCollectionDocuments = async (condition) => {
     .listDocuments();
 
   const collectionsRefs = await documentRefs.reduce(
-    async (prevoiusPromise, docRef) => {
-      let accum = await prevoiusPromise;
-      const res = await docRef.listCollections();
+    async (previousPromise, docRef) => {
+      let accum = await previousPromise;
+      const colRef = await docRef.listCollections();
 
-      accum = [...accum, ...res];
+      accum = [...accum, ...colRef];
 
       return accum;
     },
@@ -85,6 +85,37 @@ exports.getCollectionDocuments = async (condition) => {
     }, []);
 
     return filteredCollectionsItems;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getShopMenu = async () => {
+  const documentRefs = await firestore
+    .collection(`collections`)
+    .listDocuments();
+
+  try {
+    const shopMenu = await documentRefs.reduce(
+      async (previousPromise, docRef) => {
+        let accum = await previousPromise;
+        const colRef = await docRef
+          .listCollections()
+          .then((collections) =>
+            collections.map((collection) => collection.id)
+          );
+        const id = docRef.id;
+        console.log("id", id);
+        accum[id] = colRef;
+
+        return accum;
+      },
+      Promise.resolve({})
+    );
+
+    console.log("shopMenu", shopMenu);
+
+    return shopMenu;
   } catch (error) {
     throw new Error(error);
   }

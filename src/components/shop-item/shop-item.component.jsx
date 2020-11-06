@@ -2,31 +2,28 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-// import { getAvailableUnits } from "../../helpers/collections.helpers";
+import { getAvailableUnits } from "../../redux/utils/collections.utils";
 
 import { selectShopItem } from "../../redux/actions/collections.actions";
-import { toggleItem } from "../../redux/actions/wishlist.actions";
 
 import Circle from "../circle/circle.component";
-import WishlistIcon from "../wishlist/wishlist.component";
+import Wishlist from "../wishlist/wishlist.component";
+import SizesDropUp from "./sizes-dropup/sizes-dropup.component";
 
 import {
-  ShopItemContainer,
-  ShopItemPicture,
-  ShopItemFooter,
-  ShopItemFooterDetails,
-  ShopItemDescription,
-  ShopItemPriceContainer,
-  ShopItemPrice,
-  ShopItemNew,
-  ShopItemSizesContainer,
-  ShopItemSizesTitle,
-  ShopItemSizes,
-  ShopItemSizesItemContainer,
-  ShopItemNewText,
-  ShopItemArrowLeft,
-  ShopItemArrowRight,
-  ShopItemColorsContainer,
+  Container,
+  PictureContainer,
+  Picture,
+  Footer,
+  FooterDetails,
+  ItemDescription,
+  PriceContainer,
+  ItemPrice,
+  UpperInfoContainer,
+  UpperInfo,
+  ArrowLeft,
+  ArrowRight,
+  ColorsContainer,
 } from "./shop-item.styles";
 
 const ShopItem = ({ item, params }) => {
@@ -45,7 +42,7 @@ const ShopItem = ({ item, params }) => {
     Price,
     LastPrice,
     Sizes,
-    NewItem,
+    New,
     Sale,
     Discount,
     Color,
@@ -53,12 +50,12 @@ const ShopItem = ({ item, params }) => {
     AvailableUnits,
   } = item[displayedItem];
 
-  // useEffect(() => {
-  //   const checkSoldOut = () => {
-  //     const availableUnits = getAvailableUnits(Sizes);
-  //     return availableUnits;
-  //   };
-  // }, [Sizes]);
+  useEffect(() => {
+    const checkSoldOut = () => {
+      const availableUnits = getAvailableUnits(Sizes);
+      return availableUnits;
+    };
+  }, [Sizes]);
 
   const displayedViewForward = (event) => {
     displayedView < Url.length - 1
@@ -80,70 +77,58 @@ const ShopItem = ({ item, params }) => {
   };
 
   return (
-    <ShopItemContainer
+    <Container
       //onClick={() => history.push(`/shop/${description}`)}
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
     >
-      <ShopItemArrowLeft onClick={displayedViewBackward} />
-
-      <ShopItemArrowRight onClick={displayedViewForward} />
-      <ShopItemPicture
-        onClick={() => {
-          dispatch(selectShopItem(item[displayedItem]));
-          history.push(
-            `/shop/${collection}/${section}/${Name}-${Reference}/${Color.name}`
-            // `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
-          );
-        }}
-        url={Url[displayedView]}
-      >
-        {Sale && (
-          <ShopItemNew sale={Sale} new={NewItem}>
-            <ShopItemNewText>{Discount}%</ShopItemNewText>
-          </ShopItemNew>
-        )}
-        {NewItem && (
-          <ShopItemNew sale={Sale} new={NewItem}>
-            <ShopItemNewText>NEW</ShopItemNewText>
-          </ShopItemNew>
-        )}
-        {visibility && (
-          <ShopItemSizesContainer>
-            <ShopItemSizesTitle>
-              {AvailableUnits ? "Add size" : "Sold OUT"}
-            </ShopItemSizesTitle>
-            <ShopItemSizesItemContainer>
-              {Sizes.map((item, index) => {
-                const { units, size } = item;
-                return (
-                  <ShopItemSizes key={index} units={units}>
-                    {size}
-                  </ShopItemSizes>
-                );
-              })}
-            </ShopItemSizesItemContainer>
-          </ShopItemSizesContainer>
-        )}
-      </ShopItemPicture>
-      <ShopItemFooter>
-        <ShopItemFooterDetails>
-          <ShopItemDescription>{Description}</ShopItemDescription>
-          <WishlistIcon theme="dark" size="small" item={item[displayedItem]} />
-        </ShopItemFooterDetails>
-        <ShopItemPriceContainer>
+      {" "}
+      <PictureContainer>
+        {visibility && <ArrowLeft onClick={displayedViewBackward} />}
+        {visibility && <ArrowRight onClick={displayedViewForward} />}
+        <Picture
+          onClick={() => {
+            dispatch(selectShopItem(item[displayedItem]));
+            history.push(
+              `/shop/${collection}/${section}/${Name}-${Reference}/${Color.name}`
+              // `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
+            );
+          }}
+          url={Url[displayedView]}
+        >
+          {Sale && (
+            <UpperInfoContainer sale={Sale} new={New}>
+              <UpperInfo>{Discount}%</UpperInfo>
+            </UpperInfoContainer>
+          )}
+          {New && (
+            <UpperInfoContainer sale={Sale} new={New}>
+              <UpperInfo>NEW</UpperInfo>
+            </UpperInfoContainer>
+          )}
+          {visibility && (
+            <SizesDropUp sizes={Sizes} availableUnits={AvailableUnits} />
+          )}
+        </Picture>
+      </PictureContainer>
+      <Footer>
+        <FooterDetails>
+          <ItemDescription>{Description}</ItemDescription>
+          <Wishlist theme="dark" size="small" item={item[displayedItem]} />
+        </FooterDetails>
+        <PriceContainer>
           {
-            <ShopItemPrice sale={Sale} discounted={false}>
+            <ItemPrice sale={Sale} discounted={false}>
               {Price}EUR
-            </ShopItemPrice>
+            </ItemPrice>
           }
           {Sale && (
-            <ShopItemPrice sale={Sale} discounted={true}>
+            <ItemPrice sale={Sale} discounted={true}>
               {LastPrice}EUR
-            </ShopItemPrice>
+            </ItemPrice>
           )}
-        </ShopItemPriceContainer>
-        <ShopItemColorsContainer>
+        </PriceContainer>
+        <ColorsContainer>
           {AvailableColors.map((item, index) => {
             const { code, name } = item;
             return (
@@ -157,9 +142,9 @@ const ShopItem = ({ item, params }) => {
               />
             );
           })}
-        </ShopItemColorsContainer>
-      </ShopItemFooter>
-    </ShopItemContainer>
+        </ColorsContainer>
+      </Footer>
+    </Container>
   );
 };
 

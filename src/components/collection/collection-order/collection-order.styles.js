@@ -1,23 +1,22 @@
 import styled from "styled-components";
 import { ReactComponent as OrderLogo } from "../../../assets/icons/arrow-down.svg";
 
-export const CollectionOrderContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   cursor: pointer;
-  width: 15vw;
-  margin: 10px;
-  border: 1px dashed black;
+  height: 100%;
+  padding: 5px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const CollectionOrderText = styled.span`
-  padding: 10px 0;
-  font-weight: bold;
-  font-size: 12px;
+export const OrderOption = styled.span`
+  font-size: 10px;
+  margin-right: 10px;
 `;
 
-export const CollectionOrderIcon = styled(OrderLogo)`
-  width: 20px;
-  padding: 10px 0;
+export const Arrow = styled(OrderLogo)`
+  width: 10px;
+  ${"" /* border: thin solid blue; */}
 `;

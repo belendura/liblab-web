@@ -19,7 +19,7 @@ import {
 
 import ShopItem from "../../shop-item/shop-item.component";
 
-import { CollectionListContainer } from "./collection-list.styles";
+import { Container } from "./collection-list.styles";
 
 const CollectionList = ({ params }) => {
   const [updatedSection, setUpdatedSection] = useState(null);
@@ -47,14 +47,13 @@ const CollectionList = ({ params }) => {
   }, [filteredSection, ascendingOrder, descendingOrder]);
 
   return (
-    <CollectionListContainer gridView={gridView}>
-      {console.log("updatedSection", updatedSection)}
+    <Container gridView={gridView}>
       {updatedSection
         ? updatedSection.map((item, index) => {
             return <ShopItem key={index} item={item} params={params} />;
           })
         : null}
-    </CollectionListContainer>
+    </Container>
   );
 };
 

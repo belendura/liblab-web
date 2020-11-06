@@ -1,16 +1,21 @@
 import React, { useEffect, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch, shallowEqual, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-// import { SCRUBS } from "./firebase/scrubs";
+import "./styles/slick-theme.css";
+import "./styles/slick.css";
+
+// import { SCRUB_TOPS } from "./firebase/scrub-tops";
 // import { addNewDocuments } from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
 
 import { checkUserSession } from "./redux/actions/user.actions";
+import { fetchShopMenuStart } from "./redux/actions/collections.actions";
+
 import { selectCurrentUser } from "./redux/selectors/user.selectors";
 
-import Banner from "./components/banner/banner.component";
+import Ticker from "./components/ticker/ticker.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
 
@@ -64,14 +69,18 @@ function App() {
     console.log("token", token);
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchShopMenuStart());
+  }, []);
+
   // useEffect(() => {
-  //   addNewDocuments("collections/women/scrubs", SCRUBS);
+  //   addNewDocuments("collections/women/scrub-tops", SCRUB_TOPS);
   // }, []);
 
   return (
     <div>
       <GlobalStyle />
-      <Banner />
+      <Ticker />
       <Header />
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>

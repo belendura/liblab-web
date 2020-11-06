@@ -4,10 +4,11 @@ export const ShopItemPageContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  border: thick solid purple;
 `;
 
 export const ShopItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  border: thick solid pink;
 `;

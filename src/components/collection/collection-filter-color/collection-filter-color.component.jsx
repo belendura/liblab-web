@@ -11,9 +11,9 @@ import { filterColors } from "../../../redux/actions/collections.actions";
 import CollectionFilterColorOption from "./collection-filter-color-option/collection-filter-color-option.component";
 
 import {
-  CollectionFilterColorContainer,
-  CollectionFilterColorTitle,
-  CollectionFilterColorOptionContainer,
+  Container,
+  Title,
+  OptionsContainer,
 } from "./collection-filter-color.styles";
 
 const CollectionFilterColor = () => {
@@ -42,9 +42,9 @@ const CollectionFilterColor = () => {
   };
 
   return (
-    <CollectionFilterColorContainer>
-      <CollectionFilterColorTitle>Color</CollectionFilterColorTitle>
-      <CollectionFilterColorOptionContainer>
+    <Container>
+      <Title>Color</Title>
+      <OptionsContainer>
         {colorOptions
           ? colorOptions.map((colorItem, index) => {
               return (
@@ -57,8 +57,8 @@ const CollectionFilterColor = () => {
               );
             })
           : null}
-      </CollectionFilterColorOptionContainer>
-    </CollectionFilterColorContainer>
+      </OptionsContainer>
+    </Container>
   );
 };
 

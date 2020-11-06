@@ -7,25 +7,21 @@ import {
 } from "../../../redux/actions/collections.actions";
 
 import {
-  CollectionViewContainer,
-  CollectionViewText,
-  CollectionViewOption,
-  CollectionViewSeparator,
+  Container,
+  Title,
+  ViewOption,
+  Separator,
 } from "./collection-view.styles";
 
 const CollectionViewOptions = () => {
   const dispatch = useDispatch();
   return (
-    <CollectionViewContainer>
-      <CollectionViewText>Ver</CollectionViewText>
-      <CollectionViewOption onClick={() => dispatch(resetGridView())}>
-        2
-      </CollectionViewOption>
-      <CollectionViewSeparator />
-      <CollectionViewOption onClick={() => dispatch(setGridView())}>
-        4
-      </CollectionViewOption>
-    </CollectionViewContainer>
+    <Container>
+      <Title>View</Title>
+      <ViewOption onClick={() => dispatch(resetGridView())}>2</ViewOption>
+      <Separator />
+      <ViewOption onClick={() => dispatch(setGridView())}>4</ViewOption>
+    </Container>
   );
 };
 

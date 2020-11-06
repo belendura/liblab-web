@@ -1,5 +1,19 @@
 import collectionsActionTypes from "../types/collections.types";
 
+export const fetchShopMenuStart = () => ({
+  type: collectionsActionTypes.FETCH_SHOP_MENU_START,
+});
+
+export const fetchShopMenuSuccess = (menu) => ({
+  type: collectionsActionTypes.FETCH_SHOP_MENU_SUCCESS,
+  payload: menu,
+});
+
+export const fetchShopMenuFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_SHOP_MENU_FAILURE,
+  payload: error,
+});
+
 export const fetchCollectionByConditionStart = (condition, wishlistItems) => ({
   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
   payload: { condition, wishlistItems },

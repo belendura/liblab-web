@@ -1,17 +1,17 @@
 import React from "react";
 
-import { CircleContainer, CircleStyled } from "./circle.styles";
+import { Container, CircleMenu } from "./circle.styles";
 
 const Circle = ({ code, name, color, size, handleDifferentColor }) => {
   return (
-    <CircleContainer color={color} name={name}>
-      <CircleStyled
+    <Container color={color} name={name}>
+      <CircleMenu
         code={code}
         size={size}
         id={name}
         onClick={handleDifferentColor}
       />
-    </CircleContainer>
+    </Container>
   );
 };
 

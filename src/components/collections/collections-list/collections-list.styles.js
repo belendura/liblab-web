@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-export const CollectionsListContainer = styled.div`
-  display: flex;
-  padding: 10px;
+export const Container = styled.div`
+  height: 70vh;
+  width: 95%;
   display: flex;
   justify-content: space-between;
-  margin: 0 50px;
+  align-items: center;
+  padding: 10px;
+  ${"" /* border: thin solid green; */}
 `;

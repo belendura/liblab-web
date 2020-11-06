@@ -11,6 +11,7 @@ const {
 } = require("./handlers/user-management");
 
 const {
+  fetchShopMenu,
   fetchCollection,
   fetchSection,
 } = require("./handlers/collections-management");
@@ -34,6 +35,8 @@ app.post("/register", createUser);
 app.get("/logout", logOut);
 
 app.post("/reset-password", resetPassword);
+
+app.get("/shop-menu", fetchShopMenu);
 
 app.get("/shop/:collection/:section", fetchSection);
 

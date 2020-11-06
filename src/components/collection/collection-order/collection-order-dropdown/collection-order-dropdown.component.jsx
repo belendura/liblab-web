@@ -7,10 +7,7 @@ import {
   resetOrder,
 } from "../../../../redux/actions/collections.actions";
 
-import {
-  CollectionOrderDropDownContainer,
-  CollectionOrderText,
-} from "./collection-order-dropdown.styles";
+import { Container, OrderOption } from "./collection-order-dropdown.styles";
 
 const CollectionOrderDropDown = ({
   setVisibility,
@@ -20,38 +17,38 @@ const CollectionOrderDropDown = ({
   const dispatch = useDispatch();
 
   return (
-    <CollectionOrderDropDownContainer onMouseLeave={() => setVisibility(false)}>
+    <Container onMouseLeave={() => setVisibility(false)}>
       {(ascendingOrder || descendingOrder) && (
-        <CollectionOrderText
+        <OrderOption
           onClick={() => {
             setVisibility(false);
             dispatch(resetOrder());
           }}
         >
           Sort By
-        </CollectionOrderText>
+        </OrderOption>
       )}
       {!ascendingOrder && (
-        <CollectionOrderText
+        <OrderOption
           onClick={() => {
             setVisibility(false);
             dispatch(setAscendingOrder());
           }}
         >
           Price Low to High
-        </CollectionOrderText>
+        </OrderOption>
       )}
       {!descendingOrder && (
-        <CollectionOrderText
+        <OrderOption
           onClick={() => {
             setVisibility(false);
             dispatch(setDescendingOrder());
           }}
         >
           Price High to Low
-        </CollectionOrderText>
+        </OrderOption>
       )}
-    </CollectionOrderDropDownContainer>
+    </Container>
   );
 };
 

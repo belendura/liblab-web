@@ -1,38 +1,36 @@
 import styled from "styled-components";
 
-export const CollectionFilterFitOptionContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
 `;
 
-export const CollectionFilterFitOptionInput = styled.input`
+export const BoxInput = styled.input`
   display: none;
 `;
 
-export const Icon = styled.svg`
-  fill: none;
-  stroke: white;
+export const FitBox = styled.svg`
+  stroke: black;
   stroke-width: 4px;
-  margin-bottom: 4px;
+  fill: none;
+  margin-bottom: 6px;
 `;
 
-export const CollectionFilterFitOptionStyled = styled.div`
-  display: inline-block;
-  width: 16px;
-  height: 16px;
+export const FitBoxContainer = styled.div`
+  width: 12px;
+  height: 12px;
   border: 1px solid black;
-  background: ${(props) => (props.checked ? "#2196F3" : "#eee")};
-  border-radius: 3px;
-  transition: all 150ms;
+  background: #eee;
+  border-radius: 1px;
 
-  ${Icon} {
+  ${FitBox} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
   }
 `;
 
-export const CollectionFilterFitOptionLabel = styled.label`
-  tex-transform: lowercase;
-  font-size: 14px;
-  padding: 5px;
+export const BoxLabel = styled.label`
+  font-size: 10px;
+  text-transform: lowercase;
+  padding: 2.5px;
 `;

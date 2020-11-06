@@ -1,56 +1,58 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const ShopDropDownContainer = styled.div`
+export const Container = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  height: auto;
-  width: 100vw;
+  top: 50px;
   display: flex;
   justify-content: space-between;
   background-color: white;
-  top: 110px;
-  z-index: 5;
-`;
-
-export const MenuContainer = styled.div`
-  width: 40vw;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid blue;
   padding: 10px;
+  z-index: 5;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const CollectionOverviewContainer = styled.div`
-  width: 60vw;
+export const CollectionsContainer = styled.div`
+  width: 40%;
   display: flex;
   justify-content: space-between;
-  margin: 0 20px;
-  padding: 0 30px;
-  border: 1px black dashed;
+  padding: 10px;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const CollectionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 0 10px;
+  ${"" /* border: thin solid green; */}
 `;
 
 export const CollectionLink = styled(Link)`
   font-weight: bold;
+  font-size: 12px;
   padding: 10px 0;
+  text-transform: uppercase;
 
   &:hover {
     color: gold;
   }
 `;
 
-export const CategoryLink = styled(Link)`
-  font-size: 14px;
-  padding: 10px 0;
+export const SectionLink = styled(Link)`
+  font-size: 12px;
+  padding: 5px 0;
 
   &:hover {
     color: gold;
   }
+`;
+
+export const CollectionOverviewContainer = styled.div`
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  ${"" /* border: thin solid black; */}
 `;

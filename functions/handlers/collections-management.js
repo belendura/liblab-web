@@ -1,16 +1,26 @@
 const {
+  getShopMenu,
   getCollectionDocuments,
   getSectionDocuments,
 } = require("../helpers/firestore");
 
+//Menu Collection/Section
+exports.fetchShopMenu = async (req, res) => {
+  try {
+    const shopMenu = await getShopMenu();
+    return res.status(200).send(shopMenu);
+    return;
+  } catch (error) {
+    return res.status(500).send(`Error getting shop menu ${error}`);
+  }
+};
+
 //Shop Collection/Section
 exports.fetchSection = async (req, res) => {
-  // const { collection, section } = req.body;
   const { collection, section } = req.params;
 
   try {
     const sectionData = await getSectionDocuments(collection, section);
-
     return res.status(200).send(sectionData);
   } catch (error) {
     return res

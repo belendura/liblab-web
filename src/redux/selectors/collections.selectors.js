@@ -4,6 +4,10 @@ import { setSectionFilter } from "../utils/collections.utils";
 
 const selectCollection = (state) => state.collections;
 
+export const selectShopMenu = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.shopMenu : null)
+);
 export const selectSection = createSelector([selectCollection], (collections) =>
   collections ? collections.section : null
 );

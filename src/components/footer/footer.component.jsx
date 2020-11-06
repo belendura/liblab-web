@@ -1,26 +1,26 @@
 import React from "react";
 
 import {
-  FooterContainer,
-  FooterTopContainer,
+  Container,
+  TopContainer,
   SectionsContainer,
   SectionTitle,
   SectionItem,
-  FooterCopyRightContainer,
-  FooterCopyRight,
-  FooterBottomLine,
-  FooterBottomContainer,
+  CopyRightContainer,
+  CopyRight,
+  Line,
+  BottomContainer,
   SocialMediaContainer,
-  TwitterLogoStyled,
-  InstagramLogoStyled,
-  FacebookLogoStyled,
-  PinterestLogoStyled,
+  TwitterMenu,
+  InstagramMenu,
+  FacebookMenu,
+  PinterestMenu,
   LanguageContainer,
 } from "./footer.styles";
 const Footer = () => {
   return (
-    <FooterContainer>
-      <FooterTopContainer>
+    <Container>
+      <TopContainer>
         <SectionsContainer>
           <SectionTitle>Company</SectionTitle>
           <SectionItem to="/pages/about us">About us</SectionItem>
@@ -47,26 +47,26 @@ const Footer = () => {
             Returns and Exchanges
           </SectionItem>
         </SectionsContainer>
-      </FooterTopContainer>
-      <FooterBottomLine />
-      <FooterBottomContainer>
-        <FooterCopyRightContainer>
-          <FooterCopyRight>
+      </TopContainer>
+      <Line />
+      <BottomContainer>
+        <CopyRightContainer>
+          <CopyRight>
             &copy; 2020 Lib-Lab Company, Inc. All Rights Reserved.
-          </FooterCopyRight>
-        </FooterCopyRightContainer>
+          </CopyRight>
+        </CopyRightContainer>
         <SocialMediaContainer>
-          <TwitterLogoStyled />
-          <FacebookLogoStyled />
-          <InstagramLogoStyled />
-          <PinterestLogoStyled />
+          <TwitterMenu />
+          <FacebookMenu />
+          <InstagramMenu />
+          <PinterestMenu />
         </SocialMediaContainer>
 
         <LanguageContainer>
           <div>ESP</div>
         </LanguageContainer>
-      </FooterBottomContainer>
-    </FooterContainer>
+      </BottomContainer>
+    </Container>
   );
 };
 

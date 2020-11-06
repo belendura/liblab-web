@@ -12,9 +12,9 @@ import {
 import CollectionFilterFitOption from "./collection-filter-fit-option/collection-filter-fit-option.component";
 
 import {
-  CollectionFilterFitContainer,
-  CollectionFilterFitTitle,
-  CollectionFilterFitOptionContainer,
+  Container,
+  Title,
+  OptionsContainer,
 } from "./collection-filter-fit.styles";
 
 const CollectionFilterFit = () => {
@@ -44,9 +44,9 @@ const CollectionFilterFit = () => {
   };
 
   return (
-    <CollectionFilterFitContainer>
-      <CollectionFilterFitTitle>Fit</CollectionFilterFitTitle>
-      <CollectionFilterFitOptionContainer>
+    <Container>
+      <Title>Fit</Title>
+      <OptionsContainer>
         {fitOptions
           ? fitOptions.map((fitItem, index) => (
               <label key={index}>
@@ -57,8 +57,8 @@ const CollectionFilterFit = () => {
               </label>
             ))
           : null}
-      </CollectionFilterFitOptionContainer>
-    </CollectionFilterFitContainer>
+      </OptionsContainer>
+    </Container>
   );
 };
 

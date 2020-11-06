@@ -21,7 +21,7 @@ export const SearchBoxLink = styled(Link)`
 `;
 
 export const Search = styled(SearchLogo)`
-  height: 35px;
+  width: 45px;
 `;
 
 export const CloseMenu = styled(CloseLogo)`

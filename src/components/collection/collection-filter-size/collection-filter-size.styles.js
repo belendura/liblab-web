@@ -1,26 +1,22 @@
 import styled from "styled-components";
 
-export const CollectionFilterContainer = styled.div`
+export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  margin: 10px;
+  ${"" /* border: 1px dashed black; */}
 `;
 
-export const CollectionFilterSizeContainer = styled.div`
-  display: flex;
- flex-direction: column; 
-  width: 180px;; 
-  margin 10px;
-  border: 1px dashed black;
-`;
-
-export const CollectionFilterSizeTitle = styled.span`
+export const Title = styled.span`
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 12px;
-  padding: 10px;
+  font-size: 10px;
+  margin-bottom: 10px;
 `;
 
-export const CollectionFilterSizeOptionContainer = styled.div`
+export const OptionContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  ${"" /* border: thin solid blue; */}
 `;

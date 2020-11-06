@@ -2,15 +2,15 @@ import styled, { css } from "styled-components";
 import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
 
 const Small = css`
-  width: 20px;
+  width: 14px;
 `;
 
 const Medium = css`
-  width: 35px;
+  width: 20px;
 `;
 
 const Large = css`
-  width: 35px;
+  width: 30px;
 `;
 
 const Clear = css`
@@ -37,7 +37,7 @@ const getColorStyles = (props) => {
   else if (props.wishlist === "true") return WishListAdded;
 };
 
-export const WishlistContainer = styled(FavLogo)`
+export const Container = styled(FavLogo)`
   ${getSizeStyles};
   ${getColorStyles};
 

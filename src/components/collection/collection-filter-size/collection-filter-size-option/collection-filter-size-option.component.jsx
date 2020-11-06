@@ -4,11 +4,11 @@ import { useSelector, shallowEqual } from "react-redux";
 import { selectFilteredSizes } from "../../../../redux/selectors/collections.selectors";
 
 import {
-  CollectionFilterSizeOptionContainer,
-  CollectionFilterSizeOptionInput,
-  CollectionFilterSizeOptionStyled,
-  CollectionFilterSizeOptionLabel,
-  Icon,
+  Container,
+  BoxInput,
+  SizeBoxContainer,
+  BoxLabel,
+  SizeBox,
 } from "./collection-filter-size-option.styles";
 
 const CollectionFilterSizeOption = ({ id, handleChange }) => {
@@ -27,19 +27,15 @@ const CollectionFilterSizeOption = ({ id, handleChange }) => {
   };
 
   return (
-    <CollectionFilterSizeOptionContainer>
-      <CollectionFilterSizeOptionInput
-        type="checkBox"
-        id={id}
-        onChange={handleOptionChange}
-      />
-      <CollectionFilterSizeOptionStyled checked={checked}>
-        <Icon viewBox="0 0 24 24">
+    <Container>
+      <BoxInput type="checkBox" id={id} onChange={handleOptionChange} />
+      <SizeBoxContainer checked={checked}>
+        <SizeBox viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
-        </Icon>
-      </CollectionFilterSizeOptionStyled>
-      <CollectionFilterSizeOptionLabel>{id}</CollectionFilterSizeOptionLabel>
-    </CollectionFilterSizeOptionContainer>
+        </SizeBox>
+      </SizeBoxContainer>
+      <BoxLabel>{id}</BoxLabel>
+    </Container>
   );
 };
 

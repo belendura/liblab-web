@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
 
 export const WishlistMenuContainer = styled.div`
-  width: 45px;
   position: relative;
   display: flex;
   align-items: center;
@@ -12,8 +11,8 @@ export const WishlistMenuContainer = styled.div`
 `;
 
 export const Wishlist = styled(FavLogo)`
-  width: 35px;
-
+  width: 45px;
+  padding: 10px;
   &:hover {
     fill: gold;
   }

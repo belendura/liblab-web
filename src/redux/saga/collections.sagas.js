@@ -9,11 +9,26 @@ import {
 } from "../utils/collections.utils";
 
 import {
+  fetchShopMenuSuccess,
+  fetchShopMenuFailure,
   fetchCollectionByConditionSuccess,
   fetchCollectionByConditionFailure,
   fetchSectionSuccess,
   fetchSectionFailure,
 } from "../actions/collections.actions";
+
+export function* fetchShopMenu() {
+  try {
+    const response = yield axiosConfig.get(`/shop-menu`);
+    yield put(fetchShopMenuSuccess(response.data));
+  } catch (error) {
+    yield put(fetchShopMenuFailure(error));
+  }
+}
+
+export function* onFetchShopMenuStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_SHOP_MENU_START, fetchShopMenu);
+}
 
 export function* fetchCollectionByCondition({ payload }) {
   const { condition, wishlistItems } = payload;
@@ -60,6 +75,7 @@ export function* onFetchSectionStart() {
 
 export function* collectionsSagas() {
   yield all([
+    call(onFetchShopMenuStart),
     call(onFetchCollectionByConditionStart),
     call(onFetchSectionStart),
   ]);

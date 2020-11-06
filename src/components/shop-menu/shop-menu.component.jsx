@@ -2,20 +2,17 @@ import React, { useState } from "react";
 
 import ShopDropDown from "./shop-dropdown/shop-dropdown.component";
 
-import { ShopMenuContainer, ShopLink } from "./shop-menu.styles";
+import { Container, ShopLink } from "./shop-menu.styles";
 
-const ShopMenu = () => {
-  const [visibility, setVisibility] = useState(false);
+const ShopMenu = ({ visibility, setVisibility }) => {
+  // const [visibility, setVisibility] = useState(false);
 
   return (
     <div>
-      <ShopMenuContainer
-        onMouseEnter={() => setVisibility(true)}
-        onMouseLeave={() => setVisibility(false)}
-      >
-        <ShopLink to="/shop/women/scrubs">SHOP</ShopLink>
+      <Container onMouseEnter={() => setVisibility(true)}>
+        <ShopLink to="/shop/women/scrub-tops">SHOP</ShopLink>
         {visibility && <ShopDropDown />}
-      </ShopMenuContainer>
+      </Container>
     </div>
   );
 };

@@ -4,7 +4,7 @@ const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
-const getAvailableUnits = (sizes) => {
+export const getAvailableUnits = (sizes) => {
   const availableUnits = sizes.reduce((accumulator, sizeItem) => {
     return (accumulator += sizeItem.units);
   }, 0);

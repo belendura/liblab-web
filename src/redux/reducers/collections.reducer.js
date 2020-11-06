@@ -2,12 +2,13 @@ import collectionsActionTypes from "../types/collections.types";
 import { toggleSectionWishlist } from "../utils/collections.utils";
 
 const INITIAL_STATE = {
+  shopMenu: null,
   section: null,
   filteredColors: [],
   filteredSizes: [],
   filteredFit: [],
-  differentColor: {},
-  gridView: false,
+  // differentColor: {},
+  gridgridView: false,
   ascendingOrder: false,
   descendingOrder: false,
   error: null,
@@ -16,6 +17,12 @@ const INITIAL_STATE = {
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case collectionsActionTypes.FETCH_SHOP_MENU_SUCCESS:
+      return {
+        ...state,
+        shopMenu: action.payload,
+        error: null,
+      };
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
     case collectionsActionTypes.FETCH_SECTION_SUCCESS:
       return {
@@ -29,7 +36,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
     case collectionsActionTypes.TOGGLE_SECTION_WISHLIST:
       return {
         ...state,
-section: toggleSectionWishlist(state.section, action.payload),
+        section: toggleSectionWishlist(state.section, action.payload),
       };
     case collectionsActionTypes.FILTER_COLORS:
       return { ...state, filteredColors: action.payload, error: null };
@@ -76,6 +83,7 @@ section: toggleSectionWishlist(state.section, action.payload),
         selectedItem: action.payload,
         error: null,
       };
+    case collectionsActionTypes.FETCH_SHOP_MENU_FAILURE:
     case collectionsActionTypes.FETCH_COLLECTION_FAILURE:
     case collectionsActionTypes.FETCH_SECTION_FAILURE:
       return {

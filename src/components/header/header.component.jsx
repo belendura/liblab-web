@@ -11,22 +11,23 @@ import WishlistMenu from "../wishlist-menu/wishlist-menu.component";
 import CartDropdown from "../cart-menu/cart-dropdown/cart-dropdown.component";
 
 import {
-  HeaderContainer,
-  LibLabLogo,
-  HeaderLogoContainer,
-  HeaderShopContainer,
-  HeaderShopLink,
-  InstagramMenu,
-  HeaderUserContainer,
-  HeaderSearchContainer,
-  HeaderSearch,
-  HeaderUser,
-  HeaderUserLogged,
-  CloseMenu,
+  NavContainer,
+  LibLabContainer,
+  LibLab,
+  ShopContainer,
+  LinkContainer,
+  ShopLink,
+  Instagram,
+  UserContainer,
+  Search,
+  User,
+  UserLogged,
+  Close,
 } from "./header.styles";
 
 const Header = () => {
   const [searchVisibility, setSearchVisibility] = useState(false);
+  const [visibility, setVisibility] = useState(false);
   const history = useHistory();
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
   const selectedCartDropdownHidden = useSelector(
@@ -34,22 +35,31 @@ const Header = () => {
     shallowEqual
   );
   return (
-    <HeaderContainer>
-      <HeaderLogoContainer to="/">
-        <LibLabLogo />
-      </HeaderLogoContainer>
-      <HeaderShopContainer>
-        <ShopMenu />
-        <HeaderShopLink to="/about">ABOUT</HeaderShopLink>
-        <HeaderShopLink to="/shop/sale">SALE</HeaderShopLink>
-        <HeaderShopLink to="/contact">CONTACT</HeaderShopLink>
-
-        <InstagramMenu onClick={() => history.push("/instagram")} />
-      </HeaderShopContainer>
-      <HeaderUserContainer>
-        <HeaderSearchContainer>
+    <NavContainer>
+      <LibLabContainer to="/">
+        <LibLab />
+      </LibLabContainer>
+      <ShopContainer>
+        <LinkContainer onMouseLeave={() => setVisibility(false)}>
+          <ShopMenu visibility={visibility} setVisibility={setVisibility} />
+        </LinkContainer>
+        <LinkContainer>
+          <ShopLink to="/about">ABOUT</ShopLink>
+        </LinkContainer>
+        <LinkContainer>
+          <ShopLink to="/shop/sale">SALE</ShopLink>
+        </LinkContainer>
+        <LinkContainer>
+          <ShopLink to="/contact">CONTACT</ShopLink>
+        </LinkContainer>
+        <LinkContainer>
+          <Instagram onClick={() => history.push("/instagram")} />
+        </LinkContainer>
+      </ShopContainer>
+      <UserContainer>
+        <LinkContainer>
           {searchVisibility ? (
-            <CloseMenu
+            <Close
               onClick={() => {
                 console.log("history", history);
                 history.push("/");
@@ -57,34 +67,40 @@ const Header = () => {
               }}
             />
           ) : (
-            <HeaderSearch
+            <Search
               onClick={() => {
                 history.push("/search");
                 setSearchVisibility(true);
               }}
             />
           )}
-        </HeaderSearchContainer>
-        {currentUser ? (
-          <HeaderUserLogged
-            onClick={() => {
-              history.push("/user");
-            }}
-          >
-            {currentUser.displayName}
-          </HeaderUserLogged>
-        ) : (
-          <HeaderUser
-            onClick={() => {
-              history.push("/login");
-            }}
-          />
-        )}
-        <WishlistMenu />
-        <CartMenu />
-        {!selectedCartDropdownHidden && <CartDropdown />}
-      </HeaderUserContainer>
-    </HeaderContainer>
+        </LinkContainer>
+        <LinkContainer>
+          {currentUser ? (
+            <UserLogged
+              onClick={() => {
+                history.push("/user");
+              }}
+            >
+              {currentUser.displayName}
+            </UserLogged>
+          ) : (
+            <User
+              onClick={() => {
+                history.push("/login");
+              }}
+            />
+          )}
+        </LinkContainer>
+        <LinkContainer>
+          <WishlistMenu />
+        </LinkContainer>
+        <LinkContainer>
+          <CartMenu />
+          {!selectedCartDropdownHidden && <CartDropdown />}
+        </LinkContainer>
+      </UserContainer>
+    </NavContainer>
   );
 };
 

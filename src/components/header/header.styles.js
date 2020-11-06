@@ -1,72 +1,82 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as LibLab_Logo } from "../../assets/icons/heart-logo.svg";
+import { ReactComponent as LibLabLogo } from "../../assets/icons/lab.svg";
 import { ReactComponent as InstagramLogo } from "../../assets/icons/camera-logo.svg";
 import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg";
 import { ReactComponent as UserLogo } from "../../assets/icons/user-logo.svg";
 import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
-export const HeaderContainer = styled.nav`
-  width: 100%;
-  display: flex;
-  position: fixed;
-  border: thin solid black;
-  margin: 0;
+export const NavContainer = styled.nav`
+  position: sticky;
+  top: 0;
+  height: 50px;
+  padding: 5px;
+  background-color: white;
 
-   @media screen and (max-width: 600px) {
-    padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+  ${"" /* border: thin solid black; */}
+
+  @media screen and (max-width: 800px) {
+    font-size: 0.8em;
+  }
 `;
 
-export const HeaderLogoContainer = styled(Link)`
-  width: 60%;
+export const LibLabContainer = styled(Link)`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const LibLab = styled(LibLabLogo)`
+  width: 60px;
   padding: 10px;
-  border: thin solid black;
-
-  ${"" /* @media only screen and (max-width: 600px) {
-    width: 50px;
-    padding: 0;
-  } */}
-`;
-
-export const LibLabLogo = styled(LibLab_Logo)`
-  height: 60px;
-`;
-
-export const HeaderShopContainer = styled.div`
-  width: 30%;
-  display: flex;
-  border: thin solid black;
-`;
-
-export const HeaderShopLink = styled(Link)`
-  padding: 25px;
   cursor: pointer;
 
+  &:hover {
+    fill: gold;
+  }
+`;
+
+export const ShopContainer = styled.ul`
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+
+  ${"" /* border: thin solid black; */}
+
+  @media screen and (max-width: 800px) {
+    font-size: 0.8em;
+  }
+`;
+
+export const LinkContainer = styled.li`
+  font-size: 0.8rem;
+  padding: 20px;
+  ${"" /* border: thin solid purple; */}
+
+  @media screen and (max-width: 800px) {
+    margin: 0;
+  }
+`;
+
+export const ShopLink = styled(Link)`
+  cursor: pointer;
   &:hover {
     color: gold;
+    text-decoration: underline;
   }
 `;
 
-export const InstagramMenu = styled(InstagramLogo)`
-  height: 40px;
-  cursor: pointer;
-
-  &:hover {
-    fill: gold;
-  }
-`;
-
-export const HeaderUserContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: auto;
-  width: 30%;
-  border: thin solid black;
-`;
-
-export const HeaderSearchContainer = styled.div`
+export const Instagram = styled(InstagramLogo)`
+  width: 45px;
   padding: 10px;
   cursor: pointer;
 
@@ -75,24 +85,51 @@ export const HeaderSearchContainer = styled.div`
   }
 `;
 
-export const HeaderSearch = styled(SearchLogo)`
-  height: 35px;
+export const UserContainer = styled.ul`
+  width: 30%;
+  padding: 0 5px;
+  display: flex;
+  margin-left: auto;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  /*border: thin solid black;*/
 `;
 
-export const CloseMenu = styled(CloseLogo)`
-  height: 35px;
-`;
-
-export const HeaderUser = styled(UserLogo)`
-  height: 35px;
+export const Search = styled(SearchLogo)`
+  width: 45px;
+  padding: 10px;
   cursor: pointer;
+
   &:hover {
     fill: gold;
   }
 `;
 
-export const HeaderUserLogged = styled.span`
+export const Close = styled(CloseLogo)`
+  width: 45px;
+  padding: 10px;
   cursor: pointer;
+
+  &:hover {
+    fill: gold;
+  }
+`;
+
+export const User = styled(UserLogo)`
+  width: 45px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    fill: gold;
+  }
+`;
+
+export const UserLogged = styled.span`
+  width: 100%;
+  cursor: pointer;
+
   &:hover {
     color: gold;
   }

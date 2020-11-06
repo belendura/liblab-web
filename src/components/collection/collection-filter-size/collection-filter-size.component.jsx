@@ -12,10 +12,9 @@ import {
 import CollectionFilterSizeOption from "./collection-filter-size-option/collection-filter-size-option.component";
 
 import {
-  CollectionFilterContainer,
-  CollectionFilterSizeContainer,
-  CollectionFilterSizeTitle,
-  CollectionFilterSizeOptionContainer,
+  Container,
+  Title,
+  OptionContainer,
 } from "./collection-filter-size.styles";
 
 const CollectionFilterSize = () => {
@@ -44,24 +43,22 @@ const CollectionFilterSize = () => {
   };
 
   return (
-    <CollectionFilterContainer>
-      <CollectionFilterSizeContainer>
-        <CollectionFilterSizeTitle>Size</CollectionFilterSizeTitle>
-        <CollectionFilterSizeOptionContainer>
-          {sizeOptions
-            ? sizeOptions.map((sizeItem, index) => (
-                <label key={index}>
-                  <CollectionFilterSizeOption
-                    id={sizeItem}
-                    handleChange={handleChange}
-                    sizeOptions={sizeOptions}
-                  />
-                </label>
-              ))
-            : null}
-        </CollectionFilterSizeOptionContainer>
-      </CollectionFilterSizeContainer>
-    </CollectionFilterContainer>
+    <Container>
+      <Title>Size</Title>
+      <OptionContainer>
+        {sizeOptions
+          ? sizeOptions.map((sizeItem, index) => (
+              <label key={index}>
+                <CollectionFilterSizeOption
+                  id={sizeItem}
+                  handleChange={handleChange}
+                  sizeOptions={sizeOptions}
+                />
+              </label>
+            ))
+          : null}
+      </OptionContainer>
+    </Container>
   );
 };
 

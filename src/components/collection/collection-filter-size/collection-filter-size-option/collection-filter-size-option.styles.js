@@ -1,37 +1,36 @@
 import styled from "styled-components";
 
-export const CollectionFilterSizeOptionContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
 `;
 
-export const CollectionFilterSizeOptionInput = styled.input`
+export const BoxInput = styled.input`
   display: none;
 `;
 
-export const Icon = styled.svg`
-  fill: none;
-  stroke: white;
+export const SizeBox = styled.svg`
+  stroke: black;
   stroke-width: 4px;
-  margin-bottom: 4px;
+  fill: none;
+  margin-bottom: 6px;
 `;
 
-export const CollectionFilterSizeOptionStyled = styled.div`
-  display: inline-block;
-  width: 16px;
-  height: 16px;
+export const SizeBoxContainer = styled.div`
+  width: 12px;
+  height: 12px;
   border: 1px solid black;
-  background: ${(props) => (props.checked ? "#2196F3" : "#eee")};
-  border-radius: 3px;
-  transition: all 150ms;
+  background: #eee;
+  border-radius: 1px;
 
-  ${Icon} {
+  ${SizeBox} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
   }
 `;
 
-export const CollectionFilterSizeOptionLabel = styled.label`
-  tex-transform: lowercase;
-  padding: 5px;
+export const BoxLabel = styled.label`
+  font-size: 10px;
+  text-transform: lowercase;
+  padding: 2.5px;
 `;

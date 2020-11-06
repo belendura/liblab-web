@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const BestSellersListContainer = styled.div`
+export const Container = styled.div`
   display: flex;
-  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
 `;

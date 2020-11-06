@@ -17,18 +17,18 @@ const SocialMediaStyles = css`
   }
 `;
 
-export const FooterContainer = styled.div`
+export const Container = styled.div`
   height: 300px;
-  background-color: #669999;
-  border: 1px dotted black;
+  background: rgba(107, 111, 115, 0.4);
   margin: 0 auto;
+  border: thin solid black;
 `;
 
-export const FooterTopContainer = styled.div`
+export const TopContainer = styled.div`
   display: flex;
 `;
 
-export const FooterBottomContainer = styled.div`
+export const BottomContainer = styled.div`
   display: flex;
 `;
 export const SectionsContainer = styled.div`
@@ -56,7 +56,7 @@ export const SectionItem = styled(Link)`
   }
 `;
 
-export const FooterBottomLine = styled.hr`
+export const Line = styled.hr`
   border-top: 2px solid white;
   margin: 0 5px;
 `;
@@ -69,18 +69,18 @@ export const SocialMediaContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const TwitterLogoStyled = styled(TwitterLogo)`
+export const TwitterMenu = styled(TwitterLogo)`
   ${SocialMediaStyles}
 `;
 
-export const FacebookLogoStyled = styled(FacebookLogo)`
+export const FacebookMenu = styled(FacebookLogo)`
   ${SocialMediaStyles}
 `;
 
-export const InstagramLogoStyled = styled(InstagramLogo)`
+export const InstagramMenu = styled(InstagramLogo)`
   ${SocialMediaStyles}
 `;
-export const PinterestLogoStyled = styled(PinterestLogo)`
+export const PinterestMenu = styled(PinterestLogo)`
   ${SocialMediaStyles};
 `;
 
@@ -91,13 +91,13 @@ export const LanguageContainer = styled.div`
   border: 1px dotted black;
 `;
 
-export const FooterCopyRightContainer = styled.div`
+export const CopyRightContainer = styled.div`
   padding: 10px;
   border: 1px dotted black;
   margin: 0 auto;
 `;
 
-export const FooterCopyRight = styled.span`
+export const CopyRight = styled.span`
   font-size: 10px;
   color: white;
   padding: 10px;

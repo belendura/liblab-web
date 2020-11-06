@@ -1,166 +1,137 @@
 import styled, { css } from "styled-components";
-import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
+
 import { ReactComponent as ArrowLeftLogo } from "../../assets/icons/arrow-left.svg";
 import { ReactComponent as ArrowRightLogo } from "../../assets/icons/arrow-right.svg";
 
-const AvailableSize = css`
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    color: white;
-  }
-`;
-const UnavailableSize = css`
-  color: grey;
+const UpperInfoStyles = css`
+  background-color: rgba(107, 111, 115, 0.6);
 `;
 
-const NewItem = css`
-  background-color: grey;
-`;
-
-const Sale = css`
+const SaleStyles = css`
   background-color: red;
 `;
 
-const OriginalPrice = css`
+const OriginalPriceStyles = css`
   color: grey;
   text-decoration: line-through;
   text-decoration-color: black;
 `;
 
-const SalePrice = css`
+const SalePriceStyles = css`
   color: red;
 `;
 
-const getSizesStyles = (props) => {
-  return props.units > 0 ? AvailableSize : UnavailableSize;
-};
-
-const getNewItemStyles = (props) => {
-  if (props.sale) return Sale;
-  return props.new ? NewItem : null;
+const getUpperInfoStyles = (props) => {
+  if (props.sale) return SaleStyles;
+  return props.new ? UpperInfoStyles : null;
 };
 
 const getPriceStyles = (props) => {
   if (!props.sale) return null;
-  else if (props.sale && !props.discounted) return OriginalPrice;
-  else return SalePrice;
+  else if (props.sale && !props.discounted) return OriginalPriceStyles;
+  else return SalePriceStyles;
 };
 
-export const ShopItemContainer = styled.div`
-  margin: 15px;
-  width: 280px;
-  height: 500px;
-  border: 1px dotted black;
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
+  justify-content: center;
+  border: thin solid black;
+  border-radius: 2px;
 `;
 
-export const ShopItemPicture = styled.div`
-  background-image: url(${(props) => props.url});
-  width: auto;
+export const PictureContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  height: 0;
+  padding-top: 100%;
+`;
+
+export const Picture = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  position: relative;
 `;
 
-export const ShopItemSizesContainer = styled.div`
+export const ArrowLeft = styled(ArrowLeftLogo)`
   position: absolute;
-  bottom: 0px;
-  background-color: rgb(192, 192, 192);
-  opacity: 0.5;
-  width: 100%;
+  top: 50%;
+  height: 6px;
+  left: 5px;
+  cursor: pointer;
+  z-index: 5;
+`;
+
+export const ArrowRight = styled(ArrowRightLogo)`
+  position: absolute;
+  top: 50%;
+  height: 6px;
+  right: 5px;
+  cursor: pointer;
+  z-index: 5;
+`;
+
+export const UpperInfoContainer = styled.div`
+  position: absolute;
+  top: 15px;
+  width: 15%;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${getUpperInfoStyles};
+`;
+
+export const UpperInfo = styled.span`
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+`;
+
+export const Footer = styled.div`
+  height: 20%;
+  padding: 10px 10px 0px 10px;
+  display: flex;
   flex-direction: column;
-  height: 25%;
+  justify-content: flex-start;
+  ${"" /* border: thin solid green; */}
 `;
-
-export const ShopItemSizesTitle = styled.span`
-  padding: 2px;
-`;
-
-export const ShopItemSizesItemContainer = styled.div`
+export const FooterDetails = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-export const ShopItemSizes = styled.span`
-  margin: 5px;
-  ${getSizesStyles}
+export const ItemDescription = styled.span`
+  font-size: 10px;
+  ${"" /* border: thin solid purple; */}
 `;
 
-export const ShopItemFooter = styled.div`
-  height: 15%;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-`;
-export const ShopItemFooterDetails = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 2px 0;
-`;
-
-export const ShopItemDescription = styled.span`
-  font-size: 12px;
-`;
-
-export const ShopItemPriceContainer = styled.div`
+export const PriceContainer = styled.div`
   display: flex;
   justify-content: flex-start;
+  ${"" /* border: thin solid purple; */}
 `;
 
-export const ShopItemPrice = styled.span`
-  font-size: 12px;
+export const ItemPrice = styled.span`
+  font-size: 10px;
   margin-right: 10px;
   color: black;
   ${getPriceStyles};
 `;
 
-export const ShopItemNew = styled.div`
-  position: absolute;
-  top: 10px;
-  width: 20%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  ${getNewItemStyles};
-`;
-
-export const ShopItemNewText = styled.span`
-  text-transform: uppercase;
-  font-weight: bold;
-  color: white;
-`;
-
-export const ShopItemArrowLeft = styled(ArrowLeftLogo)`
-  height: 12px;
-  position: absolute;
-  cursor: pointer;
-  top: 50%;
-  left: 10px;
-  z-index: 2;
-`;
-
-export const ShopItemArrowRight = styled(ArrowRightLogo)`
-  height: 12px;
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  cursor: pointer;
-  z-index: 2;
-`;
-
-export const ShopItemColorsContainer = styled.div`
+export const ColorsContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin: 10px 0;
+  flex-wrap: wrap;
+  padding-top: 5px;
+  ${"" /* border: thin solid purple; */}
 `;

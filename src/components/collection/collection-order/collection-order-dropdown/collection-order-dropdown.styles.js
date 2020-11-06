@@ -1,22 +1,22 @@
 import styled from "styled-components";
 
-export const CollectionOrderDropDownContainer = styled.div`
+export const Container = styled.div`
   position: absolute;
-  right: 200px;
-  height: auto;
-  width: 140px;
+  top: 390px;
+  right: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: white;
-  top: 500px;
+  padding: 10px 20px 0px 20px;
   z-index: 5;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const CollectionOrderText = styled.span`
-  padding: 10px;
+export const OrderOption = styled.span`
+  font-size: 10px;
+  margin-bottom: 10px;
   cursor: pointer;
-  font-size: 12px;
   &:hover {
     color: gold;
   }

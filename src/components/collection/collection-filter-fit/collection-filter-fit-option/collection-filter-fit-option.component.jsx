@@ -4,11 +4,11 @@ import { useSelector, shallowEqual } from "react-redux";
 import { selectFilteredFit } from "../../../../redux/selectors/collections.selectors";
 
 import {
-  CollectionFilterFitOptionContainer,
-  CollectionFilterFitOptionInput,
-  CollectionFilterFitOptionStyled,
-  CollectionFilterFitOptionLabel,
-  Icon,
+  Container,
+  BoxInput,
+  FitBoxContainer,
+  BoxLabel,
+  FitBox,
 } from "./collection-filter-fit-option.styles";
 
 const CollectionFilterFitOption = ({ id, handleChange }) => {
@@ -26,19 +26,15 @@ const CollectionFilterFitOption = ({ id, handleChange }) => {
   };
 
   return (
-    <CollectionFilterFitOptionContainer>
-      <CollectionFilterFitOptionInput
-        type="checkBox"
-        id={id}
-        onChange={handleOptionChange}
-      />
-      <CollectionFilterFitOptionStyled checked={checked}>
-        <Icon viewBox="0 0 24 24">
+    <Container>
+      <BoxInput type="checkBox" id={id} onChange={handleOptionChange} />
+      <FitBoxContainer checked={checked}>
+        <FitBox viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
-        </Icon>
-      </CollectionFilterFitOptionStyled>
-      <CollectionFilterFitOptionLabel>{id}</CollectionFilterFitOptionLabel>
-    </CollectionFilterFitOptionContainer>
+        </FitBox>
+      </FitBoxContainer>
+      <BoxLabel>{id}</BoxLabel>
+    </Container>
   );
 };
 
