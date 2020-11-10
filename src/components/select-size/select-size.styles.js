@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as ArrowDownLogo } from "../../assets/icons/arrow-down.svg";
 import { ReactComponent as ArrowUpLogo } from "../../assets/icons/arrow-up.svg";
 
-export const SelectSizeContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,9 +10,10 @@ export const SelectSizeContainer = styled.div`
   border: thin solid grey;
 `;
 
-export const SelectSizeOption = styled.input`
+export const SizeOption = styled.input`
   border: none;
-  padding: 10px;
+  font-size: 10px;
+  padding: 10px 5px;
 
   &:hover,
   &:focus {
@@ -20,14 +21,14 @@ export const SelectSizeOption = styled.input`
   }
 `;
 
-export const SelectSizeArrowDown = styled(ArrowDownLogo)`
-  width: 12px;
-  margin: 0 10px;
+export const ArrowDown = styled(ArrowDownLogo)`
+  width: 8px;
+  margin-right: 10px;
   cursor: pointer;
 `;
 
-export const SelectSizeArrowUp = styled(ArrowUpLogo)`
-  width: 12px;
-  margin: 0 10px;
+export const ArrowUp = styled(ArrowUpLogo)`
+  width: 8px;
+  margin-right: 10px;
   cursor: pointer;
 `;

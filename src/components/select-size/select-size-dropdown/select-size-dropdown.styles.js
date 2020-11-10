@@ -9,31 +9,27 @@ const getSizeStyles = (props) => {
   return props.units > 0 && sizeStyles;
 };
 
-export const SelectSizeDropDownOptionsContainer = styled.div`
+export const Container = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  top: 35px;
-  height: auto;
-  width: inherit;
+  top: 25px;
+  width: auto;
+  padding: 5px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: white;
   z-index: 5;
   border: thin solid grey;
   border-top: none;
-  overflow-y: scroll;
 `;
 
-export const SelectSizeDropDownOption = styled.div`
-  padding: 0 10px;
-  font-size: 12px;
+export const SizeOption = styled.div`
+  font-size: 10px;
+
   &:hover {
-    background-color: grey;
+    background-color: rgba(107, 111, 115, 0.2);
     ${getSizeStyles};
   }
-`;
-
-export const SelectSizeDropDownArrow = styled(ArrowLogo)`
-  width: 12px;
 `;

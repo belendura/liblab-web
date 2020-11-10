@@ -4,10 +4,7 @@ import { useDispatch } from "react-redux";
 import { selectSize } from "../../../redux/actions/cart.actions";
 import SelectSizeOrder from "../select-size-order/select-size-order.component";
 
-import {
-  SelectSizeDropDownOptionsContainer,
-  SelectSizeDropDownOption,
-} from "./select-size-dropdown.styles";
+import { Container, SizeOption } from "./select-size-dropdown.styles";
 
 const SelectSizeDropDown = ({ sizes, setSelectSizeVisible }) => {
   const wrapperRef = useRef(null);
@@ -35,26 +32,27 @@ const SelectSizeDropDown = ({ sizes, setSelectSizeVisible }) => {
   }, []);
 
   return (
-    <SelectSizeDropDownOptionsContainer
+    <Container
       ref={wrapperRef}
       // onClick={() => handleClickOutside()}
     >
       {sizes.map((item, index) => {
         const { units, size } = item;
         return (
-          <SelectSizeDropDownOption
+          <SizeOption
             units={units}
             key={index}
             onClick={() => {
               units > 0 &&
-                dispatch(selectSize(size)) && setSelectSizeVisible(false);
+                dispatch(selectSize(size)) &&
+                setSelectSizeVisible(false);
             }}
           >
             {units > 0 ? size : <SelectSizeOrder size={size} />}
-          </SelectSizeDropDownOption>
+          </SizeOption>
         );
       })}
-    </SelectSizeDropDownOptionsContainer>
+    </Container>
   );
 };
 

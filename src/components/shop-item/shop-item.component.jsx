@@ -82,7 +82,6 @@ const ShopItem = ({ item, params }) => {
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
     >
-      {" "}
       <PictureContainer>
         {visibility && <ArrowLeft onClick={displayedViewBackward} />}
         {visibility && <ArrowRight onClick={displayedViewForward} />}

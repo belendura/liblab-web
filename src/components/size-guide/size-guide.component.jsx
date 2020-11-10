@@ -1,24 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 
-import SizeGuideDetails from "./size-guide-details/size-guide-details.component";
-import {
-  SizeGuideContainer,
-  SizeHanger,
-  SizeGuideIcon,
-} from "./size-guide.styles";
+import { openModal } from "../../redux/actions/modal.actions";
+
+import { Container, Hanger, Title } from "./size-guide.styles";
 
 const SizeGuide = () => {
-  const [sizeGuideVisible, setSizeGuideVisible] = useState(false);
+  const dispatch = useDispatch();
   return (
-    <SizeGuideContainer>
-      <SizeHanger />
-      <SizeGuideIcon onClick={() => setSizeGuideVisible(true)}>
+    <Container>
+      <Hanger onClick={() => dispatch(openModal("SIZE_GUIDE_MODAL", null))} />
+      <Title onClick={() => dispatch(openModal("SIZE_GUIDE_MODAL", null))}>
         Size Guide
-      </SizeGuideIcon>
-      {sizeGuideVisible ? (
-        <SizeGuideDetails setSizeGuideVisible={setSizeGuideVisible} />
-      ) : null}
-    </SizeGuideContainer>
+      </Title>
+    </Container>
   );
 };
 

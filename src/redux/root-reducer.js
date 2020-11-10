@@ -6,6 +6,7 @@ import userReducer from "../redux/reducers/user.reducer";
 import collectionsReducer from "../redux/reducers/collections.reducer";
 import cartReducer from "../redux/reducers/cart.reducer";
 import wishlistReducer from "../redux/reducers/wishlist.reducer";
+import modalReducer from "../redux/reducers/modal.reducer";
 
 const persistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   collections: collectionsReducer,
   cart: cartReducer,
   wishlist: wishlistReducer,
+  modal: modalReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

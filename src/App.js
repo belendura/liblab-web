@@ -14,7 +14,10 @@ import { checkUserSession } from "./redux/actions/user.actions";
 import { fetchShopMenuStart } from "./redux/actions/collections.actions";
 
 import { selectCurrentUser } from "./redux/selectors/user.selectors";
+import { selectShowModal } from "./redux/selectors/modal.selectors";
 
+import Modal from "./components/modal/modal.component";
+import InnerModal from "./components/modal/inner-modal.component";
 import Ticker from "./components/ticker/ticker.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -62,6 +65,7 @@ const WishlistPage = React.lazy(() =>
 function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
+  const showModal = useSelector(selectShowModal, shallowEqual);
 
   useEffect(() => {
     const token = getToken();
@@ -126,6 +130,11 @@ function App() {
         </Suspense>
       </Switch>
       <Footer />
+      {showModal && (
+        <Modal>
+          <InnerModal />
+        </Modal>
+      )}
     </div>
   );
 }

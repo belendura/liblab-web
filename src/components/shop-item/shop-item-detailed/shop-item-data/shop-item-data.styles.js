@@ -1,7 +1,4 @@
 import styled, { css } from "styled-components";
-import { ReactComponent as HangerLogo } from "../../../../assets/icons/hanger.svg";
-import arrow_down from "../../../../assets/icons/arrow-down.svg";
-import arrow_up from "../../../../assets/icons/arrow-up.svg";
 
 const AvailableSize = css`
   color: black;
@@ -35,161 +32,144 @@ const getPriceStyles = (props) => {
   else return SalePrice;
 };
 
-export const ShopItemDataContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 10px;
-  width: 30vw;
-  margin-left: 20px;
+  padding: 20px;
+  width: 40vw;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ShopItemDataName = styled.span`
-  text-transform: uppercase;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px;
-`;
-
-export const ShopItemDescriptionContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-export const ShopItemDataDescription = styled.span`
-  padding: 10px;
-`;
-
-export const ShopItemDataReference = styled.span`
-  text-transform: uppercase;
+export const NavRoute = styled.span`
   font-size: 10px;
-  margin: 10px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ShopItemDataPriceContainer = styled.div`
+export const NameContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ShopItemDataPrice = styled.span`
-  margin-right: 10px;
+export const ItemName = styled.span`
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+export const ItemReference = styled.span`
+  text-transform: uppercase;
+  font-size: 8px;
+`;
+
+export const DescriptionContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const ItemDescription = styled.span`
+  width: 70%;
+  font-size: 12px;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const PriceContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const ItemPrice = styled.span`
+  padding: 0 5px;
   color: black;
+  ${"" /* border: thin solid black; */}
   ${getPriceStyles}
 `;
-export const ShopItemDataLastPrice = styled.span`
-  margin-right: 10px;
+export const ItemLastPrice = styled.span`
+  padding: 0 5px;
+  ${"" /* border: thin solid black; */}
   ${getPriceStyles}
 `;
 
-export const ShopItemDataDiscountContainer = styled.div`
-  margin: 0 10px;
-  width: 20%;
-  height: auto;
+export const DiscountContainer = styled.div`
+  font-size: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  ${"" /* border: thin solid red; */}
+`;
+
+export const DiscountBox = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: red;
+  padding: 5px;
 `;
 
-export const ShopItemDataDiscount = styled.span`
+export const ItemDiscount = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   color: white;
 `;
 
-export const ShopItemDataColorsContainer = styled.div`
+export const ColorsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
-  border: 1px solid black;
-`;
-
-export const ShopItemDataColorsOptionContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-  border: 1px solid black;
-`;
-
-export const ShopItemDataColorName = styled.span``;
-
-export const ShopItemDataSelectSizesContainer = styled.div`
-  width: 200px;
-  position: relative;
-  margin: 20px 0;
-`;
-
-export const ShopItemDataSelectSize = styled.select`
-  background-color: white;
-  border: thin solid grey;
-  display: inline-block;
-  line-height: 1.5em;
-  width: 300px;
-  padding: 5px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  background-image: url(${arrow_down});
-  background-size: 20px;
-  background-position: 95% center;
-  background-repeat: no-repeat;
-
-  &:hover {
-    border: 1px solid black;
-  }
-
-  &:focus {
-    background-image: url(${arrow_up});
-    background-repeat: no-repeat;
-  }
-`;
-
-export const ShopItemDataOptionSize = styled.option`
-  ${getSizesStyles}
-
-  &:focus, &:hover {
-    color: pink;
-    ${ShopItemDataSelectSize} {
-      background-image: url(${arrow_down}) !important;
-      background-repeat: no-repeat;
-    }
-  }
-`;
-
-export const ShopItemDataSizeGuideContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
-`;
-export const SizeHanger = styled(HangerLogo)`
-  width: 24px;
-  height: auto;
+  margin-top: 10px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ShopItemDataGuideSize = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  padding: 0 10px;
+export const ColorsOptionContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${"" /* border: thin solid black; */}
+`;
 
-  &:hover {
-    color: gold;
-  }
+export const ColorName = styled.span`
+  font-size: 10px;
+  padding: 5px;
+`;
+
+export const SelectSizesContainer = styled.div`
+  position: relative;
+  margin-top: 10px;
+`;
+
+export const SizeGuideContainer = styled.div`
+  margin: 10px;
+`;
+
+export const CustomButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const DetailsContainer = styled.div`
+  margin-top: 10px;
 `;
 
 export const Reviews = styled.div`
   padding: 10px;
 `;
 
-export const LineStyled = styled.hr`
-  color: grey;
-  height: 0.25px;
+export const Separator = styled.hr`
+  color: rgba(107, 111, 115, 0.4);
+  height: 0.05px;
   width: cover;
-  margin: 5px;
-  background-color: grey;
-  border-color: grey;
+  margin: 10px;
+  background-color: rgba(107, 111, 115, 0.4);
+  border-color: thin solid rgba(107, 111, 115, 0.4);
+  border-radius: 0.5px;
 `;

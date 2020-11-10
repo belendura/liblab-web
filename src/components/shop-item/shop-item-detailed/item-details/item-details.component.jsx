@@ -1,45 +1,42 @@
 import React from "react";
 
 import {
-  ItemDetailsContainer,
-  ItemDetailsHead,
-  ItemDetailsTitle,
-  ItemDetailsText,
-  ItemDetailsArrowUP,
-  ItemDetailsArrowDOWN,
+  Container,
+  TitleContainer,
+  Title,
+  Text,
+  ArrowUP,
+  ArrowDOWN,
 } from "./item-details.styles";
 
 const ItemDetails = ({ title, text, textVisible, setTextVisible }) => {
   return (
-    <ItemDetailsContainer>
-      <ItemDetailsHead>
-        <ItemDetailsTitle>{title}</ItemDetailsTitle>
+    <Container>
+      <TitleContainer>
+        <Title>{title}</Title>
         {textVisible ? (
-          <ItemDetailsArrowUP onClick={() => setTextVisible(false)} />
+          <ArrowUP onClick={() => setTextVisible(false)} />
         ) : (
-          <ItemDetailsArrowDOWN onClick={() => setTextVisible(true)} />
+          <ArrowDOWN onClick={() => setTextVisible(true)} />
         )}
-      </ItemDetailsHead>
-      <br />
-      {textVisible && title === "Details" ? (
-        <ItemDetailsText>{text}</ItemDetailsText>
-      ) : null}
-      {textVisible && title === "Fabric"
-        ? text.map((item, index) => {
-            return (
-              <div key={index}>
-                <ItemDetailsText>{item.percent}%</ItemDetailsText>
-                <ItemDetailsText>{item.material}</ItemDetailsText>
-              </div>
-            );
-          })
-        : null}
-      {textVisible && title === "Care"
-        ? text.map((item, index) => {
-            return <div key={index}>CARE</div>;
-          })
-        : null}
-    </ItemDetailsContainer>
+      </TitleContainer>
+      {textVisible && title === "Details" && <Text>{text}</Text>}
+      {textVisible &&
+        title === "Fabric" &&
+        text.map((item, index) => {
+          return (
+            <div key={index}>
+              <Text>{item.percent}%</Text>
+              <Text>{item.material}</Text>
+            </div>
+          );
+        })}
+      {textVisible &&
+        title === "Care" &&
+        text.map((item, index) => {
+          return <div key={index}>CARE</div>;
+        })}
+    </Container>
   );
 };
 

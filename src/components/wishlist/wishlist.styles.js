@@ -10,7 +10,7 @@ const Medium = css`
 `;
 
 const Large = css`
-  width: 30px;
+  width: 24px;
 `;
 
 const Clear = css`

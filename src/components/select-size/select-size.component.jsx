@@ -5,10 +5,10 @@ import { clearSize } from "../../redux/actions/cart.actions";
 import SelectSizeDropDown from "./select-size-dropdown/select-size-dropdown.component";
 
 import {
-  SelectSizeContainer,
-  SelectSizeOption,
-  SelectSizeArrowDown,
-  SelectSizeArrowUp,
+  Container,
+  SizeOption,
+  ArrowDown,
+  ArrowUp,
 } from "./select-size.styles";
 
 const SelectSize = ({ sizes, selectedSize }) => {
@@ -16,29 +16,31 @@ const SelectSize = ({ sizes, selectedSize }) => {
   const dispatch = useDispatch();
 
   return (
-    <SelectSizeContainer>
-      <SelectSizeOption
-        type="text"
-        id="size"
-        placeholder={selectedSize ? `${selectedSize}` : "Select size"}
-      />
-      {selectSizeVisible ? (
-        <SelectSizeArrowUp onClick={() => setSelectSizeVisible(false)} />
-      ) : (
-        <SelectSizeArrowDown
-          onClick={() => {
-            dispatch(clearSize());
-            setSelectSizeVisible(true);
-          }}
+    <div>
+      <Container>
+        <SizeOption
+          type="text"
+          id="size"
+          placeholder={selectedSize ? `${selectedSize}` : "Select size"}
         />
-      )}
+        {selectSizeVisible ? (
+          <ArrowUp onClick={() => setSelectSizeVisible(false)} />
+        ) : (
+          <ArrowDown
+            onClick={() => {
+              dispatch(clearSize());
+              setSelectSizeVisible(true);
+            }}
+          />
+        )}
+      </Container>
       {selectSizeVisible && (
         <SelectSizeDropDown
           sizes={sizes}
           setSelectSizeVisible={setSelectSizeVisible}
         />
       )}
-    </SelectSizeContainer>
+    </div>
   );
 };
 

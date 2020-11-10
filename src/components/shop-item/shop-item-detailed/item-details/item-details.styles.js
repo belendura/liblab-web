@@ -2,33 +2,35 @@ import styled from "styled-components";
 import { ReactComponent as ArrowUp } from "../../../../assets/icons/arrow-up.svg";
 import { ReactComponent as ArrowDown } from "../../../../assets/icons/arrow-down.svg";
 
-export const ItemDetailsContainer = styled.div`
-  height: auto;
+export const Container = styled.div`
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
-  margin-bottom: 10px;
+  justify-content: flex-start;
+  padding: 0 10px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ItemDetailsHead = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ItemDetailsTitle = styled.span`
-  color: grey;
-`;
-
-export const ItemDetailsText = styled.span`
+export const Title = styled.span`
   font-size: 12px;
-  color: black;
 `;
 
-export const ItemDetailsArrowUP = styled(ArrowUp)`
-  width: 20px;
-  margin: 0 10px;
+export const Text = styled.span`
+  font-size: 12px;
+  ${"" /* border: thin solid black; */}
 `;
-export const ItemDetailsArrowDOWN = styled(ArrowDown)`
-  width: 20px;
-  margin: 0 10px;
+
+export const ArrowUP = styled(ArrowUp)`
+  width: 8px;
+  cursor: pointer;
+`;
+export const ArrowDOWN = styled(ArrowDown)`
+  width: 8px;
+  cursor: pointer;
 `;

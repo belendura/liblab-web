@@ -18,7 +18,7 @@ const CollectionFilterColorOption = ({ id, handleChange }) => {
 
   useEffect(() => {
     filteredColors.includes(name) ? setChecked(true) : setChecked(false);
-  }, [filteredColors]);
+  }, [filteredColors, name]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

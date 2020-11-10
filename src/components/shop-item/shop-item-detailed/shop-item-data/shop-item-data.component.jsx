@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import {
@@ -22,24 +23,35 @@ import ItemDetails from "../item-details/item-details.component";
 import SelectSize from "../../../select-size/select-size.component";
 
 import {
-  ShopItemDataContainer,
-  ShopItemDataName,
-  ShopItemDataReference,
-  ShopItemDescriptionContainer,
-  ShopItemDataDescription,
-  ShopItemDataPriceContainer,
-  ShopItemDataPrice,
-  ShopItemDataLastPrice,
-  ShopItemDataDiscountContainer,
-  ShopItemDataDiscount,
-  ShopItemDataColorsContainer,
-  ShopItemDataColorsOptionContainer,
-  ShopItemDataColorName,
-  ShopItemDataSizeGuideContainer,
+  Container,
+  NavRoute,
+  NameContainer,
+  ItemName,
+  ItemReference,
+  DescriptionContainer,
+  ItemDescription,
+  PriceContainer,
+  ItemPrice,
+  ItemLastPrice,
+  DiscountContainer,
+  DiscountBox,
+  ItemDiscount,
+  ColorsContainer,
+  ColorsOptionContainer,
+  ColorName,
+  SelectSizesContainer,
+  SizeGuideContainer,
+  CustomButtonContainer,
+  DetailsContainer,
   Reviews,
-  LineStyled,
+  Separator,
 } from "./shop-item-data.styles";
+
 const ShopItemData = ({ item, handleDifferentColor }) => {
+  const params = useParams();
+
+  const { collection, section } = params;
+
   const {
     Url,
     Reference,
@@ -78,31 +90,35 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
   const selectedSize = useSelector(selectSizeItem, shallowEqual);
 
   return (
-    <ShopItemDataContainer>
-      <div>Navigation</div>
-      <ShopItemDataName>{Name}</ShopItemDataName>
-      <ShopItemDataReference>{Reference}</ShopItemDataReference>
-      <ShopItemDescriptionContainer>
-        <ShopItemDataDescription>{Description}</ShopItemDataDescription>
-        <Wishlist theme="dark" size="medium" item={item} />
-      </ShopItemDescriptionContainer>
-      <ShopItemDataPriceContainer>
-        <ShopItemDataPrice sale={Sale} discounted={false}>
-          {Price}EUR
-        </ShopItemDataPrice>
-        {Sale ? (
-          <ShopItemDataLastPrice sale={Sale} discounted={true}>
-            {LastPrice}EUR
-          </ShopItemDataLastPrice>
-        ) : null}
-        {Sale ? (
-          <ShopItemDataDiscountContainer>
-            <ShopItemDataDiscount>{Discount}%</ShopItemDataDiscount>
-          </ShopItemDataDiscountContainer>
-        ) : null}
-      </ShopItemDataPriceContainer>
-      <ShopItemDataColorsContainer>
-        <ShopItemDataColorsOptionContainer>
+    <Container>
+      <NavRoute>{`${collection}/${section}`}</NavRoute> {/*Navigation Link*/}
+      <NameContainer>
+        <ItemName>{Name}</ItemName>
+        <Wishlist theme="dark" size="large" item={item} />
+      </NameContainer>
+      <ItemReference>{Reference}</ItemReference>
+      <DescriptionContainer>
+        <ItemDescription>{Description}</ItemDescription>
+        <PriceContainer>
+          <ItemPrice sale={Sale} discounted={false}>
+            {Price}EUR
+          </ItemPrice>
+          {Sale && (
+            <ItemLastPrice sale={Sale} discounted={true}>
+              {LastPrice}EUR
+            </ItemLastPrice>
+          )}
+        </PriceContainer>
+      </DescriptionContainer>
+      <DiscountContainer>
+        {Sale && (
+          <DiscountBox>
+            <ItemDiscount>{Discount}%</ItemDiscount>
+          </DiscountBox>
+        )}
+      </DiscountContainer>
+      <ColorsContainer>
+        <ColorsOptionContainer>
           {AvailableColors.map((item, index) => {
             const { code, name } = item;
             return (
@@ -116,44 +132,53 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
               />
             );
           })}
-        </ShopItemDataColorsOptionContainer>
-        <ShopItemDataColorName>{Color.name}</ShopItemDataColorName>
-      </ShopItemDataColorsContainer>
-      <SelectSize sizes={Sizes} selectedSize={selectedSize} />
-      <ShopItemDataSizeGuideContainer>
+        </ColorsOptionContainer>
+        <ColorName>{Color.name}</ColorName>
+      </ColorsContainer>
+      <SelectSizesContainer>
+        <SelectSize sizes={Sizes} selectedSize={selectedSize} />
+      </SelectSizesContainer>
+      <SizeGuideContainer>
         <SizeGuide />
-      </ShopItemDataSizeGuideContainer>
-      <CustomButton
-        onClick={() => {
-          if (selectedSize) {
-            dispatch(addItem(selectedShopItem, selectedSize));
-            selectedCartDropdownHidden && dispatch(toggleCartHidden());
-          } else alert("Please, select size first");
-        }}
-      >
-        Add to bag
-      </CustomButton>
-      <ItemDetails
-        title="Details"
-        text={Details}
-        textVisible={detailsVisible}
-        setTextVisible={setDetailsVisible}
-      />
-      <LineStyled />
-      <ItemDetails
-        title="Fabric"
-        text={Fabric}
-        textVisible={fabricVisible}
-        setTextVisible={setFabricVisible}
-      />
-      <LineStyled />
-      <ItemDetails
-        title="Care"
-        text={Care}
-        textVisible={careVisible}
-        setTextVisible={setCareVisible}
-      />
-    </ShopItemDataContainer>
+      </SizeGuideContainer>
+      <CustomButtonContainer>
+        <CustomButton
+          color="standard"
+          onClick={() => {
+            if (selectedSize) {
+              dispatch(addItem(selectedShopItem, selectedSize));
+              selectedCartDropdownHidden && dispatch(toggleCartHidden());
+            } else alert("Please, select size first");
+          }}
+        >
+          Add to bag
+        </CustomButton>
+      </CustomButtonContainer>
+      <div>Shipping Information</div>
+      <div>Share Item</div>
+      <DetailsContainer>
+        <ItemDetails
+          title="Details"
+          text={Details}
+          textVisible={detailsVisible}
+          setTextVisible={setDetailsVisible}
+        />
+        <Separator />
+        <ItemDetails
+          title="Fabric"
+          text={Fabric}
+          textVisible={fabricVisible}
+          setTextVisible={setFabricVisible}
+        />
+        <Separator />
+        <ItemDetails
+          title="Care"
+          text={Care}
+          textVisible={careVisible}
+          setTextVisible={setCareVisible}
+        />
+      </DetailsContainer>
+    </Container>
   );
 };
 

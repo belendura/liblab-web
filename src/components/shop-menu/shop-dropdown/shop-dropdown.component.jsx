@@ -26,12 +26,12 @@ const ShopDropDown = () => {
         {shopMenu &&
           Object.entries(shopMenu).map(([key, value]) => {
             return (
-              <CollectionContainer>
+              <CollectionContainer key={key}>
                 <CollectionLink to={`shop/${key}/${value[0]}`}>
                   {key}
                 </CollectionLink>
                 {value.map((sectionItem) => (
-                  <SectionLink to={`/shop/${key}/${sectionItem}`}>
+                  <SectionLink key={key} to={`/shop/${key}/${sectionItem}`}>
                     {sectionItem}
                   </SectionLink>
                 ))}
