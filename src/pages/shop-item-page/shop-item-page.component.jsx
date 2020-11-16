@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
+import { fetchSizesGuideStart } from "../../redux/actions/sizes-guide.actions";
 import { selectItem } from "../../redux/selectors/collections.selectors";
 
 import ShopItemPictures from "../../components/shop-item/shop-item-detailed/shop-item-pictures/shop-item-pictures.component";
@@ -13,8 +14,17 @@ import {
 } from "./shop-item-page.styles";
 const ShopItemPage = () => {
   const params = useParams();
-  const { reference, color } = params;
+  const dispatch = useDispatch();
+
+  const { collection, section, reference, color } = params;
+
   const [displayedItem, setDisplayedItem] = useState(0);
+
+  useEffect(() => {
+    dispatch(
+      fetchSizesGuideStart(collection, section.replace("scrub-", "").trim())
+    );
+  }, [fetchSizesGuideStart, collection, section]);
 
   const selectedItem = useSelector((state) =>
     selectItem(state, reference, color, shallowEqual)
@@ -30,15 +40,17 @@ const ShopItemPage = () => {
   return (
     <ShopItemPageContainer>
       <ShopItemContainer>
-        {selectedItem ? (
+        {selectedItem && (
           <ShopItemPictures url={selectedItem[displayedItem].Url} />
-        ) : null}
-        {selectedItem ? (
+        )}
+        {selectedItem && (
           <ShopItemData
+            collection={collection}
+            section={section}
             item={selectedItem[displayedItem]}
             handleDifferentColor={handleDifferentColor}
           />
-        ) : null}
+        )}
       </ShopItemContainer>
       <div>You may also like</div>
       <div>Recent view</div>

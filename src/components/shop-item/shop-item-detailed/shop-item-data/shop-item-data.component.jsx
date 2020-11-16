@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import {
@@ -8,6 +7,7 @@ import {
   toggleCartHidden,
 } from "../../../../redux/actions/cart.actions";
 import { selectShopItem } from "../../../../redux/actions/collections.actions";
+import { openModal } from "../../../../redux/actions/modal.actions";
 
 import {
   selectCartHidden,
@@ -18,9 +18,10 @@ import { selectSelectedShopItem } from "../../../../redux/selectors/collections.
 import Circle from "../../../circle/circle.component";
 import CustomButton from "../../../custom-button/custom-button.component";
 import Wishlist from "../../../wishlist/wishlist.component";
-import SizeGuide from "../../../size-guide/size-guide.component";
+import SizesGuideMenu from "../../../sizes-guide/sizes-guide-menu/sizes-guide-menu.component";
 import ItemDetails from "../item-details/item-details.component";
 import SelectSize from "../../../select-size/select-size.component";
+import ShareMenu from "../../../share/share-menu/share-menu.component";
 
 import {
   Container,
@@ -28,6 +29,7 @@ import {
   NameContainer,
   ItemName,
   ItemReference,
+  ReviewsContainer,
   DescriptionContainer,
   ItemDescription,
   PriceContainer,
@@ -40,32 +42,26 @@ import {
   ColorsOptionContainer,
   ColorName,
   SelectSizesContainer,
-  SizeGuideContainer,
+  SizesGuideContainer,
   CustomButtonContainer,
+  ShippingContainer,
   DetailsContainer,
-  Reviews,
   Separator,
+  Share,
 } from "./shop-item-data.styles";
 
-const ShopItemData = ({ item, handleDifferentColor }) => {
-  const params = useParams();
-
-  const { collection, section } = params;
-
+const ShopItemData = ({ collection, section, item, handleDifferentColor }) => {
   const {
-    Url,
     Reference,
     Description,
     Name,
     Price,
     Sizes,
-    NewItem,
     Sale,
     Discount,
     LastPrice,
     Color,
     AvailableColors,
-    AvailableUnits,
     Details,
     Fabric,
     Care,
@@ -73,7 +69,6 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
 
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [fabricVisible, setFabricVisible] = useState(false);
-  const [careVisible, setCareVisible] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -97,6 +92,7 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
         <Wishlist theme="dark" size="large" item={item} />
       </NameContainer>
       <ItemReference>{Reference}</ItemReference>
+      <ReviewsContainer>Reviews</ReviewsContainer>
       <DescriptionContainer>
         <ItemDescription>{Description}</ItemDescription>
         <PriceContainer>
@@ -138,24 +134,26 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
       <SelectSizesContainer>
         <SelectSize sizes={Sizes} selectedSize={selectedSize} />
       </SelectSizesContainer>
-      <SizeGuideContainer>
-        <SizeGuide />
-      </SizeGuideContainer>
+      <SizesGuideContainer>
+        <SizesGuideMenu section={section} />
+      </SizesGuideContainer>
       <CustomButtonContainer>
         <CustomButton
           color="standard"
           onClick={() => {
+            const text = "Please select size!";
             if (selectedSize) {
               dispatch(addItem(selectedShopItem, selectedSize));
               selectedCartDropdownHidden && dispatch(toggleCartHidden());
-            } else alert("Please, select size first");
+            } else dispatch(openModal("ALERTS", { text }));
           }}
         >
           Add to bag
         </CustomButton>
       </CustomButtonContainer>
-      <div>Shipping Information</div>
-      <div>Share Item</div>
+      <ShippingContainer onClick={() => dispatch(openModal("SHIPPING_INFO"))}>
+        Deliveries & Returns
+      </ShippingContainer>
       <DetailsContainer>
         <ItemDetails
           title="Details"
@@ -165,19 +163,15 @@ const ShopItemData = ({ item, handleDifferentColor }) => {
         />
         <Separator />
         <ItemDetails
-          title="Fabric"
+          title="Fabric & Care"
           text={Fabric}
           textVisible={fabricVisible}
           setTextVisible={setFabricVisible}
         />
-        <Separator />
-        <ItemDetails
-          title="Care"
-          text={Care}
-          textVisible={careVisible}
-          setTextVisible={setCareVisible}
-        />
       </DetailsContainer>
+      <Share>
+        <ShareMenu />
+      </Share>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { ReactComponent as HangerLogo } from "../../assets/icons/hanger.svg";
+import { ReactComponent as HangerLogo } from "../../../assets/icons/hanger.svg";
 
 export const Container = styled.div`
   display: flex;

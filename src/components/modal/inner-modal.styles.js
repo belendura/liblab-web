@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
 export const OuterContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
@@ -10,6 +11,7 @@ export const OuterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 20;
 `;
 
 export const Container = styled.div`
@@ -25,4 +27,14 @@ export const Container = styled.div`
   border: 1px solid black;
   border-radius: 2px;
   padding: 10px 20px;
+`;
+
+export const CloseButton = styled(CloseLogo)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 14px;
+  margin: 10px;
+  cursor: pointer;
+  ${"" /* border: thin solid black; */}
 `;

@@ -16,6 +16,10 @@ const {
   fetchSection,
 } = require("./handlers/collections-management");
 
+const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
+
+const { postSizeRequest } = require("./handlers/request-size-management");
+
 const {
   checkIfAuthenticated,
 } = require("../functions/middlewares/authenticate");
@@ -41,5 +45,9 @@ app.get("/shop-menu", fetchShopMenu);
 app.get("/shop/:collection/:section", fetchSection);
 
 app.get("/shop/:condition", fetchCollection);
+
+app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
+
+app.post("/request-size/", postSizeRequest);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

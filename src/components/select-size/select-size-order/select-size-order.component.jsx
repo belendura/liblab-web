@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+
+import { openModal } from "../../../redux/actions/modal.actions";
 
 import { Container, SizeOption, OrderMenu } from "./select-size-order.styles";
 
 const SelectSizeOrder = ({ size }) => {
-  const [orderVisible, setOrderVisible] = useState(false);
-
+  const dispatch = useDispatch();
+  const params = useParams();
+  const { reference, color } = params;
   return (
     <Container>
       <SizeOption>{`${size} - Not available`}</SizeOption>
-      <OrderMenu onClick={() => setOrderVisible(true)} />
+      <OrderMenu
+        onClick={() =>
+          dispatch(openModal("SELECT_SIZE", { reference, color, size }))
+        }
+      />
     </Container>
   );
 };

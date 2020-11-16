@@ -30,7 +30,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     dispatch(fetchSectionStart(collection, section, wishlistItems));
-  }, []);
+  }, [fetchSectionStart, collection, section, wishlistItems]);
 
   return (
     <Container>

@@ -38,7 +38,6 @@ const ShopItem = ({ item, params }) => {
     Url,
     Reference,
     Description,
-    Name,
     Price,
     LastPrice,
     Sizes,
@@ -78,7 +77,6 @@ const ShopItem = ({ item, params }) => {
 
   return (
     <Container
-      //onClick={() => history.push(`/shop/${description}`)}
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
     >
@@ -89,8 +87,7 @@ const ShopItem = ({ item, params }) => {
           onClick={() => {
             dispatch(selectShopItem(item[displayedItem]));
             history.push(
-              `/shop/${collection}/${section}/${Name}-${Reference}/${Color.name}`
-              // `/shop/${collection}/${section}/${Name}-${Reference}.html?color=${Color.name}`
+              `/shop/${collection}/${section}/${Description}&${Reference}/${Color.name}`
             );
           }}
           url={Url[displayedView]}

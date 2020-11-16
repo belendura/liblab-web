@@ -5,8 +5,8 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
 
-// import { SCRUB_TOPS } from "./firebase/scrub-tops";
-// import { addNewDocuments } from "./firebase/firebase.utils";
+// import { WOMEN_JACKETS } from "./firebase/sizes";
+// import { addSizesDocuments } from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
 
@@ -81,6 +81,10 @@ function App() {
   //   addNewDocuments("collections/women/scrub-tops", SCRUB_TOPS);
   // }, []);
 
+  // useEffect(() => {
+  //   addSizesDocuments("sizes-guide/women/jackets", WOMEN_JACKETS);
+  // }, []);
+
   return (
     <div>
       <GlobalStyle />
@@ -91,7 +95,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop/:collection/:section" component={ShopPage} />
           <Route
-            path="/shop/:collection/:section/:name-:reference/:color"
+            path="/shop/:collection/:section/:description&:reference/:color"
             component={ShopItemPage}
           />
           <Route exact path="/search" component={SearchPage} />

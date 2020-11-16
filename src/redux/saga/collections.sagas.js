@@ -61,7 +61,6 @@ export function* fetchSection({ payload }) {
       response.data,
       wishlistItems
     );
-    // console.log("updatedSectionWishlist", updatedSectionWishlist);
     const extendedSection = getExtendedItems(updatedSectionWishlist);
     yield put(fetchSectionSuccess(extendedSection));
   } catch (error) {

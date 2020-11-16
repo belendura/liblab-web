@@ -32,16 +32,6 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
         ...state,
         selectedSize: "",
       };
-    case wishlistActionTypes.SELECT_SIZE:
-      return {
-        ...state,
-        selectedSize: action.payload,
-      };
-    case wishlistActionTypes.CLEAR_SIZE:
-      return {
-        ...state,
-        selectedSize: "",
-      };
     case wishlistActionTypes.CLEAR_WISHLIST:
       return {
         ...state,

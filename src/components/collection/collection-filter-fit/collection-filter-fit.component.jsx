@@ -31,7 +31,7 @@ const CollectionFilterFit = () => {
 
   useEffect(() => {
     dispatch(filterFit(fit));
-  }, [fit]);
+  }, [filterFit, fit]);
 
   const handleChange = (event) => {
     const { checked, id } = event.target;

@@ -11,7 +11,7 @@ const Modal = ({ children }) => {
     return () => {
       modalRoot.removeChild(element);
     };
-  }, [element]);
+  }, [element, modalRoot]);
 
   return createPortal(children, element);
 };

@@ -28,4 +28,18 @@ export const addNewDocuments = async (collectionKey, data) => {
   return await batch.commit();
 };
 
+export const addSizesDocuments = async (collectionKey, data) => {
+  if (!data) return;
+
+  const batch = firestore.batch();
+
+  Object.entries(data).map((item) => {
+    const [key, value] = item;
+    const docRef = firestore.doc(`${collectionKey}/${key}`);
+    return batch.set(docRef, value);
+  });
+
+  return await batch.commit();
+};
+
 export default firebase;

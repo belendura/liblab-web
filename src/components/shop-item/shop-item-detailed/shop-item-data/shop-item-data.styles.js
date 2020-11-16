@@ -1,17 +1,5 @@
 import styled, { css } from "styled-components";
 
-const AvailableSize = css`
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    color: white;
-  }
-`;
-const UnavailableSize = css`
-  color: grey;
-`;
-
 const OriginalPrice = css`
   color: grey;
   text-decoration: line-through;
@@ -21,10 +9,6 @@ const OriginalPrice = css`
 const SalePrice = css`
   color: red;
 `;
-
-const getSizesStyles = (props) => {
-  return props.units > 0 ? AvailableSize : UnavailableSize;
-};
 
 const getPriceStyles = (props) => {
   if (!props.sale) return null;
@@ -65,6 +49,20 @@ export const ItemReference = styled.span`
   font-size: 8px;
 `;
 
+export const ReviewsContainer = styled.span`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: gold;
+  }
+  ${"" /* border: thin solid black; */}
+`;
+
 export const DescriptionContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -101,10 +99,11 @@ export const ItemLastPrice = styled.span`
 
 export const DiscountContainer = styled.div`
   font-size: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
+  height: 40px;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-start;
   ${"" /* border: thin solid red; */}
 `;
 
@@ -145,7 +144,7 @@ export const SelectSizesContainer = styled.div`
   margin-top: 10px;
 `;
 
-export const SizeGuideContainer = styled.div`
+export const SizesGuideContainer = styled.div`
   margin: 10px;
 `;
 
@@ -156,12 +155,20 @@ export const CustomButtonContainer = styled.div`
   ${"" /* border: thin solid black; */}
 `;
 
-export const DetailsContainer = styled.div`
-  margin-top: 10px;
+export const ShippingContainer = styled.div`
+  font-size: 10px;
+  color: grey;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: gold;
+  }
+  ${"" /* border: thin solid black; */}
 `;
 
-export const Reviews = styled.div`
-  padding: 10px;
+export const DetailsContainer = styled.div`
+  margin-top: 20px;
 `;
 
 export const Separator = styled.hr`
@@ -172,4 +179,10 @@ export const Separator = styled.hr`
   background-color: rgba(107, 111, 115, 0.4);
   border-color: thin solid rgba(107, 111, 115, 0.4);
   border-radius: 0.5px;
+`;
+
+export const Share = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
 `;

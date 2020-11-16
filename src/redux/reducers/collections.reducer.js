@@ -88,6 +88,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
     case collectionsActionTypes.FETCH_SECTION_FAILURE:
       return {
         ...state,
+        shopMenu: null,
         section: null,
         ascendingOrder: false,
         descendingOrder: false,

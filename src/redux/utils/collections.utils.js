@@ -1,5 +1,3 @@
-import { selectItem } from "../selectors/collections.selectors";
-
 const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
@@ -72,7 +70,7 @@ export const updateSectionWishlist = (section, wishlistItems) => {
           wishlistItem["Name"] === sectionItem["Name"] &&
           wishlistItem["Color"].name === sectionItem["Color"].name
         ) {
-          sectionItem["Wishlist"] = true;
+          return (sectionItem["Wishlist"] = true);
         }
       });
 
@@ -176,12 +174,12 @@ export const setSectionFilter = (section, colors, sizes, fit) => {
   const newSection = filteredSizes.reduce((accu, sizeItem) => {
     filteredColors.filter((colorItem) => {
       if (sizeItem[0].Color.name === colorItem[0].Color.name)
-        filteredFit.filter((fitItem) => {
+        return filteredFit.filter((fitItem) => {
           if (
             sizeItem[0].Color.name === colorItem[0].Color.name &&
             fitItem[0].Fit === sizeItem[0].Fit
           )
-            accu.push(sizeItem);
+            return accu.push(sizeItem);
         });
     });
     return accu;

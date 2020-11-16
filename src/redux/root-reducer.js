@@ -7,6 +7,8 @@ import collectionsReducer from "../redux/reducers/collections.reducer";
 import cartReducer from "../redux/reducers/cart.reducer";
 import wishlistReducer from "../redux/reducers/wishlist.reducer";
 import modalReducer from "../redux/reducers/modal.reducer";
+import sizesGuideReducer from "../redux/reducers/sizes-guide.reducer";
+import requestSizeReducer from "../redux/reducers/request-size.reducer";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   wishlist: wishlistReducer,
   modal: modalReducer,
+  sizesGuide: sizesGuideReducer,
+  requestSize: requestSizeReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

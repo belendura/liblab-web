@@ -17,7 +17,7 @@ const CollectionFilterFitOption = ({ id, handleChange }) => {
 
   useEffect(() => {
     filteredFit.includes(id) ? setChecked(true) : setChecked(false);
-  }, [filteredFit]);
+  }, [filteredFit, id]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;

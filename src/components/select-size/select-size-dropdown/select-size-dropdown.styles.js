@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { ReactComponent as ArrowLogo } from "../../../assets/icons/arrow-up.svg";
 
 const sizeStyles = css`
   cursor: pointer;

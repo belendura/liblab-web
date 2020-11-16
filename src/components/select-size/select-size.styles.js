@@ -14,9 +14,11 @@ export const SizeOption = styled.input`
   border: none;
   font-size: 10px;
   padding: 10px 5px;
+  cursor: pointer;
 
   &:hover,
   &:focus {
+    outline: none;
     border: none;
   }
 `;

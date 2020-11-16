@@ -105,15 +105,13 @@ exports.getShopMenu = async () => {
             collections.map((collection) => collection.id)
           );
         const id = docRef.id;
-        console.log("id", id);
+
         accum[id] = colRef;
 
         return accum;
       },
       Promise.resolve({})
     );
-
-    console.log("shopMenu", shopMenu);
 
     return shopMenu;
   } catch (error) {
@@ -298,5 +296,106 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
     } catch (error) {
       throw new Error(error);
     }
+  }
+};
+
+exports.getSizesGuide = async (collection, section) => {
+  if (!collection || !section) return;
+
+  const documentRefs = await firestore
+    .collection(`sizes/${collection}/${section}`)
+    .listDocuments();
+
+  try {
+    const sizesData = await documentRefs.reduce(
+      async (previousPromise, docRef) => {
+        let accum = await previousPromise;
+        await docRef.get().then((docSnapshot) => {
+          return (accum[docSnapshot.id] = docSnapshot.data());
+        });
+        return accum;
+      },
+      Promise.resolve({})
+    );
+
+    return sizesData;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.createSizeRequestDocument = async (
+  itemCredentials,
+  userCredentials
+) => {
+  console.log("itemCredentials", itemCredentials);
+  // console.log("userCredentials", userCredentials);
+  if (!itemCredentials || !userCredentials) return;
+
+  const colRef = firestore.collection(`size-requests`);
+  const { reference, color, size } = itemCredentials;
+  let userExists = false;
+  let requestExists = false;
+  try {
+    const documentRefs = await colRef
+      .where("email", "==", userCredentials)
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => {
+          return doc.ref;
+        });
+      });
+    console.log("documentRefs", documentRefs);
+
+    const id = await Promise.all(
+      documentRefs.map(async (docRef) => {
+        const docSnapshot = await docRef.get();
+        return docSnapshot.id;
+      })
+    );
+
+    if (documentRefs.length > 0) {
+      //If user exists
+      const collectionsRefs = await documentRefs.reduce(
+        async (previousPromise, documentRef) => {
+          let accum = await previousPromise;
+          const colRef = await documentRef.listCollections();
+          accum = [...accum, ...colRef];
+          return accum;
+        },
+        Promise.resolve([])
+      );
+
+      console.log("collectionsRefs", collectionsRefs);
+
+      const data = await Promise.all(
+        collectionsRefs.map(async (colRef) => {
+          await colRef
+            .where("reference", "==", reference)
+            .where("color", "==", color)
+            .where("size", "==", size)
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.docs.map((doc) => {
+                if (doc.exists) {
+                  console.log("data", doc.data());
+                  doc.ref.update({ createdAt: Date() });
+                  requestExists = true;
+                  return;
+                }
+              });
+            });
+        })
+      );
+    }
+
+    if (!requestExists) {
+      const Newdata = firestore
+        .collection(`size-requests/${id[0]}/requests`)
+        .add({ ...itemCredentials, createdAt: Date() });
+    }
+    return;
+  } catch (error) {
+    throw new Error(error);
   }
 };

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import {
-  setSectionOrder,
-  setSectionFilter,
-} from "../../../redux/utils/collections.utils";
+import { setSectionOrder } from "../../../redux/utils/collections.utils";
 
 import {
-  selectSection,
   selectFilteredColors,
   selectFilteredSizes,
   selectFilteredFit,
@@ -30,7 +26,6 @@ const CollectionList = ({ params }) => {
   const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
   const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
   const gridView = useSelector(selectGridView, shallowEqual);
-  const section = useSelector(selectSection, shallowEqual);
 
   const filteredSection = useSelector(
     (state) =>

@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 0 10px;
+  padding-right: 10px;
   ${"" /* border: thin solid black; */}
 `;
 
@@ -22,7 +22,7 @@ export const Title = styled.span`
 `;
 
 export const Text = styled.span`
-  font-size: 12px;
+  font-size: 10px;
   ${"" /* border: thin solid black; */}
 `;
 

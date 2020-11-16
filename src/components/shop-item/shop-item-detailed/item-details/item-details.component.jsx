@@ -22,7 +22,7 @@ const ItemDetails = ({ title, text, textVisible, setTextVisible }) => {
       </TitleContainer>
       {textVisible && title === "Details" && <Text>{text}</Text>}
       {textVisible &&
-        title === "Fabric" &&
+        title === "Fabric & Care" &&
         text.map((item, index) => {
           return (
             <div key={index}>

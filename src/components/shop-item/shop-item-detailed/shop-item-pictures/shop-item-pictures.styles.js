@@ -24,7 +24,7 @@ export const Picture = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  border: thin solid black;
+  border: thin solid grey;
   cursor: zoom-in;
 
   &:nth-child(n + 5) {

@@ -32,7 +32,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchCollectionByConditionStart("BestSeller", wishlistItems));
-  }, []);
+  }, [fetchCollectionByConditionStart, wishlistItems]);
 
   return (
     <Container>

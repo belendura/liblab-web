@@ -22,6 +22,10 @@ const SelectSize = ({ sizes, selectedSize }) => {
           type="text"
           id="size"
           placeholder={selectedSize ? `${selectedSize}` : "Select size"}
+          onClick={() => {
+            dispatch(clearSize());
+            setSelectSizeVisible(!selectSizeVisible);
+          }}
         />
         {selectSizeVisible ? (
           <ArrowUp onClick={() => setSelectSizeVisible(false)} />

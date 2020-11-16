@@ -11,7 +11,7 @@ import {
 
 import CustomButton from "../../custom-button/custom-button.component";
 import Circle from "../../circle/circle.component";
-import SizeGuide from "../../size-guide/size-guide.component";
+import SizesGuide from "../../sizes-guide/sizes-guide-menu/sizes-guide-menu.component";
 
 import {
   WishlistItemContainer,
@@ -88,7 +88,7 @@ const WishlistItem = ({ item }) => {
                 );
               })}
             </WishlistItemSizesItemContainer>
-            <SizeGuide />
+            <SizesGuide />
           </WishlistItemSizesContainer>
         )}
       </WishlistItemPicture>

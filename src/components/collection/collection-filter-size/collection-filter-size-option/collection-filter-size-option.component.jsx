@@ -18,7 +18,7 @@ const CollectionFilterSizeOption = ({ id, handleChange }) => {
 
   useEffect(() => {
     filteredSizes.includes(id) ? setChecked(true) : setChecked(false);
-  }, [filteredSizes]);
+  }, [filteredSizes, id]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;
