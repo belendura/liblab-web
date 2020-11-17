@@ -324,75 +324,85 @@ exports.getSizesGuide = async (collection, section) => {
   }
 };
 
+const createRequestItemDocument = async (id, itemCredentials) => {
+  const date = new Date();
+  const docRequestRef = await firestore
+    .collection(`size-requests/${id}/requests`)
+    .add({ ...itemCredentials, createdAt: date });
+
+  const docRequestSnapshot = await docRequestRef.get();
+  return (data = docRequestSnapshot.data());
+};
+
 exports.createSizeRequestDocument = async (
   itemCredentials,
   userCredentials
 ) => {
-  console.log("itemCredentials", itemCredentials);
+  // console.log("itemCredentials", itemCredentials);
   // console.log("userCredentials", userCredentials);
   if (!itemCredentials || !userCredentials) return;
 
   const colRef = firestore.collection(`size-requests`);
   const { reference, color, size } = itemCredentials;
+  const { email } = userCredentials;
+
   let userExists = false;
   let requestExists = false;
+
   try {
-    const documentRefs = await colRef
-      .where("email", "==", userCredentials)
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => {
-          return doc.ref;
-        });
-      });
-    console.log("documentRefs", documentRefs);
+    querySnapshot = await colRef.where("email", "==", email).get();
 
-    const id = await Promise.all(
-      documentRefs.map(async (docRef) => {
-        const docSnapshot = await docRef.get();
-        return docSnapshot.id;
-      })
-    );
-
-    if (documentRefs.length > 0) {
-      //If user exists
-      const collectionsRefs = await documentRefs.reduce(
-        async (previousPromise, documentRef) => {
-          let accum = await previousPromise;
-          const colRef = await documentRef.listCollections();
-          accum = [...accum, ...colRef];
-          return accum;
-        },
-        Promise.resolve([])
-      );
-
-      console.log("collectionsRefs", collectionsRefs);
-
-      const data = await Promise.all(
-        collectionsRefs.map(async (colRef) => {
-          await colRef
-            .where("reference", "==", reference)
-            .where("color", "==", color)
-            .where("size", "==", size)
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.docs.map((doc) => {
-                if (doc.exists) {
-                  console.log("data", doc.data());
-                  doc.ref.update({ createdAt: Date() });
-                  requestExists = true;
-                  return;
-                }
-              });
-            });
-        })
-      );
+    if (!querySnapshot.empty) {
+      userExists = true;
     }
+    let documentRef = {};
 
-    if (!requestExists) {
-      const Newdata = firestore
-        .collection(`size-requests/${id[0]}/requests`)
-        .add({ ...itemCredentials, createdAt: Date() });
+    if (userExists) {
+      if (!querySnapshot.empty) {
+        querySnapshot.docs.forEach((docSnapshot) => {
+          if (docSnapshot.exists) {
+            return (documentRef = docSnapshot.ref);
+          }
+        });
+
+        const docSnapshot = await documentRef.get();
+
+        const id = docSnapshot.id;
+
+        const colRequestRef = firestore.collection(
+          `size-requests/${id}/requests`
+        );
+
+        const queryRequestSnapshot = await colRequestRef
+          .where("reference", "==", reference)
+          .where("color", "==", color)
+          .where("size", "==", size)
+          .get();
+
+        if (!queryRequestSnapshot.empty) {
+          queryRequestSnapshot.docs.map((doc) => {
+            if (doc.exists) {
+              const newDate = new Date();
+              doc.ref.update({ createdAt: newDate });
+              requestExists = true;
+            }
+          });
+        }
+
+        if (!requestExists) {
+          await createRequestItemDocument(id, itemCredentials);
+        }
+      }
+    } else {
+      const newDate = new Date();
+      const docUserRef = await firestore
+        .collection(`size-requests/`)
+        .add({ email, createdAt: newDate });
+
+      const docUserSnapShot = await docUserRef.get();
+      const id = docUserSnapShot.id;
+
+      await createRequestItemDocument(id, itemCredentials);
     }
     return;
   } catch (error) {

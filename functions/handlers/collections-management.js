@@ -9,7 +9,6 @@ exports.fetchShopMenu = async (req, res) => {
   try {
     const shopMenu = await getShopMenu();
     return res.status(200).send(shopMenu);
-    return;
   } catch (error) {
     return res.status(500).send(`Error getting shop menu ${error}`);
   }

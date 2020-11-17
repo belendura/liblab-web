@@ -9,10 +9,13 @@ import {
   requestSizeFailure,
 } from "../actions/request-size.actions";
 
+import { openModal } from "../actions/modal.actions";
+
 export function* requestSize({ payload }) {
   try {
-    const response = yield axiosConfig.post(`/request-size/`, payload);
-    yield put(requestSizeSuccess(response.data));
+    yield axiosConfig.post(`/request-size/`, payload);
+
+    yield put(requestSizeSuccess());
   } catch (error) {
     yield put(requestSizeFailure(error));
   }
@@ -22,6 +25,18 @@ export function* onRequestSizeStart() {
   yield takeLatest(requestSizeActionTypes.REQUEST_SIZE_START, requestSize);
 }
 
+export function* onOpenModal() {
+  yield put(
+    openModal("ALERTS", {
+      text: "Thanks! we will notify you by email if it is available again",
+    })
+  );
+}
+
+export function* onRequestSizeSuccess() {
+  yield takeLatest(requestSizeActionTypes.REQUEST_SIZE_SUCCESS, onOpenModal);
+}
+
 export function* requestSizeSagas() {
-  yield all([call(onRequestSizeStart)]);
+  yield all([call(onRequestSizeStart), call(onRequestSizeSuccess)]);
 }

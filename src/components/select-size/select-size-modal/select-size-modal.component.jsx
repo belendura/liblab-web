@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { requestSizeStart } from "../../../redux/actions/request-size.actions";
+import { closeModal } from "../../../redux/actions/modal.actions";
 
 import CustomButton from "../../custom-button/custom-button.component";
 
 import {
   Container,
   ButtonContainer,
+  Alert,
   Label,
   Email,
 } from "./select-size-modal.styles";
@@ -15,11 +17,23 @@ import {
 const SelectSizeModal = ({ reference, color, size }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [alertvisibility, setAlertVisibility] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(requestSizeStart({ reference, color, size }, email));
+  const handleRequest = () => {
+    console.log("email", email);
+    if (email.length === 0) {
+      setAlertVisibility(true);
+    } else {
+      dispatch(
+        requestSizeStart(
+          { reference: reference, color: color, size: size },
+          { email: email }
+        )
+      );
+      dispatch(closeModal());
+    }
   };
+
   const handleChange = (event) => {
     setEmail(event.target.value);
   };
@@ -30,32 +44,22 @@ const SelectSizeModal = ({ reference, color, size }) => {
         Enter your e-mail address and we will notify you <br /> if the item
         becomes available again.
       </Label>
-      <form onSubmit={handleSubmit}>
-        <Email
-          onChange={handleChange}
-          placeholder="Enter yor e-mail address"
-          type="email"
-          name="email"
-          value={email}
-          label="email"
-          required
-        />
-        <ButtonContainer>
-          <CustomButton
-            color="standard"
-            onClick={() =>
-              dispatch(
-                requestSizeStart(
-                  { reference: reference, color: color, size: size },
-                  email
-                )
-              )
-            }
-          >
-            Receive notification
-          </CustomButton>
-        </ButtonContainer>
-      </form>
+
+      <Email
+        onChange={handleChange}
+        placeholder="Enter yor e-mail address"
+        type="email"
+        name="email"
+        value={email}
+        label="email"
+        required
+      />
+      {alertvisibility && <Alert />}
+      <ButtonContainer>
+        <CustomButton color="standard" onClick={handleRequest}>
+          Receive notification
+        </CustomButton>
+      </ButtonContainer>
     </Container>
   );
 };

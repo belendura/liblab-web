@@ -5,9 +5,8 @@ export const requestSizeStart = (itemCredentials, userCredentials) => ({
   payload: { itemCredentials, userCredentials },
 });
 
-export const requestSizeSuccess = (success) => ({
+export const requestSizeSuccess = () => ({
   type: requestSizeActionTypes.REQUEST_SIZE_SUCCESS,
-  payload: success,
 });
 
 export const requestSizeFailure = (error) => ({

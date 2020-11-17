@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 20px 10px;
+  height: auto;
+  ${"" /* margin: 20px 10px; */}
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,6 +16,14 @@ export const Label = styled.label`
 export const Email = styled.input`
   margin: 15px;
   ${"" /* border: thin solid black; */}
+`;
+
+export const Alert = styled.span`
+  color: red;
+  font-size: 10px;
+  text-align: center;
+
+  border: thin solid black;
 `;
 
 export const ButtonContainer = styled.div`
