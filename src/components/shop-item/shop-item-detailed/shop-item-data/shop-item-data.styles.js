@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+// import { Link } from "react-router-dom";
 
 const OriginalPrice = css`
   color: grey;
@@ -27,8 +28,23 @@ export const Container = styled.div`
 
 export const NavRoute = styled.span`
   font-size: 10px;
+  cursor: pointer;
+  &:hover {
+    color: gold;
+    text-decoration-line: underline;
+  }
   ${"" /* border: thin solid black; */}
 `;
+
+// export const NavRoute = styled(Link)`
+//   font-size: 10px;
+//   cursor: pointer;
+//   &:hover {
+//     color: gold;
+//     text-decoration-line: underline;
+//   }
+//   ${"" /* border: thin solid black; */}
+// `;
 
 export const NameContainer = styled.div`
   display: flex;

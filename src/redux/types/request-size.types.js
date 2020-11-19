@@ -1,7 +1,0 @@
-const requestSizeActionTypes = {
-  REQUEST_SIZE_START: "REQUEST_SIZE_START",
-  REQUEST_SIZE_SUCCESS: "REQUEST_SIZE_SUCCESS",
-  REQUEST_SIZE_FAILURE: "REQUEST_SIZE_FAILURE",
-};
-
-export default requestSizeActionTypes;

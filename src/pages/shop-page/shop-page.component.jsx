@@ -7,7 +7,7 @@ import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
 import { fetchSectionStart } from "../../redux/actions/collections.actions";
 
 import CollectionTitle from "../../components/collection/collection-title/collection-title.component";
-// import CollectionCover from "../../components/collection/collection-cover/collection-cover.component";
+
 import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
 import CollectionList from "../../components/collection/collection-list/collection-list.component";
 

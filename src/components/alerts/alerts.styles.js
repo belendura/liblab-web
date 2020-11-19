@@ -2,13 +2,19 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+  border: thin solid black;
 `;
 
 export const TextContainer = styled.p`
-  margin: 10px 40px;
-  padding: 10px 40px;
+  ${"" /* margin: 10px; */}
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const ButtonContainer = styled.div`
+  ${"" /* border: thin solid black; */}
 `;

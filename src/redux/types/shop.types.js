@@ -1,0 +1,7 @@
+const shopActionTypes = {
+  REQUEST_ITEM_START: "REQUEST_ITEM_START",
+  REQUEST_ITEM_SUCCESS: "REQUEST_ITEM_SUCCESS",
+  REQUEST_ITEM_FAILURE: "REQUEST_ITEM_FAILURE",
+};
+
+export default shopActionTypes;

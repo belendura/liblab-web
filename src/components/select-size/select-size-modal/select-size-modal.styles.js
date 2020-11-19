@@ -2,7 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: auto;
-  ${"" /* margin: 20px 10px; */}
+  margin: 10px;
+
+  ${"" /* border: thin solid black; */}
+`;
+
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +16,7 @@ export const Container = styled.div`
 
 export const Label = styled.label`
   font-size: 10px;
+  padding: 5px;
 `;
 
 export const Email = styled.input`
@@ -21,9 +27,10 @@ export const Email = styled.input`
 export const Alert = styled.span`
   color: red;
   font-size: 10px;
+  margin-bottom: 15px;
   text-align: center;
 
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const ButtonContainer = styled.div`

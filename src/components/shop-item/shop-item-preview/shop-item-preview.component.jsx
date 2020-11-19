@@ -15,14 +15,27 @@ import {
 } from "./shop-item-preview.styles";
 
 const ShopItemPreview = ({ item }) => {
-  const { Url, Description, LastPrice, New } = item;
+  const {
+    Collection,
+    Section,
+    Url,
+    Description,
+    Reference,
+    Color,
+    LastPrice,
+    New,
+  } = item;
   const history = useHistory();
 
   return (
     <Container>
       <Picture
         url={Url[0]}
-        onClick={() => history.push(`/shop/${Description}`)}
+        onClick={() =>
+          history.push(
+            `/shop/${Collection}/${Section}/${Description}&${Reference}/${Color.name}`
+          )
+        }
       />
       <Footer>
         <NewItem newItem={New}>NEW</NewItem>

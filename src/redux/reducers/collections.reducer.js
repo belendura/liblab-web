@@ -7,7 +7,6 @@ const INITIAL_STATE = {
   filteredColors: [],
   filteredSizes: [],
   filteredFit: [],
-  // differentColor: {},
   gridgridView: false,
   ascendingOrder: false,
   descendingOrder: false,
@@ -75,12 +74,6 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         gridView: true,
-        error: null,
-      };
-    case collectionsActionTypes.SELECT_ITEM:
-      return {
-        ...state,
-        selectedItem: action.payload,
         error: null,
       };
     case collectionsActionTypes.FETCH_SHOP_MENU_FAILURE:

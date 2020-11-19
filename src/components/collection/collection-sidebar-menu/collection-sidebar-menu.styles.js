@@ -4,9 +4,9 @@ import { ReactComponent as FilterLogo } from "../../../assets/icons/white-glasse
 
 export const SidebarContainer = styled.div`
   position: absolute;
-  top: 400px;
+  top: 425px;
   left: -200px;
-  z-index: 5;
+  z-index: 10;
   height: auto;
 
   transition: all 1s ease-in-out;

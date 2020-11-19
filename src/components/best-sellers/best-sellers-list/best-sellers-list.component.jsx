@@ -15,7 +15,7 @@ const BestSellersList = () => {
         section
           .filter((item, index) => index < 3)
           .map((item, index) => {
-            return <ShopItemPreview key={index} item={item[0]} />;
+            return <ShopItemPreview key={index} item={item} />;
           })}
     </Container>
   );

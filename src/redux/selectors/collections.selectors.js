@@ -51,33 +51,33 @@ export const selectSectionColorOptions = createSelector(
             sizes.length &&
               fit.length &&
               sizes.forEach((sizeItem) => {
-                if (arrayItem[0]["Sizes"].size === sizeItem)
+                if (arrayItem["Sizes"].size === sizeItem)
                   fit.forEach((fitItem) => {
-                    if (arrayItem[0]["Fit"] === fitItem)
-                      accumulator = [...accumulator, arrayItem[0]["Color"]];
+                    if (arrayItem["Fit"] === fitItem)
+                      accumulator = [...accumulator, arrayItem["Color"]];
                     return accumulator;
                   });
               });
             !sizes.length &&
               fit.length &&
               fit.forEach((fitItem) => {
-                if (arrayItem[0]["Fit"] === fitItem)
-                  accumulator = [...accumulator, arrayItem[0]["Color"]];
+                if (arrayItem["Fit"] === fitItem)
+                  accumulator = [...accumulator, arrayItem["Color"]];
                 return accumulator;
               });
             sizes.length &&
               !fit.length &&
               sizes.forEach((sizeItem) => {
-                arrayItem[0]["Sizes"].forEach((item) => {
+                arrayItem["Sizes"].forEach((item) => {
                   if (item.size === sizeItem)
-                    accumulator = [...accumulator, arrayItem[0]["Color"]];
+                    accumulator = [...accumulator, arrayItem["Color"]];
                   return accumulator;
                 });
               });
             !sizes.length &&
               !fit.length &&
-              arrayItem.length &&
-              accumulator.push(arrayItem[0]["Color"]);
+              arrayItem &&
+              accumulator.push(arrayItem["Color"]);
             return accumulator;
           }, [])
           .reduce((accum, item) => {
@@ -95,10 +95,10 @@ export const selectSectionSizeOptions = createSelector(
             colors.length &&
               fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem[0]["Color"].name === colorItem)
+                if (arrayItem["Color"].name === colorItem)
                   fit.forEach((fitItem) => {
-                    if (arrayItem[0]["Fit"] === fitItem)
-                      arrayItem[0]["Sizes"].map((item) => {
+                    if (arrayItem["Fit"] === fitItem)
+                      arrayItem["Sizes"].map((item) => {
                         accumulator = [...accumulator, item.size];
                       });
                     return accumulator;
@@ -107,8 +107,8 @@ export const selectSectionSizeOptions = createSelector(
             !colors.length &&
               fit.length &&
               fit.forEach((fitItem) => {
-                if (arrayItem[0]["Fit"] === fitItem)
-                  arrayItem[0]["Sizes"].map((item) => {
+                if (arrayItem["Fit"] === fitItem)
+                  arrayItem["Sizes"].map((item) => {
                     accumulator = [...accumulator, item.size];
                   });
                 return accumulator;
@@ -116,16 +116,16 @@ export const selectSectionSizeOptions = createSelector(
             colors.length &&
               !fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem[0]["Color"].name === colorItem)
-                  arrayItem[0]["Sizes"].map((item) => {
+                if (arrayItem["Color"].name === colorItem)
+                  arrayItem["Sizes"].map((item) => {
                     accumulator = [...accumulator, item.size];
                   });
                 return accumulator;
               });
             !colors.length &&
               !fit.length &&
-              arrayItem.length &&
-              arrayItem[0]["Sizes"].map((item) => {
+              arrayItem &&
+              arrayItem["Sizes"].map((item) => {
                 accumulator = [...accumulator, item.size];
               });
             return accumulator;
@@ -145,11 +145,11 @@ export const selectSectionFitOptions = createSelector(
             colors.length &&
               sizes.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem[0]["Color"].name === colorItem)
+                if (arrayItem["Color"].name === colorItem)
                   sizes.forEach((sizeItem) => {
-                    arrayItem[0]["Sizes"].forEach((item) => {
+                    arrayItem["Sizes"].forEach((item) => {
                       if (item.size === sizeItem)
-                        accumulator = [...accumulator, arrayItem[0]["Fit"]];
+                        accumulator = [...accumulator, arrayItem["Fit"]];
                       return accumulator;
                     });
                   });
@@ -157,23 +157,23 @@ export const selectSectionFitOptions = createSelector(
             !colors.length &&
               sizes.length &&
               sizes.forEach((sizeItem) => {
-                arrayItem[0]["Sizes"].forEach((item) => {
+                arrayItem["Sizes"].forEach((item) => {
                   if (item.size === sizeItem)
-                    accumulator = [...accumulator, arrayItem[0]["Fit"]];
+                    accumulator = [...accumulator, arrayItem["Fit"]];
                   return accumulator;
                 });
               });
             colors.length &&
               !sizes.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem[0]["Color"].name === colorItem)
-                  accumulator = [...accumulator, arrayItem[0]["Fit"]];
+                if (arrayItem["Color"].name === colorItem)
+                  accumulator = [...accumulator, arrayItem["Fit"]];
                 return accumulator;
               });
             !colors.length &&
               !sizes.length &&
-              arrayItem.length &&
-              accumulator.push(arrayItem[0]["Fit"]);
+              arrayItem &&
+              accumulator.push(arrayItem["Fit"]);
             return accumulator;
           }, [])
           .reduce((accum, item) => {
@@ -188,23 +188,21 @@ export const selectFilteredSection = createSelector(
     section ? setSectionFilter(section, colors, sizes, fit) : null
 );
 
-export const selectItem = createSelector(
+export const selectItem = createSelector([selectCollection], (collections) =>
+  collections ? collections.selectedItem : null
+);
+
+export const selectItemByColor = createSelector(
   [selectSection, (_, reference, color) => ({ reference, color })],
   (section, { reference, color }) =>
     section
-      ? section.reduce((accumulator, arrayItem) => {
+      ? section.find((arrayItem) => {
           if (
-            arrayItem[0]["Reference"] === reference &&
-            arrayItem[0]["Color"].name === color
+            arrayItem["Reference"] === reference &&
+            arrayItem["Color"].name === color
           ) {
-            arrayItem.forEach((item) => accumulator.push(item));
+            return arrayItem;
           }
-          return accumulator;
-        }, [])
+        })
       : null
-);
-
-export const selectSelectedShopItem = createSelector(
-  [selectCollection],
-  (collections) => (collections ? collections.selectedItem : null)
 );

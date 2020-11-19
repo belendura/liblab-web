@@ -303,7 +303,7 @@ exports.getSizesGuide = async (collection, section) => {
   if (!collection || !section) return;
 
   const documentRefs = await firestore
-    .collection(`sizes/${collection}/${section}`)
+    .collection(`sizes-guide/${collection}/${section}`)
     .listDocuments();
 
   try {

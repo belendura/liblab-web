@@ -5,6 +5,8 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
 
+// import { SCRUB_TOPS } from "./firebase/scrub-tops";
+// import { addNewDocuments } from "./firebase/firebase.utils";
 // import { WOMEN_JACKETS } from "./firebase/sizes";
 // import { addSizesDocuments } from "./firebase/firebase.utils";
 

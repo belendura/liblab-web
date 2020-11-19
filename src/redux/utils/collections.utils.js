@@ -2,11 +2,15 @@ const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
-export const getAvailableUnits = (sizes) => {
+export const checkIfSoldOut = (sizes) => {
+  let soldOut = false;
   const availableUnits = sizes.reduce((accumulator, sizeItem) => {
     return (accumulator += sizeItem.units);
   }, 0);
-  return availableUnits;
+  if (availableUnits == 0) {
+    soldOut = true;
+  }
+  return soldOut;
 };
 
 const getAvailableColors = (section, name) => {
@@ -19,7 +23,7 @@ const getAvailableColors = (section, name) => {
   return availableColors;
 };
 
-const getExtendedSection = (section) => {
+export const getExtendedSection = (section) => {
   const extendedSection = section.reduce((accumulator, item) => {
     return (accumulator = [
       ...accumulator,
@@ -27,37 +31,11 @@ const getExtendedSection = (section) => {
         ...item,
         LastPrice: getSalePrice(item["Price"], item["Discount"]),
         AvailableColors: getAvailableColors(section, item["Name"]),
-        AvailableUnits: getAvailableUnits(item["Sizes"]),
+        SoldOut: checkIfSoldOut(item["Sizes"]),
       },
     ]);
   }, []);
   return extendedSection;
-};
-
-const getAvailableColorsItem = (section) => {
-  const newItems = section.reduce((accumulator, extendedItem) => {
-    const extendedAvailableColorsItem = section.reduce((accu, colorsItem) => {
-      extendedItem["Name"] === colorsItem["Name"] &&
-        extendedItem["Color"] === colorsItem["Color"] &&
-        accu.unshift(colorsItem);
-
-      extendedItem["Name"] === colorsItem["Name"] &&
-        extendedItem["Color"] !== colorsItem["Color"] &&
-        accu.push(colorsItem);
-
-      return accu;
-    }, []);
-
-    accumulator.push(extendedAvailableColorsItem);
-    return accumulator;
-  }, []);
-  return newItems;
-};
-
-export const getExtendedItems = (section) => {
-  const extendedSection = getExtendedSection(section);
-  const newItems = getAvailableColorsItem(extendedSection);
-  return newItems;
 };
 
 export const updateSectionWishlist = (section, wishlistItems) => {
@@ -83,34 +61,13 @@ export const updateSectionWishlist = (section, wishlistItems) => {
 
 export const toggleSectionWishlist = (section, item) => {
   const newSection = section.map((sectionItem) => {
-    if (sectionItem.length > 1) {
-      const indexItem = sectionItem.findIndex((findItem) => {
-        return (
-          findItem.Reference === item.Reference && findItem.Color === item.Color
-        );
-      });
+    if (
+      sectionItem.Reference === item.Reference &&
+      sectionItem.Color === item.Color
+    )
+      sectionItem.Wishlist = !sectionItem.Wishlist;
 
-      if (indexItem === -1) {
-        return sectionItem;
-      } else {
-        const newObject = {
-          ...sectionItem[indexItem],
-          Wishlist: !sectionItem[indexItem].Wishlist,
-        };
-        const newSectionItem = [...sectionItem];
-        newSectionItem.splice(indexItem, 1);
-        newSectionItem.splice(indexItem, 0, newObject);
-        return newSectionItem;
-      }
-    } else {
-      if (
-        sectionItem[0].Reference === item.Reference &&
-        sectionItem[0].Color === item.Color
-      )
-        sectionItem[0].Wishlist = !sectionItem[0].Wishlist;
-
-      return sectionItem;
-    }
+    return sectionItem;
   });
   return newSection;
 };
@@ -122,11 +79,11 @@ export const setSectionOrder = (section, ascendingOrder, descendingOrder) => {
   });
   if (ascendingOrder)
     return updatedSection.sort((i, j) => {
-      return i[0].LastPrice - j[0].LastPrice;
+      return i.LastPrice - j.LastPrice;
     });
   else if (descendingOrder)
     return updatedSection.sort((i, j) => {
-      return j[0].LastPrice - i[0].LastPrice;
+      return j.LastPrice - i.LastPrice;
     });
   return updatedSection;
 };
@@ -136,7 +93,7 @@ export const setSectionColorsFilter = (section, colors) => {
     (!colors.length && section) ||
     (colors.length &&
       section.reduce((accu, sectionItem) => {
-        colors.includes(sectionItem[0].Color.name) && accu.push(sectionItem);
+        colors.includes(sectionItem.Color.name) && accu.push(sectionItem);
         return accu;
       }, []))
   );
@@ -147,7 +104,7 @@ export const setSectionSizesFilter = (section, sizes) => {
     (!sizes.length && section) ||
     (sizes.length &&
       section.reduce((accu, sectionItem) => {
-        sectionItem[0].Sizes.map((sizeItem) => {
+        sectionItem.Sizes.map((sizeItem) => {
           return sizes.includes(sizeItem.size) && accu.push(sectionItem);
         });
         return accu;
@@ -160,24 +117,26 @@ export const setSectionFitFilter = (section, fit) => {
     (!fit.length && section) ||
     (fit.length &&
       section.reduce((accu, sectionItem) => {
-        fit.includes(sectionItem[0].Fit) && accu.push(sectionItem);
+        fit.includes(sectionItem.Fit) && accu.push(sectionItem);
         return accu;
       }, []))
   );
 };
 
 export const setSectionFilter = (section, colors, sizes, fit) => {
-  const filteredColors = setSectionColorsFilter(section, colors);
-  const filteredSizes = setSectionSizesFilter(section, sizes);
-  const filteredFit = setSectionFitFilter(section, fit);
+  const filteredColorsSection = setSectionColorsFilter(section, colors);
 
-  const newSection = filteredSizes.reduce((accu, sizeItem) => {
-    filteredColors.filter((colorItem) => {
-      if (sizeItem[0].Color.name === colorItem[0].Color.name)
-        return filteredFit.filter((fitItem) => {
+  const filteredSizesSection = setSectionSizesFilter(section, sizes);
+
+  const filteredFitSection = setSectionFitFilter(section, fit);
+
+  const newSection = filteredSizesSection.reduce((accu, sizeItem) => {
+    filteredColorsSection.filter((colorItem) => {
+      if (sizeItem.Color.name === colorItem.Color.name)
+        return filteredFitSection.filter((fitItem) => {
           if (
-            sizeItem[0].Color.name === colorItem[0].Color.name &&
-            fitItem[0].Fit === sizeItem[0].Fit
+            sizeItem.Color.name === colorItem.Color.name &&
+            fitItem.Fit === sizeItem.Fit
           )
             return accu.push(sizeItem);
         });

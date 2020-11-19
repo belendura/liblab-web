@@ -48,6 +48,6 @@ app.get("/shop/:condition", fetchCollection);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
 
-app.post("/request-size/", postSizeRequest);
+app.post("/request-item/", postSizeRequest);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

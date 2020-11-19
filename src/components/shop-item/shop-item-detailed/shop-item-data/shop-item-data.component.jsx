@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
   addItem,
   clearSize,
   toggleCartHidden,
 } from "../../../../redux/actions/cart.actions";
-import { selectShopItem } from "../../../../redux/actions/collections.actions";
+
 import { openModal } from "../../../../redux/actions/modal.actions";
 
 import {
   selectCartHidden,
   selectSizeItem,
 } from "../../../../redux/selectors/cart.selectors";
-import { selectSelectedShopItem } from "../../../../redux/selectors/collections.selectors";
 
 import Circle from "../../../circle/circle.component";
 import CustomButton from "../../../custom-button/custom-button.component";
@@ -50,7 +50,8 @@ import {
   Share,
 } from "./shop-item-data.styles";
 
-const ShopItemData = ({ collection, section, item, handleDifferentColor }) => {
+const ShopItemData = ({ collection, section, item }) => {
+  const history = useHistory();
   const {
     Reference,
     Description,
@@ -72,21 +73,22 @@ const ShopItemData = ({ collection, section, item, handleDifferentColor }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(selectShopItem(item));
     dispatch(clearSize());
-  }, [Color]);
+  }, []);
 
   const selectedCartDropdownHidden = useSelector(
     selectCartHidden,
     shallowEqual
   );
-  const selectedShopItem = useSelector(selectSelectedShopItem, shallowEqual);
 
   const selectedSize = useSelector(selectSizeItem, shallowEqual);
 
   return (
     <Container>
-      <NavRoute>{`${collection}/${section}`}</NavRoute> {/*Navigation Link*/}
+      {/* <NavRoute onClick={} to={`shop/${collection}/${section}`}>{`${collection}/${section}`}</NavRoute>  */}
+      <NavRoute
+        onClick={() => history.push(`/shop/${collection}/${section}`)}
+      >{`${collection}/${section}`}</NavRoute>
       <NameContainer>
         <ItemName>{Name}</ItemName>
         <Wishlist theme="dark" size="large" item={item} />
@@ -118,14 +120,21 @@ const ShopItemData = ({ collection, section, item, handleDifferentColor }) => {
           {AvailableColors.map((item, index) => {
             const { code, name } = item;
             return (
-              <Circle
-                key={index}
-                code={code}
-                name={name}
-                color={Color}
-                size={"medium"}
-                handleDifferentColor={handleDifferentColor}
-              />
+              <div
+                onClick={() => {
+                  history.push(
+                    `/shop/${collection}/${section}/${Description}&${Reference}/${name}`
+                  );
+                }}
+              >
+                <Circle
+                  key={index}
+                  code={code}
+                  name={name}
+                  color={Color}
+                  size={"medium"}
+                />
+              </div>
             );
           })}
         </ColorsOptionContainer>
@@ -143,7 +152,7 @@ const ShopItemData = ({ collection, section, item, handleDifferentColor }) => {
           onClick={() => {
             const text = "Please select size!";
             if (selectedSize) {
-              dispatch(addItem(selectedShopItem, selectedSize));
+              dispatch(addItem(item, selectedSize));
               selectedCartDropdownHidden && dispatch(toggleCartHidden());
             } else dispatch(openModal("ALERTS", { text }));
           }}

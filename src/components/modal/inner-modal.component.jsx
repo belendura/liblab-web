@@ -26,11 +26,18 @@ const ShippingInfo = React.lazy(() =>
   import("../shipping-info/shipping-info.component")
 );
 
+const ExtendedView = React.lazy(() =>
+  import(
+    "../shop-item/shop-item-detailed/extended-view/extended-view.component"
+  )
+);
+
 const MODALS = {
   ALERTS: Alerts,
   SIZES_GUIDE: SizesGuideModal,
   SHIPPING_INFO: ShippingInfo,
   SELECT_SIZE: SelectSizeModal,
+  EXTENDED_VIEW: ExtendedView,
 };
 
 const InnerModal = () => {

@@ -4,7 +4,7 @@ import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import collectionsActionTypes from "../types/collections.types";
 import {
-  getExtendedItems,
+  getExtendedSection,
   updateSectionWishlist,
 } from "../utils/collections.utils";
 
@@ -39,7 +39,7 @@ export function* fetchCollectionByCondition({ payload }) {
       response.data,
       wishlistItems
     );
-    const extendedSection = getExtendedItems(updatedSectionWishlist);
+    const extendedSection = getExtendedSection(updatedSectionWishlist);
     yield put(fetchCollectionByConditionSuccess(extendedSection));
   } catch (error) {
     yield put(fetchCollectionByConditionFailure(error));
@@ -61,7 +61,7 @@ export function* fetchSection({ payload }) {
       response.data,
       wishlistItems
     );
-    const extendedSection = getExtendedItems(updatedSectionWishlist);
+    const extendedSection = getExtendedSection(updatedSectionWishlist);
     yield put(fetchSectionSuccess(extendedSection));
   } catch (error) {
     yield put(fetchSectionFailure(error));

@@ -21,7 +21,9 @@ const CollectionFilterColor = () => {
   const dispatch = useDispatch();
 
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
+  console.log("filteredSizes", filteredSizes);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
+  console.log("filteredFit", filteredFit);
   const colorOptions = useSelector(
     (state) => selectSectionColorOptions(state, filteredSizes, filteredFit),
     shallowEqual
@@ -44,6 +46,7 @@ const CollectionFilterColor = () => {
   return (
     <Container>
       <Title>Color</Title>
+      {console.log("colorOptions", colorOptions)}
       <OptionsContainer>
         {colorOptions
           ? colorOptions.map((colorItem, index) => {

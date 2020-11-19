@@ -79,11 +79,6 @@ export const setGridView = () => ({
   type: collectionsActionTypes.SET_GRID_VIEW,
 });
 
-export const selectShopItem = (item) => ({
-  type: collectionsActionTypes.SELECT_ITEM,
-  payload: item,
-});
-
 export const toggleSectionWishlist = (item) => ({
   type: collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
   payload: item,

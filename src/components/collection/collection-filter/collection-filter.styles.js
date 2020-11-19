@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   height: 40px;
   padding: 10px;
-  ${"" /* border: thin solid black; */}
+  border: thin solid black;
 `;
 
 export const FilterContainer = styled.div`

@@ -1,11 +1,12 @@
 export const SCRUB_TOPS = [
   {
+    Collection: "women",
     Section: "scrub-tops",
     Reference: "REFSCW20001BG",
     Name: "DIANA",
     Description: "Relaxed Two-Pocket Top",
     Color: { code: "#FFFAB0", name: "vanilla", dark: true },
-    Collection: "SS20",
+    Season: "SS20",
     Sizes: [
       { size: "xs", units: 100 },
       { size: "s", units: 100 },
@@ -25,7 +26,7 @@ export const SCRUB_TOPS = [
     Price: 45,
     Reviews: [{ user: "", date: "", rating: 0, comment: "" }],
     New: true,
-    BestSeller: false,
+    BestSeller: true,
     Sale: false,
     Discount: 0,
     Url: [
@@ -40,11 +41,13 @@ export const SCRUB_TOPS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "women",
     Section: "scrub-tops",
     Reference: "REFSCW20001BG",
     Name: "DIANA",
     Description: "Relaxed Two-Pocket Top",
     Color: { code: "#AE6F35", name: "sand", dark: false },
+    Season: "SS20",
     Sizes: [
       { size: "xs", units: 100 },
       { size: "s", units: 100 },
@@ -80,12 +83,13 @@ export const SCRUB_TOPS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "women",
     Section: "scrub-tops",
     Reference: "REFSCW20001BG",
     Name: "DIANA",
     Description: "Relaxed Two-Pocket Top",
     Color: { code: "#DA9A6A", name: "terracota", dark: false },
-    Collection: "SS20",
+    Season: "SS20",
     Sizes: [
       { size: "xs", units: 0 },
       { size: "s", units: 0 },
@@ -120,12 +124,13 @@ export const SCRUB_TOPS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "women",
     Section: "scrub-tops",
     Reference: "REFSCW20003WH",
     Name: "BERTA",
     Description: "Three-Pocket Notched Top",
     Color: { code: "#C44779", name: "pink", dark: false },
-    Collection: "SS20",
+    Season: "SS20",
     Sizes: [
       { size: "xs", units: 100 },
       { size: "s", units: 100 },
@@ -160,11 +165,13 @@ export const SCRUB_TOPS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "women",
     Section: "scrub-tops",
     Reference: "REFSCW20001ST",
     Name: "SARAH",
     Description: "Two-Pocket Slide-Rib Top",
     Color: { code: "#AD9D6B", name: "ochre", dark: false },
+    Season: "SS20",
     Sizes: [
       { size: "xs", units: 0 },
       { size: "s", units: 0 },
@@ -185,7 +192,7 @@ export const SCRUB_TOPS = [
     Price: 55,
     Reviews: [{ user: "", date: "", rating: 0, comment: "" }],
     New: false,
-    BestSeller: false,
+    BestSeller: true,
     Sale: false,
     Discount: 0,
     Url: [
@@ -200,12 +207,13 @@ export const SCRUB_TOPS = [
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
   },
   {
+    Collection: "women",
     Section: "scrub-tops",
     Reference: "REFSCW20003RE",
     Name: "CLAUDIA",
     Description: "Three-Pocket Mock Wrap Top",
     Color: { code: "#3D6795", name: "blue", dark: false },
-    Collection: "SS20",
+    Season: "SS20",
     Sizes: [
       { size: "xxs", units: 0 },
       { size: "xs", units: 100 },
@@ -226,7 +234,7 @@ export const SCRUB_TOPS = [
     Price: 45,
     Reviews: [{ user: "", date: "", rating: 0, comment: "" }],
     New: true,
-    BestSeller: false,
+    BestSeller: true,
     Sale: false,
     Discount: 0,
     Url: [
