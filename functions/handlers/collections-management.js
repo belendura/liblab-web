@@ -2,6 +2,7 @@ const {
   getShopMenu,
   getCollectionDocuments,
   getSectionDocuments,
+  getExtraSection,
 } = require("../helpers/firestore");
 
 //Menu Collection/Section

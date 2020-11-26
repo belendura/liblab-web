@@ -10,7 +10,7 @@ import {
 const SizesDropUp = ({ sizes, availableUnits }) => {
   return (
     <Container>
-      <Title>{availableUnits ? "Add size" : "Sold OUT"}</Title>
+      <Title>{availableUnits > 0 ? "Add size" : "Sold OUT"}</Title>
       <SizeContainer>
         {sizes.map((item, index) => {
           const { units, size } = item;

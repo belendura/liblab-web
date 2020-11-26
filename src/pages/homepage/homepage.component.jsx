@@ -53,9 +53,7 @@ const HomePage = () => {
           <BestSellersList />
         </BestSellersListContainer>
       </BestSellersContainer>
-      <CollectionsContainer>
-        <CollectionsList />
-      </CollectionsContainer>
+      <CollectionsContainer>{/* <CollectionsList /> */}</CollectionsContainer>
       <InstagramContainer>Instagram</InstagramContainer>
     </Container>
   );

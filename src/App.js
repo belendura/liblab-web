@@ -5,8 +5,11 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
 
-// import { SCRUB_TOPS } from "./firebase/scrub-tops";
-// import { addNewDocuments } from "./firebase/firebase.utils";
+// import { SCRUB_TOPS } from "./firebase/men-scrub-tops";
+// import { SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
+// import { SCRUB_PANTS } from "./firebase/men-scrub-pants";
+import { FACE_MASKS } from "./firebase/face-masks";
+import { addNewDocuments } from "./firebase/firebase.utils";
 // import { WOMEN_JACKETS } from "./firebase/sizes";
 // import { addSizesDocuments } from "./firebase/firebase.utils";
 
@@ -79,9 +82,9 @@ function App() {
     dispatch(fetchShopMenuStart());
   }, []);
 
-  // useEffect(() => {
-  //   addNewDocuments("collections/women/scrub-tops", SCRUB_TOPS);
-  // }, []);
+  useEffect(() => {
+    addNewDocuments("collections/unisex/face-masks", FACE_MASKS);
+  }, []);
 
   // useEffect(() => {
   //   addSizesDocuments("sizes-guide/women/jackets", WOMEN_JACKETS);

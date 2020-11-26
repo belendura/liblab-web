@@ -44,10 +44,12 @@ export const Container = styled.div`
 
 export const CloseButton = styled(CloseLogo)`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1em;
+  right: 1em;
+  ${"" /* margin: 5px; */}
   width: 14px;
 
+  z-index: 20;
   cursor: pointer;
   ${"" /* ${getCloseButtonStyles} */}
   ${"" /* border: thin solid black; */}

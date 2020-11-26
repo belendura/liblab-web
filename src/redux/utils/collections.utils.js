@@ -2,15 +2,11 @@ const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
-export const checkIfSoldOut = (sizes) => {
-  let soldOut = false;
+export const getAvailableUnits = (sizes) => {
   const availableUnits = sizes.reduce((accumulator, sizeItem) => {
     return (accumulator += sizeItem.units);
   }, 0);
-  if (availableUnits == 0) {
-    soldOut = true;
-  }
-  return soldOut;
+  return availableUnits;
 };
 
 const getAvailableColors = (section, name) => {
@@ -31,7 +27,7 @@ export const getExtendedSection = (section) => {
         ...item,
         LastPrice: getSalePrice(item["Price"], item["Discount"]),
         AvailableColors: getAvailableColors(section, item["Name"]),
-        SoldOut: checkIfSoldOut(item["Sizes"]),
+        AvailableUnits: getAvailableUnits(item["Sizes"]),
       },
     ]);
   }, []);

@@ -120,7 +120,7 @@ const ShopItemData = ({ collection, section, item }) => {
           {AvailableColors.map((item, index) => {
             const { code, name } = item;
             return (
-              <div
+              <div key={index}
                 onClick={() => {
                   history.push(
                     `/shop/${collection}/${section}/${Description}&${Reference}/${name}`

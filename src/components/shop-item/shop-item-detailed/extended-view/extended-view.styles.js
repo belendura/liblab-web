@@ -23,6 +23,12 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    /*Hide scrollbar for Chrome, Safari and Opera*/
+    display: none;
+  }
+  ::-ms-overflow-style: none; /* IE and Edge */
+  ::scrollbar-width: none; /* Firefox */
 `;
 
 export const Picture = styled.div`
@@ -37,6 +43,7 @@ export const Picture = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  cursor: zoom-out;
 `;
 
 export const ArrowLeft = styled(ArrowLeftLogo)`
@@ -87,7 +94,7 @@ export const CarouselPic = styled.img`
   padding-top: 10%;
   object-fit: cover;
   height: auto;
-  margin: 2px auto;
+  margin: 1px auto;
   cursor: pointer;
   ${getPictureStyles}
   ${"" /* border:thin solid black; */}

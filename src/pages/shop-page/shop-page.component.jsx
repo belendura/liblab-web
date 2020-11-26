@@ -11,7 +11,7 @@ import CollectionTitle from "../../components/collection/collection-title/collec
 import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
 import CollectionList from "../../components/collection/collection-list/collection-list.component";
 
-import watching_the_sea from "../../assets/images/watching-the-sea.jpg";
+// import watching_the_sea from "../../assets/images/web/watching-the-sea.jpg";
 
 import {
   Container,
@@ -35,7 +35,7 @@ const ShopPage = () => {
   return (
     <Container>
       <CoverContainer>
-        <CollectionCover url={watching_the_sea} />
+        {/* <CollectionCover url={watching_the_sea} /> */}
         <TitleContainer>
           <CollectionTitle title={section} subtitle="" />
         </TitleContainer>

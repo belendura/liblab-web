@@ -3,6 +3,7 @@ import { toggleSectionWishlist } from "../utils/collections.utils";
 
 const INITIAL_STATE = {
   shopMenu: null,
+  shopMenuImages: null,
   section: null,
   filteredColors: [],
   filteredSizes: [],

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
+import { closeModal } from "../../../../redux/actions/modal.actions";
 import {
   Container,
   Picture,
@@ -10,7 +12,7 @@ import {
 } from "./extended-view.styles";
 
 const ExtendedView = ({ url, index }) => {
-  console.log("url", url);
+  const dispatch = useDispatch();
   const [displayedView, setDisplayedView] = useState(index);
 
   const displayedViewForward = (event) => {
@@ -29,7 +31,10 @@ const ExtendedView = ({ url, index }) => {
     <Container>
       <ArrowLeft onClick={displayedViewBackward} />
       <ArrowRight onClick={displayedViewForward} />
-      <Picture url={url[displayedView]} />
+      <Picture
+        url={url[displayedView]}
+        onClick={() => dispatch(closeModal())}
+      />
       <CarouselContainer>
         {url &&
           url.map((item, index) => {

@@ -10,10 +10,10 @@ import {
 } from "./collection-sidebar.styles";
 
 const CollectionSidebar = () => {
-  const shopMenu = useSelector(selectShopMenu, shallowEqual);
+  // const shopMenu = useSelector(selectShopMenu, shallowEqual);
   return (
     <Container>
-      {shopMenu &&
+      {/* {shopMenu &&
         Object.entries(shopMenu).map(([key, value]) => {
           return (
             <CollectionContainer key={key}>
@@ -27,7 +27,7 @@ const CollectionSidebar = () => {
               ))}
             </CollectionContainer>
           );
-        })}
+        })} */}
     </Container>
   );
 };

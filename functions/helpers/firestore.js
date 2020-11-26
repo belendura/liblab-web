@@ -1,3 +1,4 @@
+const { object } = require("firebase-functions/lib/providers/storage");
 const { firestore } = require("./admin");
 
 exports.createUserDocument = async (userAuth, additionalData) => {
@@ -90,6 +91,36 @@ exports.getCollectionDocuments = async (condition) => {
   }
 };
 
+const getExtraSection = async (collectionsRefs, conditions) => {
+  try {
+    const extraSections = await conditions.reduce(
+      async (previousPromise, condition) => {
+        let accum = await previousPromise;
+
+        for (collectionRef of collectionsRefs) {
+          return await collectionRef.get().then((querySnapshot) => {
+            for (doc of querySnapshot.docs) {
+              const item = doc.data();
+
+              if (item[condition]) {
+                accum.push(condition);
+                break;
+              }
+            }
+
+            return accum;
+          });
+        }
+      },
+      Promise.resolve([])
+    );
+
+    return extraSections;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 exports.getShopMenu = async () => {
   const documentRefs = await firestore
     .collection(`collections`)
@@ -99,14 +130,34 @@ exports.getShopMenu = async () => {
     const shopMenu = await documentRefs.reduce(
       async (previousPromise, docRef) => {
         let accum = await previousPromise;
-        const colRef = await docRef
+        const shopExtraSections = await docRef
           .listCollections()
-          .then((collections) =>
-            collections.map((collection) => collection.id)
-          );
-        const id = docRef.id;
+          .then((collectionsRefs) => {
+            const extraSections = getExtraSection(collectionsRefs, [
+              "Sale",
+              "New",
+              "BestSeller",
+              "Sustainable",
+            ]);
+            return extraSections;
+          });
 
-        accum[id] = colRef;
+        const shopSections = await docRef
+          .listCollections()
+          .then((collectionsRefs) => {
+            const sections = collectionsRefs.reduce(
+              async (previousPromise, collectionRef) => {
+                let accum = await previousPromise;
+                accum.push(collectionRef.id);
+                return accum;
+              },
+              Promise.resolve([])
+            );
+            return sections;
+          });
+
+        const id = docRef.id;
+        accum[id] = { shopSections, shopExtraSections };
 
         return accum;
       },
@@ -118,6 +169,67 @@ exports.getShopMenu = async () => {
     throw new Error(error);
   }
 };
+
+// exports.getShopMenu = async () => {
+//   const documentRefs = await firestore
+//     .collection(`collections`)
+//     .listDocuments();
+
+//   try {
+//     const shopSections = await documentRefs.reduce(
+//       async (previousPromise, docRef) => {
+//         let accum = await previousPromise;
+//         const sections = await docRef
+//           .listCollections()
+//           .then((collectionsRefs) =>
+//             collectionsRefs.reduce(async (previousPromise, collectionRef) => {
+//               let accum = await previousPromise;
+//               accum.push(collectionRef.id);
+//               return accum;
+//             }, Promise.resolve([]))
+//           );
+
+//         const id = docRef.id;
+//         accum[id] = sections;
+
+//         return accum;
+//       },
+//       Promise.resolve({})
+//     );
+
+//     const shopExtraSections = await documentRefs.reduce(
+//       async (previousPromise, docRef) => {
+//         let accum = await previousPromise;
+//         const sections = await docRef
+//           .listCollections()
+//           .then((collectionsRefs) => {
+//             const extraSections = getExtraSection(collectionsRefs, [
+//               "Sale",
+//               "New",
+//               "BestSeller",
+//               "Sustainable",
+//             ]);
+//             return extraSections;
+//           });
+//         const id = docRef.id;
+
+//         accum[id] = sections;
+
+//         return accum;
+//       },
+//       Promise.resolve({})
+//     );
+
+//     const shopMenu = {
+//       sections: shopSections,
+//       extraSections: shopExtraSections,
+//     };
+
+//     return shopMenu;
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// };
 
 exports.getSectionDocuments = async (collection, section) => {
   if (!collection || !section) return;
