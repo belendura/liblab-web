@@ -3,7 +3,11 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
-import { fetchCollectionByConditionStart } from "../../redux/actions/collections.actions";
+
+import {
+  fetchCollectionByConditionStart,
+  fetchPicturesStart,
+} from "../../redux/actions/collections.actions";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 import CollectionTitle from "../../components/collection/collection-title/collection-title.component";
@@ -34,6 +38,10 @@ const HomePage = () => {
     dispatch(fetchCollectionByConditionStart("BestSeller", wishlistItems));
   }, [fetchCollectionByConditionStart, wishlistItems]);
 
+  useEffect(() => {
+    dispatch(fetchPicturesStart(["carousel", "collections"]));
+  }, []);
+
   return (
     <Container>
       <CarouselContainer>
@@ -53,7 +61,9 @@ const HomePage = () => {
           <BestSellersList />
         </BestSellersListContainer>
       </BestSellersContainer>
-      <CollectionsContainer>{/* <CollectionsList /> */}</CollectionsContainer>
+      <CollectionsContainer>
+        <CollectionsList />
+      </CollectionsContainer>
       <InstagramContainer>Instagram</InstagramContainer>
     </Container>
   );

@@ -1,10 +1,12 @@
 import axios from "axios";
+
 import { getToken } from "./axiosTokens.helpers";
 
 const axiosConfig = axios.create({
   baseURL: "http://localhost:5001/liblab-web/europe-west3/backendServer",
   headers: {
-    "Content-Type": "application/json",
+    // "Content-Type": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded",
   },
 });
 

@@ -1,7 +1,8 @@
 import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
 import Slider from "react-slick";
 
-import { CAROUSEL_PICS } from "../../assets/carousel-pics";
+import { selectPictures } from "../../redux/selectors/collections.selectors";
 
 import { Container, SlidePic, SlideTitle } from "./carousel.styles";
 
@@ -16,18 +17,24 @@ const Carousel = () => {
     slidesToScroll: 1,
     cssEase: "linear",
   };
+
+  const pictures = useSelector(selectPictures, shallowEqual);
+
   return (
     <Container>
+      {console.log("pictures in Carousel", pictures)}
       <Slider {...settings}>
-        {CAROUSEL_PICS &&
-          CAROUSEL_PICS.map((item, index) => {
-            const { url, title } = item;
-            return (
-              <SlidePic key={index} url={url}>
-                <SlideTitle>{title}</SlideTitle>
-              </SlidePic>
-            );
-          })}
+        {pictures &&
+          Object.entries(pictures["carousel"])
+            .filter((item, index) => index < 7)
+            .map((item, index) => {
+              const [key, value] = item;
+              return (
+                <SlidePic key={index} url={value}>
+                  <SlideTitle>{key}</SlideTitle>
+                </SlidePic>
+              );
+            })}
       </Slider>
     </Container>
   );

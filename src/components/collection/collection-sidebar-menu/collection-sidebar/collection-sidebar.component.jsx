@@ -10,24 +10,37 @@ import {
 } from "./collection-sidebar.styles";
 
 const CollectionSidebar = () => {
-  // const shopMenu = useSelector(selectShopMenu, shallowEqual);
+  const shopMenu = useSelector(selectShopMenu, shallowEqual);
   return (
     <Container>
-      {/* {shopMenu &&
+      {shopMenu &&
         Object.entries(shopMenu).map(([key, value]) => {
           return (
             <CollectionContainer key={key}>
-              <CollectionLink to={`shop/${key}/${value[0]}`}>
+              <CollectionLink to={`shop/${key}/${value["sections"][0]}`}>
                 {key}
               </CollectionLink>
-              {value.map((sectionItem) => (
-                <SectionLink key={key} to={`/shop/${key}/${sectionItem}`}>
+              {value["sections"].map((sectionItem, index) => (
+                <SectionLink
+                  section={sectionItem}
+                  key={index}
+                  to={`/shop/${key}/${sectionItem}`}
+                >
+                  {sectionItem}
+                </SectionLink>
+              ))}
+              {value["featuredSections"].map((sectionItem, index) => (
+                <SectionLink
+                  section={sectionItem}
+                  key={index}
+                  to={`/shop/${key}/${sectionItem}`}
+                >
                   {sectionItem}
                 </SectionLink>
               ))}
             </CollectionContainer>
           );
-        })} */}
+        })}
     </Container>
   );
 };

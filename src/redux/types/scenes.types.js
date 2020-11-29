@@ -1,0 +1,7 @@
+const scenesActionTypes = {
+  FETCH_SCENES_START: "FETCH_SCENES_START",
+  FETCH_SCENES_SUCCESS: "FETCH_SCENES_SUCCESS",
+  FETCH_SCENES_FAILURE: "FETCH_SCENES_FAILURE",
+};
+
+export default scenesActionTypes;

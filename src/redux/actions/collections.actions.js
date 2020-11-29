@@ -1,16 +1,31 @@
 import collectionsActionTypes from "../types/collections.types";
 
-export const fetchShopMenuStart = () => ({
-  type: collectionsActionTypes.FETCH_SHOP_MENU_START,
+export const fetchHeaderStart = () => ({
+  type: collectionsActionTypes.FETCH_HEADER_START,
 });
 
-export const fetchShopMenuSuccess = (menu) => ({
-  type: collectionsActionTypes.FETCH_SHOP_MENU_SUCCESS,
-  payload: menu,
+export const fetchHeaderSuccess = ({ shopMenu, shopMenuPictures }) => ({
+  type: collectionsActionTypes.FETCH_HEADER_SUCCESS,
+  payload: { shopMenu, shopMenuPictures },
 });
 
-export const fetchShopMenuFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_SHOP_MENU_FAILURE,
+export const fetchHeaderFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_HEADER_FAILURE,
+  payload: error,
+});
+
+export const fetchPicturesStart = (pictures) => ({
+  type: collectionsActionTypes.FETCH_PICTURES_START,
+  payload: { pictures },
+});
+
+export const fetchPicturesSuccess = (pictures) => ({
+  type: collectionsActionTypes.FETCH_PICTURES_SUCCESS,
+  payload: pictures,
+});
+
+export const fetchPicturesFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_PICTURES_FAILURE,
   payload: error,
 });
 

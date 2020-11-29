@@ -1,14 +1,14 @@
 const {
-  getShopMenu,
+  getHeader,
   getCollectionDocuments,
   getSectionDocuments,
-  getExtraSection,
+  getPictures,
 } = require("../helpers/firestore");
 
 //Menu Collection/Section
-exports.fetchShopMenu = async (req, res) => {
+exports.fetchHeader = async (req, res) => {
   try {
-    const shopMenu = await getShopMenu();
+    const shopMenu = await getHeader();
     return res.status(200).send(shopMenu);
   } catch (error) {
     return res.status(500).send(`Error getting shop menu ${error}`);
@@ -39,5 +39,20 @@ exports.fetchCollection = async (req, res) => {
     return res
       .status(500)
       .send(`Error getting documents from collection ${error}`);
+  }
+};
+
+//Pictures
+exports.fetchPictures = async (req, res) => {
+  const { pictures } = req.params;
+
+  const arrayPictures = pictures.split(",");
+
+  try {
+    const webPictures = await getPictures(arrayPictures);
+    console.log("webPictures", webPictures);
+    return res.status(200).send(webPictures);
+  } catch (error) {
+    return res.status(500).send(`Error getting pictures from section ${error}`);
   }
 };

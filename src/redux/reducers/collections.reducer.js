@@ -3,8 +3,9 @@ import { toggleSectionWishlist } from "../utils/collections.utils";
 
 const INITIAL_STATE = {
   shopMenu: null,
-  shopMenuImages: null,
+  shopMenuPictures: null,
   section: null,
+  pictures: null,
   filteredColors: [],
   filteredSizes: [],
   filteredFit: [],
@@ -17,10 +18,17 @@ const INITIAL_STATE = {
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case collectionsActionTypes.FETCH_SHOP_MENU_SUCCESS:
+    case collectionsActionTypes.FETCH_HEADER_SUCCESS:
       return {
         ...state,
-        shopMenu: action.payload,
+        shopMenu: action.payload.shopMenu,
+        shopMenuPictures: action.payload.shopMenuPictures,
+        error: null,
+      };
+    case collectionsActionTypes.FETCH_PICTURES_SUCCESS:
+      return {
+        ...state,
+        pictures: action.payload,
         error: null,
       };
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
@@ -77,15 +85,26 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         gridView: true,
         error: null,
       };
-    case collectionsActionTypes.FETCH_SHOP_MENU_FAILURE:
-    case collectionsActionTypes.FETCH_COLLECTION_FAILURE:
     case collectionsActionTypes.FETCH_SECTION_FAILURE:
+    case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE:
       return {
         ...state,
-        shopMenu: null,
         section: null,
         ascendingOrder: false,
         descendingOrder: false,
+        error: action.payload,
+      };
+    case collectionsActionTypes.FETCH_HEADER_FAILURE:
+      return {
+        ...state,
+        shopMenu: null,
+        shopMenuPictures: null,
+        error: action.payload,
+      };
+    case collectionsActionTypes.FETCH_SCENES_FAILURE:
+      return {
+        ...state,
+        pictures: null,
         error: action.payload,
       };
     default:

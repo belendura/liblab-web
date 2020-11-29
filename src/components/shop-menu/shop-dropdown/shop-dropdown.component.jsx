@@ -1,13 +1,12 @@
-import { object } from "firebase-functions/lib/providers/storage";
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { selectShopMenu } from "../../../redux/selectors/collections.selectors";
-import CollectionOverview from "../../collections/collection-overview/collection-overview.component";
+import {
+  selectShopMenu,
+  selectShopMenuPictures,
+} from "../../../redux/selectors/collections.selectors";
 
-// import image_2 from "../../../assets/images/web/image_2.jpg";
-// import image_3 from "../../../assets/images/web/image_3.jpg";
-// import image from "../../../assets/images/web/drying-clothes.jpg";
+import CollectionOverview from "../../collections/collection-overview/collection-overview.component";
 
 import {
   Container,
@@ -20,25 +19,33 @@ import {
 
 const ShopDropDown = () => {
   const shopMenu = useSelector(selectShopMenu, shallowEqual);
+  const shopMenuPictures = useSelector(selectShopMenuPictures, shallowEqual);
 
   return (
     <Container>
-      {console.log("shopMenu", shopMenu)}
       <CollectionsContainer>
         {shopMenu &&
           Object.entries(shopMenu).map(([key, value]) => {
             return (
               <CollectionContainer key={key}>
-                <CollectionLink to={`shop/${key}/${value["shopSections"][0]}`}>
+                <CollectionLink to={`shop/${key}/${value["sections"][0]}`}>
                   {key}
                 </CollectionLink>
-                {value["shopSections"].map((sectionItem, index) => (
-                  <SectionLink key={index} to={`/shop/${key}/${sectionItem}`}>
+                {value["sections"].map((sectionItem, index) => (
+                  <SectionLink
+                    section={sectionItem}
+                    key={index}
+                    to={`/shop/${key}/${sectionItem}`}
+                  >
                     {sectionItem}
                   </SectionLink>
                 ))}
-                {value["shopExtraSections"].map((sectionItem, index) => (
-                  <SectionLink key={index} to={`/shop/${key}/${sectionItem}`}>
+                {value["featuredSections"].map((sectionItem, index) => (
+                  <SectionLink
+                    section={sectionItem}
+                    key={index}
+                    to={`/shop/${key}/${sectionItem}`}
+                  >
                     {sectionItem}
                   </SectionLink>
                 ))}
@@ -47,9 +54,19 @@ const ShopDropDown = () => {
           })}
       </CollectionsContainer>
       <CollectionOverviewContainer>
-        {/* <CollectionOverview title="women/scrubs" url={image_2} size="small" />
-        <CollectionOverview title="men" url={image_3} size="small" />
-        <CollectionOverview title="best-sellers" url={image} size="small" /> */}
+        {shopMenuPictures &&
+          Object.entries(shopMenuPictures)
+            .filter((item, index) => index < 3)
+            .map(([key, value]) => {
+              return (
+                <CollectionOverview
+                  key={key}
+                  title={key}
+                  url={value}
+                  size="small"
+                />
+              );
+            })}
       </CollectionOverviewContainer>
     </Container>
   );

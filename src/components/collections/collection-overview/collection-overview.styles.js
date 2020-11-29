@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const SmallSizeContainer = css`
   width: 20vw;
+  height: auto;
 `;
 
 const SmallSizeTitle = css`
@@ -51,6 +52,9 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 10px;
+  ${"" /* padding-top: 66.55%;
+  height: 0;
+  overflow: hidden; */}
 
   ${getContainerStyles}
 `;

@@ -1,16 +1,28 @@
 import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
+
+import { selectPictures } from "../../../redux/selectors/collections.selectors";
 
 import CollectionOverview from "../collection-overview/collection-overview.component";
 
 import { Container } from "./collections-list.styles";
 
 const CollectionsList = () => {
+  const pictures = useSelector(selectPictures, shallowEqual);
+
   return (
     <Container>
-      {/* <CollectionOverview title="women" url={image_1} size="large" />
-      <CollectionOverview title="men" url={image_2} size="large" />
-      <CollectionOverview title="unisex" url={image_3} size="large" />
-      <CollectionOverview title="accesories" url={image_4} size="large" /> */}
+      {pictures &&
+        Object.entries(pictures["collections"])
+          .filter((item, index) => index < 3)
+          .map(([key, value]) => (
+            <CollectionOverview
+              key={key}
+              title={key}
+              url={value}
+              size="large"
+            />
+          ))}
     </Container>
   );
 };

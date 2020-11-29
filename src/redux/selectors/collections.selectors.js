@@ -8,6 +8,29 @@ export const selectShopMenu = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.shopMenu : null)
 );
+
+export const selectShopMenuPictures = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.shopMenuPictures : null)
+);
+
+export const selectPictures = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.pictures : null)
+);
+
+export const selectPicturesBySection = createSelector(
+  [selectPictures, (_, section) => ({ section })],
+  (pictures, { section }) =>
+    pictures
+      ? Object.entries(pictures).reduce((accum, item) => {
+          const [key, value] = item;
+
+          if (key === section) return (accum = { ...value });
+        }, {})
+      : null
+);
+
 export const selectSection = createSelector([selectCollection], (collections) =>
   collections ? collections.section : null
 );
