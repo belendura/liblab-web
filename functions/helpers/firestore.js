@@ -1,4 +1,3 @@
-// const { object } = require("firebase-functions/lib/providers/storage");
 const { firestore } = require("./admin");
 
 exports.createUserDocument = async (userAuth, additionalData) => {
@@ -91,22 +90,31 @@ exports.getCollectionDocuments = async (condition) => {
   }
 };
 
-exports.getPictures = async (pictures) => {
-  if (!pictures.length) return;
+exports.getPictures = async (collections, section) => {
+  console.log("collections", collections);
+  console.log("section", section);
+  if (!collections.length) return;
 
   try {
-    const webPictures = await pictures.reduce(async (previousPromise, item) => {
-      let accum = await previousPromise;
+    const webPictures = await collections.reduce(
+      async (previousPromise, item) => {
+        let accum = await previousPromise;
 
-      const documentRef = firestore.doc(`web-pictures/${item}`);
+        const documentRef = firestore.doc(`web-pictures/${item}`);
 
-      const documentSnapshot = await documentRef.get();
-      if (documentSnapshot.exists) {
-        const data = documentSnapshot.data();
-        accum = { ...accum, [item]: data };
-      }
-      return accum;
-    }, Promise.resolve({}));
+        const documentSnapshot = await documentRef.get();
+        if (documentSnapshot.exists) {
+          const data = documentSnapshot.data();
+          if (section) {
+            accum = { ...accum, [section]: data[section] };
+          } else {
+            accum = { ...accum, [item]: data };
+          }
+        }
+        return accum;
+      },
+      Promise.resolve({})
+    );
 
     return webPictures;
   } catch (error) {
@@ -141,7 +149,11 @@ const getFeaturedSection = async (collectionsRefs, conditions) => {
               const item = doc.data();
 
               if (item[condition]) {
-                accum.push(condition.replace("-", " ").toLowerCase());
+                if (condition === "BestSeller") {
+                  accum.push("best sellers");
+                } else {
+                  accum.push(condition.replace("-", " ").toLowerCase());
+                }
                 break;
               }
             }
@@ -231,6 +243,7 @@ exports.getSectionDocuments = async (collection, section) => {
     const sectionData = querySnapshot.docs.map((doc) => {
       return doc.data();
     });
+
     return sectionData;
   } catch (error) {
     throw new Error(error);

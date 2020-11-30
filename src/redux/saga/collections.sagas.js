@@ -38,6 +38,7 @@ export function* fetchCollectionByCondition({ payload }) {
 
   try {
     const response = yield axiosConfig.get(`/shop/${condition}`);
+
     const updatedSectionWishlist = updateSectionWishlist(
       response.data,
       wishlistItems
@@ -60,12 +61,13 @@ export function* fetchSection({ payload }) {
   const { collection, section, wishlistItems } = payload;
   try {
     const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
+    const { sectionItems, pictures } = response.data;
     const updatedSectionWishlist = updateSectionWishlist(
-      response.data,
+      sectionItems,
       wishlistItems
     );
     const extendedSection = getExtendedSection(updatedSectionWishlist);
-    yield put(fetchSectionSuccess(extendedSection));
+    yield put(fetchSectionSuccess(extendedSection, pictures));
   } catch (error) {
     yield put(fetchSectionFailure(error));
   }
@@ -76,10 +78,9 @@ export function* onFetchSectionStart() {
 }
 
 export function* fetchPictures({ payload: { pictures } }) {
-  // console.log("payload", pictures);
   try {
-    const response = yield axiosConfig.get(`/pictures/${pictures}`);
-    // console.log("response", response.data);
+    const response = yield axiosConfig.post(`/pictures/${pictures}`);
+
     yield put(fetchPicturesSuccess(response.data));
   } catch (error) {
     yield put(fetchPicturesFailure(error));

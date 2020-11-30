@@ -39,7 +39,7 @@ const HomePage = () => {
   }, [fetchCollectionByConditionStart, wishlistItems]);
 
   useEffect(() => {
-    dispatch(fetchPicturesStart(["carousel", "collections"]));
+    dispatch(fetchPicturesStart(["carousel", "collections-overview"]));
   }, []);
 
   return (

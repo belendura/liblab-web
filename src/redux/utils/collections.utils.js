@@ -69,6 +69,7 @@ export const toggleSectionWishlist = (section, item) => {
 };
 
 export const setSectionOrder = (section, ascendingOrder, descendingOrder) => {
+  // if (!section) return;
   let updatedSection = [];
   updatedSection = section.map((item) => {
     return item;

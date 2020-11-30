@@ -49,7 +49,7 @@ app.get("/shop/:condition", fetchCollection);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
 
-app.get("/pictures/:pictures", fetchPictures);
+app.post("/pictures/:pictures", fetchPictures);
 
 app.post("/request-item/", checkIfAuthenticated, postSizeRequest);
 

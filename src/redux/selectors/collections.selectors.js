@@ -104,7 +104,12 @@ export const selectSectionColorOptions = createSelector(
             return accumulator;
           }, [])
           .reduce((accum, item) => {
-            return accum.includes(item) ? accum : [...accum, item];
+            if (accum.some((newItem) => newItem.code === item.code)) {
+              accum = [...accum];
+            } else {
+              accum = [...accum, item];
+            }
+            return accum;
           }, [])
       : null
 );
@@ -118,7 +123,7 @@ export const selectSectionSizeOptions = createSelector(
             colors.length &&
               fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem["Color"].code === colorItem)
                   fit.forEach((fitItem) => {
                     if (arrayItem["Fit"] === fitItem)
                       arrayItem["Sizes"].map((item) => {
@@ -139,7 +144,7 @@ export const selectSectionSizeOptions = createSelector(
             colors.length &&
               !fit.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem["Color"].code === colorItem)
                   arrayItem["Sizes"].map((item) => {
                     accumulator = [...accumulator, item.size];
                   });
@@ -168,7 +173,7 @@ export const selectSectionFitOptions = createSelector(
             colors.length &&
               sizes.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                if (arrayItem["Color"].code === colorItem)
                   sizes.forEach((sizeItem) => {
                     arrayItem["Sizes"].forEach((item) => {
                       if (item.size === sizeItem)
@@ -189,8 +194,10 @@ export const selectSectionFitOptions = createSelector(
             colors.length &&
               !sizes.length &&
               colors.forEach((colorItem) => {
-                if (arrayItem["Color"].name === colorItem)
+                console.log("colorItem", colorItem);
+                if (arrayItem["Color"].code === colorItem)
                   accumulator = [...accumulator, arrayItem["Fit"]];
+                console.log("accumulator", accumulator);
                 return accumulator;
               });
             !colors.length &&

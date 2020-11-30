@@ -17,8 +17,8 @@ const CollectionFilterColorOption = ({ id, handleChange }) => {
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
 
   useEffect(() => {
-    filteredColors.includes(name) ? setChecked(true) : setChecked(false);
-  }, [filteredColors, name]);
+    filteredColors.includes(code) ? setChecked(true) : setChecked(false);
+  }, [filteredColors, code]);
 
   const handleOptionChange = (event) => {
     const { checked } = event.target;
@@ -30,7 +30,7 @@ const CollectionFilterColorOption = ({ id, handleChange }) => {
     <Container>
       <BoxInput
         type="checkbox"
-        id={name}
+        id={code}
         color={code}
         onChange={handleOptionChange}
       />

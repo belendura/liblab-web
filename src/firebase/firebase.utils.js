@@ -28,6 +28,26 @@ export const addNewDocuments = async (collectionKey, data) => {
   return await batch.commit();
 };
 
+export const updateCollectionsDocuments = async (collectionKey, section) => {
+  console.log("section", section);
+  console.log("collectionKey", collectionKey);
+  console.log("he llegado");
+  if (!collectionKey || !section) return;
+  const querySnapshot = await firestore
+    .collection(`collections/${collectionKey}/${section}`)
+    .get();
+
+  const batch = firestore.batch();
+
+  querySnapshot.docs.map((doc) => {
+    console.log("Estoy");
+    const docRef = doc.ref;
+    batch.set(docRef, { Id: docRef.id }, { merge: true });
+  });
+
+  return await batch.commit();
+};
+
 export const addSizesDocuments = async (collectionKey, data) => {
   if (!data) return;
 

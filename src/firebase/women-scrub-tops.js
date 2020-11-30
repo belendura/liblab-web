@@ -39,6 +39,7 @@ export const SCRUB_TOPS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FTops%2Fwomen_scrub24.jpg?alt=media&token=893049b4-6045-4060-9564-7e58c059af72",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Sustainable: { organic: true, recycled: false },
   },
   {
     Collection: "women",
@@ -81,6 +82,7 @@ export const SCRUB_TOPS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FTops%2Fwomen_scrub30.jpg?alt=media&token=30a573bb-9686-4efe-8324-3336392e7595",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Sustainable: { organic: false, recycled: false },
   },
   {
     Collection: "women",
@@ -122,6 +124,7 @@ export const SCRUB_TOPS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FTops%2Fwomen_scrub18.jpg?alt=media&token=bc788bc7-3dcf-4387-bd7a-d7500801b90d",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Sustainable: { organic: true, recycled: false },
   },
   {
     Collection: "women",
@@ -163,6 +166,7 @@ export const SCRUB_TOPS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FTops%2Fwomen_scrub33.jpg?alt=media&token=9cab0def-2114-4687-86ff-87816cf2636f",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Sustainable: { organic: false, recycled: false },
   },
   {
     Collection: "women",
@@ -205,6 +209,7 @@ export const SCRUB_TOPS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FTops%2Fwomen_scrub13.jpg?alt=media&token=35a5195a-809c-4f2c-96b6-3407eb9366c3",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Sustainable: { organic: false, recycled: true },
   },
   {
     Collection: "women",
@@ -247,5 +252,6 @@ export const SCRUB_TOPS = [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Women%2FTops%2Fwomen_scrub05.jpg?alt=media&token=e1dbf1d2-f12c-471b-a29d-688f3933ea87",
     ],
     Reviews: [{ user: "", createdAt: "", text: "", qualification: 0 }],
+    Sustainable: { organic: false, recycled: false },
   },
 ];

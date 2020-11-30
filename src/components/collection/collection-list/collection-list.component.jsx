@@ -43,12 +43,14 @@ const CollectionList = ({ params }) => {
 
   return (
     <Container gridView={gridView}>
+      {console.log("updatedSection", updatedSection)}
       {updatedSection &&
         updatedSection.map((item, index) => {
-          const { Color, Reference } = item;
+          const { Color, Reference, Id } = item;
+          console.log("item", item);
           return (
             <ShopItem
-              key={index}
+              key={Id}
               initialColor={Color.name}
               reference={Reference}
               params={params}

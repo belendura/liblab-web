@@ -49,9 +49,9 @@ export const fetchSectionStart = (collection, section, wishlistItems) => ({
   payload: { collection, section, wishlistItems },
 });
 
-export const fetchSectionSuccess = (section) => ({
+export const fetchSectionSuccess = (section, pictures) => ({
   type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
-  payload: section,
+  payload: { section, pictures },
 });
 
 export const fetchSectionFailure = (error) => ({

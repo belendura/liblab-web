@@ -12,8 +12,9 @@ const CollectionsList = () => {
 
   return (
     <Container>
+      {console.log("pictures", pictures)}
       {pictures &&
-        Object.entries(pictures["collections"])
+        Object.entries(pictures["carousel"])
           .filter((item, index) => index < 3)
           .map(([key, value]) => (
             <CollectionOverview

@@ -3,6 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
+import { selectPictures } from "../../redux/selectors/collections.selectors";
 
 import { fetchSectionStart } from "../../redux/actions/collections.actions";
 
@@ -10,8 +11,6 @@ import CollectionTitle from "../../components/collection/collection-title/collec
 
 import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
 import CollectionList from "../../components/collection/collection-list/collection-list.component";
-
-// import watching_the_sea from "../../assets/images/web/watching-the-sea.jpg";
 
 import {
   Container,
@@ -27,6 +26,7 @@ const ShopPage = () => {
   const { collection, section } = params;
 
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
+  const picture = useSelector(selectPictures, shallowEqual);
 
   useEffect(() => {
     dispatch(fetchSectionStart(collection, section, wishlistItems));
@@ -35,7 +35,7 @@ const ShopPage = () => {
   return (
     <Container>
       <CoverContainer>
-        {/* <CollectionCover url={watching_the_sea} /> */}
+        <CollectionCover url={() => picture && Object.values(picture)} />
         <TitleContainer>
           <CollectionTitle title={section} subtitle="" />
         </TitleContainer>

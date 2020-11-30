@@ -5,12 +5,19 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
 
-// import { SCRUB_TOPS } from "./firebase/men-scrub-tops";
-// import { SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
-// import { SCRUB_PANTS } from "./firebase/men-scrub-pants";
-// import { FACE_MASKS } from "./firebase/face-masks";
-// import { addNewDocuments } from "./firebase/firebase.utils";
-// import { WOMEN_JACKETS } from "./firebase/sizes";
+import { SCRUB_TOPS } from "./firebase/men-scrub-tops";
+import { SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
+import { SCRUB_PANTS } from "./firebase/men-scrub-pants";
+import { FACE_MASKS } from "./firebase/unisex-face-masks";
+
+// import { SCRUB_TOPS } from "./firebase/women-scrub-tops";
+// import { SCRUB_JACKETS } from "./firebase/women-scrub-jackets";
+// import { SCRUB_PANTS } from "./firebase/women-scrub-pants";
+
+import {
+  addNewDocuments,
+  updateCollectionsDocuments,
+} from "./firebase/firebase.utils";
 // import { addSizesDocuments } from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
@@ -83,7 +90,19 @@ function App() {
   }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/unisex/face-masks", FACE_MASKS);
+  //   updateCollectionsDocuments("unisex", "face masks");
+  // }, []);
+
+  // useEffect(() => {
+  //   addNewDocuments("collections/unisex/face masks", FACE_MASKS);
+  // }, []);
+
+  // useEffect(() => {
+  //   addNewDocuments("collections/men/scrub jackets", SCRUB_JACKETS);
+  // }, []);
+
+  // useEffect(() => {
+  //   addNewDocuments("collections/women/scrub tops", SCRUB_TOPS);
   // }, []);
 
   // useEffect(() => {

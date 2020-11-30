@@ -22,7 +22,6 @@ const Carousel = () => {
 
   return (
     <Container>
-      {console.log("pictures in Carousel", pictures)}
       <Slider {...settings}>
         {pictures &&
           Object.entries(pictures["carousel"])

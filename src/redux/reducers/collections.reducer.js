@@ -32,10 +32,19 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
-    case collectionsActionTypes.FETCH_SECTION_SUCCESS:
       return {
         ...state,
         section: action.payload,
+        gridView: false,
+        ascendingOrder: false,
+        descendingOrder: false,
+        error: null,
+      };
+    case collectionsActionTypes.FETCH_SECTION_SUCCESS:
+      return {
+        ...state,
+        section: action.payload.section,
+        pictures: action.payload.pictures,
         gridView: false,
         ascendingOrder: false,
         descendingOrder: false,
