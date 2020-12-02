@@ -13,6 +13,7 @@ const {
 const {
   fetchHeader,
   fetchCollection,
+  fetchCollections,
   fetchSection,
   fetchPictures,
 } = require("./handlers/collections-management");
@@ -45,7 +46,9 @@ app.get("/header", fetchHeader);
 
 app.get("/shop/:collection/:section", fetchSection);
 
-app.get("/shop/:condition", fetchCollection);
+app.get("/shop/:condition", fetchCollections);
+
+app.get("/shop/:collection/featured/:condition", fetchCollection);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
 

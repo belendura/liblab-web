@@ -19,9 +19,9 @@ export const fetchPicturesStart = (pictures) => ({
   payload: { pictures },
 });
 
-export const fetchPicturesSuccess = (pictures) => ({
+export const fetchPicturesSuccess = (newPictures) => ({
   type: collectionsActionTypes.FETCH_PICTURES_SUCCESS,
-  payload: pictures,
+  payload: newPictures,
 });
 
 export const fetchPicturesFailure = (error) => ({
@@ -29,14 +29,33 @@ export const fetchPicturesFailure = (error) => ({
   payload: error,
 });
 
-export const fetchCollectionByConditionStart = (condition, wishlistItems) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
+export const fetchCollectionsByConditionStart = (condition, wishlistItems) => ({
+  type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_START,
   payload: { condition, wishlistItems },
 });
 
-export const fetchCollectionByConditionSuccess = (collection) => ({
+export const fetchCollectionsByConditionSuccess = (items, newPictures) => ({
+  type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS,
+  payload: { items, newPictures },
+});
+
+export const fetchCollectionsByConditionFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE,
+  payload: error,
+});
+
+export const fetchCollectionByConditionStart = (
+  collection,
+  condition,
+  wishlistItems
+) => ({
+  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
+  payload: { collection, condition, wishlistItems },
+});
+
+export const fetchCollectionByConditionSuccess = (items, newPictures) => ({
   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS,
-  payload: collection,
+  payload: { items, newPictures },
 });
 
 export const fetchCollectionByConditionFailure = (error) => ({
@@ -49,9 +68,9 @@ export const fetchSectionStart = (collection, section, wishlistItems) => ({
   payload: { collection, section, wishlistItems },
 });
 
-export const fetchSectionSuccess = (section, pictures) => ({
+export const fetchSectionSuccess = (items, newPictures) => ({
   type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
-  payload: { section, pictures },
+  payload: { items, newPictures },
 });
 
 export const fetchSectionFailure = (error) => ({
@@ -72,6 +91,11 @@ export const filterSizes = (sizes) => ({
 export const filterFit = (fit) => ({
   type: collectionsActionTypes.FILTER_FIT,
   payload: fit,
+});
+
+export const filterType = (type) => ({
+  type: collectionsActionTypes.FILTER_TYPE,
+  payload: type,
 });
 
 export const setAscendingOrder = () => ({

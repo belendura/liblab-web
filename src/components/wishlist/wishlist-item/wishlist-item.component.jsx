@@ -38,44 +38,42 @@ const WishlistItem = ({ item }) => {
 
   const selectedSize = useSelector(selectSizeItem, shallowEqual);
   const {
-    Url,
-    Name,
-    LastPrice,
-    Discount,
-    NewItem,
-    Sale,
-    Price,
-    Sizes,
-    Color,
-    AvailableUnits,
+    url,
+    name,
+    lastPrice,
+    discount,
+    newItem,
+    sale,
+    price,
+    sizes,
+    color,
+    availableUnits,
   } = item;
-
-  const { code, name } = Color;
 
   return (
     <WishlistItemContainer>
       <WishlistItemPicture
-        url={Url[0]}
+        url={url[0]}
         onMouseEnter={() => setVisibility(true)}
         onMouseLeave={() => setVisibility(false)}
       >
-        {Sale && (
-          <WishlistItemNew sale={Sale} new={NewItem}>
-            <WishlistItemNewText>{Discount}%</WishlistItemNewText>
+        {sale && (
+          <WishlistItemNew sale={sale} new={newItem}>
+            <WishlistItemNewText>{discount}%</WishlistItemNewText>
           </WishlistItemNew>
         )}
-        {NewItem && (
-          <WishlistItemNew sale={Sale} new={NewItem}>
+        {newItem && (
+          <WishlistItemNew sale={sale} new={newItem}>
             <WishlistItemNewText>NEW</WishlistItemNewText>
           </WishlistItemNew>
         )}
         {visibility && (
           <WishlistItemSizesContainer>
             <WishlistItemSizesTitle>
-              {AvailableUnits ? "Select size" : "Sold OUT"}
+              {availableUnits ? "Select size" : "Sold OUT"}
             </WishlistItemSizesTitle>
             <WishlistItemSizesItemContainer>
-              {Sizes.map((item, index) => {
+              {sizes.map((item, index) => {
                 const { units, size } = item;
                 return (
                   <WishlistItemSizes
@@ -94,22 +92,27 @@ const WishlistItem = ({ item }) => {
       </WishlistItemPicture>
       <WishlistItemFooter>
         <WishlistItemFooterDetails>
-          <WishlistItemDescription>{Name}</WishlistItemDescription>
+          <WishlistItemDescription>{name}</WishlistItemDescription>
         </WishlistItemFooterDetails>
         <WishlistItemPriceContainer>
           {
-            <WishlistItemPrice sale={Sale} discounted={false}>
-              {Price}EUR
+            <WishlistItemPrice sale={sale} discounted={false}>
+              {price}EUR
             </WishlistItemPrice>
           }
-          {Sale && (
-            <WishlistItemPrice sale={Sale} discounted={true}>
-              {LastPrice}EUR
+          {sale && (
+            <WishlistItemPrice sale={sale} discounted={true}>
+              {lastPrice}EUR
             </WishlistItemPrice>
           )}
         </WishlistItemPriceContainer>
         <WishlistItemColorsBasketContainer>
-          <Circle code={code} name={name} color={Color} size={"medium"} />
+          <Circle
+            code={color.code}
+            name={color.name}
+            color={color}
+            size={"medium"}
+          />
           <WishlistItemBasketContainer>
             <WishlistItemBasket
               onClick={() => dispatch(removeItemFromWishlist(item))}

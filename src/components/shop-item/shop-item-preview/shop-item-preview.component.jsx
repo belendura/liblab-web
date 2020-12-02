@@ -15,36 +15,36 @@ import {
 } from "./shop-item-preview.styles";
 
 const ShopItemPreview = ({ item }) => {
-  const {
-    Collection,
-    Section,
-    Url,
-    Description,
-    Reference,
-    Color,
-    LastPrice,
-    New,
-  } = item;
   const history = useHistory();
+  const {
+    collection,
+    section,
+    url,
+    description,
+    reference,
+    color,
+    lastPrice,
+    newItem,
+  } = item;
 
   return (
     <Container>
       <Picture
-        url={Url[0]}
+        url={url[0]}
         onClick={() =>
           history.push(
-            `/shop/${Collection}/${Section}/${Description}&${Reference}/${Color.name}`
+            `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
           )
         }
       />
       <Footer>
-        <NewItem newItem={New}>NEW</NewItem>
+        <NewItem newItem={newItem}>NEW</NewItem>
         <WishlistContainer>
           <Wishlist theme="dark" size="small" item={item} />
         </WishlistContainer>
         <FooterDetails>
-          <Details>{Description}</Details>
-          <Price>{LastPrice}EUR</Price>
+          <Details>{description}</Details>
+          <Price>{lastPrice}EUR</Price>
         </FooterDetails>
       </Footer>
     </Container>

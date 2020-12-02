@@ -2,6 +2,11 @@ const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
+export const updatePictures = (pictures, newPictures) => {
+  const updatedPictures = { ...pictures, newPictures };
+  return updatedPictures;
+};
+
 export const getAvailableUnits = (sizes) => {
   const availableUnits = sizes.reduce((accumulator, sizeItem) => {
     return (accumulator += sizeItem.units);
@@ -9,10 +14,10 @@ export const getAvailableUnits = (sizes) => {
   return availableUnits;
 };
 
-const getAvailableColors = (section, name) => {
+const getAvailableColors = (section, reference) => {
   const availableColors = section.reduce((accumulator, arrayItem) => {
-    if (arrayItem["Name"] === name) {
-      accumulator = [...accumulator, arrayItem["Color"]];
+    if (arrayItem.reference === reference) {
+      accumulator = [...accumulator, arrayItem.color];
     }
     return accumulator;
   }, []);
@@ -25,9 +30,9 @@ export const getExtendedSection = (section) => {
       ...accumulator,
       {
         ...item,
-        LastPrice: getSalePrice(item["Price"], item["Discount"]),
-        AvailableColors: getAvailableColors(section, item["Name"]),
-        AvailableUnits: getAvailableUnits(item["Sizes"]),
+        lastPrice: getSalePrice(item.price, item.discount),
+        availableColors: getAvailableColors(section, item.reference),
+        availableUnits: getAvailableUnits(item.sizes),
       },
     ]);
   }, []);
@@ -36,15 +41,15 @@ export const getExtendedSection = (section) => {
 
 export const updateSectionWishlist = (section, wishlistItems) => {
   const updatedSection = section.reduce((accumulator, sectionItem) => {
-    sectionItem["Wishlist"] = false;
+    sectionItem.wishlist = false;
 
     wishlistItems.length &&
       wishlistItems.map((wishlistItem) => {
         if (
-          wishlistItem["Name"] === sectionItem["Name"] &&
-          wishlistItem["Color"].name === sectionItem["Color"].name
+          wishlistItem.name === sectionItem.name &&
+          wishlistItem.color.name === sectionItem.color.name
         ) {
-          return (sectionItem["Wishlist"] = true);
+          return (sectionItem.wishlist = true);
         }
       });
 
@@ -58,10 +63,10 @@ export const updateSectionWishlist = (section, wishlistItems) => {
 export const toggleSectionWishlist = (section, item) => {
   const newSection = section.map((sectionItem) => {
     if (
-      sectionItem.Reference === item.Reference &&
-      sectionItem.Color === item.Color
+      sectionItem.reference === item.reference &&
+      sectionItem.color === item.color
     )
-      sectionItem.Wishlist = !sectionItem.Wishlist;
+      sectionItem.wishlist = !sectionItem.wishlist;
 
     return sectionItem;
   });
@@ -76,11 +81,11 @@ export const setSectionOrder = (section, ascendingOrder, descendingOrder) => {
   });
   if (ascendingOrder)
     return updatedSection.sort((i, j) => {
-      return i.LastPrice - j.LastPrice;
+      return i.lastPrice - j.lastPrice;
     });
   else if (descendingOrder)
     return updatedSection.sort((i, j) => {
-      return j.LastPrice - i.LastPrice;
+      return j.lastPrice - i.lastPrice;
     });
   return updatedSection;
 };
@@ -90,7 +95,7 @@ export const setSectionColorsFilter = (section, colors) => {
     (!colors.length && section) ||
     (colors.length &&
       section.reduce((accu, sectionItem) => {
-        colors.includes(sectionItem.Color.name) && accu.push(sectionItem);
+        colors.includes(sectionItem.color.code) && accu.push(sectionItem);
         return accu;
       }, []))
   );
@@ -101,7 +106,7 @@ export const setSectionSizesFilter = (section, sizes) => {
     (!sizes.length && section) ||
     (sizes.length &&
       section.reduce((accu, sectionItem) => {
-        sectionItem.Sizes.map((sizeItem) => {
+        sectionItem.sizes.map((sizeItem) => {
           return sizes.includes(sizeItem.size) && accu.push(sectionItem);
         });
         return accu;
@@ -114,7 +119,7 @@ export const setSectionFitFilter = (section, fit) => {
     (!fit.length && section) ||
     (fit.length &&
       section.reduce((accu, sectionItem) => {
-        fit.includes(sectionItem.Fit) && accu.push(sectionItem);
+        fit.includes(sectionItem.fit) && accu.push(sectionItem);
         return accu;
       }, []))
   );
@@ -129,11 +134,11 @@ export const setSectionFilter = (section, colors, sizes, fit) => {
 
   const newSection = filteredSizesSection.reduce((accu, sizeItem) => {
     filteredColorsSection.filter((colorItem) => {
-      if (sizeItem.Color.name === colorItem.Color.name)
+      if (sizeItem.color.code === colorItem.color.code)
         return filteredFitSection.filter((fitItem) => {
           if (
-            sizeItem.Color.name === colorItem.Color.name &&
-            fitItem.Fit === sizeItem.Fit
+            sizeItem.color.code === colorItem.color.code &&
+            fitItem.fit === sizeItem.fit
           )
             return accu.push(sizeItem);
         });
@@ -146,3 +151,53 @@ export const setSectionFilter = (section, colors, sizes, fit) => {
 
   return data;
 };
+
+// export const setSectionSizeOptions = (section, filters ) =>{
+//     if (!section)
+//     return
+
+//        section
+//           .reduce((accumulator, arrayItem) => {
+//             colors.length &&
+//               fit.length &&
+//               colors.forEach((colorItem) => {
+//                 if (arrayItem["Color"].code === colorItem)
+//                   fit.forEach((fitItem) => {
+//                     if (arrayItem["Fit"] === fitItem)
+//                       arrayItem["Sizes"].map((item) => {
+//                         accumulator = [...accumulator, item.size];
+//                       });
+//                     return accumulator;
+//                   });
+//               });
+//             !colors.length &&
+//               fit.length &&
+//               fit.forEach((fitItem) => {
+//                 if (arrayItem["Fit"] === fitItem)
+//                   arrayItem["Sizes"].map((item) => {
+//                     accumulator = [...accumulator, item.size];
+//                   });
+//                 return accumulator;
+//               });
+//             colors.length &&
+//               !fit.length &&
+//               colors.forEach((colorItem) => {
+//                 if (arrayItem["Color"].code === colorItem)
+//                   arrayItem["Sizes"].map((item) => {
+//                     accumulator = [...accumulator, item.size];
+//                   });
+//                 return accumulator;
+//               });
+//             !colors.length &&
+//               !fit.length &&
+//               arrayItem &&
+//               arrayItem["Sizes"].map((item) => {
+//                 accumulator = [...accumulator, item.size];
+//               });
+//             return accumulator;
+//           }, [])
+//           .reduce((accum, item) => {
+//             return accum.includes(item) ? accum : [...accum, item];
+//           }, [])
+//       : null
+// }

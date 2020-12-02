@@ -1,5 +1,8 @@
 import collectionsActionTypes from "../types/collections.types";
-import { toggleSectionWishlist } from "../utils/collections.utils";
+import {
+  toggleSectionWishlist,
+  updatePictures,
+} from "../utils/collections.utils";
 
 const INITIAL_STATE = {
   shopMenu: null,
@@ -9,6 +12,7 @@ const INITIAL_STATE = {
   filteredColors: [],
   filteredSizes: [],
   filteredFit: [],
+  filteredType: [],
   gridgridView: false,
   ascendingOrder: false,
   descendingOrder: false,
@@ -31,20 +35,22 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: action.payload,
         error: null,
       };
-    case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
-      return {
-        ...state,
-        section: action.payload,
-        gridView: false,
-        ascendingOrder: false,
-        descendingOrder: false,
-        error: null,
-      };
+    // case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS: //REVISAR
+    //   return {
+    //     ...state,
+    //     section: action.payload,
+    //     gridView: false,
+    //     ascendingOrder: false,
+    //     descendingOrder: false,
+    //     error: null,
+    //   };
     case collectionsActionTypes.FETCH_SECTION_SUCCESS:
+    case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
+    case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS:
       return {
         ...state,
-        section: action.payload.section,
-        pictures: action.payload.pictures,
+        section: action.payload.items,
+        pictures: updatePictures(state.pictures, action.payload.newPictures),
         gridView: false,
         ascendingOrder: false,
         descendingOrder: false,
@@ -61,6 +67,8 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, filteredSizes: action.payload, error: null };
     case collectionsActionTypes.FILTER_FIT:
       return { ...state, filteredFit: action.payload, error: null };
+    case collectionsActionTypes.FILTER_TYPE:
+      return { ...state, filteredType: action.payload, error: null };
     case collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING:
       return {
         ...state,
@@ -95,10 +103,12 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     case collectionsActionTypes.FETCH_SECTION_FAILURE:
+    case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE:
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE:
       return {
         ...state,
         section: null,
+        pictures: null,
         ascendingOrder: false,
         descendingOrder: false,
         error: action.payload,
@@ -110,7 +120,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         shopMenuPictures: null,
         error: action.payload,
       };
-    case collectionsActionTypes.FETCH_SCENES_FAILURE:
+    case collectionsActionTypes.FETCH_PICTURES_FAILURE:
       return {
         ...state,
         pictures: null,

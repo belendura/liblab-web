@@ -53,19 +53,19 @@ import {
 const ShopItemData = ({ collection, section, item }) => {
   const history = useHistory();
   const {
-    Reference,
-    Description,
-    Name,
-    Price,
-    Sizes,
-    Sale,
-    Discount,
-    LastPrice,
-    Color,
-    AvailableColors,
-    Details,
-    Fabric,
-    Care,
+    reference,
+    description,
+    name,
+    price,
+    sizes,
+    sale,
+    discount,
+    lastPrice,
+    color,
+    availableColors,
+    details,
+    fabric,
+    care,
   } = item;
 
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -90,40 +90,41 @@ const ShopItemData = ({ collection, section, item }) => {
         onClick={() => history.push(`/shop/${collection}/${section}`)}
       >{`${collection}/${section}`}</NavRoute>
       <NameContainer>
-        <ItemName>{Name}</ItemName>
+        <ItemName>{name}</ItemName>
         <Wishlist theme="dark" size="large" item={item} />
       </NameContainer>
-      <ItemReference>{Reference}</ItemReference>
-      <ReviewsContainer>Reviews</ReviewsContainer>
+      <ItemReference>{reference}</ItemReference>
+      <ReviewsContainer>reviews</ReviewsContainer>
       <DescriptionContainer>
-        <ItemDescription>{Description}</ItemDescription>
+        <ItemDescription>{description}</ItemDescription>
         <PriceContainer>
-          <ItemPrice sale={Sale} discounted={false}>
-            {Price}EUR
+          <ItemPrice sale={sale} discounted={false}>
+            {price}EUR
           </ItemPrice>
-          {Sale && (
-            <ItemLastPrice sale={Sale} discounted={true}>
-              {LastPrice}EUR
+          {sale && (
+            <ItemLastPrice sale={sale} discounted={true}>
+              {lastPrice}EUR
             </ItemLastPrice>
           )}
         </PriceContainer>
       </DescriptionContainer>
       <DiscountContainer>
-        {Sale && (
+        {sale && (
           <DiscountBox>
-            <ItemDiscount>{Discount}%</ItemDiscount>
+            <ItemDiscount>{discount}%</ItemDiscount>
           </DiscountBox>
         )}
       </DiscountContainer>
       <ColorsContainer>
         <ColorsOptionContainer>
-          {AvailableColors.map((item, index) => {
+          {availableColors.map((item, index) => {
             const { code, name } = item;
             return (
-              <div key={index}
+              <div
+                key={index}
                 onClick={() => {
                   history.push(
-                    `/shop/${collection}/${section}/${Description}&${Reference}/${name}`
+                    `/shop/${collection}/${section}/${description}&${reference}/${name}`
                   );
                 }}
               >
@@ -131,17 +132,17 @@ const ShopItemData = ({ collection, section, item }) => {
                   key={index}
                   code={code}
                   name={name}
-                  color={Color}
+                  color={color}
                   size={"medium"}
                 />
               </div>
             );
           })}
         </ColorsOptionContainer>
-        <ColorName>{Color.name}</ColorName>
+        <ColorName>{color.name}</ColorName>
       </ColorsContainer>
       <SelectSizesContainer>
-        <SelectSize sizes={Sizes} selectedSize={selectedSize} />
+        <SelectSize sizes={sizes} selectedSize={selectedSize} />
       </SelectSizesContainer>
       <SizesGuideContainer>
         <SizesGuideMenu section={section} />
@@ -166,14 +167,14 @@ const ShopItemData = ({ collection, section, item }) => {
       <DetailsContainer>
         <ItemDetails
           title="Details"
-          text={Details}
+          text={details}
           textVisible={detailsVisible}
           setTextVisible={setDetailsVisible}
         />
         <Separator />
         <ItemDetails
           title="Fabric & Care"
-          text={Fabric}
+          text={fabric}
           textVisible={fabricVisible}
           setTextVisible={setFabricVisible}
         />

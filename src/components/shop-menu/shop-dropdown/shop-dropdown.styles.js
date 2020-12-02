@@ -40,15 +40,11 @@ export const CollectionContainer = styled.div`
   ${"" /* border: thin solid green; */}
 `;
 
-export const CollectionLink = styled(Link)`
+export const CollectionTitle = styled.span`
   font-weight: bold;
   font-size: 12px;
   padding: 10px 0;
   text-transform: uppercase;
-
-  &:hover {
-    color: gold;
-  }
 `;
 
 export const SectionLink = styled(Link)`

@@ -12,6 +12,8 @@ import {
 import {
   fetchHeaderSuccess,
   fetchHeaderFailure,
+  fetchCollectionsByConditionSuccess,
+  fetchCollectionsByConditionFailure,
   fetchCollectionByConditionSuccess,
   fetchCollectionByConditionFailure,
   fetchSectionSuccess,
@@ -33,18 +35,47 @@ export function* onFetchHeaderStart() {
   yield takeLatest(collectionsActionTypes.FETCH_HEADER_START, fetchHeader);
 }
 
-export function* fetchCollectionByCondition({ payload }) {
+export function* fetchCollectionsByCondition({ payload }) {
   const { condition, wishlistItems } = payload;
 
   try {
     const response = yield axiosConfig.get(`/shop/${condition}`);
-
+    const { collectionsItems, pictures } = response.data;
+    console.log("response",response.data)
     const updatedSectionWishlist = updateSectionWishlist(
-      response.data,
+      collectionsItems,
       wishlistItems
     );
     const extendedSection = getExtendedSection(updatedSectionWishlist);
-    yield put(fetchCollectionByConditionSuccess(extendedSection));
+    yield put(fetchCollectionsByConditionSuccess(extendedSection, pictures));
+  } catch (error) {
+    yield put(fetchCollectionsByConditionFailure(error));
+  }
+}
+
+export function* onFetchCollectionsByConditionStart() {
+  yield takeLatest(
+    collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_START,
+    fetchCollectionsByCondition
+  );
+}
+
+export function* fetchCollectionByCondition({ payload }) {
+  const { collection, condition, wishlistItems } = payload;
+
+  try {
+    const response = yield axiosConfig.get(
+      `/shop/${collection}/featured/${condition}`
+    );
+
+    const { collectionItems, pictures } = response.data;
+    const updatedSectionWishlist = updateSectionWishlist(
+      collectionItems,
+      wishlistItems
+    );
+    const extendedSection = getExtendedSection(updatedSectionWishlist);
+
+    yield put(fetchCollectionByConditionSuccess(extendedSection, pictures));
   } catch (error) {
     yield put(fetchCollectionByConditionFailure(error));
   }
@@ -56,11 +87,11 @@ export function* onFetchCollectionByConditionStart() {
     fetchCollectionByCondition
   );
 }
-
 export function* fetchSection({ payload }) {
   const { collection, section, wishlistItems } = payload;
   try {
     const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
+
     const { sectionItems, pictures } = response.data;
     const updatedSectionWishlist = updateSectionWishlist(
       sectionItems,
@@ -94,6 +125,7 @@ export function* onFetchPicturesStart() {
 export function* collectionsSagas() {
   yield all([
     call(onFetchHeaderStart),
+    call(onFetchCollectionsByConditionStart),
     call(onFetchCollectionByConditionStart),
     call(onFetchSectionStart),
     call(onFetchPicturesStart),

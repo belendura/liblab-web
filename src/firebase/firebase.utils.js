@@ -20,7 +20,7 @@ export const addNewDocuments = async (collectionKey, data) => {
 
   let i = 0;
   data.forEach((item) => {
-    const docRef = firestore.doc(`${collectionKey}/${item.Reference}` + `${i}`);
+    const docRef = firestore.doc(`${collectionKey}/${item.reference}` + `${i}`);
     i++;
     batch.set(docRef, item);
   });
@@ -29,9 +29,6 @@ export const addNewDocuments = async (collectionKey, data) => {
 };
 
 export const updateCollectionsDocuments = async (collectionKey, section) => {
-  console.log("section", section);
-  console.log("collectionKey", collectionKey);
-  console.log("he llegado");
   if (!collectionKey || !section) return;
   const querySnapshot = await firestore
     .collection(`collections/${collectionKey}/${section}`)
@@ -40,9 +37,8 @@ export const updateCollectionsDocuments = async (collectionKey, section) => {
   const batch = firestore.batch();
 
   querySnapshot.docs.map((doc) => {
-    console.log("Estoy");
     const docRef = doc.ref;
-    batch.set(docRef, { Id: docRef.id }, { merge: true });
+    batch.set(docRef, { id: docRef.id }, { merge: true });
   });
 
   return await batch.commit();

@@ -12,7 +12,7 @@ import {
   Container,
   CollectionsContainer,
   CollectionContainer,
-  CollectionLink,
+  CollectionTitle,
   SectionLink,
   CollectionOverviewContainer,
 } from "./shop-dropdown.styles";
@@ -28,9 +28,7 @@ const ShopDropDown = () => {
           Object.entries(shopMenu).map(([key, value]) => {
             return (
               <CollectionContainer key={key}>
-                <CollectionLink to={`shop/${key}/${value["sections"][0]}`}>
-                  {key}
-                </CollectionLink>
+                <CollectionTitle>{key}</CollectionTitle>
                 {value["sections"].map((sectionItem, index) => (
                   <SectionLink
                     section={sectionItem}
@@ -44,7 +42,7 @@ const ShopDropDown = () => {
                   <SectionLink
                     section={sectionItem}
                     key={index}
-                    to={`/shop/${key}/${sectionItem}`}
+                    to={`/shop/${key}/featured/${sectionItem}`}
                   >
                     {sectionItem}
                   </SectionLink>

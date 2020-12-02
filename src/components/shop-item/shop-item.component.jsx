@@ -43,22 +43,21 @@ const ShopItem = ({ initialColor, reference, params }) => {
   }, [selectedItem, currentColor]);
 
   const {
-    Url,
-    Color,
-    Reference,
-    Description,
-    Price,
-    LastPrice,
-    Sizes,
-    New,
-    Sale,
-    Discount,
-    AvailableColors,
-    AvailableUnits,
+    url,
+    color,
+    description,
+    price,
+    lastPrice,
+    sizes,
+    newItem,
+    sale,
+    discount,
+    availableColors,
+    availableUnits,
   } = currentItem;
 
   const displayedViewForward = (event) => {
-    displayedView < Url.length - 1
+    displayedView < url.length - 1
       ? setDisplayedView(displayedView + 1)
       : setDisplayedView(0);
   };
@@ -66,7 +65,7 @@ const ShopItem = ({ initialColor, reference, params }) => {
   const displayedViewBackward = (event) => {
     displayedView > 0
       ? setDisplayedView(displayedView - 1)
-      : setDisplayedView(Url.length - 1);
+      : setDisplayedView(url.length - 1);
   };
 
   return (
@@ -81,23 +80,23 @@ const ShopItem = ({ initialColor, reference, params }) => {
           <Picture
             onClick={() => {
               history.push(
-                `/shop/${collection}/${section}/${Description}&${Reference}/${Color.name}`
+                `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
               );
             }}
-            url={Url[displayedView]}
+            url={url[displayedView]}
           >
-            {Sale && (
-              <UpperInfoContainer sale={Sale} new={New}>
-                <UpperInfo>{Discount}%</UpperInfo>
+            {sale && (
+              <UpperInfoContainer sale={sale} new={newItem}>
+                <UpperInfo>{discount}%</UpperInfo>
               </UpperInfoContainer>
             )}
-            {New && (
-              <UpperInfoContainer sale={Sale} new={New}>
+            {newItem && (
+              <UpperInfoContainer sale={sale} new={newItem}>
                 <UpperInfo>NEW</UpperInfo>
               </UpperInfoContainer>
             )}
             {visibility && (
-              <SizesDropUp sizes={Sizes} availableUnits={AvailableUnits} />
+              <SizesDropUp sizes={sizes} availableUnits={availableUnits} />
             )}
           </Picture>
         </PictureContainer>
@@ -105,23 +104,23 @@ const ShopItem = ({ initialColor, reference, params }) => {
       {currentItem && (
         <Footer>
           <FooterDetails>
-            <ItemDescription>{Description}</ItemDescription>
+            <ItemDescription>{description}</ItemDescription>
 
             <Wishlist theme="dark" size="small" item={currentItem} />
           </FooterDetails>
           <PriceContainer>
-            <ItemPrice sale={Sale} discounted={false}>
-              {Price}EUR
+            <ItemPrice sale={sale} discounted={false}>
+              {price}EUR
             </ItemPrice>
 
-            {Sale && (
-              <ItemPrice sale={Sale} discounted={true}>
-                {LastPrice}EUR
+            {sale && (
+              <ItemPrice sale={sale} discounted={true}>
+                {lastPrice}EUR
               </ItemPrice>
             )}
           </PriceContainer>
           <ColorsContainer>
-            {AvailableColors.map((item, index) => {
+            {availableColors.map((item, index) => {
               const { code, name } = item;
               return (
                 <div key={index} onClick={() => setCurrentColor(name)}>
@@ -129,7 +128,7 @@ const ShopItem = ({ initialColor, reference, params }) => {
                     key={index}
                     code={code}
                     name={name}
-                    color={Color}
+                    color={color}
                     size={"medium"}
                   />
                 </div>

@@ -1,6 +1,7 @@
 const {
   getHeader,
   getCollectionDocuments,
+  getCollectionsDocuments,
   getSectionDocuments,
   getPictures,
 } = require("../helpers/firestore");
@@ -20,25 +21,10 @@ exports.fetchSection = async (req, res) => {
   const { collection, section } = req.params;
   const arrayCollection = collection.split(",");
 
-  let upperSection = "";
-  if (section.includes("best") || section.includes("face")) {
-    const hyphenSection = section.replace(" ", "-").trim();
-    const hyphenIndex = hyphenSection.indexOf("-");
-    const firstSubstring = hyphenSection.substr(0, hyphenIndex + 1);
-    const secondSubstring = section.substring(hyphenIndex).trim();
-    uppercaseSection =
-      firstSubstring.charAt(0).toUpperCase() +
-      firstSubstring.slice(1) +
-      secondSubstring.charAt(0).toUpperCase() +
-      secondSubstring.slice(1);
-  } else {
-    const trimmedSection = section.replace(/scrub /gi, " ").trim();
-    uppercaseSection =
-      trimmedSection.charAt(0).toUpperCase() + trimmedSection.slice(1);
-  }
   try {
     const sectionItems = await getSectionDocuments(collection, section);
-    const pictures = await getPictures(arrayCollection, uppercaseSection);
+
+    const pictures = await getPictures(arrayCollection, section);
 
     return res.status(200).send({ sectionItems, pictures });
   } catch (error) {
@@ -48,14 +34,51 @@ exports.fetchSection = async (req, res) => {
   }
 };
 
-//Shop Collection
-exports.fetchCollection = async (req, res) => {
+//Shop Collections By Condition
+exports.fetchCollections = async (req, res) => {
   const { condition } = req.params;
+  const arrayCollection = ["collections-overview"];
+
+  let newCondition = condition;
+  if (condition === "new") {
+    newCondition = "newItem";
+  } else if (condition === "best sellers") {
+    newCondition = "bestSeller";
+  }
 
   try {
-    const collectionItems = await getCollectionDocuments(condition);
+    const collectionsItems = await getCollectionsDocuments(newCondition);
+    const pictures = await getPictures(arrayCollection, condition);
 
-    return res.status(200).send(collectionItems);
+    return res.status(200).send({ collectionsItems, pictures });
+  } catch (error) {
+    return res
+      .status(500)
+      .send(`Error getting documents from collection ${error}`);
+  }
+};
+
+//Shop Collection by Condition
+exports.fetchCollection = async (req, res) => {
+  const { collection, condition } = req.params;
+  const arrayCollection = collection.split(",");
+
+  let newCondition = condition;
+  if (condition === "new") {
+    newCondition = "newItem";
+  } else if (condition === "best sellers") {
+    newCondition = "bestSeller";
+  }
+
+  try {
+    const collectionItems = await getCollectionDocuments(
+      collection,
+      newCondition
+    );
+
+    const pictures = await getPictures(arrayCollection, condition);
+
+    return res.status(200).send({ collectionItems, pictures });
   } catch (error) {
     return res
       .status(500)

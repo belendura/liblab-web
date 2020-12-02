@@ -5,7 +5,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
 
 import {
-  fetchCollectionByConditionStart,
+  fetchCollectionsByConditionStart,
   fetchPicturesStart,
 } from "../../redux/actions/collections.actions";
 
@@ -35,8 +35,8 @@ const HomePage = () => {
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
 
   useEffect(() => {
-    dispatch(fetchCollectionByConditionStart("BestSeller", wishlistItems));
-  }, [fetchCollectionByConditionStart, wishlistItems]);
+    dispatch(fetchCollectionsByConditionStart("bestSeller", wishlistItems));
+  }, [fetchCollectionsByConditionStart, wishlistItems]);
 
   useEffect(() => {
     dispatch(fetchPicturesStart(["carousel", "collections-overview"]));

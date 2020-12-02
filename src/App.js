@@ -5,14 +5,14 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
 
-import { SCRUB_TOPS } from "./firebase/men-scrub-tops";
-import { SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
-import { SCRUB_PANTS } from "./firebase/men-scrub-pants";
-import { FACE_MASKS } from "./firebase/unisex-face-masks";
+import { MEN_SCRUB_TOPS } from "./firebase/men-scrub-tops";
+import { MEN_SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
+import { MEN_SCRUB_PANTS } from "./firebase/men-scrub-pants";
+import { UNISEX_FACE_MASKS } from "./firebase/unisex-face-masks";
 
-// import { SCRUB_TOPS } from "./firebase/women-scrub-tops";
-// import { SCRUB_JACKETS } from "./firebase/women-scrub-jackets";
-// import { SCRUB_PANTS } from "./firebase/women-scrub-pants";
+import { WOMEN_SCRUB_TOPS } from "./firebase/women-scrub-tops";
+import { WOMEN_SCRUB_JACKETS } from "./firebase/women-scrub-jackets";
+import { WOMEN_SCRUB_PANTS } from "./firebase/women-scrub-pants";
 
 import {
   addNewDocuments,
@@ -39,8 +39,13 @@ import { GlobalStyle } from "./global.styles";
 const HomePage = React.lazy(() =>
   import("./pages/homepage/homepage.component")
 );
+
 const ShopPage = React.lazy(() =>
   import("./pages/shop-page/shop-page.component")
+);
+
+const ShopPageByCondition = React.lazy(() =>
+  import("./pages/shop-page-by-condition/shop-page-by-condition.component")
 );
 
 const ShopItemPage = React.lazy(() =>
@@ -94,15 +99,23 @@ function App() {
   // }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/unisex/face masks", FACE_MASKS);
+  //   updateCollectionsDocuments("men", "scrub tops");
   // }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/men/scrub jackets", SCRUB_JACKETS);
+  //   updateCollectionsDocuments("women", "scrub tops");
   // }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/women/scrub tops", SCRUB_TOPS);
+  //   addNewDocuments("collections/unisex/face masks", UNISEX_FACE_MASKS);
+  // }, []);
+
+  // useEffect(() => {
+  //   addNewDocuments("collections/men/scrub jackets", MEN_SCRUB_JACKETS);
+  // }, []);
+
+  // useEffect(() => {
+  //   addNewDocuments("collections/women/scrub jackets", WOMEN_SCRUB_JACKETS);
   // }, []);
 
   // useEffect(() => {
@@ -118,6 +131,11 @@ function App() {
         <Suspense fallback={<div>...Is Loading</div>}>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop/:collection/:section" component={ShopPage} />
+          <Route
+            exact
+            path="/shop/:collection/featured/:condition"
+            component={ShopPageByCondition}
+          />
           <Route
             path="/shop/:collection/:section/:description&:reference/:color"
             component={ShopItemPage}

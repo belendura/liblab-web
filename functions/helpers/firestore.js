@@ -45,7 +45,35 @@ exports.getUserDocument = async (userId) => {
   }
 };
 
-exports.getCollectionDocuments = async (condition) => {
+exports.getCollectionDocuments = async (collection, condition) => {
+  const collectionsRefs = await firestore
+    .doc(`collections/${collection}`)
+    .listCollections();
+
+  try {
+    const queryItems = await collectionsRefs.reduce(
+      async (previousPromise, colRef) => {
+        let accum = await previousPromise;
+        return await colRef
+          .where(condition, "==", true)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.docs.map((docSnapshot) =>
+              accum.push(docSnapshot.data())
+            );
+            return accum;
+          });
+      },
+      Promise.resolve([])
+    );
+
+    return queryItems;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getCollectionsDocuments = async (condition) => {
   const documentRefs = await firestore
     .collection("collections")
     .listDocuments();
@@ -91,8 +119,6 @@ exports.getCollectionDocuments = async (condition) => {
 };
 
 exports.getPictures = async (collections, section) => {
-  console.log("collections", collections);
-  console.log("section", section);
   if (!collections.length) return;
 
   try {
@@ -149,10 +175,12 @@ const getFeaturedSection = async (collectionsRefs, conditions) => {
               const item = doc.data();
 
               if (item[condition]) {
-                if (condition === "BestSeller") {
+                if (condition === "bestSeller") {
                   accum.push("best sellers");
+                } else if (condition === "newItem") {
+                  accum.push("new");
                 } else {
-                  accum.push(condition.replace("-", " ").toLowerCase());
+                  accum.push(condition.replace("-", " "));
                 }
                 break;
               }
@@ -184,10 +212,10 @@ const getShopMenu = async () => {
           .listCollections()
           .then((collectionsRefs) => {
             const sections = getFeaturedSection(collectionsRefs, [
-              "Sale",
-              "New",
-              "BestSeller",
-              "Sustainable",
+              "sale",
+              "newItem",
+              "bestSeller",
+              "sustainable",
             ]);
             return sections;
           });
@@ -198,7 +226,7 @@ const getShopMenu = async () => {
             const sections = collectionsRefs.reduce(
               async (previousPromise, collectionRef) => {
                 let accum = await previousPromise;
-                accum.push(collectionRef.id.replace("-", " ").toLowerCase());
+                accum.push(collectionRef.id.replace("-", " "));
                 return accum;
               },
               Promise.resolve([])
@@ -308,11 +336,11 @@ exports.updateUserCartDocument = async (user, cart) => {
 
             if (existingCartItem) {
               const updatedUserCartItem = {
-                Reference: userCartItem.Reference,
-                Url: userCartItem.Url,
-                Name: userCartItem.Name,
-                LastPrice: userCartItem.LastPrice,
-                Color: userCartItem.Color,
+                reference: userCartItem.Reference,
+                url: userCartItem.Url,
+                name: userCartItem.Name,
+                lastPrice: userCartItem.LastPrice,
+                color: userCartItem.Color,
                 selectedSize: userCartItem.selectedSize,
                 quantity: userCartItem.quantity + 1,
               };

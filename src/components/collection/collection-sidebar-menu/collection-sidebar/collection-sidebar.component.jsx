@@ -33,7 +33,7 @@ const CollectionSidebar = () => {
                 <SectionLink
                   section={sectionItem}
                   key={index}
-                  to={`/shop/${key}/${sectionItem}`}
+                  to={`/shop/${key}/featured/${sectionItem}`}
                 >
                   {sectionItem}
                 </SectionLink>

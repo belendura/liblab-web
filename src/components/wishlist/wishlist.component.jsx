@@ -7,13 +7,13 @@ import { Container } from "./wishlist.styles";
 
 const Wishlist = ({ theme, size, item }) => {
   const dispatch = useDispatch();
-  const { Wishlist } = item;
+  const { wishlist } = item;
   // console.log("Wishlist", Wishlist.toString());
   return (
     <Container
       theme={theme}
       size={size}
-      wishlist={Wishlist.toString()}
+      wishlist={wishlist.toString()}
       onClick={() => dispatch(toggleSectionWishlist(item))}
     />
   );
