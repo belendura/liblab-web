@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import Slider from "react-slick";
 
-import { selectPictures } from "../../redux/selectors/collections.selectors";
+import { selectCarousel } from "../../redux/selectors/collections.selectors";
 
 import { Container, SlidePic, SlideTitle } from "./carousel.styles";
 
@@ -18,13 +18,13 @@ const Carousel = () => {
     cssEase: "linear",
   };
 
-  const pictures = useSelector(selectPictures, shallowEqual);
+  const carousel = useSelector(selectCarousel, shallowEqual);
 
   return (
     <Container>
-      <Slider {...settings}>
-        {pictures &&
-          Object.entries(pictures["carousel"])
+      {carousel && (
+        <Slider {...settings}>
+          {Object.entries(carousel)
             .filter((item, index) => index < 7)
             .map((item, index) => {
               const [key, value] = item;
@@ -34,7 +34,8 @@ const Carousel = () => {
                 </SlidePic>
               );
             })}
-      </Slider>
+        </Slider>
+      )}
     </Container>
   );
 };

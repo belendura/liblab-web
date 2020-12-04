@@ -1,45 +1,47 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-import { selectSizeItem } from "../../../redux/selectors/wishlist.selectors";
-
+import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
 import {
   addFromWishlistToCart,
   removeItemFromWishlist,
-  selectSize,
 } from "../../../redux/actions/wishlist.actions";
+import { openModal } from "../../../redux/actions/modal.actions";
 
 import CustomButton from "../../custom-button/custom-button.component";
 import Circle from "../../circle/circle.component";
-import SizesGuide from "../../sizes-guide/sizes-guide-menu/sizes-guide-menu.component";
+import SizesDropUp from "../../sizes-dropup/sizes-dropup.component";
 
 import {
-  WishlistItemContainer,
-  WishlistItemPicture,
-  WishlistItemFooter,
-  WishlistItemFooterDetails,
-  WishlistItemDescription,
-  WishlistItemPriceContainer,
-  WishlistItemPrice,
-  WishlistItemNew,
-  WishlistItemSizesContainer,
-  WishlistItemSizesTitle,
-  WishlistItemSizes,
-  WishlistItemSizesItemContainer,
-  WishlistItemNewText,
-  WishlistItemColorsBasketContainer,
-  WishlistItemBasketContainer,
-  WishlistItemBasket,
+  Container,
+  PictureContainer,
+  Picture,
+  UpperInfoContainer,
+  UpperInfo,
+  Footer,
+  FooterDetails,
+  Name,
+  Description,
+  PriceContainer,
+  Price,
+  ColorsContainer,
+  BasketContainer,
+  Basket,
+  ButtonContainer,
 } from "./wishlist-item.styles";
 
 const WishlistItem = ({ item }) => {
   const [visibility, setVisibility] = useState(false);
+
   const dispatch = useDispatch();
 
-  const selectedSize = useSelector(selectSizeItem, shallowEqual);
+  const wishlistItem = useSelector((state) =>
+    selectWishlistItem(state, item, shallowEqual)
+  );
   const {
     url,
     name,
+    description,
     lastPrice,
     discount,
     newItem,
@@ -51,85 +53,84 @@ const WishlistItem = ({ item }) => {
   } = item;
 
   return (
-    <WishlistItemContainer>
-      <WishlistItemPicture
-        url={url[0]}
-        onMouseEnter={() => setVisibility(true)}
-        onMouseLeave={() => setVisibility(false)}
-      >
-        {sale && (
-          <WishlistItemNew sale={sale} new={newItem}>
-            <WishlistItemNewText>{discount}%</WishlistItemNewText>
-          </WishlistItemNew>
-        )}
-        {newItem && (
-          <WishlistItemNew sale={sale} new={newItem}>
-            <WishlistItemNewText>NEW</WishlistItemNewText>
-          </WishlistItemNew>
-        )}
-        {visibility && (
-          <WishlistItemSizesContainer>
-            <WishlistItemSizesTitle>
-              {availableUnits ? "Select size" : "Sold OUT"}
-            </WishlistItemSizesTitle>
-            <WishlistItemSizesItemContainer>
-              {sizes.map((item, index) => {
-                const { units, size } = item;
-                return (
-                  <WishlistItemSizes
-                    key={index}
-                    units={units}
-                    onClick={() => dispatch(selectSize(size))}
-                  >
-                    {size}
-                  </WishlistItemSizes>
-                );
-              })}
-            </WishlistItemSizesItemContainer>
-            <SizesGuide />
-          </WishlistItemSizesContainer>
-        )}
-      </WishlistItemPicture>
-      <WishlistItemFooter>
-        <WishlistItemFooterDetails>
-          <WishlistItemDescription>{name}</WishlistItemDescription>
-        </WishlistItemFooterDetails>
-        <WishlistItemPriceContainer>
+    <Container>
+      <PictureContainer>
+        <Picture
+          url={url[0]}
+          onMouseEnter={() => setVisibility(true)}
+          onMouseLeave={() => setVisibility(false)}
+        >
+          {sale && (
+            <UpperInfoContainer sale={sale} new={newItem}>
+              <UpperInfo>{discount}%</UpperInfo>
+            </UpperInfoContainer>
+          )}
+          {newItem && (
+            <UpperInfoContainer sale={sale} new={newItem}>
+              <UpperInfo>NEW</UpperInfo>
+            </UpperInfoContainer>
+          )}
+          {visibility && (
+            <SizesDropUp
+              sizes={sizes}
+              availableUnits={availableUnits}
+              wishlist={true}
+              selectedSize={wishlistItem.selectedSize}
+            />
+          )}
+        </Picture>
+      </PictureContainer>
+      <Footer>
+        <Name>{name}</Name>
+        <FooterDetails>
+          <Description>{description}</Description>
+          <BasketContainer>
+            <Basket onClick={() => dispatch(removeItemFromWishlist(item))} />
+          </BasketContainer>
+        </FooterDetails>
+        <PriceContainer>
           {
-            <WishlistItemPrice sale={sale} discounted={false}>
+            <Price sale={sale} discounted={false}>
               {price}EUR
-            </WishlistItemPrice>
+            </Price>
           }
           {sale && (
-            <WishlistItemPrice sale={sale} discounted={true}>
+            <Price sale={sale} discounted={true}>
               {lastPrice}EUR
-            </WishlistItemPrice>
+            </Price>
           )}
-        </WishlistItemPriceContainer>
-        <WishlistItemColorsBasketContainer>
+        </PriceContainer>
+        <ColorsContainer>
           <Circle
             code={color.code}
             name={color.name}
             color={color}
             size={"medium"}
           />
-          <WishlistItemBasketContainer>
-            <WishlistItemBasket
-              onClick={() => dispatch(removeItemFromWishlist(item))}
-            />
-          </WishlistItemBasketContainer>
-        </WishlistItemColorsBasketContainer>
-      </WishlistItemFooter>
-      <CustomButton
-        onClick={() => {
-          !selectedSize && setVisibility(true);
-          selectedSize && setVisibility(false);
-          selectedSize && dispatch(addFromWishlistToCart(item, selectedSize));
-        }}
-      >
-        ADD TO CART
-      </CustomButton>
-    </WishlistItemContainer>
+        </ColorsContainer>
+        <ButtonContainer>
+          <CustomButton
+            color="standard"
+            onClick={() => {
+              const text = "Please select size!";
+              !wishlistItem.selectedSize && setVisibility(true);
+              if (wishlistItem.selectedSize) {
+                dispatch(addFromWishlistToCart(item));
+              } else {
+                dispatch(
+                  openModal("WISHLIST_SELECT_SIZE", {
+                    text,
+                    item,
+                  })
+                );
+              }
+            }}
+          >
+            ADD TO CART
+          </CustomButton>
+        </ButtonContainer>
+      </Footer>
+    </Container>
   );
 };
 

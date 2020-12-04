@@ -15,7 +15,7 @@ const SelectSizeOrder = ({ size }) => {
       <SizeOption>{`${size} - Not available`}</SizeOption>
       <OrderMenu
         onClick={() =>
-          dispatch(openModal("SELECT_SIZE", { reference, color, size }))
+          dispatch(openModal("REQUEST_ITEM", { reference, color, size }))
         }
       />
     </Container>

@@ -5,7 +5,9 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin: 10px;
-  ${"" /* border: 1px dashed black; */}
+  height: 100px;
+  min-width: 15%;
+  ${"" /* border:thin solid black; */}
 `;
 
 export const Title = styled.span`
@@ -16,7 +18,9 @@ export const Title = styled.span`
 `;
 
 export const OptionsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  ${"" /* border: thin solid blue; */}
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 80%;
+  ${"" /* border: thin solid black; */}
 `;

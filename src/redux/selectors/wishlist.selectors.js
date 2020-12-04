@@ -7,7 +7,12 @@ export const selectWishlistItems = createSelector(
   (wishlist) => wishlist.wishlistItems
 );
 
-export const selectSizeItem = createSelector(
-  [selectWishlist],
-  (wishlist) => wishlist.selectedSize
+export const selectWishlistItem = createSelector(
+  [selectWishlistItems, (_, item) => ({ item })],
+  (wishlistItems, { item }) =>
+    wishlistItems
+      ? wishlistItems.find((arrayItem) => {
+          return arrayItem.id === item.id;
+        })
+      : null
 );

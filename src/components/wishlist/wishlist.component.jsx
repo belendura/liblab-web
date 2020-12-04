@@ -8,7 +8,7 @@ import { Container } from "./wishlist.styles";
 const Wishlist = ({ theme, size, item }) => {
   const dispatch = useDispatch();
   const { wishlist } = item;
-  // console.log("Wishlist", Wishlist.toString());
+
   return (
     <Container
       theme={theme}

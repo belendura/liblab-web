@@ -35,22 +35,16 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: action.payload,
         error: null,
       };
-    // case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS: //REVISAR
-    //   return {
-    //     ...state,
-    //     section: action.payload,
-    //     gridView: false,
-    //     ascendingOrder: false,
-    //     descendingOrder: false,
-    //     error: null,
-    //   };
     case collectionsActionTypes.FETCH_SECTION_SUCCESS:
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
     case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS:
       return {
         ...state,
         section: action.payload.items,
-        pictures: updatePictures(state.pictures, action.payload.newPictures),
+        pictures: updatePictures(
+          state.pictures,
+          action.payload.sectionPictures
+        ),
         gridView: false,
         ascendingOrder: false,
         descendingOrder: false,

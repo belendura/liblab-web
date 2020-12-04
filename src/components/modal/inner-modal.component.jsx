@@ -14,12 +14,19 @@ import {
 } from "./inner-modal.styles.js";
 
 const Alerts = React.lazy(() => import("../alerts/alerts.component"));
+
 const SizesGuideModal = React.lazy(() =>
   import("../sizes-guide/sizes-guide-modal/sizes-guide-modal.component")
 );
 
-const SelectSizeModal = React.lazy(() =>
-  import("../select-size/select-size-modal/select-size-modal.component")
+const RequestItemModal = React.lazy(() =>
+  import("../select-size/request-item-modal/request-item-modal.component")
+);
+
+const WishlistSelectSizeModal = React.lazy(() =>
+  import(
+    "../wishlist/wishlist-select-size-modal/wishlist-select-size-modal.component"
+  )
 );
 
 const ShippingInfo = React.lazy(() =>
@@ -36,8 +43,9 @@ const MODALS = {
   ALERTS: Alerts,
   SIZES_GUIDE: SizesGuideModal,
   SHIPPING_INFO: ShippingInfo,
-  SELECT_SIZE: SelectSizeModal,
+  REQUEST_ITEM: RequestItemModal,
   EXTENDED_VIEW: ExtendedView,
+  WISHLIST_SELECT_SIZE: WishlistSelectSizeModal,
 };
 
 const InnerModal = () => {

@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 10px;
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const TextContainer = styled.p`

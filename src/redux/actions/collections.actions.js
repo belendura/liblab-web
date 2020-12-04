@@ -34,9 +34,9 @@ export const fetchCollectionsByConditionStart = (condition, wishlistItems) => ({
   payload: { condition, wishlistItems },
 });
 
-export const fetchCollectionsByConditionSuccess = (items, newPictures) => ({
+export const fetchCollectionsByConditionSuccess = (items, sectionPictures) => ({
   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS,
-  payload: { items, newPictures },
+  payload: { items, sectionPictures },
 });
 
 export const fetchCollectionsByConditionFailure = (error) => ({
@@ -53,9 +53,9 @@ export const fetchCollectionByConditionStart = (
   payload: { collection, condition, wishlistItems },
 });
 
-export const fetchCollectionByConditionSuccess = (items, newPictures) => ({
+export const fetchCollectionByConditionSuccess = (items, sectionPictures) => ({
   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS,
-  payload: { items, newPictures },
+  payload: { items, sectionPictures },
 });
 
 export const fetchCollectionByConditionFailure = (error) => ({
@@ -68,9 +68,9 @@ export const fetchSectionStart = (collection, section, wishlistItems) => ({
   payload: { collection, section, wishlistItems },
 });
 
-export const fetchSectionSuccess = (items, newPictures) => ({
+export const fetchSectionSuccess = (items, sectionPictures) => ({
   type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
-  payload: { items, newPictures },
+  payload: { items, sectionPictures },
 });
 
 export const fetchSectionFailure = (error) => ({

@@ -1,27 +1,29 @@
-export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
+export const addItemToCart = (cartItems, cartItemToAdd) => {
   console.log("cartItemToAdd", cartItemToAdd);
-  console.log("selectedSize", selectedSize);
-  const { Reference, Url, Name, LastPrice, Color } = cartItemToAdd;
 
-  const existingCartItem = cartItems.find(
-    (cartItem) =>
-      cartItem.Reference === cartItemToAdd.Reference &&
-      cartItem.Color.name === cartItemToAdd.Color.name &&
-      cartItem.selectedSize === selectedSize
-  );
+  const {
+    id,
+    reference,
+    url,
+    name,
+    price,
+    discount,
+    lastPrice,
+    color,
+    selectedSize,
+  } = cartItemToAdd;
 
+  const existingCartItem =
+    cartItems.length &&
+    cartItems.find(
+      (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
+    );
+  console.log("existingCartItem", existingCartItem);
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.Reference === cartItemToAdd.Reference &&
-      cartItem.Color.name === cartItemToAdd.Color.name &&
-      cartItem.selectedSize === selectedSize
+      cartItem.id === id && cartItem.selectedSize === selectedSize
         ? {
-            Reference: Reference,
-            Url: Url[0],
-            Name: Name,
-            LastPrice: LastPrice,
-            Color: Color,
-            selectedSize: selectedSize,
+            ...cartItem,
             quantity: cartItem.quantity + 1,
           }
         : cartItem
@@ -30,11 +32,14 @@ export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
     return [
       ...cartItems,
       {
-        Reference: Reference,
-        Url: Url[0],
-        Name: Name,
-        LastPrice: LastPrice,
-        Color: Color,
+        id: id,
+        reference: reference,
+        url: url[0],
+        name: name,
+        price: price,
+        discount: discount,
+        lastPrice: lastPrice,
+        color: color,
         selectedSize: selectedSize,
         quantity: 1,
       },
@@ -43,30 +48,23 @@ export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
 };
 
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+  const { id, selectedSize } = cartItemToRemove;
+
   const existingCartItem = cartItems.find(
-    (cartItem) =>
-      cartItem.Reference === cartItemToRemove.Reference &&
-      cartItem.Color.name === cartItemToRemove.Color.name &&
-      cartItem.selectedSize === cartItemToRemove.selectedSize
+    (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
   );
 
   if (existingCartItem.quantity > 1) {
     return cartItems.map((cartItem) =>
-      cartItem.Reference === cartItemToRemove.Reference &&
-      cartItem.Color.name === cartItemToRemove.Color.name &&
-      cartItem.selectedSize === cartItemToRemove.selectedSize
+      cartItem.id === id && cartItem.selectedSize === selectedSize
         ? { ...cartItem, quantity: cartItem.quantity - 1 }
         : cartItem
     );
   } else {
     return cartItems.filter(
       (cartItem) =>
-        cartItem.Reference !== cartItemToRemove.Reference ||
-        (cartItem.Reference === cartItemToRemove.Reference &&
-          cartItem.Color.name !== cartItemToRemove.Color.name) ||
-        (cartItem.Reference === cartItemToRemove.Reference &&
-          cartItem.Color.name === cartItemToRemove.Color.name &&
-          cartItem.selectedSize !== cartItemToRemove.selectedSize)
+        cartItem.id !== id ||
+        (cartItem.id === id && cartItem.selectedSize !== selectedSize)
     );
   }
 };

@@ -47,15 +47,32 @@ const CollectionFilterSize = () => {
       <Title>Size</Title>
       <OptionContainer>
         {sizeOptions
-          ? sizeOptions.map((sizeItem, index) => (
-              <label key={index}>
-                <CollectionFilterSizeOption
-                  id={sizeItem}
-                  handleChange={handleChange}
-                  sizeOptions={sizeOptions}
-                />
-              </label>
-            ))
+          ? sizeOptions.map((sizeItem, index) => {
+              if (sizeItem === "xxs" || sizeItem === "32")
+                return (
+                  <label key={index}>
+                    <CollectionFilterSizeOption
+                      id={sizeItem}
+                      handleChange={handleChange}
+                      sizeOptions={sizeOptions}
+                    />
+                  </label>
+                );
+            })
+          : null}
+        {sizeOptions
+          ? sizeOptions.map((sizeItem, index) => {
+              if (sizeItem !== "xxs" || sizeItem !== "32")
+                return (
+                  <label key={index}>
+                    <CollectionFilterSizeOption
+                      id={sizeItem}
+                      handleChange={handleChange}
+                      sizeOptions={sizeOptions}
+                    />
+                  </label>
+                );
+            })
           : null}
       </OptionContainer>
     </Container>

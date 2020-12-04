@@ -22,6 +22,7 @@ import SizesGuideMenu from "../../../sizes-guide/sizes-guide-menu/sizes-guide-me
 import ItemDetails from "../item-details/item-details.component";
 import SelectSize from "../../../select-size/select-size.component";
 import ShareMenu from "../../../share/share-menu/share-menu.component";
+import SelectSizeDropDown from "../../../select-size/select-size-dropdown/select-size-dropdown.component";
 
 import {
   Container,
@@ -51,6 +52,7 @@ import {
 } from "./shop-item-data.styles";
 
 const ShopItemData = ({ collection, section, item }) => {
+  const [selectSizeVisible, setSelectSizeVisible] = useState(false);
   const history = useHistory();
   const {
     reference,
@@ -85,7 +87,6 @@ const ShopItemData = ({ collection, section, item }) => {
 
   return (
     <Container>
-      {/* <NavRoute onClick={} to={`shop/${collection}/${section}`}>{`${collection}/${section}`}</NavRoute>  */}
       <NavRoute
         onClick={() => history.push(`/shop/${collection}/${section}`)}
       >{`${collection}/${section}`}</NavRoute>
@@ -142,10 +143,21 @@ const ShopItemData = ({ collection, section, item }) => {
         <ColorName>{color.name}</ColorName>
       </ColorsContainer>
       <SelectSizesContainer>
-        <SelectSize sizes={sizes} selectedSize={selectedSize} />
+        <SelectSize
+          sizes={sizes}
+          selectedSize={selectedSize}
+          selectSizeVisible={selectSizeVisible}
+          setSelectSizeVisible={setSelectSizeVisible}
+        />
+        {selectSizeVisible && (
+          <SelectSizeDropDown
+            sizes={sizes}
+            setSelectSizeVisible={setSelectSizeVisible}
+          />
+        )}
       </SelectSizesContainer>
       <SizesGuideContainer>
-        <SizesGuideMenu section={section} />
+        <SizesGuideMenu collection={collection} section={section} />
       </SizesGuideContainer>
       <CustomButtonContainer>
         <CustomButton

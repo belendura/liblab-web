@@ -1,4 +1,3 @@
-import qs from "qs";
 import { all, call, takeLatest, put } from "redux-saga/effects";
 
 import axiosConfig from "../../helpers/axiosConfig.helpers";
@@ -41,7 +40,7 @@ export function* fetchCollectionsByCondition({ payload }) {
   try {
     const response = yield axiosConfig.get(`/shop/${condition}`);
     const { collectionsItems, pictures } = response.data;
-    console.log("response",response.data)
+    console.log("response", response.data);
     const updatedSectionWishlist = updateSectionWishlist(
       collectionsItems,
       wishlistItems

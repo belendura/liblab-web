@@ -39,8 +39,8 @@ const HomePage = () => {
   }, [fetchCollectionsByConditionStart, wishlistItems]);
 
   useEffect(() => {
-    dispatch(fetchPicturesStart(["carousel", "collections-overview"]));
-  }, []);
+    dispatch(fetchPicturesStart(["carousel", "collections"]));
+  }, [fetchPicturesStart]);
 
   return (
     <Container>

@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   z-index: 5;
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;

@@ -2,8 +2,8 @@ const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
-export const updatePictures = (pictures, newPictures) => {
-  const updatedPictures = { ...pictures, newPictures };
+export const updatePictures = (pictures, sectionPictures) => {
+  const updatedPictures = { ...pictures, sectionPictures };
   return updatedPictures;
 };
 
@@ -151,53 +151,3 @@ export const setSectionFilter = (section, colors, sizes, fit) => {
 
   return data;
 };
-
-// export const setSectionSizeOptions = (section, filters ) =>{
-//     if (!section)
-//     return
-
-//        section
-//           .reduce((accumulator, arrayItem) => {
-//             colors.length &&
-//               fit.length &&
-//               colors.forEach((colorItem) => {
-//                 if (arrayItem["Color"].code === colorItem)
-//                   fit.forEach((fitItem) => {
-//                     if (arrayItem["Fit"] === fitItem)
-//                       arrayItem["Sizes"].map((item) => {
-//                         accumulator = [...accumulator, item.size];
-//                       });
-//                     return accumulator;
-//                   });
-//               });
-//             !colors.length &&
-//               fit.length &&
-//               fit.forEach((fitItem) => {
-//                 if (arrayItem["Fit"] === fitItem)
-//                   arrayItem["Sizes"].map((item) => {
-//                     accumulator = [...accumulator, item.size];
-//                   });
-//                 return accumulator;
-//               });
-//             colors.length &&
-//               !fit.length &&
-//               colors.forEach((colorItem) => {
-//                 if (arrayItem["Color"].code === colorItem)
-//                   arrayItem["Sizes"].map((item) => {
-//                     accumulator = [...accumulator, item.size];
-//                   });
-//                 return accumulator;
-//               });
-//             !colors.length &&
-//               !fit.length &&
-//               arrayItem &&
-//               arrayItem["Sizes"].map((item) => {
-//                 accumulator = [...accumulator, item.size];
-//               });
-//             return accumulator;
-//           }, [])
-//           .reduce((accum, item) => {
-//             return accum.includes(item) ? accum : [...accum, item];
-//           }, [])
-//       : null
-// }

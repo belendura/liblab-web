@@ -36,8 +36,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: thin solid black;
-  border-radius: 2px;
+  border: thin solid grey;
 `;
 
 export const PictureContainer = styled.div`
@@ -103,14 +102,16 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
   ${"" /* border: thin solid green; */}
 `;
 export const FooterDetails = styled.div`
   display: flex;
   justify-content: space-between;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ItemDescription = styled.span`
+export const Description = styled.span`
   font-size: 10px;
   ${"" /* border: thin solid purple; */}
 `;
@@ -118,13 +119,15 @@ export const ItemDescription = styled.span`
 export const PriceContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  ${"" /* border: thin solid purple; */}
+  margin: 5px 0;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const ItemPrice = styled.span`
+export const Price = styled.span`
   font-size: 10px;
   margin-right: 10px;
   color: black;
+  ${"" /* border: thin solid black; */}
   ${getPriceStyles};
 `;
 
@@ -132,6 +135,6 @@ export const ColorsContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding-top: 5px;
-  ${"" /* border: thin solid purple; */}
+  margin: 5px 0;
+  ${"" /* border: thin solid black; */}
 `;

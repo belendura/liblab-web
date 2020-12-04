@@ -1,16 +1,16 @@
 export const updateWishlist = (wishlistItems, item) => {
   const existingWishlistItem = wishlistItems.find(
     (wishlistItem) =>
-      wishlistItem.Reference === item.Reference &&
-      wishlistItem.Color.name === item.Color.name
+      wishlistItem.reference === item.reference &&
+      wishlistItem.color.name === item.color.name
   );
 
   if (existingWishlistItem) {
     return wishlistItems.filter(
       (wishlistItem) =>
         !(
-          wishlistItem.Reference === item.Reference &&
-          wishlistItem.Color.name === item.Color.name
+          wishlistItem.reference === item.reference &&
+          wishlistItem.color.name === item.color.name
         )
     );
   } else {

@@ -2,161 +2,148 @@ import styled, { css } from "styled-components";
 
 import { ReactComponent as BasketLogo } from "../../../assets/icons/basket-logo.svg";
 
-const AvailableSize = css`
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    color: white;
-  }
-`;
-const UnavailableSize = css`
-  color: grey;
+const UpperInfoStyles = css`
+  background-color: rgba(107, 111, 115, 0.6);
 `;
 
-const NewItem = css`
-  background-color: grey;
-`;
-
-const Sale = css`
+const SaleStyles = css`
   background-color: red;
 `;
 
-const OriginalPrice = css`
+const OriginalPriceStyles = css`
   color: grey;
   text-decoration: line-through;
   text-decoration-color: black;
 `;
 
-const SalePrice = css`
+const SalePriceStyles = css`
   color: red;
 `;
 
-const getSizesStyles = (props) => {
-  return props.units > 0 ? AvailableSize : UnavailableSize;
-};
-
-const getNewItemStyles = (props) => {
-  if (props.sale) return Sale;
-  return props.new ? NewItem : null;
+const getUpperInfoStyles = (props) => {
+  if (props.sale) return SaleStyles;
+  return props.new ? UpperInfoStyles : null;
 };
 
 const getPriceStyles = (props) => {
   if (!props.sale) return null;
-  else if (props.sale && !props.discounted) return OriginalPrice;
-  else return SalePrice;
+  else if (props.sale && !props.discounted) return OriginalPriceStyles;
+  else return SalePriceStyles;
 };
 
-export const WishlistItemContainer = styled.div`
-  margin: 15px;
-  width: 280px;
-  height: 500px;
-  border: 1px dotted black;
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
+  justify-content: center;
+  border: thin solid grey;
 `;
 
-export const WishlistItemPicture = styled.div`
-  background-image: url(${(props) => props.url});
-  width: auto;
+export const PictureContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  height: 0;
+  padding-top: 100%;
+`;
+
+export const Picture = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  position: relative;
 `;
 
-export const WishlistItemSizesContainer = styled.div`
+export const UpperInfoContainer = styled.div`
   position: absolute;
-  bottom: 0px;
-  background-color: rgb(192, 192, 192);
-  opacity: 0.5;
-  width: 100%;
+  top: 15px;
+  width: 15%;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 25%;
+
+  ${getUpperInfoStyles};
 `;
 
-export const WishlistItemSizesTitle = styled.span`
-  padding: 2px;
+export const UpperInfo = styled.span`
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
 `;
 
-export const WishlistItemSizesItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const WishlistItemSizes = styled.span`
-  margin: 5px;
-  ${getSizesStyles}
-`;
-
-export const WishlistItemFooter = styled.div`
-  height: 15%;
+export const Footer = styled.div`
+  height: auto;
   padding: 5px;
   display: flex;
   flex-direction: column;
+  ${"" /* border: thin solid black; */}
 `;
-export const WishlistItemFooterDetails = styled.div`
+
+export const FooterDetails = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 2px 0;
+  align-items: center;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const WishlistItemDescription = styled.span`
+export const Name = styled.span`
   font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 5px;
 `;
 
-export const WishlistItemPriceContainer = styled.div`
+export const Description = styled.span`
+  font-size: 10px;
+`;
+
+export const PriceContainer = styled.div`
   display: flex;
   justify-content: flex-start;
+  margin: 5px 0;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const WishlistItemPrice = styled.span`
-  font-size: 12px;
+export const Price = styled.span`
+  font-size: 10px;
   margin-right: 10px;
   color: black;
   ${getPriceStyles};
+  ${"" /* border: thin solid black; */}
 `;
 
-export const WishlistItemNew = styled.div`
-  position: absolute;
-  top: 10px;
-  width: 20%;
-  height: auto;
+export const ColorsContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const BasketContainer = styled.div`
+  margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  ${getNewItemStyles};
+  ${"" /* border: thin solid black;  */}
 `;
 
-export const WishlistItemNewText = styled.span`
-  text-transform: uppercase;
-  font-weight: bold;
-  color: white;
-`;
-
-export const WishlistItemColorsBasketContainer = styled.div`
-  margin: 5px 0;
-  border: thin solid red;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const WishlistItemBasketContainer = styled.div`
-  margin-left: auto;
-`;
-
-export const WishlistItemBasket = styled(BasketLogo)`
+export const Basket = styled(BasketLogo)`
   cursor: pointer;
   width: 20px;
 
   &:hover {
     fill: gold;
   }
+`;
+
+export const ButtonContainer = styled.div`
+  margin: 0 auto;
+  padding-top: 5px;
 `;

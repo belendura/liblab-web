@@ -37,7 +37,7 @@ exports.fetchSection = async (req, res) => {
 //Shop Collections By Condition
 exports.fetchCollections = async (req, res) => {
   const { condition } = req.params;
-  const arrayCollection = ["collections-overview"];
+  const arrayCollection = ["collections"];
 
   let newCondition = condition;
   if (condition === "new") {
@@ -76,7 +76,7 @@ exports.fetchCollection = async (req, res) => {
       newCondition
     );
 
-    const pictures = await getPictures(arrayCollection, condition);
+    const pictures = await getPictures(arrayCollection, newCondition);
 
     return res.status(200).send({ collectionItems, pictures });
   } catch (error) {

@@ -19,16 +19,18 @@ export const selectPictures = createSelector(
   (collections) => (collections ? collections.pictures : null)
 );
 
-export const selectPicturesBySection = createSelector(
-  [selectPictures, (_, section) => ({ section })],
-  (pictures, { section }) =>
-    pictures
-      ? Object.entries(pictures).reduce((accum, item) => {
-          const [key, value] = item;
+export const selectCollectionsPictures = createSelector(
+  [selectPictures],
+  (pictures) => (pictures ? pictures.collections : null)
+);
 
-          if (key === section) return (accum = { ...value });
-        }, {})
-      : null
+export const selectCarousel = createSelector([selectPictures], (pictures) =>
+  pictures ? pictures.carousel : null
+);
+
+export const selectSectionPicture = createSelector(
+  [selectPictures],
+  (pictures) => (pictures ? pictures.sectionPictures : null)
 );
 
 export const selectSection = createSelector([selectCollection], (collections) =>
@@ -48,11 +50,6 @@ export const selectFilteredSizes = createSelector(
 export const selectFilteredFit = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.filteredFit : null)
-);
-
-export const selectFilteredType = createSelector(
-  [selectCollection],
-  (collections) => (collections ? collections.filteredType : null)
 );
 
 export const selectGridView = createSelector(

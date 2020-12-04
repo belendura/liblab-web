@@ -8,7 +8,7 @@ export const Container = styled.div`
   position: relative;
   padding-bottom: 5px;
   margin: 10px;
-  border: 1px solid black;
+  border: thin solid grey;
 `;
 
 export const Picture = styled.div`

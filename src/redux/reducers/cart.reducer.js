@@ -19,11 +19,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case cartActionTypes.ADD_ITEM:
       return {
         ...state,
-        cartItems: addItemToCart(
-          state.cartItems,
-          action.payload.item,
-          action.payload.selectedSize
-        ),
+        cartItems: addItemToCart(state.cartItems, action.payload),
       };
     case cartActionTypes.UPDATE_CART_SUCCESS:
       return {

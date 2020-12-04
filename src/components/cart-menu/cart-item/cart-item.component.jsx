@@ -4,49 +4,49 @@ import { useDispatch } from "react-redux";
 import { removeItem } from "../../../redux/actions/cart.actions";
 
 import {
-  CartItemContainer,
-  CartItemPictureContainer,
-  CartItemPicture,
-  CartItemInfoContainer,
-  CartItemHeader,
-  CartItemHeaderDetail,
-  CartItemPrice,
-  CartItemDetailsContainer,
-  CartItemDetail,
-  CartItemBasketContainer,
-  CartItemBasket,
-  LineStyled,
+  Container,
+  PictureContainer,
+  Picture,
+  InfoContainer,
+  Header,
+  HeaderDetail,
+  Price,
+  DetailsContainer,
+  Details,
+  BasketContainer,
+  Basket,
+  Line,
 } from "./cart-item.styles.js";
 
 const CartItem = ({ item }) => {
-  const { Url, Name, LastPrice, Color, quantity, selectedSize } = item;
+  const { url, name, lastPrice, color, quantity, selectedSize } = item;
   const dispatch = useDispatch();
 
   return (
     <div>
-      <CartItemContainer>
-        <CartItemPictureContainer>
-          <CartItemPicture src={Url} alt="Name" />
-        </CartItemPictureContainer>
-        <CartItemInfoContainer>
-          <CartItemHeader>
-            <CartItemHeaderDetail>{Name}</CartItemHeaderDetail>
-            <CartItemPrice>{LastPrice} EUR</CartItemPrice>
-          </CartItemHeader>
-          <CartItemDetailsContainer>
-            <CartItemDetail>Color: {Color.name}</CartItemDetail>
-            <CartItemDetail>Size: {selectedSize}</CartItemDetail>
-            <CartItemDetail>
+      <Container>
+        <PictureContainer>
+          <Picture src={url} alt="Name" />
+        </PictureContainer>
+        <InfoContainer>
+          <Header>
+            <HeaderDetail>{name}</HeaderDetail>
+            <Price>{lastPrice} EUR</Price>
+          </Header>
+          <DetailsContainer>
+            <Details>Color: {color.name}</Details>
+            <Details>Size: {selectedSize}</Details>
+            <Details>
               Quant:
               {quantity}
-            </CartItemDetail>
-          </CartItemDetailsContainer>
-          <CartItemBasketContainer>
-            <CartItemBasket onClick={() => dispatch(removeItem(item))} />
-          </CartItemBasketContainer>
-        </CartItemInfoContainer>
-      </CartItemContainer>
-      <LineStyled />
+            </Details>
+          </DetailsContainer>
+          <BasketContainer>
+            <Basket onClick={() => dispatch(removeItem(item))} />
+          </BasketContainer>
+        </InfoContainer>
+      </Container>
+      <Line />
     </div>
   );
 };

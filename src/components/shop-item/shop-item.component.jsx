@@ -6,21 +6,21 @@ import { selectItemByColor } from "../../redux/selectors/collections.selectors";
 
 import Circle from "../circle/circle.component";
 import Wishlist from "../wishlist/wishlist.component";
-import SizesDropUp from "./sizes-dropup/sizes-dropup.component";
+import SizesDropUp from "../sizes-dropup/sizes-dropup.component";
 
 import {
   Container,
   PictureContainer,
   Picture,
-  Footer,
-  FooterDetails,
-  ItemDescription,
-  PriceContainer,
-  ItemPrice,
   UpperInfoContainer,
   UpperInfo,
   ArrowLeft,
   ArrowRight,
+  Footer,
+  FooterDetails,
+  Description,
+  PriceContainer,
+  Price,
   ColorsContainer,
 } from "./shop-item.styles";
 
@@ -104,19 +104,19 @@ const ShopItem = ({ initialColor, reference, params }) => {
       {currentItem && (
         <Footer>
           <FooterDetails>
-            <ItemDescription>{description}</ItemDescription>
+            <Description>{description}</Description>
 
             <Wishlist theme="dark" size="small" item={currentItem} />
           </FooterDetails>
           <PriceContainer>
-            <ItemPrice sale={sale} discounted={false}>
+            <Price sale={sale} discounted={false}>
               {price}EUR
-            </ItemPrice>
+            </Price>
 
             {sale && (
-              <ItemPrice sale={sale} discounted={true}>
+              <Price sale={sale} discounted={true}>
                 {lastPrice}EUR
-              </ItemPrice>
+              </Price>
             )}
           </PriceContainer>
           <ColorsContainer>

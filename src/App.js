@@ -5,19 +5,19 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
 
-import { MEN_SCRUB_TOPS } from "./firebase/men-scrub-tops";
-import { MEN_SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
-import { MEN_SCRUB_PANTS } from "./firebase/men-scrub-pants";
-import { UNISEX_FACE_MASKS } from "./firebase/unisex-face-masks";
+// import { MEN_SCRUB_TOPS } from "./firebase/men-scrub-tops";
+// import { MEN_SCRUB_JACKETS } from "./firebase/men-scrub-jackets";
+// import { MEN_SCRUB_PANTS } from "./firebase/men-scrub-pants";
+// import { UNISEX_FACE_MASKS } from "./firebase/unisex-face-masks";
 
-import { WOMEN_SCRUB_TOPS } from "./firebase/women-scrub-tops";
-import { WOMEN_SCRUB_JACKETS } from "./firebase/women-scrub-jackets";
-import { WOMEN_SCRUB_PANTS } from "./firebase/women-scrub-pants";
+// import { WOMEN_SCRUB_TOPS } from "./firebase/women-scrub-tops";
+// import { WOMEN_SCRUB_JACKETS } from "./firebase/women-scrub-jackets";
+// import { WOMEN_SCRUB_PANTS } from "./firebase/women-scrub-pants";
 
-import {
-  addNewDocuments,
-  updateCollectionsDocuments,
-} from "./firebase/firebase.utils";
+// import {
+//   addNewDocuments,
+//   updateCollectionsDocuments,
+// } from "./firebase/firebase.utils";
 // import { addSizesDocuments } from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
@@ -99,11 +99,11 @@ function App() {
   // }, []);
 
   // useEffect(() => {
-  //   updateCollectionsDocuments("men", "scrub tops");
+  //   updateCollectionsDocuments("men", "scrub jackets");
   // }, []);
 
   // useEffect(() => {
-  //   updateCollectionsDocuments("women", "scrub tops");
+  //   updateCollectionsDocuments("women", "scrub jackets");
   // }, []);
 
   // useEffect(() => {
@@ -111,11 +111,11 @@ function App() {
   // }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/men/scrub jackets", MEN_SCRUB_JACKETS);
+  //   addNewDocuments("collections/men/scrub tops", MEN_SCRUB_TOPS);
   // }, []);
 
   // useEffect(() => {
-  //   addNewDocuments("collections/women/scrub jackets", WOMEN_SCRUB_JACKETS);
+  //   addNewDocuments("collections/women/scrub tops", WOMEN_SCRUB_TOPS);
   // }, []);
 
   // useEffect(() => {

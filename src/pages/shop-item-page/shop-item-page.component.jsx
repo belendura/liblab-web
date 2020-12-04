@@ -39,7 +39,7 @@ const ShopItemPage = () => {
   return (
     <ShopItemPageContainer>
       <ShopItemContainer>
-        {currentItem && <ShopItemPictures url={currentItem.Url} />}
+        {currentItem && <ShopItemPictures url={currentItem.url} />}
         {currentItem && (
           <ShopItemData
             collection={collection}

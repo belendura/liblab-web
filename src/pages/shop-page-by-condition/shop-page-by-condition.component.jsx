@@ -3,7 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
-import { selectPictures } from "../../redux/selectors/collections.selectors";
+import { selectSectionPicture } from "../../redux/selectors/collections.selectors";
 
 import { fetchCollectionByConditionStart } from "../../redux/actions/collections.actions";
 
@@ -26,7 +26,7 @@ const ShopPageByCondition = () => {
   const { collection, condition } = params;
 
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
-  const picture = useSelector(selectPictures, shallowEqual);
+  const picture = useSelector(selectSectionPicture, shallowEqual);
 
   useEffect(() => {
     dispatch(

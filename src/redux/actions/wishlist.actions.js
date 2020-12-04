@@ -15,18 +15,19 @@ export const removeItemFromWishlist = (item) => ({
   payload: item,
 });
 
-export const addFromWishlistToCart = (item, selectedSize) => ({
+export const addFromWishlistToCart = (item) => ({
   type: wishlistActionTypes.ADD_FROM_WISHLIST_TO_CART,
-  payload: { item, selectedSize },
+  payload: { item },
 });
 
-export const selectSize = (item) => ({
+export const selectSize = (item, size) => ({
   type: wishlistActionTypes.SELECT_SIZE,
-  payload: item,
+  payload: { item, size },
 });
 
-export const clearSize = () => ({
-  type: wishlistActionTypes.CLEAR_SIZE,
+export const clearSizeSelection = (item) => ({
+  type: wishlistActionTypes.CLEAR_SIZE_SELECTION,
+  payload: item,
 });
 
 export const clearWishlist = () => ({

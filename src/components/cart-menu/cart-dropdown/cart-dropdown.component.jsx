@@ -26,6 +26,7 @@ const CartDropDown = () => {
 
   return (
     <CartDropDownContainer>
+      {console.log("selectedCartItem", selectedCartItems)}
       {selectedCartItems.length ? (
         selectedCartItems.map((item, index) => (
           <CartItem key={index} item={item} />

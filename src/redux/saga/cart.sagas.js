@@ -14,8 +14,8 @@ export function* onSignOutSucces() {
 }
 
 export function* addItemFromWishlistToCart({ payload }) {
-  const { item, selectedSize } = payload;
-  yield put(addItem(item, selectedSize));
+  const { item } = payload;
+  yield put(addItem(item));
 }
 
 export function* onAddFromWishlistToCart() {

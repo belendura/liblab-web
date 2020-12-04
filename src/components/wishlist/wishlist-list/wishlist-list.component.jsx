@@ -5,20 +5,22 @@ import { selectWishlistItems } from "../../../redux/selectors/wishlist.selectors
 
 import WishlistItem from "../wishlist-item/wishlist-item.component";
 
-import { WishlistListContainer, WishlistText } from "./wishlist-list.styles";
+import { Container, WishlistContainer, Text } from "./wishlist-list.styles";
 
 const WishlistList = () => {
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
   return (
-    <WishlistListContainer>
+    <Container>
       {wishlistItems.length ? (
-        wishlistItems.map((item, index) => (
-          <WishlistItem item={item} key={index} />
-        ))
+        <WishlistContainer>
+          {wishlistItems.map((item, index) => (
+            <WishlistItem item={item} key={index} />
+          ))}
+        </WishlistContainer>
       ) : (
-        <WishlistText>Wishlist is Empty</WishlistText>
+        <Text>Wishlist is Empty</Text>
       )}
-    </WishlistListContainer>
+    </Container>
   );
 };
 

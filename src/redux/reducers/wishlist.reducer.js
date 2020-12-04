@@ -4,7 +4,6 @@ import { updateWishlist } from "../utils/wishlist.utils";
 
 const INITIAL_STATE = {
   wishlistItems: [],
-  selectedSize: "",
   error: null,
 };
 
@@ -25,12 +24,23 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
     case wishlistActionTypes.SELECT_SIZE:
       return {
         ...state,
-        selectedSize: action.payload,
+        wishlistItems: state.wishlistItems.map((item) => {
+          console.log("payload", action.payload);
+          if (item === action.payload.item) {
+            item = { ...item, selectedSize: action.payload.size };
+          }
+          return item;
+        }),
       };
-    case wishlistActionTypes.CLEAR_SIZE:
+    case wishlistActionTypes.CLEAR_SIZE_SELECTION:
       return {
         ...state,
-        selectedSize: "",
+        wishlistItems: state.wishlistItems.map((item) => {
+          if (item === action.payload) {
+            item = { ...item, selectedSize: null };
+          }
+          return item;
+        }),
       };
     case wishlistActionTypes.CLEAR_WISHLIST:
       return {

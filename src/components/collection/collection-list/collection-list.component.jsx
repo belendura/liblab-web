@@ -46,7 +46,6 @@ const CollectionList = ({ params }) => {
       {updatedSection &&
         updatedSection.map((item, index) => {
           const { color, reference, id } = item;
-
           return (
             <ShopItem
               key={id}

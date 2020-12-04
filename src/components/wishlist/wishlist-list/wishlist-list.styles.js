@@ -1,17 +1,23 @@
 import styled from "styled-components";
 
-export const WishlistListContainer = styled.div`
-  ${"" /* display: grid;
-  grid-template-columns: repeat(4, minmax(240px, 1fr));
-  object-fit: cover;
-  grid-gap: 20px;
-  height: 95vh; */}
-  ${"" /* margin: auto; */}
-  display: flex;
-  justify-content: center;
-  ${"" /* align-items: center; */}
+export const Container = styled.div`
+  
+  display flex;
+ justify-content:center; 
+  ${"" /* align-items:center; */}
+  border: thick solid pink;
 `;
 
-export const WishlistText = styled.span`
-  ${"" /* margin: auto 0; */}
+export const WishlistContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  object-fit: cover;
+  grid-gap: 20px;
+  padding: 10px;
+  border: thick solid yellow;
+`;
+
+export const Text = styled.span`
+  ${"" /* text-align: center; */}
 `;
