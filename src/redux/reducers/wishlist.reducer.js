@@ -18,26 +18,15 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         wishlistItems: state.wishlistItems.filter((item) => {
-          return item !== action.payload;
+          return item.id !== action.payload.id;
         }),
       };
     case wishlistActionTypes.SELECT_SIZE:
       return {
         ...state,
         wishlistItems: state.wishlistItems.map((item) => {
-          console.log("payload", action.payload);
           if (item === action.payload.item) {
             item = { ...item, selectedSize: action.payload.size };
-          }
-          return item;
-        }),
-      };
-    case wishlistActionTypes.CLEAR_SIZE_SELECTION:
-      return {
-        ...state,
-        wishlistItems: state.wishlistItems.map((item) => {
-          if (item === action.payload) {
-            item = { ...item, selectedSize: null };
           }
           return item;
         }),

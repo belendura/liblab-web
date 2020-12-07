@@ -6,6 +6,7 @@ import {
   addFromWishlistToCart,
   removeItemFromWishlist,
 } from "../../../redux/actions/wishlist.actions";
+import { displayCart } from "../../../redux/actions/cart.actions";
 import { openModal } from "../../../redux/actions/modal.actions";
 
 import CustomButton from "../../custom-button/custom-button.component";
@@ -74,6 +75,7 @@ const WishlistItem = ({ item }) => {
             <SizesDropUp
               sizes={sizes}
               availableUnits={availableUnits}
+              currentItem={item}
               wishlist={true}
               selectedSize={wishlistItem.selectedSize}
             />
@@ -116,6 +118,7 @@ const WishlistItem = ({ item }) => {
               !wishlistItem.selectedSize && setVisibility(true);
               if (wishlistItem.selectedSize) {
                 dispatch(addFromWishlistToCart(item));
+                dispatch(displayCart());
               } else {
                 dispatch(
                   openModal("WISHLIST_SELECT_SIZE", {

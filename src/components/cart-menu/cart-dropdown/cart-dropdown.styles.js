@@ -1,25 +1,65 @@
 import styled from "styled-components";
 
-export const CartDropDownContainer = styled.div`
+export const Container = styled.div`
   position: absolute;
+  top: 50px;
+  right: 20px;
   width: 300px;
   height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid black;
   background-color: white;
-  top: 110px;
-  right: 40px;
+  padding: 10px;
   z-index: 5;
+  border: thin solid black;
 `;
 
-export const CartDropDownEmpty = styled.span`
-  margin: auto;
+export const Header = styled.header`
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  ${"" /* border: thin solid black; */}
 `;
 
-export const CartItemTotal = styled.span`
+export const Title = styled.span`
+  font-size: 12px;
   font-weight: bold;
-  margin: 5px;
+  text-transform: uppercase;
+`;
+
+export const Count = styled.span`
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+export const ItemsContainer = styled.div`
+  margin: 0 auto;
+  overflow: auto;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const Empty = styled.span`
+  ${"" /* border: thin solid black; */}
+`;
+
+export const SumContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const Sum = styled.span`
+  font-size: 10px;
+  font-weight: bold;
+  ${"" /* border: thin solid black; */}
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  ${"" /* border: thin solid black; */}
 `;

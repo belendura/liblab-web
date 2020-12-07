@@ -12,12 +12,7 @@ export const Container = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  top: 92px;
-  width: inherit;
-  ${"" /* margin: 0 30px; */}
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  top: 30px;
   background-color: white;
   z-index: 5;
   border: thin solid grey;

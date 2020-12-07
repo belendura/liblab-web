@@ -9,7 +9,7 @@ import {
   ArrowDOWN,
 } from "./item-details.styles";
 
-const ItemDetails = ({ title, text, textVisible, setTextVisible }) => {
+const Details = ({ title, text, textVisible, setTextVisible }) => {
   return (
     <Container>
       <TitleContainer>
@@ -40,4 +40,4 @@ const ItemDetails = ({ title, text, textVisible, setTextVisible }) => {
   );
 };
 
-export default ItemDetails;
+export default Details;

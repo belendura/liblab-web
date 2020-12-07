@@ -3,6 +3,8 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
 import { closeModal } from "../../../redux/actions/modal.actions";
+import { addFromWishlistToCart } from "../../../redux/actions/wishlist.actions";
+import { displayCart } from "../../../redux/actions/cart.actions";
 
 import SelectSize from "../../select-size/select-size.component";
 import CustomButton from "../../custom-button/custom-button.component";
@@ -43,7 +45,16 @@ const WishlistSelectSizeModal = ({ text, item }) => {
       <SizesGuideContainer>
         <SizesGuide collection={collection} section={section} />
       </SizesGuideContainer>
-      <CustomButton color="standard" onClick={() => dispatch(closeModal())}>
+      <CustomButton
+        color="standard"
+        onClick={() => {
+          if (wishlistItem.selectedSize) {
+            dispatch(addFromWishlistToCart(item));
+            dispatch(displayCart());
+          }
+          dispatch(closeModal());
+        }}
+      >
         Close
       </CustomButton>
     </Container>

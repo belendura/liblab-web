@@ -21,9 +21,7 @@ const ShopItemPage = () => {
   const { collection, section, reference, color } = params;
 
   useEffect(() => {
-    dispatch(
-      fetchSizesGuideStart(collection, section.replace("scrub-", "").trim())
-    );
+    dispatch(fetchSizesGuideStart(collection, section));
   }, [fetchSizesGuideStart, collection, section]);
 
   const selectedItem = useSelector((state) =>

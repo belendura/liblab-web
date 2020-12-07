@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-// import { Link } from "react-router-dom";
 
 const OriginalPrice = css`
   color: grey;
@@ -36,16 +35,6 @@ export const NavRoute = styled.span`
   ${"" /* border: thin solid black; */}
 `;
 
-// export const NavRoute = styled(Link)`
-//   font-size: 10px;
-//   cursor: pointer;
-//   &:hover {
-//     color: gold;
-//     text-decoration-line: underline;
-//   }
-//   ${"" /* border: thin solid black; */}
-// `;
-
 export const NameContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -54,13 +43,13 @@ export const NameContainer = styled.div`
   ${"" /* border: thin solid black; */}
 `;
 
-export const ItemName = styled.span`
+export const Name = styled.span`
   text-transform: uppercase;
   font-size: 24px;
   font-weight: bold;
 `;
 
-export const ItemReference = styled.span`
+export const Reference = styled.span`
   text-transform: uppercase;
   font-size: 8px;
 `;
@@ -87,7 +76,7 @@ export const DescriptionContainer = styled.div`
   ${"" /* border: thin solid black; */}
 `;
 
-export const ItemDescription = styled.span`
+export const Description = styled.span`
   width: 70%;
   font-size: 12px;
   ${"" /* border: thin solid black; */}
@@ -101,13 +90,13 @@ export const PriceContainer = styled.div`
   ${"" /* border: thin solid black; */}
 `;
 
-export const ItemPrice = styled.span`
+export const Price = styled.span`
   padding: 0 5px;
   color: black;
   ${"" /* border: thin solid black; */}
   ${getPriceStyles}
 `;
-export const ItemLastPrice = styled.span`
+export const LastPrice = styled.span`
   padding: 0 5px;
   ${"" /* border: thin solid black; */}
   ${getPriceStyles}
@@ -130,7 +119,7 @@ export const DiscountBox = styled.div`
   padding: 5px;
 `;
 
-export const ItemDiscount = styled.span`
+export const Discount = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   color: white;

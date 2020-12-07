@@ -19,7 +19,7 @@ import Circle from "../../../circle/circle.component";
 import CustomButton from "../../../custom-button/custom-button.component";
 import Wishlist from "../../../wishlist/wishlist.component";
 import SizesGuideMenu from "../../../sizes-guide/sizes-guide-menu/sizes-guide-menu.component";
-import ItemDetails from "../item-details/item-details.component";
+import Details from "../item-details/item-details.component";
 import SelectSize from "../../../select-size/select-size.component";
 import ShareMenu from "../../../share/share-menu/share-menu.component";
 import SelectSizeDropDown from "../../../select-size/select-size-dropdown/select-size-dropdown.component";
@@ -28,17 +28,17 @@ import {
   Container,
   NavRoute,
   NameContainer,
-  ItemName,
-  ItemReference,
+  Name,
+  Reference,
   ReviewsContainer,
   DescriptionContainer,
-  ItemDescription,
+  Description,
   PriceContainer,
-  ItemPrice,
-  ItemLastPrice,
+  Price,
+  LastPrice,
   DiscountContainer,
   DiscountBox,
-  ItemDiscount,
+  Discount,
   ColorsContainer,
   ColorsOptionContainer,
   ColorName,
@@ -91,28 +91,28 @@ const ShopItemData = ({ collection, section, item }) => {
         onClick={() => history.push(`/shop/${collection}/${section}`)}
       >{`${collection}/${section}`}</NavRoute>
       <NameContainer>
-        <ItemName>{name}</ItemName>
+        <Name>{name}</Name>
         <Wishlist theme="dark" size="large" item={item} />
       </NameContainer>
-      <ItemReference>{reference}</ItemReference>
+      <Reference>{reference}</Reference>
       <ReviewsContainer>reviews</ReviewsContainer>
       <DescriptionContainer>
-        <ItemDescription>{description}</ItemDescription>
+        <Description>{description}</Description>
         <PriceContainer>
-          <ItemPrice sale={sale} discounted={false}>
+          <Price sale={sale} discounted={false}>
             {price}EUR
-          </ItemPrice>
+          </Price>
           {sale && (
-            <ItemLastPrice sale={sale} discounted={true}>
+            <LastPrice sale={sale} discounted={true}>
               {lastPrice}EUR
-            </ItemLastPrice>
+            </LastPrice>
           )}
         </PriceContainer>
       </DescriptionContainer>
       <DiscountContainer>
         {sale && (
           <DiscountBox>
-            <ItemDiscount>{discount}%</ItemDiscount>
+            <Discount>{discount}%</Discount>
           </DiscountBox>
         )}
       </DiscountContainer>
@@ -177,14 +177,14 @@ const ShopItemData = ({ collection, section, item }) => {
         Deliveries & Returns
       </ShippingContainer>
       <DetailsContainer>
-        <ItemDetails
+        <Details
           title="Details"
           text={details}
           textVisible={detailsVisible}
           setTextVisible={setDetailsVisible}
         />
         <Separator />
-        <ItemDetails
+        <Details
           title="Fabric & Care"
           text={fabric}
           textVisible={fabricVisible}

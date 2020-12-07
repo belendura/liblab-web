@@ -1,4 +1,5 @@
 import cartActionTypes from "../types/cart.types";
+import wishlistActionTypes from "../types/wishlist.types";
 
 import { addItemToCart, removeItemFromCart } from "../utils/cart.utils";
 
@@ -11,15 +12,43 @@ const INITIAL_STATE = {
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case cartActionTypes.DISPLAY_CART:
+      return {
+        ...state,
+        hidden: false,
+      };
     case cartActionTypes.TOGGLE_CART_HIDDEN:
       return {
         ...state,
+
         hidden: !state.hidden,
       };
     case cartActionTypes.ADD_ITEM:
       return {
         ...state,
-        cartItems: addItemToCart(state.cartItems, action.payload),
+        cartItems: addItemToCart(
+          state.cartItems,
+          action.payload,
+          state.selectedSize
+        ),
+      };
+    case cartActionTypes.ADD_ITEM_FROM_PREVIEW:
+      return {
+        ...state,
+        cartItems: addItemToCart(
+          state.cartItems,
+          action.payload.item,
+          action.payload.size
+        ),
+      };
+    case wishlistActionTypes.ADD_ITEM_FROM_WISHLIST:
+      return {
+        ...state,
+        cartItems: addItemToCart(
+          state.cartItems,
+          action.payload,
+          action.payload.selectedSize
+        ),
       };
     case cartActionTypes.UPDATE_CART_SUCCESS:
       return {

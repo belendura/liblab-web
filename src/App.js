@@ -14,11 +14,15 @@ import "./styles/slick.css";
 // import { WOMEN_SCRUB_JACKETS } from "./firebase/women-scrub-jackets";
 // import { WOMEN_SCRUB_PANTS } from "./firebase/women-scrub-pants";
 
-// import {
-//   addNewDocuments,
-//   updateCollectionsDocuments,
-// } from "./firebase/firebase.utils";
-// import { addSizesDocuments } from "./firebase/firebase.utils";
+import { WOMEN_JACKETS } from "./firebase/sizes";
+import { WOMEN_PANTS } from "./firebase/sizes";
+import { WOMEN_TOPS } from "./firebase/sizes";
+
+import {
+  addNewDocuments,
+  updateCollectionsDocuments,
+  addSizesDocuments,
+} from "./firebase/firebase.utils";
 
 import { getToken } from "./helpers/axiosTokens.helpers";
 
@@ -118,9 +122,9 @@ function App() {
   //   addNewDocuments("collections/women/scrub tops", WOMEN_SCRUB_TOPS);
   // }, []);
 
-  // useEffect(() => {
-  //   addSizesDocuments("sizes-guide/women/jackets", WOMEN_JACKETS);
-  // }, []);
+  useEffect(() => {
+    addSizesDocuments("sizes-guide/women/scrub jakects", WOMEN_JACKETS);
+  }, []);
 
   return (
     <div>

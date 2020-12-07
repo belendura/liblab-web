@@ -4,8 +4,22 @@ export const toggleCartHidden = () => ({
   type: cartActionTypes.TOGGLE_CART_HIDDEN,
 });
 
+export const displayCart = () => ({
+  type: cartActionTypes.DISPLAY_CART,
+});
+
+export const addItemFromPreview = (item, size) => ({
+  type: cartActionTypes.ADD_ITEM_FROM_PREVIEW,
+  payload: { item, size },
+});
+
 export const addItem = (item) => ({
   type: cartActionTypes.ADD_ITEM,
+  payload: item,
+});
+
+export const addItemFromWishlist = (item) => ({
+  type: cartActionTypes.ADD_ITEM_FROM_WISHLIST,
   payload: item,
 });
 

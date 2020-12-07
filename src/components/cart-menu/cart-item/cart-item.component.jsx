@@ -1,53 +1,81 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { removeItem } from "../../../redux/actions/cart.actions";
+import { addItem, removeItem } from "../../../redux/actions/cart.actions";
 
 import {
   Container,
   PictureContainer,
   Picture,
-  InfoContainer,
+  DescriptionContainer,
   Header,
-  HeaderDetail,
+  Name,
   Price,
+  LastPrice,
   DetailsContainer,
   Details,
-  BasketContainer,
+  QuantityContainer,
+  QuantitySymbol,
   Basket,
-  Line,
 } from "./cart-item.styles.js";
 
 const CartItem = ({ item }) => {
-  const { url, name, lastPrice, color, quantity, selectedSize } = item;
+  const {
+    url,
+    name,
+    description,
+    price,
+    lastPrice,
+    sale,
+    color,
+    quantity,
+    selectedSize,
+  } = item;
+
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <Container>
-        <PictureContainer>
-          <Picture src={url} alt="Name" />
-        </PictureContainer>
-        <InfoContainer>
-          <Header>
-            <HeaderDetail>{name}</HeaderDetail>
-            <Price>{lastPrice} EUR</Price>
-          </Header>
-          <DetailsContainer>
-            <Details>Color: {color.name}</Details>
-            <Details>Size: {selectedSize}</Details>
-            <Details>
-              Quant:
-              {quantity}
-            </Details>
-          </DetailsContainer>
-          <BasketContainer>
-            <Basket onClick={() => dispatch(removeItem(item))} />
-          </BasketContainer>
-        </InfoContainer>
-      </Container>
-      <Line />
-    </div>
+    <Container>
+      <PictureContainer>
+        <Picture src={url} alt="Name" />
+      </PictureContainer>
+      <DescriptionContainer>
+        <Header>
+          <Name>{name}</Name>
+          {sale && (
+            <LastPrice sale={sale} discounted={true}>
+              {lastPrice}EUR
+            </LastPrice>
+          )}
+          {!sale && (
+            <LastPrice sale={sale} discounted={false}>
+              {lastPrice}EUR
+            </LastPrice>
+          )}
+        </Header>
+        {sale && (
+          <Price sale={sale} discounted={false}>
+            {price}EUR
+          </Price>
+        )}
+        <DetailsContainer>
+          <Details>{description} </Details>
+          <Details>Color: {color.name}</Details>
+          <Details>Size: {selectedSize}</Details>
+          <QuantityContainer>
+            <Details>Quant: </Details>
+            <QuantitySymbol onClick={() => dispatch(addItem(item))}>
+              &#43;
+            </QuantitySymbol>
+            <Details>{quantity}</Details>
+            <QuantitySymbol onClick={() => dispatch(removeItem(item))}>
+              &#45;
+            </QuantitySymbol>
+          </QuantityContainer>
+          <Basket onClick={() => dispatch(removeItem(item))} />
+        </DetailsContainer>
+      </DescriptionContainer>
+    </Container>
   );
 };
 

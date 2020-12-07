@@ -32,9 +32,10 @@ const getSizeStyles = (props) => {
 };
 
 const getColorStyles = (props) => {
-  if (props.theme === "clear" && !props.wishlist) return Clear;
-  else if (props.theme === "dark" && !props.wishlist) return Dark;
-  else if (props.wishlist === "true") return WishListAdded;
+  const { theme, wishlist } = props;
+  if (theme === "clear" && !wishlist) return Clear;
+  else if (theme === "dark" && !wishlist) return Dark;
+  else if (wishlist === "true") return WishListAdded;
 };
 
 export const Container = styled(FavLogo)`

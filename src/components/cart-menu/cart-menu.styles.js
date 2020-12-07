@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { ReactComponent as CartLogo } from "../../assets/icons/cart-logo.svg";
 
-export const CartMenuContainer = styled.div`
+export const Container = styled.div`
   position: relative;
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@ export const Cart = styled(CartLogo)`
   padding: 10px;
 `;
 
-export const CartMenuCount = styled.span`
+export const Count = styled.span`
   position: absolute;
   font-weight: bold;
   top: 16px;

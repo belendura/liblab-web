@@ -455,6 +455,7 @@ exports.getSizesGuide = async (collection, section) => {
         await docRef.get().then((docSnapshot) => {
           return (accum[docSnapshot.id] = docSnapshot.data());
         });
+
         return accum;
       },
       Promise.resolve({})

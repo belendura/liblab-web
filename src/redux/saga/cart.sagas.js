@@ -3,7 +3,7 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 import userActionTypes from "../types/user.types";
 import wishlistActionTypes from "../types/wishlist.types";
 
-import { clearCart, addItem } from "../actions/cart.actions";
+import { clearCart, addItemFromWishlist } from "../actions/cart.actions";
 
 export function* clearCartOnSignOut() {
   yield put(clearCart());
@@ -15,7 +15,8 @@ export function* onSignOutSucces() {
 
 export function* addItemFromWishlistToCart({ payload }) {
   const { item } = payload;
-  yield put(addItem(item));
+  console.log("item in cart SAGAS", item);
+  yield put(addItemFromWishlist(item));
 }
 
 export function* onAddFromWishlistToCart() {

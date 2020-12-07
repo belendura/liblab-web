@@ -6,6 +6,7 @@ import { toggleCartHidden } from "../../../redux/actions/cart.actions";
 
 import {
   selectCartItems,
+  selectCartItemsCount,
   selectCartTotal,
 } from "../../../redux/selectors/cart.selectors";
 
@@ -13,41 +14,59 @@ import CartItem from "../cart-item/cart-item.component";
 import CustomButton from "../../custom-button/custom-button.component";
 
 import {
-  CartDropDownContainer,
-  CartDropDownEmpty,
-  CartItemTotal,
+  Container,
+  ItemsContainer,
+  Empty,
+  Header,
+  Title,
+  Count,
+  SumContainer,
+  Sum,
+  ButtonContainer,
 } from "./cart-dropdown.styles";
 
 const CartDropDown = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const selectedCartItems = useSelector(selectCartItems, shallowEqual);
-  const selectedCartTotal = useSelector(selectCartTotal, shallowEqual);
+  const cartItems = useSelector(selectCartItems, shallowEqual);
+  const cartTotal = useSelector(selectCartTotal, shallowEqual);
+  const cartItemsCount = useSelector(selectCartItemsCount, shallowEqual);
 
   return (
-    <CartDropDownContainer>
-      {console.log("selectedCartItem", selectedCartItems)}
-      {selectedCartItems.length ? (
-        selectedCartItems.map((item, index) => (
-          <CartItem key={index} item={item} />
-        ))
-      ) : (
-        <CartDropDownEmpty>Your cart is Empty</CartDropDownEmpty>
-      )}
-      {selectedCartItems.length ? (
-        <CartItemTotal>Total: {selectedCartTotal} EUR</CartItemTotal>
+    <Container>
+      {cartItems.length ? (
+        <Header>
+          <Title>CART</Title>
+          <Count>({cartItemsCount})</Count>
+        </Header>
       ) : null}
-      {selectedCartItems.length ? (
-        <CustomButton
-          onClick={() => {
-            history.push("/checkout/login");
-            dispatch(toggleCartHidden());
-          }}
-        >
-          CHECKOUT
-        </CustomButton>
+      <ItemsContainer>
+        {cartItems.length ? (
+          cartItems.map((item, index) => <CartItem key={index} item={item} />)
+        ) : (
+          <Empty>Your cart is Empty</Empty>
+        )}
+      </ItemsContainer>
+      {cartItems.length ? (
+        <SumContainer>
+          <Sum>Total:</Sum>
+          <Sum>{cartTotal} EUR</Sum>
+        </SumContainer>
       ) : null}
-    </CartDropDownContainer>
+      {cartItems.length ? (
+        <ButtonContainer>
+          <CustomButton
+            color="standard"
+            onClick={() => {
+              history.push("/checkout/login");
+              dispatch(toggleCartHidden());
+            }}
+          >
+            CHECKOUT
+          </CustomButton>
+        </ButtonContainer>
+      ) : null}
+    </Container>
   );
 };
 

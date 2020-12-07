@@ -3,6 +3,12 @@ import styled, { css } from "styled-components";
 const AvailableSizeStyles = css`
   color: black;
   font-weight: bold;
+
+  &:hover,
+  &:focus {
+    color: gold;
+    cursor: pointer;
+  }
 `;
 
 const UnavailableSizeStyles = css`
@@ -19,7 +25,7 @@ const getSizeStyles = (props) => {
   return props.units > 0 ? AvailableSizeStyles : UnavailableSizeStyles;
 };
 
-const getWishlisSizetStyles = (props) => {
+const getWishlistSizeStyles = (props) => {
   const { size, wishlist, selectedSize } = props;
   return wishlist && size === selectedSize ? WishlistSizetStyles : null;
 };
@@ -34,6 +40,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 50;
 `;
 
 export const Title = styled.span`
@@ -50,5 +57,5 @@ export const Size = styled.span`
   font-size: 12px;
   margin: 5px;
   ${getSizeStyles}
-  ${getWishlisSizetStyles}
+  ${getWishlistSizeStyles}
 `;

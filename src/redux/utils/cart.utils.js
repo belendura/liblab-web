@@ -1,16 +1,14 @@
-export const addItemToCart = (cartItems, cartItemToAdd) => {
-  console.log("cartItemToAdd", cartItemToAdd);
-
+export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
   const {
     id,
     reference,
     url,
     name,
+    description,
     price,
-    discount,
+    sale,
     lastPrice,
     color,
-    selectedSize,
   } = cartItemToAdd;
 
   const existingCartItem =
@@ -18,7 +16,7 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
     cartItems.find(
       (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
     );
-  console.log("existingCartItem", existingCartItem);
+
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === id && cartItem.selectedSize === selectedSize
@@ -36,9 +34,10 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         reference: reference,
         url: url[0],
         name: name,
+        description: description,
         price: price,
-        discount: discount,
         lastPrice: lastPrice,
+        sale: sale,
         color: color,
         selectedSize: selectedSize,
         quantity: 1,

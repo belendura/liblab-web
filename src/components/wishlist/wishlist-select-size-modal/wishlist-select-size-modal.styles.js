@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 10px;
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const TextContainer = styled.p`
@@ -15,24 +15,13 @@ export const TextContainer = styled.p`
   ${"" /* border: thin solid black; */}
 `;
 
-export const ButtonContainer = styled.div`
+export const SizesGuideContainer = styled.div`
+  margin: 10px 0;
   ${"" /* border: thin solid black; */}
 `;
 
 export const SelectSizeContainer = styled.div`
-  ${"" /* margin: 0 auto; */}
-  ${"" /* display:flex;
-  justify-content: center;
-  align-items: center; */}
-
+  position: relative;
+  margin-top: 10px;
   ${"" /* border: thin solid black; */}
-`;
-
-export const SizesGuideContainer = styled.div`
-  margin: 10px 0;
-  border: thck solid gold;
-`;
-
-export const WishlistSelectSizeDropDownContainer = styled.div`
-  border: thick solid blue;
 `;
