@@ -1,35 +1,31 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-`;
-
-// export const SlidePicContainer = styled.div`
-//   position: relative;
-//   overflow: hidden;
-//   height: 0;
-//   padding-top: 33.25%;
-// `;
-
-export const SlidePic = styled.div`
   position: relative;
-  height: 80vh;
-  background-image: url(${(props) => props.url});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  height: 0;
+  padding-top: 56.25%;
+  overflow: hidden;
   text-align: center;
-  ${"" /* border: thick solid pink; */}
 `;
 
-export const SlideTitle = styled.span`
+export const Picture = styled.img`
   position: absolute;
-  bottom: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const Title = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  margin: 0;
+  transform: translate(0, -50%);
+  width: 100%;
   color: white;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 40px;
   text-transform: uppercase;
-  ${"" /* border: thin solid green; */}
 `;

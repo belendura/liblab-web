@@ -16,7 +16,7 @@ const UnavailableSizeStyles = css`
 `;
 
 const WishlistSizetStyles = css`
-  font-size: 16px;
+  font-size: 1px;
   color: gold;
   font-weight: bold;
 `;
@@ -55,7 +55,7 @@ export const SizeContainer = styled.div`
 
 export const Size = styled.span`
   font-size: 12px;
-  margin: 5px;
-  ${getSizeStyles}
-  ${getWishlistSizeStyles}
+  padding: 0 5px;
+
+  ${getSizeStyles} ${getWishlistSizeStyles};
 `;

@@ -1,5 +1,4 @@
 import cartActionTypes from "../types/cart.types";
-import wishlistActionTypes from "../types/wishlist.types";
 
 import { addItemToCart, removeItemFromCart } from "../utils/cart.utils";
 
@@ -32,7 +31,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           state.selectedSize
         ),
       };
-    case cartActionTypes.ADD_ITEM_FROM_PREVIEW:
+    case cartActionTypes.ADD_ITEM_FROM_DROPUP:
       return {
         ...state,
         cartItems: addItemToCart(
@@ -41,7 +40,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           action.payload.size
         ),
       };
-    case wishlistActionTypes.ADD_ITEM_FROM_WISHLIST:
+    case cartActionTypes.ADD_ITEM_FROM_WISHLIST:
       return {
         ...state,
         cartItems: addItemToCart(

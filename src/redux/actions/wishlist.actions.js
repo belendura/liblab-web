@@ -10,11 +10,6 @@ export const removeItemFromWishlist = (item) => ({
   payload: item,
 });
 
-export const addFromWishlistToCart = (item) => ({
-  type: wishlistActionTypes.ADD_FROM_WISHLIST_TO_CART,
-  payload: { item },
-});
-
 export const selectSize = (item, size) => ({
   type: wishlistActionTypes.SELECT_SIZE,
   payload: { item, size },

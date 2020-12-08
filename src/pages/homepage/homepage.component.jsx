@@ -19,8 +19,8 @@ import {
   Container,
   CarouselContainer,
   BestSellersContainer,
-  BestSellersTitle,
   BestSellersListContainer,
+  BestSellersTitle,
   CollectionsContainer,
   InstagramContainer,
 } from "./homepage.styles";
@@ -44,9 +44,9 @@ const HomePage = () => {
 
   return (
     <Container>
-      <CarouselContainer>
+      {/* <CarouselContainer>
         <Carousel />
-      </CarouselContainer>
+      </CarouselContainer> */}
       <BestSellersContainer>
         <BestSellersTitle>
           <CollectionTitle title={title} subtitle={subtitle} url={url} />

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
+import { selectCartHidden } from "../../../redux/selectors/cart.selectors";
+
+import { removeItemFromWishlist } from "../../../redux/actions/wishlist.actions";
 import {
-  addFromWishlistToCart,
-  removeItemFromWishlist,
-} from "../../../redux/actions/wishlist.actions";
-import { displayCart } from "../../../redux/actions/cart.actions";
+  addItemFromWishlist,
+  displayCart,
+} from "../../../redux/actions/cart.actions";
 import { openModal } from "../../../redux/actions/modal.actions";
 
 import CustomButton from "../../custom-button/custom-button.component";
@@ -39,6 +41,9 @@ const WishlistItem = ({ item }) => {
   const wishlistItem = useSelector((state) =>
     selectWishlistItem(state, item, shallowEqual)
   );
+
+  const cartHidden = useSelector(selectCartHidden, shallowEqual);
+
   const {
     url,
     name,
@@ -117,8 +122,8 @@ const WishlistItem = ({ item }) => {
               const text = "Please select size!";
               !wishlistItem.selectedSize && setVisibility(true);
               if (wishlistItem.selectedSize) {
-                dispatch(addFromWishlistToCart(item));
-                dispatch(displayCart());
+                dispatch(addItemFromWishlist(item));
+                cartHidden && dispatch(displayCart());
               } else {
                 dispatch(
                   openModal("WISHLIST_SELECT_SIZE", {

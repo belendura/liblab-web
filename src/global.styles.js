@@ -5,10 +5,6 @@ html {
   overflow:   scroll;
   height:100%;
 }
-::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
-}
 
 body {
   font-family: "Merriweather Sans", sans-serif;

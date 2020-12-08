@@ -1,14 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { WishlistMenuContainer, Wishlist } from "./wishlist-menu.styles";
+import { Container, Wishlist, Count } from "./wishlist-menu.styles";
 
 const WishlistMenu = () => {
   const history = useHistory();
   return (
-    <WishlistMenuContainer>
+    <Container>
       <Wishlist onClick={() => history.push("/wishlist")} />
-    </WishlistMenuContainer>
+      <Count>{0}</Count>
+    </Container>
   );
 };
 

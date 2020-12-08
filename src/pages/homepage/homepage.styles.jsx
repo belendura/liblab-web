@@ -1,20 +1,18 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  overflow-y: hidden;
+  max-width: 997px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 `;
 
 export const CarouselContainer = styled.div`
-  height: 80vh;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${"" /* border: thin solid pink; */}
+  ${"" /* border: thin solid black; */}
 `;
 
 export const BestSellersContainer = styled.div`
-  height: 80vh;
   display: flex;
   align-items: center;
   ${"" /* border: thin solid black; */}
@@ -26,10 +24,14 @@ export const BestSellersTitle = styled.div`
   justify-content: center;
   align-items: center;
   width: 25%;
-  height: 200px;
+  ${"" /* border: thin solid black; */}
 `;
+
 export const BestSellersListContainer = styled.div`
-  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: auto;
 `;
 
 export const CollectionsContainer = styled.div`
@@ -37,7 +39,7 @@ export const CollectionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${"" /* border: thick solid silver; */}
+  ${"" /* border: thin solid black; */}
 `;
 
 export const InstagramContainer = styled.div`
@@ -45,5 +47,5 @@ export const InstagramContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${"" /* border: thick solid purple; */}
+  ${"" /* border: thin solid black; */}
 `;
