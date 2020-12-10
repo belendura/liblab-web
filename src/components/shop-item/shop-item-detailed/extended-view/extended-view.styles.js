@@ -14,13 +14,12 @@ const hiddenPicture = css`
 
 const getPictureStyles = (props) => {
   const { index, displayedView } = props;
-
   return displayedView === index ? displayedPicture : hiddenPicture;
 };
 
 export const Container = styled.div`
   position: relative;
-  width: 100vw;
+  width: 1017px;
   height: 100vh;
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -29,28 +28,30 @@ export const Container = styled.div`
   }
   ::-ms-overflow-style: none; /* IE and Edge */
   ::scrollbar-width: none; /* Firefox */
+  cursor: zoom-out;
+  margin: 0 auto;
 `;
 
-export const Picture = styled.div`
+export const PictureContainer = styled.div`
+  position: relative;
+  height: 0;
+  padding-top: 160.45%;
+  overflow: hidden;
+`;
+
+export const Picture = styled.img`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 0;
-  padding-top: 100%;
-  object-fit: cover;
-  background-image: url(${(props) => props.url});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  cursor: zoom-out;
+  object-fit: contain;
 `;
 
 export const ArrowLeft = styled(ArrowLeftLogo)`
   position: absolute;
   top: 50%;
   left: 10px;
-  height: 20px;
+  height: 10px;
 
   cursor: pointer;
   z-index: 10;
@@ -65,7 +66,7 @@ export const ArrowRight = styled(ArrowRightLogo)`
   position: absolute;
   top: 50%;
   right: 10px;
-  height: 20px;
+  height: 10px;
   cursor: pointer;
   z-index: 10;
 
@@ -75,29 +76,33 @@ export const ArrowRight = styled(ArrowRightLogo)`
   }
 `;
 
-export const CarouselContainer = styled.div`
+export const Carousel = styled.div`
   position: absolute;
-  top: 5%;
-  left: 50px;
-  width: 4vw;
-  height: 90vh;
+  top: 10%;
+  left: 5%;
+  width: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  ${"" /* border: thin solid black; */}
 `;
 
-export const CarouselPic = styled.img`
-  width: 100%;
+export const CarouselPictureContainer = styled.div`
+  position: relative;
   height: 0;
-  padding-top: 10%;
-  object-fit: cover;
-  height: auto;
-  margin: 1px auto;
+  padding-top: 128.28%;
+  overflow: hidden;
+  margin-bottom: 5px;
   cursor: pointer;
-  ${getPictureStyles}
-  ${"" /* border:thin solid black; */}
+`;
+
+export const CarouselPicture = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  ${getPictureStyles};
 
   &:hover,
   &:focus {

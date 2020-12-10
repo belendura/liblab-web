@@ -43,7 +43,7 @@ export const WishlistContainer = styled.div`
   position: absolute;
   bottom: 5px;
   right: 10px;
-  z-index: 20;
+  z-index: 5;
 `;
 
 export const NewItem = styled.span`

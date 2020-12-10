@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 export const ShopItemPageContainer = styled.div`
+  max-width: 997px;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  border: thick solid purple;
+  margin: 0 auto;
 `;
 
 export const ShopItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  border: thick solid pink;
 `;

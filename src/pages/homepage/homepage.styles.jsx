@@ -35,11 +35,9 @@ export const BestSellersListContainer = styled.div`
 `;
 
 export const CollectionsContainer = styled.div`
-  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  ${"" /* border: thin solid black; */}
 `;
 
 export const InstagramContainer = styled.div`

@@ -67,7 +67,42 @@ exports.getCollectionDocuments = async (collection, condition) => {
       Promise.resolve([])
     );
 
-    return queryItems;
+    const supplementaryQueryItems = await Promise.all(
+      queryItems.map(async (queryItem) => {
+        const data = collectionsRefs.reduce(async (previousPromise, colRef) => {
+          let accum = await previousPromise;
+
+          return await colRef
+            .where("reference", "==", queryItem.reference)
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.docs.filter((docSnapshot) => {
+                const data = docSnapshot.data();
+                if (data.color.code !== queryItem.color.code) {
+                  return (accum = { ...accum, ...data });
+                }
+              });
+              return accum;
+            });
+        }, Promise.resolve({}));
+
+        return data;
+      })
+    );
+
+    const extendedQueryItems = queryItems.concat(supplementaryQueryItems);
+
+    const filteredQueryItems = extendedQueryItems.filter(
+      (item, index) => extendedQueryItems.indexOf(item.reference) === index
+    );
+    // const filteredQueryItems = extendedQueryItems.reduce((accum, item) => {
+    //   return accum.includes(item)        ? accum
+    //     : [...accum, item];
+    // }, []);
+
+    console.log("filteredQueryItems", filteredQueryItems.length);
+
+    return filteredQueryItems;
   } catch (error) {
     throw new Error(error);
   }

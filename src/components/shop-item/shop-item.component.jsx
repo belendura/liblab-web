@@ -83,19 +83,19 @@ const ShopItem = ({ initialColor, reference, params }) => {
                 `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
               );
             }}
-            url={url[displayedView]}
-          >
-            {sale && (
-              <UpperInfoContainer sale={sale} new={newItem}>
-                <UpperInfo>{discount}%</UpperInfo>
-              </UpperInfoContainer>
-            )}
-            {newItem && (
-              <UpperInfoContainer sale={sale} new={newItem}>
-                <UpperInfo>NEW</UpperInfo>
-              </UpperInfoContainer>
-            )}
-          </Picture>
+            src={url[displayedView]}
+          />
+          {sale && (
+            <UpperInfoContainer sale={sale} new={newItem}>
+              <UpperInfo>{discount}%</UpperInfo>
+            </UpperInfoContainer>
+          )}
+          {newItem && (
+            <UpperInfoContainer sale={sale} new={newItem}>
+              <UpperInfo>NEW</UpperInfo>
+            </UpperInfoContainer>
+          )}
+
           {visibility && (
             <SizesDropUp
               sizes={sizes}

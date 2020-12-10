@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 40px;
   padding: 10px;
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const FilterContainer = styled.div`
+ 
 display flex;
 justify-content:space-between;
 
@@ -18,7 +20,6 @@ align-items:center;
 `;
 
 export const OrderContainer = styled.div`
-  width: 30%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

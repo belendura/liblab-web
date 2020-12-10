@@ -7,7 +7,7 @@ import { selectCartHidden } from "../../redux/selectors/cart.selectors";
 
 import ShopMenu from "../../components/shop-menu/shop-menu.component";
 import CartMenu from "../../components/cart-menu/cart-menu.component";
-import WishlistMenu from "../../components/wishlist-menu/wishlist-menu.component";
+import WishlistMenu from "../../components/wishlist/wishlist-menu/wishlist-menu.component";
 import CartDropdown from "../../components/cart-menu/cart-dropdown/cart-dropdown.component";
 
 import {

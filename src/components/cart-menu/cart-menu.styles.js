@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { ReactComponent as CartLogo } from "../../assets/icons/cart-logo.svg";
+import { ReactComponent as CartLogo } from "../../assets/icons/shopping-bag.svg";
 
 export const Container = styled.div`
   position: relative;
@@ -21,7 +21,7 @@ export const Cart = styled(CartLogo)`
 
 export const Count = styled.span`
   position: absolute;
-  top: 8px;
-  font-size: 14px;
+  top: 10px;
+  font-size: 12px;
   font-weight: bold;
 `;

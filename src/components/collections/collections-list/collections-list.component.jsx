@@ -1,29 +1,29 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
 import { selectCollectionsPictures } from "../../../redux/selectors/collections.selectors";
 
 import CollectionOverview from "../collection-overview/collection-overview.component";
 
-import { Container } from "./collections-list.styles";
-
-const CollectionsList = () => {
+const CollectionsList = ({ size }) => {
   const pictures = useSelector(selectCollectionsPictures, shallowEqual);
 
   return (
-    <Container>
+    <Fragment>
       {pictures &&
-        Object.entries(pictures)
-          .filter((item, index) => index < 3)
-          .map(([key, value]) => (
-            <CollectionOverview
-              key={key}
-              title={key}
-              url={value}
-              size="large"
-            />
-          ))}
-    </Container>
+        Object.entries(pictures).map(([key, value]) => {
+          return (
+            (key === "men" || key === "women" || key === "unisex") && (
+              <CollectionOverview
+                key={key}
+                title={key}
+                url={value}
+                size={size}
+              />
+            )
+          );
+        })}
+    </Fragment>
   );
 };
 

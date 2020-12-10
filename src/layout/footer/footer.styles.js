@@ -18,10 +18,16 @@ const SocialMediaStyles = css`
 `;
 
 export const Container = styled.div`
+  max-width: 997px;
   height: 300px;
   background: rgba(107, 111, 115, 0.4);
-  margin: 0 auto;
-  border: thin solid black;
+  margin: auto;
+  display: flex;
+`;
+
+export const FooterContainer = styled.div`
+  height: 100%;
+  width: 100%;
 `;
 
 export const TopContainer = styled.div`

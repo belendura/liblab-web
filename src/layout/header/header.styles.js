@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as LibLabLogo } from "../../assets/icons/lab.svg";
 import { ReactComponent as InstagramLogo } from "../../assets/icons/camera-logo.svg";
 import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg";
-import { ReactComponent as UserLogo } from "../../assets/icons/user-logo.svg";
+import { ReactComponent as UserLogo } from "../../assets/icons/user.svg";
 import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
 export const Container = styled.div`
@@ -14,17 +14,15 @@ export const Container = styled.div`
   max-width: 997px;
   margin: auto;
   background-color: white;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  ${"" /* border: thin solid black; */}
+  z-index: 10;
 `;
 
 export const NavContainer = styled.nav`
   height: 100%;
   width: 100%;
-  border: thin solid pink;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   @media screen and (max-width: 800px) {
     font-size: 0.8em;
@@ -35,13 +33,12 @@ export const HeaderContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-
-  margin-right: auto;
 `;
 
 export const LibLab = styled(LibLabLogo)`
   height: 100%;
   cursor: pointer;
+  padding: 5px 0;
   ${"" /* border: thin solid black; */}
 
   &:hover,
@@ -54,11 +51,10 @@ export const ShopContainer = styled.ul`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-
+  padding-left: 5px;
   list-style: none;
 
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const LinkContainer = styled.li`
@@ -68,7 +64,7 @@ export const LinkContainer = styled.li`
   align-items: center;
   justify-content: center;
 
-  border: thin solid purple;
+  ${"" /* border: thin solid purple; */}
 `;
 
 export const ShopLink = styled(Link)`
@@ -91,15 +87,13 @@ export const Instagram = styled(InstagramLogo)`
 `;
 
 export const UserContainer = styled.ul`
+  height: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding-left: 5px;
   list-style: none;
 
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: auto;
-  border: thin solid black;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const UserLinkContainer = styled.li`

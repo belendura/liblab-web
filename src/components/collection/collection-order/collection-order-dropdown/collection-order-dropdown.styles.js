@@ -2,13 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: absolute;
-  top: 390px;
-  right: 20%;
+  top: 30px;
+  left: 0px;
+  width: 110px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
+  align-items: flex-start;
   background-color: white;
-  padding: 10px 20px 0px 20px;
+  padding: 0 5px;
   z-index: 5;
   ${"" /* border: thin solid black; */}
 `;

@@ -1,75 +1,57 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-const SmallSizeContainer = css`
-  width: 20vw;
-  height: auto;
-`;
-
-const SmallSizeTitle = css`
-  font-size: 16px;
-`;
-
-const LargeSizeContainer = css`
-  width: 25%;
-  height: 100%;
-`;
-
-const LargeSizeTitle = css`
+const SmallTitle = css`
   font-size: 20px;
 `;
 
-const getContainerStyles = (props) => {
-  switch (props.size) {
-    case "small":
-      return SmallSizeContainer;
+const LargeTitle = css`
+  font-size: 40px;
+`;
 
-    case "large":
-      return LargeSizeContainer;
-    default:
-      return LargeSizeContainer;
-  }
-};
-
-const getTitleStyles = (props) => {
-  switch (props.size) {
-    case "small":
-      return SmallSizeTitle;
-
-    case "large":
-      return LargeSizeTitle;
-    default:
-      return LargeSizeTitle;
-  }
+const getTitleSize = (props) => {
+  return props.size === "large" ? LargeTitle : SmallTitle;
 };
 
 export const Container = styled.div`
-  background-image: url(${(props) => props.url});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 10px;
-  ${"" /* padding-top: 66.55%;
-  height: 0;
-  overflow: hidden; */}
+  flex-direction: column;
+  margin: 10px;
+  ${"" /* border: thin solid black; */}
+`;
 
-  ${getContainerStyles}
+export const PictureContainer = styled.div`
+  position: relative;
+  height: 0;
+  padding-top: 128.28%;
+  overflow: hidden;
+  text-align: center;
+`;
+
+export const Picture = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const Title = styled(Link)`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin: 0;
+  transform: translate(0, -50%);
+  width: 100%;
   color: white;
-  font-size: 20px;
   font-weight: bold;
-
   text-transform: uppercase;
+  ${getTitleSize}
 
   &:hover {
     color: gold;
     text-decoration-line: underline;
   }
-
-  ${getTitleStyles}
 `;

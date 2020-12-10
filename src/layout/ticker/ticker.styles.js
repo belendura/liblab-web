@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  max-width: 997px;
   height: 30px;
   background: rgba(107, 111, 115, 0.4);
-  padding: 5px;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  ${"" /* border: thin solid black; */};
+`;
+export const TickerContainer = styled.div`
+  width: 100%;
 `;
 
 export const MainText = styled.span`

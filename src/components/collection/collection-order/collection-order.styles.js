@@ -2,12 +2,13 @@ import styled from "styled-components";
 import { ReactComponent as OrderLogo } from "../../../assets/icons/arrow-down.svg";
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  height: 100%;
   padding: 5px;
+  margin-right: 20px;
   ${"" /* border: thin solid black; */}
 `;
 

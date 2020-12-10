@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { ReactComponent as FavLogo } from "../../assets/icons/heart-logo.svg";
+import { ReactComponent as WishlistLogo } from "../../assets/icons/heart.svg";
+import { ReactComponent as WishlistRedLogo } from "../../assets/icons/heart-red.svg";
 
 const Small = css`
   width: 14px;
@@ -21,10 +22,6 @@ const Dark = css`
   fill: black;
 `;
 
-const WishListAdded = css`
-  fill: red;
-`;
-
 const getSizeStyles = (props) => {
   if (props.size === "small") return Small;
   else if (props.size === "medium") return Medium;
@@ -32,16 +29,24 @@ const getSizeStyles = (props) => {
 };
 
 const getColorStyles = (props) => {
-  const { theme, wishlist } = props;
-  if (theme === "clear" && !wishlist) return Clear;
-  else if (theme === "dark" && !wishlist) return Dark;
-  else if (wishlist === "true") return WishListAdded;
+  const { theme } = props;
+  if (theme === "clear") return Clear;
+  else if (theme === "dark") return Dark;
 };
 
-export const Container = styled(FavLogo)`
+export const WishlistMenu = styled(WishlistLogo)`
   ${getSizeStyles};
   ${getColorStyles};
 
+  cursor: pointer;
+
+  &:hover {
+    fill: gold;
+  }
+`;
+
+export const WishlistRedMenu = styled(WishlistRedLogo)`
+  ${getSizeStyles};
   cursor: pointer;
 
   &:hover {

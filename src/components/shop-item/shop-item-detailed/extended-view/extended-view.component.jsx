@@ -4,9 +4,11 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../../../redux/actions/modal.actions";
 import {
   Container,
+  PictureContainer,
   Picture,
-  CarouselContainer,
-  CarouselPic,
+  Carousel,
+  CarouselPictureContainer,
+  CarouselPicture,
   ArrowLeft,
   ArrowRight,
 } from "./extended-view.styles";
@@ -31,24 +33,27 @@ const ExtendedView = ({ url, index }) => {
     <Container>
       <ArrowLeft onClick={displayedViewBackward} />
       <ArrowRight onClick={displayedViewForward} />
-      <Picture
-        url={url[displayedView]}
-        onClick={() => dispatch(closeModal())}
-      />
-      <CarouselContainer>
+      <PictureContainer>
+        <Picture
+          src={url[displayedView]}
+          onClick={() => dispatch(closeModal())}
+        />
+      </PictureContainer>
+      <Carousel>
         {url &&
           url.map((item, index) => {
             return (
-              <CarouselPic
-                key={item}
-                src={item}
-                index={index}
-                displayedView={displayedView}
-                onClick={() => setDisplayedView(index)}
-              />
+              <CarouselPictureContainer key={index}>
+                <CarouselPicture
+                  src={item}
+                  index={index}
+                  displayedView={displayedView}
+                  onClick={() => setDisplayedView(index)}
+                />
+              </CarouselPictureContainer>
             );
           })}
-      </CarouselContainer>
+      </Carousel>
     </Container>
   );
 };

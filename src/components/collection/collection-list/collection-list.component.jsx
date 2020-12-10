@@ -17,7 +17,7 @@ import ShopItem from "../../shop-item/shop-item.component";
 
 import { Container } from "./collection-list.styles";
 
-const CollectionList = ({ params }) => {
+const CollectionList = ({ condition, params }) => {
   const [updatedSection, setUpdatedSection] = useState(null);
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
@@ -43,18 +43,23 @@ const CollectionList = ({ params }) => {
 
   return (
     <Container gridView={gridView}>
+      {console.log("condition", condition)}
       {updatedSection &&
-        updatedSection.map((item, index) => {
-          const { color, reference, id } = item;
-          return (
-            <ShopItem
-              key={id}
-              initialColor={color.name}
-              reference={reference}
-              params={params}
-            />
-          );
-        })}
+        updatedSection
+          .filter((item, index) => {
+            return condition === undefined ? item : item[condition] === true;
+          })
+          .map((item, index) => {
+            const { color, reference, id } = item;
+            return (
+              <ShopItem
+                key={id}
+                initialColor={color.name}
+                reference={reference}
+                params={params}
+              />
+            );
+          })}
     </Container>
   );
 };

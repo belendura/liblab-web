@@ -1,29 +1,19 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 60vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-export const PicContainer = styled.div`
+export const PictureList = styled.div`
   display: grid;
-  grid-template-columns: repeat(12, minmax(20px, 1fr));
+  grid-template-columns: repeat(12, minmax(50px, 1fr));
   grid-template-rows: auto;
   grid-gap: 5px;
   margin: 0;
 `;
 
-export const Picture = styled.div`
-  background-image: url(${(props) => props.url});
-  ${"" /* grid-area: "big"; */}
-  grid-column: span 6;
-  height: 80vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+export const PictureContainer = styled.div`
   position: relative;
+  height: 0;
+  padding-top: 128.28%;
+  overflow: hidden;
+  grid-column: span 6;
   border: thin solid grey;
   cursor: zoom-in;
 
@@ -31,4 +21,13 @@ export const Picture = styled.div`
     grid-column: span 4;
     height: 50vh;
   }
+`;
+
+export const Picture = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

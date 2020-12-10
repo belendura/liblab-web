@@ -21,14 +21,14 @@ export const Container = styled.div`
   justify-content: space-between;
   background-color: white;
   padding: 10px;
-  z-index: 5;
+  z-index: 10;
   ${"" /* border: thin solid black; */}
 `;
 
 export const CollectionsContainer = styled.div`
-  width: 40%;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   padding: 10px;
   ${"" /* border: thin solid black; */}
 `;
@@ -36,8 +36,8 @@ export const CollectionsContainer = styled.div`
 export const CollectionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
-  ${"" /* border: thin solid green; */}
+  margin-right: 30px;
+  ${"" /* border: thin solid black; */}
 `;
 
 export const CollectionTitle = styled.span`
@@ -59,9 +59,8 @@ export const SectionLink = styled(Link)`
 `;
 
 export const CollectionOverviewContainer = styled.div`
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
   ${"" /* border: thin solid black; */}
 `;

@@ -1,24 +1,19 @@
 import styled, { css } from "styled-components";
 import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
 
-// const BigStyle = css`
-//   margin: 20px;
-//   z-index: 20;
-// `;
+const BigCloseStyle = css`
+  width: 20px;
+`;
 
-// const StandardStyle = css`
-//   margin: 10px;
-// `;
-
-// const getCloseButtonStyles = (props) => {
-//   return props.style === "big" ? BigStyle : StandardStyle;
-// };
+const getCloseButtonStyles = (props) => {
+  return props.closeStyle === "big" ? BigCloseStyle : null;
+};
 
 export const OuterContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   position: fixed;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   top: 0;
   left: 0;
   display: flex;
@@ -30,27 +25,20 @@ export const OuterContainer = styled.div`
 export const Container = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: auto;
-  width: auto;
+  height: 100%;
+  width: 100%;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 5px 10px 18px #888888;
-  border: 1px solid black;
-  border-radius: 2px;
-  padding: 10px 20px;
 `;
 
 export const CloseButton = styled(CloseLogo)`
   position: absolute;
-  top: 1em;
-  right: 1em;
-  ${"" /* margin: 5px; */}
-  width: 14px;
-
-  z-index: 20;
+  top: 5px;
+  right: 5px;
+  width: 10px;
   cursor: pointer;
-  ${"" /* ${getCloseButtonStyles} */}
-  ${"" /* border: thin solid black; */}
+  z-index: 25;
+{getCloseButtonStyles};
 `;

@@ -26,6 +26,6 @@ export const Title = styled.span`
   width: 100%;
   color: white;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 50px;
   text-transform: uppercase;
 `;

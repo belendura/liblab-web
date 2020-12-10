@@ -40,7 +40,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 50;
+  z-index: 5;
 `;
 
 export const Title = styled.span`

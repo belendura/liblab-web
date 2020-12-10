@@ -17,6 +17,12 @@ const ShopPageByCondition = React.lazy(() =>
   import("../../pages/shop-page-by-condition/shop-page-by-condition.component")
 );
 
+const ShopPageCollectionsByCondition = React.lazy(() =>
+  import(
+    "../../pages/shop-page-collections-by-condition/shop-page-collections-by-condition.component"
+  )
+);
+
 const ShopItemPage = React.lazy(() =>
   import("../../pages/shop-item-page/shop-item-page.component")
 );
@@ -60,6 +66,11 @@ const Main = () => {
             exact
             path="/shop/:collection/featured/:condition"
             component={ShopPageByCondition}
+          />
+          <Route
+            exact
+            path="/shop/:condition"
+            component={ShopPageCollectionsByCondition}
           />
           <Route
             path="/shop/:collection/:section/:description&:reference/:color"

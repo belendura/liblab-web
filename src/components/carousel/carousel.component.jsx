@@ -3,14 +3,8 @@ import { useSelector, shallowEqual } from "react-redux";
 import Slider from "react-slick";
 
 import { selectCarousel } from "../../redux/selectors/collections.selectors";
-import { PictureContainer } from "../wishlist/wishlist-item/wishlist-item.styles";
 
-import {
-  CarouselContainer,
-  Container,
-  Picture,
-  Title,
-} from "./carousel.styles";
+import { Container, Picture, Title } from "./carousel.styles";
 
 const Carousel = () => {
   const settings = {
