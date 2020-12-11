@@ -87,9 +87,15 @@ const ShopItemData = ({ collection, section, item }) => {
 
   return (
     <Container>
-      <NavRoute
-        onClick={() => history.push(`/shop/${collection}/${section}`)}
-      >{`${collection}/${section}`}</NavRoute>
+      {collection ? (
+        <NavRoute
+          onClick={() => history.push(`/shop/${collection}/${section}`)}
+        >{`${collection}/${section}`}</NavRoute>
+      ) : (
+        <NavRoute
+          onClick={() => history.push(`/shop/${section}`)}
+        >{`${section}`}</NavRoute>
+      )}
       <NameContainer>
         <Name>{name}</Name>
         <Wishlist theme="dark" size="large" item={item} />

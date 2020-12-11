@@ -16,6 +16,11 @@ import {
   UpperInfo,
   ArrowLeft,
   ArrowRight,
+  NewItem,
+  BottomInfoContainer,
+  Organic,
+  Recycled,
+  BottomInfo,
   Footer,
   FooterDetails,
   Description,
@@ -26,7 +31,7 @@ import {
 
 const ShopItem = ({ initialColor, reference, params }) => {
   const history = useHistory();
-  const { collection, section } = params;
+  const { collection, section, condition } = params;
 
   const [visibility, setVisibility] = useState(false);
   const [displayedView, setDisplayedView] = useState(0);
@@ -54,6 +59,8 @@ const ShopItem = ({ initialColor, reference, params }) => {
     discount,
     availableColors,
     availableUnits,
+    recycled,
+    organic,
   } = currentItem;
 
   const displayedViewForward = (event) => {
@@ -79,9 +86,19 @@ const ShopItem = ({ initialColor, reference, params }) => {
           {visibility && <ArrowRight onClick={displayedViewForward} />}
           <Picture
             onClick={() => {
-              history.push(
-                `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
-              );
+              if (collection && section) {
+                history.push(
+                  `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
+                );
+              } else if (collection && condition) {
+                history.push(
+                  `/shop/${collection}/featured/${condition}/${description}&${reference}/${color.name}`
+                );
+              } else if (!collection && condition) {
+                history.push(
+                  `/shop/${condition}/${description}&${reference}/${color.name}`
+                );
+              }
             }}
             src={url[displayedView]}
           />
@@ -103,10 +120,23 @@ const ShopItem = ({ initialColor, reference, params }) => {
               currentItem={currentItem}
             />
           )}
+          {recycled && (
+            <BottomInfoContainer>
+              <Recycled />
+              <BottomInfo>Recycled</BottomInfo>
+            </BottomInfoContainer>
+          )}
+          {organic && !recycled && (
+            <BottomInfoContainer>
+              <Organic />
+              <BottomInfo>Organic</BottomInfo>
+            </BottomInfoContainer>
+          )}
         </PictureContainer>
       )}
       {currentItem && (
         <Footer>
+          <NewItem newItem={newItem}>NEW</NewItem>
           <FooterDetails>
             <Description>{description}</Description>
 

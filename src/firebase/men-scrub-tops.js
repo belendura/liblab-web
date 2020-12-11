@@ -92,7 +92,7 @@ export const MEN_SCRUB_TOPS = [
     reference: "REFSTM20001BG",
     name: "TOM",
     description: "Relaxed Two-Pocket Top",
-    color: { code: "#84A6DC", name: "pastel blue", dark: true },
+    color: { code: "#84A6DC", name: "pastel blue", dark: false },
     season: "SS20",
     sizes: [
       { size: "xs", units: 0 },

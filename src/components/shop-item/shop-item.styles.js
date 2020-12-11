@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 
 import { ReactComponent as ArrowLeftLogo } from "../../assets/icons/arrow-left.svg";
 import { ReactComponent as ArrowRightLogo } from "../../assets/icons/arrow-right.svg";
+import { ReactComponent as RecycledLogo } from "../../assets/icons/recycle-sign.svg";
+import { ReactComponent as OrganicLogo } from "../../assets/icons/organic-sign.svg";
 
 const UpperInfoStyles = css`
   background-color: rgba(107, 111, 115, 0.6);
@@ -76,7 +78,7 @@ export const ArrowRight = styled(ArrowRightLogo)`
 export const UpperInfoContainer = styled.div`
   position: absolute;
   top: 15px;
-  width: 15%;
+  width: 10%;
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -90,6 +92,43 @@ export const UpperInfo = styled.span`
   font-weight: bold;
   color: white;
   text-transform: uppercase;
+`;
+
+export const NewItem = styled.span`
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0 auto 5px;
+  color: ${(props) => {
+    return props.newItem ? "black" : "transparent";
+  }};
+`;
+
+export const BottomInfoContainer = styled.div`
+  position: absolute;
+  bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${"" /* border: thin solid green; */}
+`;
+
+export const Recycled = styled(RecycledLogo)`
+  width: 20px;
+  margin: 0 5px 0 10px;
+`;
+
+export const Organic = styled(OrganicLogo)`
+  width: 20px;
+  height: 25px;
+  margin: 0 5px 0 10px;
+`;
+
+export const BottomInfo = styled.span`
+  font-size: 10px;
+  font-weight: bold;
+  color: black;
+  text-transform: capitalize;
 `;
 
 export const Footer = styled.div`

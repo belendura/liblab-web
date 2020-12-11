@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { ReactComponent as RecycledLogo } from "../../../assets/icons/recycle-sign.svg";
+import { ReactComponent as OrganicLogo } from "../../../assets/icons/organic-sign.svg";
 
 export const Container = styled.div`
   flex: 1;
@@ -24,10 +26,38 @@ export const Picture = styled.img`
   object-fit: cover;
 `;
 
+export const BottomInfoContainer = styled.div`
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${"" /* border: thin solid green; */}
+`;
+
+export const Recycled = styled(RecycledLogo)`
+  width: 20px;
+  margin: 0 5px 0 10px;
+`;
+
+export const Organic = styled(OrganicLogo)`
+  width: 20px;
+  height: 25px;
+  margin: 0 5px 0 10px;
+`;
+
+export const BottomInfo = styled.span`
+  font-size: 10px;
+  font-weight: bold;
+  color: black;
+  text-transform: capitalize;
+`;
+
 export const Footer = styled.div`
   padding: 5px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 `;
 
 export const FooterDetails = styled.div`

@@ -93,7 +93,7 @@ export const MEN_SCRUB_PANTS = [
     reference: "REFSPM20001BG",
     name: "TOM",
     description: "Relaxed Two-Pocket Pants",
-    color: { code: "#84A6DC", name: "pastel blue", dark: true },
+    color: { code: "#84A6DC", name: "pastel blue", dark: false },
     season: "SS20",
     sizes: [
       { size: "36", units: 0 },
@@ -154,7 +154,7 @@ export const MEN_SCRUB_PANTS = [
       { material: "Spandex", percent: 7 },
     ],
     care: ["No dry", "Iron"],
-
+    price: 90,
     newItem: false,
     bestSeller: false,
     sale: true,

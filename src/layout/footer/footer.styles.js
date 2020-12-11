@@ -20,6 +20,12 @@ const SocialMediaStyles = css`
 export const Container = styled.div`
   max-width: 997px;
   height: 300px;
+
+  /* background-image: url(https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Backgrounds%2FZEBRA_~1.PNG?alt=media&token=f0d516a8-da48-4a47-814f-6dc5daafff3b);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+    opacity: 0.5; */
   background: rgba(107, 111, 115, 0.4);
   margin: auto;
   display: flex;

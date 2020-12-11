@@ -8,6 +8,7 @@ import {
 
 import CollectionOverview from "../../collections/collection-overview/collection-overview.component";
 
+import { fromServerEnumerate } from "../../../firebase/collections-enumerate";
 import {
   Container,
   CollectionsContainer,
@@ -31,20 +32,20 @@ const ShopDropDown = () => {
                 <CollectionTitle>{key}</CollectionTitle>
                 {value["sections"].map((sectionItem, index) => (
                   <SectionLink
-                    section={sectionItem}
+                    section={fromServerEnumerate[sectionItem]}
                     key={index}
-                    to={`/shop/${key}/${sectionItem}`}
+                    to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
                   >
-                    {sectionItem}
+                    {fromServerEnumerate[sectionItem]}
                   </SectionLink>
                 ))}
                 {value["featuredSections"].map((sectionItem, index) => (
                   <SectionLink
-                    section={sectionItem}
+                    section={fromServerEnumerate[sectionItem]}
                     key={index}
-                    to={`/shop/${key}/featured/${sectionItem}`}
+                    to={`/shop/${key}/featured/${fromServerEnumerate[sectionItem]}`}
                   >
-                    {sectionItem}
+                    {fromServerEnumerate[sectionItem]}
                   </SectionLink>
                 ))}
               </CollectionContainer>

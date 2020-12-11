@@ -8,6 +8,10 @@ import {
   PictureContainer,
   Picture,
   WishlistContainer,
+  BottomInfoContainer,
+  Organic,
+  Recycled,
+  BottomInfo,
   Footer,
   FooterDetails,
   Details,
@@ -25,6 +29,8 @@ const ShopItemPreview = ({ item }) => {
     color,
     lastPrice,
     newItem,
+    recycled,
+    organic,
   } = item;
 
   return (
@@ -41,6 +47,18 @@ const ShopItemPreview = ({ item }) => {
         <WishlistContainer>
           <Wishlist theme="dark" size="small" item={item} />
         </WishlistContainer>
+        {recycled && (
+          <BottomInfoContainer>
+            <Recycled />
+            <BottomInfo>Recycled</BottomInfo>
+          </BottomInfoContainer>
+        )}
+        {organic && !recycled && (
+          <BottomInfoContainer>
+            <Organic />
+            <BottomInfo>Organic</BottomInfo>
+          </BottomInfoContainer>
+        )}
       </PictureContainer>
       <Footer>
         <NewItem newItem={newItem}>NEW</NewItem>

@@ -67,40 +67,48 @@ exports.getCollectionDocuments = async (collection, condition) => {
       Promise.resolve([])
     );
 
-    const supplementaryQueryItems = await Promise.all(
-      queryItems.map(async (queryItem) => {
-        const data = collectionsRefs.reduce(async (previousPromise, colRef) => {
-          let accum = await previousPromise;
+    const supplementaryQueryItems = await queryItems.reduce(
+      async (prevPromise, queryItem) => {
+        let accumulator = await prevPromise;
+        const data = await collectionsRefs.reduce(
+          async (previousPromise, colRef) => {
+            let accum = await previousPromise;
 
-          return await colRef
-            .where("reference", "==", queryItem.reference)
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.docs.filter((docSnapshot) => {
-                const data = docSnapshot.data();
-                if (data.color.code !== queryItem.color.code) {
-                  return (accum = { ...accum, ...data });
-                }
+            return await colRef
+              .where("reference", "==", queryItem.reference)
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.docs.filter((docSnapshot) => {
+                  const data = docSnapshot.data();
+                  if (data.color.code !== queryItem.color.code) {
+                    return (accum = { ...accum, ...data });
+                  }
+                });
+                return accum;
               });
-              return accum;
-            });
-        }, Promise.resolve({}));
+          },
+          Promise.resolve({})
+        );
 
-        return data;
-      })
+        if (Object.entries(data).length !== 0 && data.constructor === Object) {
+          accumulator = [...accumulator, data];
+        }
+
+        return accumulator;
+      },
+      Promise.resolve([])
     );
 
     const extendedQueryItems = queryItems.concat(supplementaryQueryItems);
 
     const filteredQueryItems = extendedQueryItems.filter(
-      (item, index) => extendedQueryItems.indexOf(item.reference) === index
+      (item, index, arrayItem) =>
+        arrayItem.findIndex(
+          (itemIndex) =>
+            itemIndex.reference === item.reference &&
+            itemIndex.color.code === item.color.code
+        ) === index
     );
-    // const filteredQueryItems = extendedQueryItems.reduce((accum, item) => {
-    //   return accum.includes(item)        ? accum
-    //     : [...accum, item];
-    // }, []);
-
-    console.log("filteredQueryItems", filteredQueryItems.length);
 
     return filteredQueryItems;
   } catch (error) {
@@ -210,13 +218,8 @@ const getFeaturedSection = async (collectionsRefs, conditions) => {
               const item = doc.data();
 
               if (item[condition]) {
-                if (condition === "bestSeller") {
-                  accum.push("best sellers");
-                } else if (condition === "newItem") {
-                  accum.push("new");
-                } else {
-                  accum.push(condition.replace("-", " "));
-                }
+                accum.push(condition);
+
                 break;
               }
             }
@@ -261,7 +264,7 @@ const getShopMenu = async () => {
             const sections = collectionsRefs.reduce(
               async (previousPromise, collectionRef) => {
                 let accum = await previousPromise;
-                accum.push(collectionRef.id.replace("-", " "));
+                accum.push(collectionRef.id);
                 return accum;
               },
               Promise.resolve([])
@@ -480,7 +483,7 @@ exports.getSizesGuide = async (collection, section) => {
   if (!collection || !section) return;
 
   const documentRefs = await firestore
-    .collection(`sizes-guide/${collection}/${section}`)
+    .collection(`sizesGuide/${collection}/${section}`)
     .listDocuments();
 
   try {
@@ -505,7 +508,7 @@ exports.getSizesGuide = async (collection, section) => {
 const createRequestItemDocument = async (id, itemCredentials) => {
   const date = new Date();
   const docRequestRef = await firestore
-    .collection(`size-requests/${id}/requests`)
+    .collection(`sizeRequests/${id}/requests`)
     .add({ ...itemCredentials, createdAt: date });
 
   const docRequestSnapshot = await docRequestRef.get();
@@ -516,11 +519,9 @@ exports.createSizeRequestDocument = async (
   itemCredentials,
   userCredentials
 ) => {
-  // console.log("itemCredentials", itemCredentials);
-  // console.log("userCredentials", userCredentials);
   if (!itemCredentials || !userCredentials) return;
 
-  const colRef = firestore.collection(`size-requests`);
+  const colRef = firestore.collection(`sizeRequests`);
   const { reference, color, size } = itemCredentials;
   const { email } = userCredentials;
 

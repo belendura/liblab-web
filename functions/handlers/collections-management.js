@@ -39,15 +39,8 @@ exports.fetchCollections = async (req, res) => {
   const { condition } = req.params;
   const arrayCollection = ["collections"];
 
-  let newCondition = condition;
-  if (condition === "new") {
-    newCondition = "newItem";
-  } else if (condition === "best sellers") {
-    newCondition = "bestSeller";
-  }
-
   try {
-    const collectionsItems = await getCollectionsDocuments(newCondition);
+    const collectionsItems = await getCollectionsDocuments(condition);
     const pictures = await getPictures(arrayCollection, condition);
 
     return res.status(200).send({ collectionsItems, pictures });
@@ -63,20 +56,10 @@ exports.fetchCollection = async (req, res) => {
   const { collection, condition } = req.params;
   const arrayCollection = collection.split(",");
 
-  let newCondition = condition;
-  if (condition === "new") {
-    newCondition = "newItem";
-  } else if (condition === "best sellers") {
-    newCondition = "bestSeller";
-  }
-
   try {
-    const collectionItems = await getCollectionDocuments(
-      collection,
-      newCondition
-    );
+    const collectionItems = await getCollectionDocuments(collection, condition);
 
-    const pictures = await getPictures(arrayCollection, newCondition);
+    const pictures = await getPictures(arrayCollection, condition);
 
     return res.status(200).send({ collectionItems, pictures });
   } catch (error) {

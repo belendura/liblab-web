@@ -92,7 +92,7 @@ export const MEN_SCRUB_JACKETS = [
     reference: "REFSJM20001JG",
     name: "TOM",
     description: "Relaxed Two-Pocket Jacket",
-    color: { code: "#84A6DC", name: "pastel blue", dark: true },
+    color: { code: "#84A6DC", name: "pastel blue", dark: false },
     season: "SS20",
     sizes: [
       { size: "xs", units: 0 },

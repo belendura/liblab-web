@@ -7,16 +7,18 @@ import { selectSectionPicture } from "../../redux/selectors/collections.selector
 
 import { fetchCollectionByConditionStart } from "../../redux/actions/collections.actions";
 
-import CollectionTitle from "../../components/collection/collection-title/collection-title.component";
-
 import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
 import CollectionList from "../../components/collection/collection-list/collection-list.component";
+
+import { toServerEnumerate } from "../../firebase/collections-enumerate";
 
 import {
   Container,
   CoverContainer,
-  CollectionCover,
+  PictureContainer,
+  Picture,
   TitleContainer,
+  Title,
 } from "./shop-page-by-condition.styles";
 
 const ShopPageByCondition = () => {
@@ -37,13 +39,18 @@ const ShopPageByCondition = () => {
   return (
     <Container>
       <CoverContainer>
-        <CollectionCover url={() => picture && Object.values(picture)} />
+        <PictureContainer>
+          {picture && <Picture src={Object.values(picture)} />}
+        </PictureContainer>
         <TitleContainer>
-          <CollectionTitle title={condition} subtitle="" />
+          <Title>{condition}</Title>
         </TitleContainer>
       </CoverContainer>
       <CollectionFilter />
-      <CollectionList condition={condition} params={params} />
+      <CollectionList
+        condition={toServerEnumerate[condition.replace(" ", "")]}
+        params={params}
+      />
     </Container>
   );
 };

@@ -92,7 +92,7 @@ export const WOMEN_SCRUB_PANTS = [
     reference: "REFSPW20001BG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Pants",
-    color: { code: "#84A6DC", name: "pastel blue", dark: true },
+    color: { code: "#84A6DC", name: "pastel blue", dark: false },
     season: "SS20",
     sizes: [
       { size: "34", units: 0 },

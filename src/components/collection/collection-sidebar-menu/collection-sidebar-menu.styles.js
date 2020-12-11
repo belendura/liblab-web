@@ -5,7 +5,7 @@ import { ReactComponent as FilterLogo } from "../../../assets/icons/white-glasse
 export const SidebarContainer = styled.div`
   position: absolute;
   top: 40px;
-  left: -500px;
+  left: -200px;
   z-index: 10;
   height: auto;
 
@@ -25,10 +25,10 @@ export const Container = styled.div`
 
   &:hover {
     ${SidebarContainer} {
-      transform: translate(500px, 0);
-      -webkit-transform: translate(500px, 0); /** Chrome & Safari **/
-      -o-transform: translate(500px, 0); /** Opera **/
-      -moz-transform: translate(500px, 0); /** Firefox **/
+      transform: translate(200px, 0);
+      -webkit-transform: translate(200px, 0); /** Chrome & Safari **/
+      -o-transform: translate(200px, 0); /** Opera **/
+      -moz-transform: translate(200px, 0); /** Firefox **/
     }
   }
 `;

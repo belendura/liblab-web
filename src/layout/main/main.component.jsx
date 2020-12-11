@@ -26,6 +26,19 @@ const ShopPageCollectionsByCondition = React.lazy(() =>
 const ShopItemPage = React.lazy(() =>
   import("../../pages/shop-item-page/shop-item-page.component")
 );
+
+const ShopItemPageByCondition = React.lazy(() =>
+  import(
+    "../../pages/shop-item-page-by-condition/shop-item-page-by-condition.component"
+  )
+);
+
+const ShopItemPageCollectionsByCondition = React.lazy(() =>
+  import(
+    "../../pages/shop-item-page-collections-by-condition/shop-item-page-collections-by-condition.component"
+  )
+);
+
 const SearchPage = React.lazy(() =>
   import("../../pages/search-page/search-page.component")
 );
@@ -75,6 +88,16 @@ const Main = () => {
           <Route
             path="/shop/:collection/:section/:description&:reference/:color"
             component={ShopItemPage}
+          />
+          <Route
+            exact
+            path="/shop/:collection/featured/:condition/:description&:reference/:color"
+            component={ShopItemPageByCondition}
+          />
+          <Route
+            exact
+            path="/shop/:condition/:description&:reference/:color"
+            component={ShopItemPageCollectionsByCondition}
           />
           <Route exact path="/search" component={SearchPage} />
           <Route

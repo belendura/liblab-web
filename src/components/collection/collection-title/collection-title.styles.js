@@ -5,14 +5,14 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  margin: 10px;
   ${"" /* border: thin solid black; */}
 `;
 
 export const Title = styled.span`
   font-size: 24px;
   font-weight: bold;
-  padding: 10px;
+  margin: 10px;
   text-transform: uppercase;
 `;
 export const Subtitle = styled.span`

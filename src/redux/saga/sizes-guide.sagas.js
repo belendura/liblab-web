@@ -3,6 +3,7 @@ import { all, call, takeLatest, put } from "redux-saga/effects";
 import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import sizesGuideActionTypes from "../types/sizes-guide.types";
+import { toServerEnumerate } from "../../firebase/collections-enumerate";
 
 import {
   fetchSizesGuideSuccess,
@@ -11,9 +12,12 @@ import {
 
 export function* fetchSizesGuide({ payload }) {
   const { collection, section } = payload;
+
   try {
     const response = yield axiosConfig.get(
-      `/sizes-guide/${collection}/${section}`
+      `/sizes-guide/${collection}/${
+        toServerEnumerate[section.replace(" ", "")]
+      }`
     );
     yield put(fetchSizesGuideSuccess(response.data));
   } catch (error) {

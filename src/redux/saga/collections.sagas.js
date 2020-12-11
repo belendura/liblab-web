@@ -3,6 +3,8 @@ import { all, call, takeLatest, put } from "redux-saga/effects";
 import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import collectionsActionTypes from "../types/collections.types";
+import { toServerEnumerate } from "../../firebase/collections-enumerate";
+
 import {
   getExtendedSection,
   updateSectionWishlist,
@@ -38,9 +40,11 @@ export function* fetchCollectionsByCondition({ payload }) {
   const { condition, wishlistItems } = payload;
 
   try {
-    const response = yield axiosConfig.get(`/shop/${condition}`);
+    const response = yield axiosConfig.get(
+      `/shop/${toServerEnumerate[condition.replace(" ", "")]}`
+    );
     const { collectionsItems, pictures } = response.data;
-    console.log("response", response.data);
+
     const updatedSectionWishlist = updateSectionWishlist(
       collectionsItems,
       wishlistItems
@@ -64,7 +68,9 @@ export function* fetchCollectionByCondition({ payload }) {
 
   try {
     const response = yield axiosConfig.get(
-      `/shop/${collection}/featured/${condition}`
+      `/shop/${collection}/featured/${
+        toServerEnumerate[condition.replace(" ", "")]
+      }`
     );
 
     const { collectionItems, pictures } = response.data;
@@ -89,7 +95,9 @@ export function* onFetchCollectionByConditionStart() {
 export function* fetchSection({ payload }) {
   const { collection, section, wishlistItems } = payload;
   try {
-    const response = yield axiosConfig.get(`/shop/${collection}/${section}`);
+    const response = yield axiosConfig.get(
+      `/shop/${collection}/${toServerEnumerate[section.replace(" ", "")]}`
+    );
 
     const { sectionItems, pictures } = response.data;
     const updatedSectionWishlist = updateSectionWishlist(
