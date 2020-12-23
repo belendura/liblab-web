@@ -1,10 +1,10 @@
 export const MEN_SCRUB_JACKETS = [
   {
     collection: "men",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJM20001JG",
     name: "TOM",
-    description: "Relaxed Two-Pocket Jacket",
+    description: "Regular Four-Pocket Jacket",
     color: { code: "#46B2B2", name: "green apple", dark: false },
     season: "SS20",
     sizes: [
@@ -18,7 +18,7 @@ export const MEN_SCRUB_JACKETS = [
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
-      { material: "Polyester", percent: 71 },
+      { material: "Cotton", percent: 71 },
       { material: "Rayon", percent: 21 },
       { material: "Spandex", percent: 7 },
     ],
@@ -41,10 +41,11 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: true,
     organic: true,
     recycled: false,
+ search: "TOM Men Four-Pocket Green Organic Cotton Jacket Regular",
   },
   {
     collection: "men",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJM20003JH",
     name: "BRAD",
     description: "Relaxed Two-Pocket Jacket",
@@ -58,7 +59,7 @@ export const MEN_SCRUB_JACKETS = [
       { size: "xl", units: 0 },
       { size: "xxl", units: 100 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
@@ -85,13 +86,14 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "BRAD Men Two-Pocket Black Polyester Jacket Relaxed",
   },
   {
     collection: "men",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJM20001JG",
     name: "TOM",
-    description: "Relaxed Two-Pocket Jacket",
+    description: "Relaxed Four-Pocket Jacket",
     color: { code: "#84A6DC", name: "pastel blue", dark: false },
     season: "SS20",
     sizes: [
@@ -101,11 +103,11 @@ export const MEN_SCRUB_JACKETS = [
       { size: "l", units: 100 },
       { size: "xl", units: 0 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
-      { material: "Polyester", percent: 71 },
+      { material: "Cotton", percent: 71 },
       { material: "Rayon", percent: 21 },
       { material: "Spandex", percent: 7 },
     ],
@@ -128,10 +130,11 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: true,
     organic: true,
     recycled: false,
+   search: "TOM Men Four-Pocket Pastel Blue Organic Cotton Jacket Relaxed",
   },
   {
     collection: "men",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJM20003JH",
     name: "BRAD",
     description: "Three-Pocket Notched Jacket",
@@ -171,10 +174,11 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "BRAD Men Three-Pocket Notched Burdeos Polyester Jacket Petite",
   },
   {
     collection: "men",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJM20001JT",
     name: "HARRY",
     description: "Two-Pocket Slide-Rib Jacket",
@@ -215,10 +219,11 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: true,
     organic: false,
     recycled: true,
+    search: "HARRY Men Two-Pocket Slide-Rib Grey Recycled Polyester Jacket Petite",
   },
   {
     collection: "men",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJM20003JE",
     name: "OSCAR",
     description: "Three-Pocket Mock Wrap Jacket",
@@ -259,5 +264,6 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "OSCAR Men Three-Pocket Mock Wrap Blue Electric Recycled Polyester Jacket Tall",
   },
 ];

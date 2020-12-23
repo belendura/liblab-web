@@ -11,17 +11,18 @@ import { selectWishlistItems } from "../../../redux/selectors/wishlist.selectors
 import CustomButton from "../../../components/custom-button/custom-button.component";
 
 import {
-  LoginContainer,
-  LoginTitle,
-  LoginForm,
-  LoginInput,
-  ForgetPassword,
+  Container,
+Title,
+  Form,
+Input,
+  TextLink,
+  CheckContainer,
   CheckLabel,
   CheckInput,
   CheckInputStyled,
   Icon,
+  Text,
   CreateAccount,
-  CreateAccountLink,
 } from "./login-page.styles";
 
 const LoginPage = () => {
@@ -51,10 +52,10 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginContainer>
-      <LoginTitle>LOGIN</LoginTitle>
-      <LoginForm onSubmit={handleSubmit}>
-        <LoginInput
+    <Container>
+      <Title>Login</Title>
+      <Form onSubmit={handleSubmit}>
+        <Input
           onChange={handleChange}
           placeholder="email"
           type="email"
@@ -63,7 +64,7 @@ const LoginPage = () => {
           label="email"
           required
         />
-        <LoginInput
+        <Input
           onChange={handleChange}
           placeholder="password"
           type="password"
@@ -72,7 +73,8 @@ const LoginPage = () => {
           label="password"
           required
         />
-        <CheckLabel>
+         <CheckContainer>
+      <CheckLabel>
           <CheckInput
             type="checkbox"
             value={userData}
@@ -83,11 +85,12 @@ const LoginPage = () => {
               <polyline points="20 6 9 17 4 12" />
             </Icon>
           </CheckInputStyled>
-          Remember me
+        Remember me
         </CheckLabel>
-        <ForgetPassword to="/reset-password">
+        </CheckContainer>
+        <TextLink to="/reset-password">
           Forgot your Password?
-        </ForgetPassword>
+        </TextLink>
         <CustomButton type="submit" color="standard">
           LOG IN
         </CustomButton>
@@ -98,10 +101,13 @@ const LoginPage = () => {
         >
           LOG IN WITH GOOGLE
         </CustomButton>
-        <CreateAccount>New to LIB-LAB?</CreateAccount>
-        <CreateAccountLink to="/register">Create an account</CreateAccountLink>
-      </LoginForm>
-    </LoginContainer>
+        <CreateAccount>
+        <Text>New to LIB-LAB?</Text>
+        <TextLink to="/register">Create an account</TextLink>
+        </CreateAccount>
+      </Form>
+
+    </Container>
   );
 };
 

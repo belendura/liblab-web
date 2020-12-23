@@ -1,7 +1,7 @@
 export const WOMEN_SCRUB_JACKETS = [
   {
     collection: "women",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJW20001JG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Jacket",
@@ -44,7 +44,7 @@ export const WOMEN_SCRUB_JACKETS = [
   },
   {
     collection: "women",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJW20003JH",
     name: "BERTA",
     description: "Relaxed Two-Pocket Jacket",
@@ -88,7 +88,7 @@ export const WOMEN_SCRUB_JACKETS = [
   },
   {
     collection: "women",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJW20001JG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Jacket",
@@ -131,7 +131,7 @@ export const WOMEN_SCRUB_JACKETS = [
   },
   {
     collection: "women",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJW20003JH",
     name: "BERTA",
     description: "Three-Pocket Notched Jacket",
@@ -174,7 +174,7 @@ export const WOMEN_SCRUB_JACKETS = [
   },
   {
     collection: "women",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJW20001JT",
     name: "SARAH",
     description: "Two-Pocket Slide-Rib Jacket",
@@ -219,7 +219,7 @@ export const WOMEN_SCRUB_JACKETS = [
   },
   {
     collection: "women",
-    section: "scrub-jackets",
+    section: "scrub jackets",
     reference: "REFSJW20003JE",
     name: "CLAUDIA",
     description: "Three-Pocket Mock Wrap Jacket",

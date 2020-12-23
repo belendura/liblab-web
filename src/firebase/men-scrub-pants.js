@@ -1,7 +1,7 @@
 export const MEN_SCRUB_PANTS = [
   {
     collection: "men",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPM20001BG",
     name: "TOM",
     description: "Relaxed Two-Pocket Pants",
@@ -45,7 +45,7 @@ export const MEN_SCRUB_PANTS = [
   },
   {
     collection: "men",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPM20003WH",
     name: "BRAD",
     description: "Three-Pocket Notched Pants",
@@ -89,7 +89,7 @@ export const MEN_SCRUB_PANTS = [
   },
   {
     collection: "men",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPM20001BG",
     name: "TOM",
     description: "Relaxed Two-Pocket Pants",
@@ -132,7 +132,7 @@ export const MEN_SCRUB_PANTS = [
   },
   {
     collection: "men",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPM20003WH",
     name: "BRAd",
     description: "Three-Pocket Notched Pants",
@@ -175,7 +175,7 @@ export const MEN_SCRUB_PANTS = [
   },
   {
     collection: "men",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPM20001ST",
     name: "HARRY",
     description: "Two-Pocket Slide-Rib Pants",
@@ -219,7 +219,7 @@ export const MEN_SCRUB_PANTS = [
   },
   {
     collection: "men",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPM20003RE",
     name: "OSCAR",
     description: "Three-Pocket Mock Wrap Pants",

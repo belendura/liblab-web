@@ -1,9 +1,19 @@
 import styled from "styled-components";
 
-export const SearchPageContainer = styled.div`
+export const Container = styled.div`
+  max-width: 997px;
   display: flex;
-  justify-content: center;
-  padding: 20px;
+  flex-direction: column; 
+padding:10px;
+margin: 0 auto;
+border: thick solid yellow;
 `;
 
-export const SearchResultContainer = styled.div``;
+
+export const SearchContainer= styled.div`
+width:100%;
+border: thin solid pink;
+display: flex;
+justify-content:center; 
+
+`

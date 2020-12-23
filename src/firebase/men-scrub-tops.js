@@ -1,7 +1,7 @@
 export const MEN_SCRUB_TOPS = [
   {
     collection: "men",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSTM20001BG",
     name: "TOM",
     description: "Relaxed Two-Pocket Top",
@@ -44,7 +44,7 @@ export const MEN_SCRUB_TOPS = [
   },
   {
     collection: "men",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSTM20003WH",
     name: "BRAD",
     description: "Three-Pocket Notched Top",
@@ -88,7 +88,7 @@ export const MEN_SCRUB_TOPS = [
   },
   {
     collection: "men",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSTM20001BG",
     name: "TOM",
     description: "Relaxed Two-Pocket Top",
@@ -131,7 +131,7 @@ export const MEN_SCRUB_TOPS = [
   },
   {
     collection: "men",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSTM20003WH",
     name: "BRAD",
     description: "Three-Pocket Notched Top",
@@ -174,7 +174,7 @@ export const MEN_SCRUB_TOPS = [
   },
   {
     collection: "men",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSTM20001ST",
     name: "HARRY",
     description: "Two-Pocket Slide-Rib Top",
@@ -218,7 +218,7 @@ export const MEN_SCRUB_TOPS = [
   },
   {
     collection: "men",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSTM20003RE",
     name: "OSCAR",
     description: "Three-Pocket Mock Wrap Top",

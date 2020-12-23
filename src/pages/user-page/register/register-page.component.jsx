@@ -4,16 +4,18 @@ import { signUpStart } from "../../../redux/actions/user.actions";
 import CustomButton from "../../../components/custom-button/custom-button.component";
 
 import {
-  RegisterContainer,
-  RegisterTitle,
-  RegisterForm,
-  RegisterInput,
-  CheckLabel,
-  CheckInput,
-  CheckInputStyled,
-  Icon,
-  Login,
-  LoginLink,
+  Container,
+  Title,
+    Form,
+  Input,
+    TextLink,
+    CheckContainer,
+    CheckLabel,
+    CheckInput,
+    CheckInputStyled,
+    Icon,
+    Text,
+    CreateAccount,
 } from "./register-page.styles";
 
 const RegisterPage = () => {
@@ -44,10 +46,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <RegisterContainer>
-      <RegisterTitle>Create your Lib-Lab Account</RegisterTitle>
-      <RegisterForm onSubmit={handleSubmit}>
-        <RegisterInput
+    <Container>
+      <Title>Create your Lib-Lab Account</Title>
+      <Form onSubmit={handleSubmit}>
+        <Input
           onChange={handleChange}
           placeholder="first name"
           type="text"
@@ -56,7 +58,7 @@ const RegisterPage = () => {
           label="firstName"
           required
         />
-        <RegisterInput
+        <Input
           onChange={handleChange}
           placeholder="last name"
           type="text"
@@ -65,7 +67,7 @@ const RegisterPage = () => {
           label="lastName"
           required
         />
-        <RegisterInput
+        <Input
           onChange={handleChange}
           placeholder="email"
           type="email"
@@ -74,7 +76,7 @@ const RegisterPage = () => {
           label="email"
           required
         />
-        <RegisterInput
+        <Input
           onChange={handleChange}
           placeholder="password"
           type="password"
@@ -82,7 +84,7 @@ const RegisterPage = () => {
           value={password}
           label="password"
         />
-
+        <CheckContainer>
         <CheckLabel>
           <CheckInput
             type="checkbox"
@@ -96,14 +98,16 @@ const RegisterPage = () => {
           </CheckInputStyled>
           Remember me
         </CheckLabel>
-
+      </CheckContainer>
         <CustomButton type="submit" color="standard">
           CREATE USER
         </CustomButton>
-        <Login>Have an account?</Login>
-        <LoginLink to="/login">Log in here</LoginLink>
-      </RegisterForm>
-    </RegisterContainer>
+        <CreateAccount>
+        <Text>Have an account?</Text>
+        <TextLink to="/login">Log in here</TextLink>
+        </CreateAccount>
+      </Form>
+    </Container>
   );
 };
 

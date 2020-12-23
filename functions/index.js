@@ -12,15 +12,19 @@ const {
 
 const {
   fetchHeader,
+  fetchCollectionByCondition,
+  fetchCollectionsByCondition,
   fetchCollection,
-  fetchCollections,
   fetchSection,
+  fetchItem,
+  fetchItemByCondition,
+  fetchItemByConditionOverall,
   fetchPictures,
 } = require("./handlers/collections-management");
 
 const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
 
-const { postSizeRequest } = require("./handlers/request-size-management");
+const { postSizeRequest , fetchSearch} = require("./handlers/shop-management");
 
 const {
   checkIfAuthenticated,
@@ -44,13 +48,23 @@ app.post("/reset-password", resetPassword);
 
 app.get("/header", fetchHeader);
 
-app.get("/shop/:collection/:section", fetchSection);
+app.get("/shop/:collection", fetchCollection);
 
-app.get("/shop/:condition", fetchCollections);
+app.get("/shop/featured/:condition", fetchCollectionsByCondition);
 
-app.get("/shop/:collection/featured/:condition", fetchCollection);
+app.get("/shop/:collection/featured/:condition", fetchCollectionByCondition);
+
+app.get("/shop/:collection/:section/:reference/:color", fetchItem);
+
+app.get("/shop/:collection/featured/:condition/:reference/:color", fetchItemByCondition);
+
+app.get("/shop/:condition/:reference/:color", fetchItemByConditionOverall);
+
+ app.get("/shop/:collection/:section", fetchSection);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
+
+app.post("/search", fetchSearch);
 
 app.post("/pictures/:pictures", fetchPictures);
 

@@ -45,122 +45,6 @@ exports.getUserDocument = async (userId) => {
   }
 };
 
-exports.getCollectionDocuments = async (collection, condition) => {
-  const collectionsRefs = await firestore
-    .doc(`collections/${collection}`)
-    .listCollections();
-
-  try {
-    const queryItems = await collectionsRefs.reduce(
-      async (previousPromise, colRef) => {
-        let accum = await previousPromise;
-        return await colRef
-          .where(condition, "==", true)
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.docs.map((docSnapshot) =>
-              accum.push(docSnapshot.data())
-            );
-            return accum;
-          });
-      },
-      Promise.resolve([])
-    );
-
-    const supplementaryQueryItems = await queryItems.reduce(
-      async (prevPromise, queryItem) => {
-        let accumulator = await prevPromise;
-        const data = await collectionsRefs.reduce(
-          async (previousPromise, colRef) => {
-            let accum = await previousPromise;
-
-            return await colRef
-              .where("reference", "==", queryItem.reference)
-              .get()
-              .then((querySnapshot) => {
-                querySnapshot.docs.filter((docSnapshot) => {
-                  const data = docSnapshot.data();
-                  if (data.color.code !== queryItem.color.code) {
-                    return (accum = { ...accum, ...data });
-                  }
-                });
-                return accum;
-              });
-          },
-          Promise.resolve({})
-        );
-
-        if (Object.entries(data).length !== 0 && data.constructor === Object) {
-          accumulator = [...accumulator, data];
-        }
-
-        return accumulator;
-      },
-      Promise.resolve([])
-    );
-
-    const extendedQueryItems = queryItems.concat(supplementaryQueryItems);
-
-    const filteredQueryItems = extendedQueryItems.filter(
-      (item, index, arrayItem) =>
-        arrayItem.findIndex(
-          (itemIndex) =>
-            itemIndex.reference === item.reference &&
-            itemIndex.color.code === item.color.code
-        ) === index
-    );
-
-    return filteredQueryItems;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-exports.getCollectionsDocuments = async (condition) => {
-  const documentRefs = await firestore
-    .collection("collections")
-    .listDocuments();
-
-  const collectionsRefs = await documentRefs.reduce(
-    async (previousPromise, docRef) => {
-      let accum = await previousPromise;
-      const colRef = await docRef.listCollections();
-
-      accum = [...accum, ...colRef];
-
-      return accum;
-    },
-    Promise.resolve([])
-  );
-
-  try {
-    const queryItems = await Promise.all(
-      collectionsRefs.map(async (colRef) => {
-        return await colRef
-          .where(condition, "==", true)
-          .get()
-          .then((querySnapshot) => {
-            const queryItems = querySnapshot.docs.map((docSnapshot) =>
-              docSnapshot.data()
-            );
-            return queryItems;
-          });
-      })
-    );
-
-    const collectionsItems = queryItems.reduce((accum, item) => {
-      return [...accum, ...item];
-    }, []);
-    const filteredCollectionsItems = collectionsItems.reduce((accum, item) => {
-      return accum.includes(item) ? accum : [...accum, item];
-    }, []);
-
-    return filteredCollectionsItems;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
 exports.getPictures = async (collections, section) => {
   if (!collections.length) return;
 
@@ -298,6 +182,164 @@ exports.getHeader = async () => {
   }
 };
 
+exports.getCollectionDocuments = async (collection) => {
+  const collectionsRefs = await firestore
+    .doc(`collections/${collection}`)
+    .listCollections();
+
+  try {
+    const queryItems = await collectionsRefs.reduce(
+      async (previousPromise, colRef) => {
+        let accum = await previousPromise;
+        return await colRef
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.docs.map((docSnapshot) =>
+              accum.push(docSnapshot.data())
+            );
+            return accum;
+          });
+      },
+      Promise.resolve([])
+    );
+
+    const filteredQueryItems = queryItems.filter(
+      (item, index, arrayItem) =>
+        arrayItem.findIndex(
+          (itemIndex) =>
+            itemIndex.reference === item.reference &&
+            itemIndex.color.code === item.color.code
+        ) === index
+    );
+
+    return filteredQueryItems;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getCollectionByConditionDocuments = async (collection, condition) => {
+  const collectionsRefs = await firestore
+    .doc(`collections/${collection}`)
+    .listCollections();
+
+  try {
+    const queryItems = await collectionsRefs.reduce(
+      async (previousPromise, colRef) => {
+        let accum = await previousPromise;
+        return await colRef
+          .where(condition, "==", true)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.docs.map((docSnapshot) =>
+              accum.push(docSnapshot.data())
+            );
+            return accum;
+          });
+      },
+      Promise.resolve([])
+    );
+
+    const supplementaryQueryItems = await queryItems.reduce(
+      async (prevPromise, queryItem) => {
+        let accumulator = await prevPromise;
+        const data = await collectionsRefs.reduce(
+          async (previousPromise, colRef) => {
+            let accum = await previousPromise;
+
+            return await colRef
+              .where("reference", "==", queryItem.reference)
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.docs.filter((docSnapshot) => {
+                  const data = docSnapshot.data();
+                  if (data.color.code !== queryItem.color.code) {
+                    return (accum = { ...accum, ...data });
+                  }
+                });
+                return accum;
+              });
+          },
+          Promise.resolve({})
+        );
+
+        if (Object.entries(data).length !== 0 && data.constructor === Object) {
+          accumulator = [...accumulator, data];
+        }
+
+        return accumulator;
+      },
+      Promise.resolve([])
+    );
+
+    const extendedQueryItems = queryItems.concat(supplementaryQueryItems);
+
+    const filteredQueryItems = extendedQueryItems.filter(
+      (item, index, arrayItem) =>
+        arrayItem.findIndex(
+          (itemIndex) =>
+            itemIndex.reference === item.reference &&
+            itemIndex.color.code === item.color.code
+        ) === index
+    );
+
+    return filteredQueryItems;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getCollectionsByConditionDocuments = async (condition) => {
+  if (!condition)
+  return
+
+  const documentRefs = await firestore
+    .collection("collections")
+    .listDocuments();
+
+  const collectionsRefs = await documentRefs.reduce(
+    async (previousPromise, docRef) => {
+      let accum = await previousPromise;
+      const colRef = await docRef.listCollections();
+
+      accum = [...accum, ...colRef];
+
+      return accum;
+    },
+    Promise.resolve([])
+  );
+
+  try {
+    const queryItems = await
+      Promise.all(collectionsRefs.map(async colRef => {
+        return await colRef
+          .where(condition, "==", true)
+          .get()
+          .then((querySnapshot) => {
+            const queryItems = querySnapshot.docs.map((docSnapshot) =>{
+             const data= docSnapshot.data()
+             return data;
+            });
+            return queryItems;
+          });
+      }))
+    
+
+    const collectionsItems = queryItems.reduce((accum, item) => {
+      return [...accum, ...item];
+    }, []);
+
+    const filteredCollectionsItems = collectionsItems.filter(
+      (item, index, arrayItem) =>
+        arrayItem.findIndex((itemIndex) => itemIndex.id === item.id) === index
+    );
+
+    return filteredCollectionsItems;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 exports.getSectionDocuments = async (collection, section) => {
   if (!collection || !section) return;
 
@@ -311,6 +353,193 @@ exports.getSectionDocuments = async (collection, section) => {
     });
 
     return sectionData;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getItemDocument = async (collection, section, reference, color) => {
+  if (!collection || !section || !reference || !color) return;
+
+  const colRef= await firestore
+  .collection(`collections/${collection}/${section}`)
+
+try{
+
+  const availableColors= await colRef
+        .where("reference", "==", reference)
+        .get()
+        .then((querySnapshot) => {
+      return   querySnapshot.docs.reduce((accum,docSnapshot) =>{
+        const data=docSnapshot.data();
+        return  accum=[...accum, data.color]
+        
+         },[])}       
+  );
+
+  const queryItem = await colRef
+        .where("reference", "==", reference)
+        .get()
+        .then((querySnapshot) => {
+      return   querySnapshot.docs.reduce((accum,docSnapshot) =>{
+        const data=docSnapshot.data();
+  
+        if (data.color.name===color){
+          data.availableColors=availableColors
+          accum.push(data)
+          
+        }
+        return accum
+         },[])}       
+  );
+
+    return queryItem;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getItemByConditionDocument = async (collection, condition, reference, color) => {
+  if (!collection || !condition || !reference || !color) return;
+
+
+  const collectionsRefs = await firestore
+  .doc(`collections/${collection}`)
+  .listCollections();
+
+try {
+  const availableColors = await collectionsRefs.reduce(
+    async (previousPromise, colRef) => {
+      let accum = await previousPromise;
+return await colRef
+     .where("reference", "==", reference)
+     .get()
+     .then((querySnapshot) => {
+ querySnapshot.docs.map((docSnapshot) =>{                                     
+       const data=docSnapshot.data();
+       accum.push(data.color)
+               return accum
+        })
+        return accum
+      }  
+   )
+    },Promise.resolve([]))
+
+ 
+  const queryItems = await collectionsRefs.reduce(
+    async (previousPromise, colRef) => {
+      let accum = await previousPromise;
+
+  return await colRef
+         .where(condition, "==", true)
+        .where("reference", "==", reference)
+        .get()
+        .then((querySnapshot) => {
+           querySnapshot.docs.map((docSnapshot) =>{
+              const data=docSnapshot.data();
+              if (data.color.name===color){
+                data.availableColors=availableColors;
+                accum.push(data)
+              }
+              return accum;
+            })
+            return accum
+          }
+          )
+        },Promise.resolve([]));
+
+ 
+  const filteredQueryItems = queryItems.filter(
+    (item, index, arrayItem) =>
+      arrayItem.findIndex(
+        (itemIndex) =>
+          itemIndex.reference === item.reference &&
+          itemIndex.color.code === item.color.code
+      ) === index
+  );
+
+  return filteredQueryItems;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getItemByConditionOverallDocument = async ( condition, reference, color) => {
+  if (!condition || !reference || !color) return;
+
+
+  const documentRefs = await firestore
+  .collection(`collections`)
+  .listDocuments();
+
+  const collectionsRefs = await documentRefs.reduce(
+    async (previousPromise, docRef) => {
+      let accum = await previousPromise;
+      const colRef = await docRef.listCollections();
+
+      accum = [...accum, ...colRef];
+
+      return accum;
+    },
+    Promise.resolve([])
+  );
+
+try {
+  const availableColors = await collectionsRefs.reduce(
+    async (previousPromise, colRef) => {
+      let accum = await previousPromise;
+return await colRef
+     .where("reference", "==", reference)
+     .get()
+     .then((querySnapshot) => {
+ querySnapshot.docs.map((docSnapshot) =>{                                     
+       const data=docSnapshot.data();
+       accum.push(data.color)
+               return accum
+        })
+        return accum
+      }  
+   )
+    },Promise.resolve([]))
+
+ 
+ 
+  const queryItems = await collectionsRefs.reduce(
+    async (previousPromise, colRef) => {
+      let accum = await previousPromise;
+  return await colRef
+         .where(condition, "==", true)
+        .where("reference", "==", reference)
+        .get()
+        .then((querySnapshot) => {
+           querySnapshot.docs.map((docSnapshot) =>{
+              const data=docSnapshot.data();
+         
+              if (data.color.name===color){
+              
+                data.availableColors=availableColors;
+                accum.push(data)
+              }
+              return accum;
+            })
+         
+            return accum
+          }
+          )
+        },Promise.resolve([]));
+
+    
+ 
+  const filteredQueryItems = queryItems.filter(
+    (item, index, arrayItem) =>
+      arrayItem.findIndex(
+        (itemIndex) =>
+          itemIndex.reference === item.reference &&
+          itemIndex.color.code === item.color.code
+      ) === index
+  );
+
+  return filteredQueryItems;
   } catch (error) {
     throw new Error(error);
   }
@@ -584,6 +813,66 @@ exports.createSizeRequestDocument = async (
       await createRequestItemDocument(id, itemCredentials);
     }
     return;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getSearchResults=async (searchParams)=>{
+
+if (!searchParams)
+return;
+
+const documentRefs = await firestore
+.collection("collections")
+.listDocuments();
+
+const collectionsRefs = await documentRefs.reduce(
+  async (previousPromise, docRef) => {
+    let accum = await previousPromise;
+    const colRef = await docRef.listCollections();
+
+      accum = [...accum, ...colRef];
+
+  return accum;
+},
+Promise.resolve([])
+);
+
+try {
+
+const queryItems = await Promise.all(searchParams.reduce(async (previousPromise,searchItem)=>{
+  let accumulator = await previousPromise;
+await Promise.all(collectionsRefs.reduce(async (colRef) => {
+
+           return await colRef
+          .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.reduce((accu,docSnapshot) =>{
+           const data=docSnapshot.data();
+           
+           if (data.search.toLowerCase().includes(searchItem)){
+          accu=[...accu,data]
+           }
+         
+          accumulator={...accumulator ,[searchItem]:accu};
+         console.log("accum",accumulator)
+           return accumulator;
+         },[])
+         console.log("accum",accumulator)
+         return accumulator
+       }
+       )
+     }))
+ 
+
+    //   accumulator={...accumulator, result}
+    //   console.log("accu",accumulator)
+    //  return accumulator;
+  },Promise.resolve({})))
+
+console.log("queryItems",queryItems);
+return queryItems;
   } catch (error) {
     throw new Error(error);
   }

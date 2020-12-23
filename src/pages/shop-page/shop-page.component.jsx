@@ -43,7 +43,7 @@ const ShopPage = () => {
         </TitleContainer>
       </CoverContainer>
       <CollectionFilter />
-      <CollectionList params={params} />
+      <CollectionList condition={null} params={params} />
     </Container>
   );
 };

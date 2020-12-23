@@ -43,11 +43,11 @@ const CollectionList = ({ condition, params }) => {
 
   return (
     <Container gridView={gridView}>
-      {console.log("condition", condition)}
+      {/* {!updatedSection && <span>No Items found</span>} */}
       {updatedSection &&
         updatedSection
           .filter((item, index) => {
-            return condition === undefined ? item : item[condition] === true;
+            return condition === null ? item : item[condition] === true;
           })
           .map((item, index) => {
             const { color, reference, id } = item;

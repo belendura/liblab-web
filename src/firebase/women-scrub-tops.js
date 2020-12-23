@@ -1,7 +1,7 @@
 export const WOMEN_SCRUB_TOPS = [
   {
     collection: "women",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSCW20001BG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Top",
@@ -44,7 +44,7 @@ export const WOMEN_SCRUB_TOPS = [
   },
   {
     collection: "women",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSCW20003WH",
     name: "BERTA",
     description: "Three-Pocket Notched Top",
@@ -88,7 +88,7 @@ export const WOMEN_SCRUB_TOPS = [
   },
   {
     collection: "women",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSCW20001BG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Top",
@@ -131,7 +131,7 @@ export const WOMEN_SCRUB_TOPS = [
   },
   {
     collection: "women",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSCW20003WH",
     name: "BERTA",
     description: "Three-Pocket Notched Top",
@@ -174,7 +174,7 @@ export const WOMEN_SCRUB_TOPS = [
   },
   {
     collection: "women",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSCW20001ST",
     name: "SARAH",
     description: "Two-Pocket Slide-Rib Top",
@@ -218,7 +218,7 @@ export const WOMEN_SCRUB_TOPS = [
   },
   {
     collection: "women",
-    section: "scrub-tops",
+    section: "scrub tops",
     reference: "REFSCW20003RE",
     name: "CLAUDIA",
     description: "Three-Pocket Mock Wrap Top",

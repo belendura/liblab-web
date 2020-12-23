@@ -5,12 +5,13 @@ import { resetPasswordStart } from "../../../redux/actions/user.actions";
 import CustomButton from "../../../components/custom-button/custom-button.component";
 
 import {
-  ResetPasswordContainer,
-  ResetPasswordTitle,
-  ResetPasswordSubtitle,
-  ResetPasswordForm,
-  ResetPasswordInput,
-  CancelLink,
+  Container,
+  Title,
+    Form,
+  Input,
+    TextLink,
+    Text,
+   
 } from "./reset-password.styles";
 
 const ResetPasswordPage = () => {
@@ -28,14 +29,14 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <ResetPasswordContainer>
-      <ResetPasswordTitle>Reset your Password</ResetPasswordTitle>
-      <ResetPasswordSubtitle>
+    <Container>
+      <Title>Reset your Password</Title>
+      <Text>
         Enter your email below and we will email you instructions to reset your
         password!
-      </ResetPasswordSubtitle>
-      <ResetPasswordForm onSubmit={handleSubmit}>
-        <ResetPasswordInput
+      </Text>
+      <Form onSubmit={handleSubmit}>
+        <Input
           onChange={handleChange}
           placeholder="email"
           type="email"
@@ -47,9 +48,9 @@ const ResetPasswordPage = () => {
         <CustomButton type="submit" color="standard">
           SUBMIT
         </CustomButton>
-        <CancelLink to="/login">Cancel</CancelLink>
-      </ResetPasswordForm>
-    </ResetPasswordContainer>
+        <TextLink to="/login">Cancel</TextLink>
+      </Form>
+    </Container>
   );
 };
 

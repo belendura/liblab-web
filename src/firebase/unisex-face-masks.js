@@ -1,7 +1,7 @@
 export const UNISEX_FACE_MASKS = [
   {
     collection: "unisex",
-    section: "face-masks",
+    section: "facemasks",
     reference: "REFSFU20001BG",
     name: "DIANA",
     description: "Basic Face Mask + pouch",
@@ -27,7 +27,7 @@ export const UNISEX_FACE_MASKS = [
   },
   {
     collection: "unisex",
-    section: "face-masks",
+    section: "facemasks",
     reference: "REFSFU20001MG",
     name: "BERTA",
     description: "Basic Face Mask + pouch",
@@ -53,7 +53,7 @@ export const UNISEX_FACE_MASKS = [
   },
   {
     collection: "unisex",
-    section: "face-masks",
+    section: "facemasks",
     reference: "REFSFU20003RJ",
     name: "LEO",
     description: "Basic Face Mask + pouch",
@@ -79,7 +79,7 @@ export const UNISEX_FACE_MASKS = [
   },
   {
     collection: "unisex",
-    section: "face-masks",
+    section: "facemasks",
     reference: "REFSFU20004NS",
     name: "ALBA",
     description: "Basic Face Mask + pouch",
@@ -105,7 +105,7 @@ export const UNISEX_FACE_MASKS = [
   },
   {
     collection: "unisex",
-    section: "face-masks",
+    section: "facemasks",
     reference: "REFSFU20004WS",
     name: "PABLO",
     description: "Basic Face Mask + pouch",
@@ -131,7 +131,7 @@ export const UNISEX_FACE_MASKS = [
   },
   {
     collection: "unisex",
-    section: "face-masks",
+    section: "facemasks",
     reference: "REFSFU20001MM",
     name: "LOUIS",
     description: "Basic Face Mask + pouch",
@@ -145,8 +145,8 @@ export const UNISEX_FACE_MASKS = [
     price: 21,
     newItem: false,
     bestSeller: true,
-    sale: true,
-    discount: 10,
+    sale: false,
+    discount: 0,
     url: [
       "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Unisex%2FFace-Masks%2Fu_face-mask05.jpg?alt=media&token=d6bb2dbb-5303-486e-a4e8-34fba0c2ca84",
     ],

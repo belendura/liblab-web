@@ -8,6 +8,8 @@ import {
   PictureContainer,
   Picture,
   WishlistContainer,
+  UpperInfoContainer,
+  UpperInfo,
   BottomInfoContainer,
   Organic,
   Recycled,
@@ -15,11 +17,14 @@ import {
   Footer,
   FooterDetails,
   Details,
+  Price,
+  PriceContainer,
   NewItem,
 } from "./shop-item-preview.styles";
 
 const ShopItemPreview = ({ item }) => {
   const history = useHistory();
+
   const {
     collection,
     section,
@@ -27,6 +32,9 @@ const ShopItemPreview = ({ item }) => {
     description,
     reference,
     color,
+    price,
+    discount,
+    sale,
     lastPrice,
     newItem,
     recycled,
@@ -41,9 +49,14 @@ const ShopItemPreview = ({ item }) => {
           onClick={() =>
             history.push(
               `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
-            )
+            )            
           }
         />
+        {sale && (
+          <UpperInfoContainer sale={sale} new={newItem}>
+            <UpperInfo>{discount}%</UpperInfo>
+          </UpperInfoContainer>
+        )}
         <WishlistContainer>
           <Wishlist theme="dark" size="small" item={item} />
         </WishlistContainer>
@@ -64,7 +77,16 @@ const ShopItemPreview = ({ item }) => {
         <NewItem newItem={newItem}>NEW</NewItem>
         <FooterDetails>
           <Details>{description}</Details>
-          <Details>{lastPrice}EUR</Details>
+          <PriceContainer>
+            <Price sale={sale} discounted={false}>
+              {price}EUR
+            </Price>
+            {sale && (
+              <Price sale={sale} discounted={true}>
+                {lastPrice}EUR
+              </Price>
+            )}
+          </PriceContainer>
         </FooterDetails>
       </Footer>
     </Container>

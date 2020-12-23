@@ -18,6 +18,7 @@ const getCustomButtonStyles = (props) => {
 export const Button = styled.button`
   width: 200px;
   padding: 10px;
+  margin: 5px 0;
   font-size: 15px;
   text-transform: uppercase;
   cursor: pointer;

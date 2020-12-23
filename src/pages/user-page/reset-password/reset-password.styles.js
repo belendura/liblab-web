@@ -1,42 +1,48 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const ResetPasswordContainer = styled.div`
-  text-align: center;
-  position: relative;
-  margin: auto;
-  margin-top: 100px;
-  width: 40vw;
-  border: 1px dotted black;
-  display: flex;
-  flex-direction: column;
+export const Container = styled.div`
+max-width: 997px;
+display: flex;
+flex-direction: column;
+align-items:center;
+margin: 0 auto;
+overflow: hidden;
+text-align:center;
 `;
 
-export const ResetPasswordTitle = styled.span`
-  font-size: 40px;
-  font-weight: bold;
-  margin: 20px;
+export const Title = styled.span`
+font-size: 30px;
+font-weight: bold;
+margin-top:100px;
+margin-bottom: 10px;
 `;
 
-export const ResetPasswordSubtitle = styled.span`
-  padding: 10px;
-  font-size: 12px;
+export const Form = styled.form`
+display: flex;
+flex-direction: column;
+${'' /* align-items:center; */}
 `;
 
-export const ResetPasswordForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-export const ResetPasswordInput = styled.input`
-  margin: 20px;
-  padding: 10px;
+
+export const Input = styled.input`
+margin: 5px 0;
+${'' /* background: rgba(186,187,189,0.4);
+border:none; */}
 `;
 
-export const CancelLink = styled(Link)`
-  cursor: pointer;
-  padding:10px;
+export const TextLink= styled(Link)`
+font-size:10px;
+margin: 5px 0;
 
-  &:hover {
-    color: gold;
-  
+cursor: pointer;
+&:hover {
+  color: gold;
+}
+`;
+
+export const Text = styled.span`
+
+font-size:12px;
+margin: 10px 0;
 `;

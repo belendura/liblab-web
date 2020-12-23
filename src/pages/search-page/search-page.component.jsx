@@ -1,17 +1,18 @@
 import React from "react";
 
-import SearchMenu from "../../components/search-menu/search-menu.component";
+import SearchMenu from "../../components/search/search-menu/search-menu.component";
 import {
-  SearchPageContainer,
-  SearchResultContainer,
+ Container,
+SearchContainer
 } from "./search-page.styles.jsx";
 
 const SearchPage = () => {
   return (
-    <SearchPageContainer>
+    <Container>
+    <SearchContainer>
       <SearchMenu />
-      <SearchResultContainer />
-    </SearchPageContainer>
+      </SearchContainer>
+    </Container>
   );
 };
 

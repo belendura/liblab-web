@@ -1,7 +1,7 @@
 export const WOMEN_SCRUB_PANTS = [
   {
     collection: "women",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPW20001BG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Pants",
@@ -44,7 +44,7 @@ export const WOMEN_SCRUB_PANTS = [
   },
   {
     collection: "women",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPW20003WH",
     name: "BERTA",
     description: "Three-Pocket Notched Pants",
@@ -88,7 +88,7 @@ export const WOMEN_SCRUB_PANTS = [
   },
   {
     collection: "women",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPW20001BG",
     name: "DIANA",
     description: "Relaxed Two-Pocket Pants",
@@ -131,7 +131,7 @@ export const WOMEN_SCRUB_PANTS = [
   },
   {
     collection: "women",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPW20003WH",
     name: "BERTA",
     description: "Three-Pocket Notched Pants",
@@ -174,7 +174,7 @@ export const WOMEN_SCRUB_PANTS = [
   },
   {
     collection: "women",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPW20001ST",
     name: "SARAH",
     description: "Two-Pocket Slide-Rib Pants",
@@ -218,7 +218,7 @@ export const WOMEN_SCRUB_PANTS = [
   },
   {
     collection: "women",
-    section: "scrub-pants",
+    section: "scrub pants",
     reference: "REFSPW20003RE",
     name: "CLAUDIA",
     description: "Three-Pocket Mock Wrap Pants",

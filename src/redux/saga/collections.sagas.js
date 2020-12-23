@@ -7,6 +7,7 @@ import { toServerEnumerate } from "../../firebase/collections-enumerate";
 
 import {
   getExtendedSection,
+  getAvailableColorsSection,
   updateSectionWishlist,
 } from "../utils/collections.utils";
 
@@ -17,8 +18,16 @@ import {
   fetchCollectionsByConditionFailure,
   fetchCollectionByConditionSuccess,
   fetchCollectionByConditionFailure,
+  fetchCollectionSuccess,
+  fetchCollectionFailure,
   fetchSectionSuccess,
   fetchSectionFailure,
+  fetchItemSuccess,
+  fetchItemFailure,
+  fetchItemByConditionSuccess,
+  fetchItemByConditionFailure,
+  fetchItemByConditionOverallSuccess,
+  fetchItemByConditionOverallFailure,
   fetchPicturesSuccess,
   fetchPicturesFailure,
 } from "../actions/collections.actions";
@@ -41,7 +50,7 @@ export function* fetchCollectionsByCondition({ payload }) {
 
   try {
     const response = yield axiosConfig.get(
-      `/shop/${toServerEnumerate[condition.replace(" ", "")]}`
+      `/shop/featured/${toServerEnumerate[condition.replace(" ", "")]}`
     );
     const { collectionsItems, pictures } = response.data;
 
@@ -49,7 +58,8 @@ export function* fetchCollectionsByCondition({ payload }) {
       collectionsItems,
       wishlistItems
     );
-    const extendedSection = getExtendedSection(updatedSectionWishlist);
+    const availableColorsSection = getAvailableColorsSection(updatedSectionWishlist);
+    const extendedSection = getExtendedSection(availableColorsSection );
     yield put(fetchCollectionsByConditionSuccess(extendedSection, pictures));
   } catch (error) {
     yield put(fetchCollectionsByConditionFailure(error));
@@ -78,7 +88,8 @@ export function* fetchCollectionByCondition({ payload }) {
       collectionItems,
       wishlistItems
     );
-    const extendedSection = getExtendedSection(updatedSectionWishlist);
+    const availableColorsSection = getAvailableColorsSection(updatedSectionWishlist);
+    const extendedSection = getExtendedSection(availableColorsSection );
 
     yield put(fetchCollectionByConditionSuccess(extendedSection, pictures));
   } catch (error) {
@@ -92,8 +103,39 @@ export function* onFetchCollectionByConditionStart() {
     fetchCollectionByCondition
   );
 }
+
+export function* fetchCollection({ payload }) {
+  const { collection, wishlistItems } = payload;
+
+  try {
+    const response = yield axiosConfig.get(
+      `/shop/${collection}`
+    );
+
+    const { collectionsItems, pictures } = response.data;
+ 
+    const updatedSectionWishlist = updateSectionWishlist(
+      collectionsItems,
+      wishlistItems
+    );
+    
+    const availableColorsSection = getAvailableColorsSection(updatedSectionWishlist);
+    const extendedSection = getExtendedSection(availableColorsSection );         
+    yield put(fetchCollectionSuccess(extendedSection, pictures));
+  } catch (error) {
+    yield put(fetchCollectionFailure(error));
+  }
+}
+
+export function* onFetchCollectionStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_COLLECTION_START, fetchCollection);
+}
+
+
+
 export function* fetchSection({ payload }) {
   const { collection, section, wishlistItems } = payload;
+
   try {
     const response = yield axiosConfig.get(
       `/shop/${collection}/${toServerEnumerate[section.replace(" ", "")]}`
@@ -104,7 +146,8 @@ export function* fetchSection({ payload }) {
       sectionItems,
       wishlistItems
     );
-    const extendedSection = getExtendedSection(updatedSectionWishlist);
+    const availableColorsSection = getAvailableColorsSection(updatedSectionWishlist);
+    const extendedSection = getExtendedSection(availableColorsSection );         
     yield put(fetchSectionSuccess(extendedSection, pictures));
   } catch (error) {
     yield put(fetchSectionFailure(error));
@@ -113,6 +156,63 @@ export function* fetchSection({ payload }) {
 
 export function* onFetchSectionStart() {
   yield takeLatest(collectionsActionTypes.FETCH_SECTION_START, fetchSection);
+}
+
+export function* fetchItem({ payload: { collection, section, reference, color, wishlistItems} }) {
+
+  try {
+    const response = yield axiosConfig.get(`/shop/${collection}/${toServerEnumerate[section.replace(" ", "")]}/${reference}/${color}`);
+const updatedSectionWishlist = updateSectionWishlist(
+response.data,
+  wishlistItems
+);
+const extendedSection = getExtendedSection(updatedSectionWishlist);
+    yield put(fetchItemSuccess(extendedSection));
+  } catch (error) {
+    yield put(fetchItemFailure(error));
+  }
+}
+
+export function* onFetchItemStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_ITEM_START, fetchItem);
+}
+
+export function* fetchItemByCondition({ payload: { collection, condition, reference, color, wishlistItems} }) {
+  try {
+    const response = yield axiosConfig.get(`/shop/${collection}/featured/${toServerEnumerate[condition.replace(" ", "")]}/${reference}/${color}`);
+
+const updatedSectionWishlist = updateSectionWishlist(
+response.data,
+  wishlistItems
+);
+const extendedSection = getExtendedSection(updatedSectionWishlist);
+    yield put(fetchItemByConditionSuccess(extendedSection));
+  } catch (error) {
+    yield put(fetchItemByConditionFailure(error));
+  }
+}
+
+export function* onFetchItemByConditionStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_ITEM_BY_CONDITION_START, fetchItemByCondition);
+}
+
+export function* fetchItemByConditionOverall({ payload: {  condition, reference, color, wishlistItems} }) {
+  try {
+    const response = yield axiosConfig.get(`/shop/${toServerEnumerate[condition.replace(" ", "")]}/${reference}/${color}`);
+
+const updatedSectionWishlist = updateSectionWishlist(
+response.data,
+  wishlistItems
+);
+const extendedSection = getExtendedSection(updatedSectionWishlist);
+    yield put(fetchItemByConditionOverallSuccess(extendedSection));
+  } catch (error) {
+    yield put(fetchItemByConditionOverallFailure(error));
+  }
+}
+
+export function* onFetchItemByConditionOverallStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_START, fetchItemByConditionOverall);
 }
 
 export function* fetchPictures({ payload: { pictures } }) {
@@ -134,7 +234,11 @@ export function* collectionsSagas() {
     call(onFetchHeaderStart),
     call(onFetchCollectionsByConditionStart),
     call(onFetchCollectionByConditionStart),
+    call(onFetchCollectionStart),
     call(onFetchSectionStart),
     call(onFetchPicturesStart),
+    call(onFetchItemStart),
+    call(onFetchItemByConditionStart),
+    call(onFetchItemByConditionOverallStart),
   ]);
 }

@@ -107,12 +107,6 @@ const ShopItem = ({ initialColor, reference, params }) => {
               <UpperInfo>{discount}%</UpperInfo>
             </UpperInfoContainer>
           )}
-          {newItem && (
-            <UpperInfoContainer sale={sale} new={newItem}>
-              <UpperInfo>NEW</UpperInfo>
-            </UpperInfoContainer>
-          )}
-
           {visibility && (
             <SizesDropUp
               sizes={sizes}

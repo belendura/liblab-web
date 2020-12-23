@@ -15,6 +15,7 @@ import {
   selectSizeItem,
 } from "../../../../redux/selectors/cart.selectors";
 
+
 import Circle from "../../../circle/circle.component";
 import CustomButton from "../../../custom-button/custom-button.component";
 import Wishlist from "../../../wishlist/wishlist.component";
@@ -23,6 +24,7 @@ import Details from "../item-details/item-details.component";
 import SelectSize from "../../../select-size/select-size.component";
 import ShareMenu from "../../../share/share-menu/share-menu.component";
 import SelectSizeDropDown from "../../../select-size/select-size-dropdown/select-size-dropdown.component";
+
 
 import {
   Container,
@@ -130,9 +132,13 @@ const ShopItemData = ({ collection, section, item }) => {
               <div
                 key={index}
                 onClick={() => {
+                  collection?
                   history.push(
                     `/shop/${collection}/${section}/${description}&${reference}/${name}`
-                  );
+                  ):
+                  history.push(
+                    `/shop/${section}/${description}&${reference}/${name}`
+                  )
                 }}
               >
                 <Circle
@@ -163,7 +169,7 @@ const ShopItemData = ({ collection, section, item }) => {
         )}
       </SelectSizesContainer>
       <SizesGuideContainer>
-        <SizesGuideMenu collection={collection} section={section} />
+        <SizesGuideMenu collection={collection} section={item.section} />
       </SizesGuideContainer>
       <CustomButtonContainer>
         <CustomButton

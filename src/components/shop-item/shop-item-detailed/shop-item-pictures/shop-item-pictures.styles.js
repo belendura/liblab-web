@@ -19,7 +19,7 @@ export const PictureContainer = styled.div`
 
   &:nth-child(n + 5) {
     grid-column: span 4;
-    height: 50vh;
+    width: 100%;
   }
 `;
 

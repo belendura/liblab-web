@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
 import {
   resetGridView,
   setGridView,
 } from "../../../redux/actions/collections.actions";
-
+import {selectGridView} from "../../../redux/selectors/collections.selectors"
 import {
   Container,
   Title,
@@ -15,12 +15,13 @@ import {
 
 const CollectionViewOptions = () => {
   const dispatch = useDispatch();
+  const gridView=useSelector(selectGridView,shallowEqual)
   return (
     <Container>
       <Title>View</Title>
-      <ViewOption onClick={() => dispatch(resetGridView())}>2</ViewOption>
+      <ViewOption gridView={gridView} gridOption={false} onClick={() => dispatch(resetGridView())}>2</ViewOption>
       <Separator />
-      <ViewOption onClick={() => dispatch(setGridView())}>4</ViewOption>
+      <ViewOption gridView={gridView} gridOption={true} onClick={() => dispatch(setGridView())}>4</ViewOption>
     </Container>
   );
 };

@@ -13,6 +13,12 @@ const ShopPage = React.lazy(() =>
   import("../../pages/shop-page/shop-page.component")
 );
 
+const ShopPageCollection = React.lazy(() =>
+  import(
+    "../../pages/shop-page-collection/shop-page-collection.component"
+  )
+);
+
 const ShopPageByCondition = React.lazy(() =>
   import("../../pages/shop-page-by-condition/shop-page-by-condition.component")
 );
@@ -74,6 +80,11 @@ const Main = () => {
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>
           <Route exact path="/" component={HomePage} />
+          <Route
+            exact
+            path="/shop/:collection"
+            component={ShopPageCollection}
+          />
           <Route exact path="/shop/:collection/:section" component={ShopPage} />
           <Route
             exact
@@ -82,7 +93,7 @@ const Main = () => {
           />
           <Route
             exact
-            path="/shop/:condition"
+            path="/shop/featured/:condition"
             component={ShopPageCollectionsByCondition}
           />
           <Route

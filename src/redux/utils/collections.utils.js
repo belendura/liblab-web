@@ -24,6 +24,19 @@ const getAvailableColors = (section, reference) => {
   return availableColors;
 };
 
+export const getAvailableColorsSection = (section) => {
+  const extendedSection = section.reduce((accumulator, item) => {
+    return (accumulator = [
+      ...accumulator,
+      {
+        ...item,
+        availableColors: getAvailableColors(section, item.reference),
+       },
+    ]);
+  }, []);
+  return extendedSection;
+};
+
 export const getExtendedSection = (section) => {
   const extendedSection = section.reduce((accumulator, item) => {
     return (accumulator = [
@@ -31,15 +44,15 @@ export const getExtendedSection = (section) => {
       {
         ...item,
         lastPrice: getSalePrice(item.price, item.discount),
-        availableColors: getAvailableColors(section, item.reference),
         availableUnits: getAvailableUnits(item.sizes),
       },
     ]);
   }, []);
   return extendedSection;
-};
+}
 
 export const updateSectionWishlist = (section, wishlistItems) => {
+ 
   const updatedSection = section.reduce((accumulator, sectionItem) => {
     sectionItem.wishlist = false;
 

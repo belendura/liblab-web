@@ -17,7 +17,6 @@ const INITIAL_STATE = {
   ascendingOrder: false,
   descendingOrder: false,
   error: null,
-  selectedItem: null,
 };
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
@@ -35,6 +34,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: action.payload,
         error: null,
       };
+      case collectionsActionTypes.FETCH_COLLECTION_SUCCESS:
     case collectionsActionTypes.FETCH_SECTION_SUCCESS:
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
     case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS:
@@ -50,6 +50,15 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         descendingOrder: false,
         error: null,
       };
+      case collectionsActionTypes.FETCH_ITEM_SUCCESS:
+      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_SUCCESS:
+      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_SUCCESS:
+        return {
+          ...state,
+          section: action.payload,
+        error:null,
+                       
+        };
     case collectionsActionTypes.TOGGLE_SECTION_WISHLIST:
       return {
         ...state,
@@ -96,6 +105,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         gridView: true,
         error: null,
       };
+    case collectionsActionTypes.FETCH_COLLECTION_FAILURE:
     case collectionsActionTypes.FETCH_SECTION_FAILURE:
     case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE:
     case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE:
@@ -120,6 +130,14 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: null,
         error: action.payload,
       };
+      case collectionsActionTypes.FETCH_ITEM_FAILURE:
+      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_FAILURE:
+      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_FAILURE:
+        return {
+          ...state,
+          section: null,
+          error: action.payload,
+        };
     default:
       return state;
   }

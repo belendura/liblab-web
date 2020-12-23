@@ -29,7 +29,12 @@ const SizesGuideInfo = ({ section }) => {
           <SizesTable sizes={Equivalences} title={"EUR" || "eur" || "Eur"} />
         )}
       </TableContainer>
-      <SchemaContainer>{Url && <SizesSchema url={Url} />}</SchemaContainer>
+      <SchemaContainer>
+        {Url &&
+          Object.values(Url).map((item, index) => (
+            <SizesSchema key={index} url={item} />
+          ))}
+      </SchemaContainer>
     </Container>
   );
 };
