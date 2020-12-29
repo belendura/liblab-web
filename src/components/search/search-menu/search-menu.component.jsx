@@ -1,53 +1,76 @@
-import React, { useState, useEffect} from "react";
+import React, {useState, useEffect}from "react";
 import {useDispatch} from "react-redux"
 
-import {fetchSearchStart} from "../../../redux/actions/shop.actions"
+import {fetchSearchStart, resetSearchLoaded} from "../../../redux/actions/collections.actions"
+
+import SearchDropDown from "../search-dropdown/search-dropdown.component"
+import ClickOutside from "../../click-outside/click-outside.component";
 
 import {
-Container,
   Input,
-  Search,
-  Close,
 } from "./search-menu.styles";
 
-const SearchMenu = () => {
-  const [searchField, setSearchField] = useState("");
+const SearchMenu = ({searchField, setSearchField, searchLoaded, setSearchVisibility}) => {
   const dispatch=useDispatch();
-  // const [filteredStates, setFilteredStates] = useState("");
 
   const handleChange = (event) => {
     setSearchField(event.target.value);
+    if (searchLoaded)
+    dispatch(resetSearchLoaded())
   };
 
-  useEffect(() => {
-  const timer = setTimeout(() => {
-    searchField && dispatch(fetchSearchStart(searchField))
-    // const filter = states.filter(state => {
-    //   return state.name.toLowerCase().includes(search.toLowerCase());
-    // });
+  const [recentSearchesList, setRecentSearchesList]=useState(JSON.parse(localStorage.getItem("recentsearches")))
 
-    // setFilteredStates(filter);
-  }, 1000);
+  const updateRecentSearchesList =(recentSearchesList,searchText)=>{
+      let searchesList=[];
+    if (!recentSearchesList) {
+      searchesList.push(searchText)
+    }else {
+      searchesList=[...recentSearchesList]
+      searchesList.unshift(searchText)
+        if (recentSearchesList.length>10){
+          searchesList.pop()
+        }
+      }
+    
+        const filteredList= searchesList.reduce((accum,item)=> {const found= accum.find(findItem=> { return findItem === item}) 
+        return found !==undefined? accum: [...accum,item]},[])     
+  return filteredList
+  }
 
-  return () => clearTimeout(timer);
-}, [searchField]);
+  const searchStart= (event) =>{
+    if(event.key=== 'Enter') {
+      searchField && dispatch(fetchSearchStart(searchField));
+      const newList=updateRecentSearchesList(recentSearchesList,searchField)
+     localStorage.setItem("recentsearches",JSON.stringify(newList))
+    }
+}
+
+//   useEffect(() => {
+//   const timer = setTimeout(() => {
+//     searchField && dispatch(fetchSearchStart(searchField))
+//     // const filter = states.filter(state => {
+//     //   return state.name.toLowerCase().includes(search.toLowerCase());
+//     // });
+
+//     // setFilteredStates(filter);
+//   }, 1000);
+
+//   return () => clearTimeout(timer);
+// }, [searchField]);
 
   return (
-    <Container>{
-      console.log("searchField",searchField)
-    }
+
+    <ClickOutside action={() => setSearchVisibility(false)}>
       <Input
         type="text"
         value={searchField}
         placeholder="Search"
         onChange={handleChange}
+        onKeyDown={searchStart}
       />
-      {searchField.length ? (
-        <Close onClick={() => setSearchField("")} />
-      ) : (
-        <Search />
-      )}
-    </Container>
+      <SearchDropDown recentSearchesList={recentSearchesList} setRecentSearchesList={setRecentSearchesList} setSearchVisibility={setSearchVisibility}/>
+      </ClickOutside>
   );
 };
 

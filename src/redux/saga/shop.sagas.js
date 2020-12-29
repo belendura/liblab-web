@@ -7,8 +7,6 @@ import shopActionTypes from "../types/shop.types";
 import {
   requestItemSuccess,
   requestItemFailure,
-  fetchSearchSuccess,
-  fetchSearchFailure
 } from "../actions/shop.actions";
 
 import { openModal } from "../actions/modal.actions";
@@ -39,20 +37,6 @@ export function* onRequestItemSuccess() {
   yield takeLatest(shopActionTypes.REQUEST_ITEM_SUCCESS, onOpenModal);
 }
 
-export function* onFetchSearch({payload}) {
-  console.log("payload",payload)
- try{
- const response= yield axiosConfig.post(`/search/`, payload);
-  yield put(fetchSearchSuccess(response.data));
-} catch (error) {
-  yield put(fetchSearchFailure(error));
-  
-}}
-
-export function* onFetchSearchStart() {
-  yield takeLatest(shopActionTypes.FETCH_SEARCH_START, onFetchSearch);
-}
-
 export function* shopSagas() {
-  yield all([call(onRequestItemStart), call(onRequestItemSuccess),call(onFetchSearchStart)]);
+  yield all([call(onRequestItemStart), call(onRequestItemSuccess)]);
 }

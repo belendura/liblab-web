@@ -2,6 +2,8 @@ import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { selectShopMenu } from "../../../../redux/selectors/collections.selectors";
+
+import { fromServerEnumerate } from "../../../../firebase/collections-enumerate";
 import {
   Container,
   CollectionContainer,
@@ -22,20 +24,20 @@ const CollectionSidebar = () => {
               </CollectionLink>
               {value["sections"].map((sectionItem, index) => (
                 <SectionLink
-                  section={sectionItem}
-                  key={index}
-                  to={`/shop/${key}/${sectionItem}`}
-                >
-                  {sectionItem}
+                             section={fromServerEnumerate[sectionItem]}
+                    key={index}
+                    to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
+                  >
+                    {fromServerEnumerate[sectionItem]}
                 </SectionLink>
               ))}
               {value["featuredSections"].map((sectionItem, index) => (
                 <SectionLink
-                  section={sectionItem}
-                  key={index}
-                  to={`/shop/${key}/featured/${sectionItem}`}
-                >
-                  {sectionItem}
+                     section={fromServerEnumerate[sectionItem]}
+                    key={index}
+                    to={`/shop/${key}/featured/${fromServerEnumerate[sectionItem]}`}
+                  >
+                    {fromServerEnumerate[sectionItem]}
                 </SectionLink>
               ))}
             </CollectionContainer>

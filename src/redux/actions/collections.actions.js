@@ -138,6 +138,21 @@ export const fetchItemByConditionOverallFailure = (error) => ({
   payload: error,
 });
 
+export const fetchSearchStart = (search) => ({
+  type: collectionsActionTypes.FETCH_SEARCH_START,
+  payload: {search },
+});
+
+export const fetchSearchSuccess = (searchResults) => ({
+  type: collectionsActionTypes.FETCH_SEARCH_SUCCESS,
+  payload: searchResults,
+});
+
+export const fetchSearchFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_SEARCH_FAILURE,
+  payload: error,
+});
+
 export const filterColors = (color) => ({
   type: collectionsActionTypes.FILTER_COLORS,
   payload: color,
@@ -181,4 +196,14 @@ export const setGridView = () => ({
 export const toggleSectionWishlist = (item) => ({
   type: collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
   payload: item,
+});
+
+export const clearSection = () => ({
+  type: collectionsActionTypes.CLEAR_SECTION,
+
+});
+
+export const resetSearchLoaded = () => ({
+  type: collectionsActionTypes.RESET_SEARCH_LOADED,
+
 });

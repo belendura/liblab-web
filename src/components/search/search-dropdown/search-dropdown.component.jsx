@@ -1,74 +1,35 @@
-import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import React, {useState} from "react";
 
-import {
-  selectShopMenu,
-  selectShopMenuPictures,
-} from "../../../redux/selectors/collections.selectors";
+import RecentViewPreview from "../recent-view-preview/recent-view-preview.component"
+import RecentSearch from "../recent-search/recent-search.component"
 
-import CollectionOverview from "../../collections/collection-overview/collection-overview.component";
-
-import { fromServerEnumerate } from "../../../firebase/collections-enumerate";
 import {
   Container,
-  CollectionsContainer,
-  CollectionContainer,
-  CollectionTitle,
-  SectionLink,
-  CollectionOverviewContainer,
-} from "./shop-dropdown.styles";
+ RecentSearchesContainer,
+ RecentSearches,
+  RecentViewedContainer,
+  Title,
+} from "./search-dropdown.styles";
 
-const ShopDropDown = () => {
-  const shopMenu = useSelector(selectShopMenu, shallowEqual);
-  const shopMenuPictures = useSelector(selectShopMenuPictures, shallowEqual);
+const SearchDropDown = ({recentSearchesList, setRecentSearchesList, setSearchVisibility}) => {
+  const [recentViewedList, setRecentViewedList]=useState(JSON.parse(localStorage.getItem("recentviewed")));
 
   return (
     <Container>
-      <CollectionsContainer>
-        {shopMenu &&
-          Object.entries(shopMenu).map(([key, value]) => {
-            return (
-              <CollectionContainer key={key}>
-                <CollectionTitle>{key}</CollectionTitle>
-                {value["sections"].map((sectionItem, index) => (
-                  <SectionLink
-                    section={fromServerEnumerate[sectionItem]}
-                    key={index}
-                    to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
-                  >
-                    {fromServerEnumerate[sectionItem]}
-                  </SectionLink>
-                ))}
-                {value["featuredSections"].map((sectionItem, index) => (
-                  <SectionLink
-                    section={fromServerEnumerate[sectionItem]}
-                    key={index}
-                    to={`/shop/${key}/featured/${fromServerEnumerate[sectionItem]}`}
-                  >
-                    {fromServerEnumerate[sectionItem]}
-                  </SectionLink>
-                ))}
-              </CollectionContainer>
-            );
-          })}
-      </CollectionsContainer>
-      <CollectionOverviewContainer>
-        {shopMenuPictures &&
-          Object.entries(shopMenuPictures)
-            .filter((item, index) => index < 3)
-            .map(([key, value]) => {
-              return (
-                <CollectionOverview
-                  key={key}
-                  title={key}
-                  url={value}
-                  size="small"
-                />
-              );
-            })}
-      </CollectionOverviewContainer>
+      <RecentSearchesContainer>
+      <Title>Recent Searches</Title>
+        <RecentSearches>
+        {
+        recentSearchesList && recentSearchesList.filter((item,index)=> index<10).map((item,index)=> <RecentSearch key={index} item={item} recentSearchesList={recentSearchesList} setRecentSearchesList={setRecentSearchesList}/>)
+      }
+      </RecentSearches>
+      </RecentSearchesContainer>
+      <RecentViewedContainer>
+      <Title>The last thing you viewed...</Title>
+      {recentViewedList && recentViewedList.filter((item,index)=> index<6).map((item,index)=> <RecentViewPreview  key={index} setSearchVisibility={setSearchVisibility} item={item}/>)}
+      </RecentViewedContainer>
     </Container>
   );
 };
 
-export default ShopDropDown;
+export default SearchDropDown;

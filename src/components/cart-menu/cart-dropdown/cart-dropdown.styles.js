@@ -35,6 +35,7 @@ export const Count = styled.span`
 export const ItemsContainer = styled.div`
   margin: 0 auto;
   overflow: auto;
+  max-height: 500px;
   ${"" /* border: thin solid black; */}
 `;
 

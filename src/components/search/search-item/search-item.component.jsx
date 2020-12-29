@@ -8,6 +8,7 @@ import {
 } from "./search-item.styles";
 
 const SearchItem = () => {
+ 
   return (
     <SearchItemContainer>
       <Image />

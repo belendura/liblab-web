@@ -8,8 +8,8 @@ export const displayCart = () => ({
   type: cartActionTypes.DISPLAY_CART,
 });
 
-export const addItemFromDropup = (item, size) => ({
-  type: cartActionTypes.ADD_ITEM_FROM_DROPUP,
+export const addItemFromDropupOrCart= (item, size) => ({
+  type: cartActionTypes.ADD_ITEM_FROM_DROPUP_OR_CART,
   payload: { item, size },
 });
 

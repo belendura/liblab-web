@@ -37,6 +37,14 @@ export const selectSection = createSelector([selectCollection], (collections) =>
   collections ? collections.section : null
 );
 
+export const selectSearchLoaded = createSelector([selectCollection], (collections) =>
+  collections ? collections.searchLoaded : null
+);
+
+export const selectSearchParams = createSelector([selectCollection], (collections) =>
+  collections ? collections.searchParams : null
+);
+
 export const selectFilteredColors = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.filteredColors : null)

@@ -4,7 +4,7 @@ export const MEN_SCRUB_JACKETS = [
     section: "scrub jackets",
     reference: "REFSJM20001JG",
     name: "TOM",
-    description: "Regular Four-Pocket Jacket",
+    description: "Relaxed Four-Pocket Jacket",
     color: { code: "#46B2B2", name: "green apple", dark: false },
     season: "SS20",
     sizes: [
@@ -14,7 +14,7 @@ export const MEN_SCRUB_JACKETS = [
       { size: "l", units: 100 },
       { size: "xl", units: 100 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
@@ -41,14 +41,14 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: true,
     organic: true,
     recycled: false,
- search: "TOM Men Four-Pocket Green Organic Cotton Jacket Regular",
+ search: "TOM Men Four-Pocket Green Organic Cotton Jacket Relaxed",
   },
   {
     collection: "men",
     section: "scrub jackets",
     reference: "REFSJM20003JH",
     name: "BRAD",
-    description: "Relaxed Two-Pocket Jacket",
+    description: "Three-Pocket Notched Jacket",
     color: { code: "#1D1E22", name: "black", dark: false },
     season: "SS20",
     sizes: [
@@ -59,7 +59,7 @@ export const MEN_SCRUB_JACKETS = [
       { size: "xl", units: 0 },
       { size: "xxl", units: 100 },
     ],
-    fit: "Relaxed",
+    fit: "Regular",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
@@ -86,7 +86,7 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: false,
     organic: false,
     recycled: false,
-    search: "BRAD Men Two-Pocket Black Polyester Jacket Relaxed",
+    search: "BRAD Men Three-Pocket Notched Black Polyester Jacket Regular",
   },
   {
     collection: "men",
@@ -147,7 +147,7 @@ export const MEN_SCRUB_JACKETS = [
       { size: "l", units: 0 },
       { size: "xl", units: 100 },
     ],
-    fit: "Petite",
+    fit: "Regular",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
@@ -174,7 +174,7 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: false,
     organic: false,
     recycled: false,
-    search: "BRAD Men Three-Pocket Notched Burdeos Polyester Jacket Petite",
+    search: "BRAD Men Three-Pocket Notched Burdeos Polyester Jacket Regular",
   },
   {
     collection: "men",
@@ -264,6 +264,6 @@ export const MEN_SCRUB_JACKETS = [
     sustainable: false,
     organic: false,
     recycled: false,
-    search: "OSCAR Men Three-Pocket Mock Wrap Blue Electric Recycled Polyester Jacket Tall",
+    search: "OSCAR Men Three-Pocket Mock Wrap Blue Electric Polyester Jacket Tall",
   },
 ];

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { addItem, removeItem } from "../../../redux/actions/cart.actions";
+import { addItemFromDropupOrCart, removeItem } from "../../../redux/actions/cart.actions";
 
 import {
   Container,
@@ -64,7 +64,7 @@ const CartItem = ({ item }) => {
           <Details>Size: {selectedSize}</Details>
           <QuantityContainer>
             <Details>Quant: </Details>
-            <QuantitySymbol onClick={() => dispatch(addItem(item))}>
+            <QuantitySymbol onClick={() => dispatch(addItemFromDropupOrCart(item, item.selectedSize))}>
               &#43;
             </QuantitySymbol>
             <Details>{quantity}</Details>

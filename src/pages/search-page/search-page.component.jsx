@@ -1,17 +1,38 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useSelector, shallowEqual, useDispatch} from "react-redux"
 
-import SearchMenu from "../../components/search/search-menu/search-menu.component";
+import {
+  selectSearchLoaded, 
+  selectSearchParams
+} from "../../redux/selectors/collections.selectors";
+
+import {clearSection,resetSearchLoaded } from "../../redux/actions/collections.actions"
+
+import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
+import SearchList from "../../components/search/search-list/search-list.component";
+
 import {
  Container,
-SearchContainer
+ Title,
 } from "./search-page.styles.jsx";
 
 const SearchPage = () => {
+  const dispatch=useDispatch(); 
+  const searchParams=useSelector(selectSearchParams,shallowEqual);
+  const searchLoaded=useSelector(selectSearchLoaded,shallowEqual);
+ 
+  useEffect(() => {
+   dispatch(clearSection())
+   return()=>{
+dispatch(resetSearchLoaded())
+   }
+    }, []);
+
   return (
     <Container>
-    <SearchContainer>
-      <SearchMenu />
-      </SearchContainer>
+    { searchLoaded && <Title>SEARCH RESULTS FOR <span style={{fontWeight:"bold"}}>"{searchParams.toUpperCase()}"</span></Title>}
+    { searchLoaded && <CollectionFilter /> }
+       <SearchList/>
     </Container>
   );
 };

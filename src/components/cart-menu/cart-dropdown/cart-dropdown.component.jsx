@@ -34,26 +34,26 @@ const CartDropDown = () => {
 
   return (
     <Container>
-      {cartItems.length ? (
+      {cartItems && cartItems.length ? (
         <Header>
           <Title>CART</Title>
           <Count>({cartItemsCount})</Count>
         </Header>
       ) : null}
       <ItemsContainer>
-        {cartItems.length ? (
+        {cartItems && cartItems.length ? (
           cartItems.map((item, index) => <CartItem key={index} item={item} />)
         ) : (
           <Empty>Your cart is Empty</Empty>
         )}
       </ItemsContainer>
-      {cartItems.length ? (
+      {cartItems && cartItems.length ? (
         <SumContainer>
           <Sum>Total:</Sum>
           <Sum>{cartTotal} EUR</Sum>
         </SumContainer>
       ) : null}
-      {cartItems.length ? (
+      {cartItems && cartItems.length ? (
         <ButtonContainer>
           <CustomButton
             color="standard"

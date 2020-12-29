@@ -24,6 +24,7 @@ export const UNISEX_FACE_MASKS = [
     sustainable: true,
     organic: true,
     recycled: false,
+    search: "DIANA Unisex White Organic Cotton Basic Face Mask + pouch Regular",
   },
   {
     collection: "unisex",
@@ -50,6 +51,7 @@ export const UNISEX_FACE_MASKS = [
     sustainable: true,
     organic: true,
     recycled: false,
+    search: "BERTA Unisex Grey Organic Cotton Basic Face Mask + pouch Regular",
   },
   {
     collection: "unisex",
@@ -76,6 +78,7 @@ export const UNISEX_FACE_MASKS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "LEO Unisex Blue Cotton Basic Face Mask + pouch Regular",
   },
   {
     collection: "unisex",
@@ -102,6 +105,7 @@ export const UNISEX_FACE_MASKS = [
     sustainable: true,
     organic: false,
     recycled: true,
+    search: "ALBA Unisex White Recycled Cotton Basic Face Mask + pouch Regular",
   },
   {
     collection: "unisex",
@@ -128,6 +132,7 @@ export const UNISEX_FACE_MASKS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "PABLO Unisex Black Cotton Basic Face Mask + pouch Regular",
   },
   {
     collection: "unisex",
@@ -154,5 +159,6 @@ export const UNISEX_FACE_MASKS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "LOUIS Unisex White Cotton Basic Face Mask + pouch Regular",
   },
 ];

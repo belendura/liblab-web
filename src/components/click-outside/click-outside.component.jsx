@@ -13,7 +13,7 @@ const ClickOutside = ({ children, action }) => {
   };
 
   const handleHideDropdown = (event) => {
-    if ((event.key === "Escape" || event.key === " ") && action !== undefined) {
+    if ((event.key === "Escape") && action !== undefined) {
       action();
     }
   };

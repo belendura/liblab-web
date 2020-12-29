@@ -71,9 +71,9 @@ const ShopItemPage = () => {
   useEffect(()=>{
     return()=>{ 
       if (selectedItem !== undefined && selectedItem !== null){ 
-      const {url,collection,section,reference, color}=selectedItem;
+      const {url,collection,section,reference,description,color}=selectedItem;
       const newUrl=url[0]
-      const itemData={newUrl,collection,section,reference, color}
+      const itemData={newUrl,collection,section,reference,description,color}
       const newList=updateRecentViewedList(recentViewedList,itemData)
      localStorage.setItem("recentviewed",JSON.stringify(newList))
     }

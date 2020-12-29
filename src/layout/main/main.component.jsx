@@ -85,19 +85,19 @@ const Main = () => {
             path="/shop/:collection"
             component={ShopPageCollection}
           />
-          <Route exact path="/shop/:collection/:section" component={ShopPage} />
+           <Route
+            exact
+            path="/shop/featured/:condition"
+            component={ShopPageCollectionsByCondition}
+          />
+        
           <Route
             exact
             path="/shop/:collection/featured/:condition"
             component={ShopPageByCondition}
           />
           <Route
-            exact
-            path="/shop/featured/:condition"
-            component={ShopPageCollectionsByCondition}
-          />
-          <Route
-            path="/shop/:collection/:section/:description&:reference/:color"
+            exact path="/shop/:collection/:section/:description&:reference/:color"
             component={ShopItemPage}
           />
           <Route
@@ -110,6 +110,7 @@ const Main = () => {
             path="/shop/:condition/:description&:reference/:color"
             component={ShopItemPageCollectionsByCondition}
           />
+          <Route exact path="/shop/:collection/:section" component={ShopPage} />  
           <Route exact path="/search" component={SearchPage} />
           <Route
             exact

@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useHistory } from "react-router-dom";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useSelector} from "react-redux";
 
 import { selectCurrentUser } from "../../redux/selectors/user.selectors";
 import { selectCartHidden } from "../../redux/selectors/cart.selectors";
+import { selectSearchLoaded } from "../../redux/selectors/collections.selectors";
 
 import ShopMenu from "../../components/shop-menu/shop-menu.component";
 import CartMenu from "../../components/cart-menu/cart-menu.component";
 import WishlistMenu from "../../components/wishlist/wishlist-menu/wishlist-menu.component";
 import CartDropdown from "../../components/cart-menu/cart-dropdown/cart-dropdown.component";
+import SearchMenu from "../../components/search/search-menu/search-menu.component";
 
 import {
   Container,
@@ -27,21 +29,33 @@ import {
   Close,
 } from "./header.styles";
 
+
 const Header = () => {
   const [searchVisibility, setSearchVisibility] = useState(false);
   const [visibility, setVisibility] = useState(false);
+  const [searchField, setSearchField] = useState("");
   const history = useHistory();
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
   const selectedCartDropdownHidden = useSelector(
     selectCartHidden,
     shallowEqual
   );
+  const searchLoaded = useSelector(selectSearchLoaded, shallowEqual);
+
+  useEffect(()=>{
+    if(searchLoaded)
+    setSearchVisibility(false)
+  },[searchLoaded])
+
   return (
     <Container>
       <NavContainer>
         <HeaderContainer>
-          <LibLab onClick={() => history.push("/")} />
-          <ShopContainer>
+          <LibLab onClick={() =>{ 
+            history.push("/");
+            setSearchField("");
+           }} />
+         {!searchVisibility && <ShopContainer>
             <LinkContainer onMouseLeave={() => setVisibility(false)}>
               <ShopMenu visibility={visibility} setVisibility={setVisibility} />
             </LinkContainer>
@@ -57,15 +71,17 @@ const Header = () => {
             <LinkContainer>
               <Instagram onClick={() => history.push("/instagram")} />
             </LinkContainer>
-          </ShopContainer>
+          </ShopContainer>}
+          {
+            searchVisibility && <SearchMenu searchField={searchField} setSearchField={setSearchField} searchLoaded={searchLoaded} setSearchVisibility={setSearchVisibility}/>
+          }
         </HeaderContainer>
         <UserContainer>
           <UserLinkContainer>
             {searchVisibility ? (
               <Close
                 onClick={() => {
-                  console.log("history", history);
-                  history.push("/");
+                  setSearchField("");
                   setSearchVisibility(false);
                 }}
               />

@@ -17,10 +17,18 @@ const INITIAL_STATE = {
   ascendingOrder: false,
   descendingOrder: false,
   error: null,
+  searchLoaded:false,
+  searchParams:"",
 };
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case collectionsActionTypes.FETCH_SEARCH_START:
+      return {
+        ...state,
+        searchParams: action.payload.search,
+        error: null,
+      };
     case collectionsActionTypes.FETCH_HEADER_SUCCESS:
       return {
         ...state,
@@ -56,9 +64,15 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           section: action.payload,
-        error:null,
-                       
+        error:null,                  
         };
+        case collectionsActionTypes.FETCH_SEARCH_SUCCESS:
+          return {
+            ...state,
+            section: action.payload,
+            searchLoaded:true,
+          error:null,                  
+          };
     case collectionsActionTypes.TOGGLE_SECTION_WISHLIST:
       return {
         ...state,
@@ -138,6 +152,23 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
           section: null,
           error: action.payload,
         };
+        case collectionsActionTypes.CLEAR_SECTION:
+          return {
+            ...state,
+            section: null,
+          };
+        case collectionsActionTypes.FETCH_SEARCH_FAILURE:
+            return {
+              ...state,
+              section: null,
+              error: action.payload,
+              searchLoaded: true,
+            };
+            case collectionsActionTypes.RESET_SEARCH_LOADED:
+              return {
+                ...state,
+                searchLoaded: false,
+              };
     default:
       return state;
   }

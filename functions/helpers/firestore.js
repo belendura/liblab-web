@@ -841,38 +841,100 @@ Promise.resolve([])
 
 try {
 
-const queryItems = await Promise.all(searchParams.reduce(async (previousPromise,searchItem)=>{
-  let accumulator = await previousPromise;
-await Promise.all(collectionsRefs.reduce(async (colRef) => {
-
+const queryItems = await collectionsRefs.reduce(async (prevPromise,colRef) => {
+let accumulator= await prevPromise;
+const result=await searchParams.reduce(async (previousPromise,searchItem)=>{
+  let accum = await previousPromise;
            return await colRef
           .get()
       .then((querySnapshot) => {
-        querySnapshot.docs.reduce((accu,docSnapshot) =>{
+        const res=querySnapshot.docs.reduce((accu,docSnapshot) =>{
            const data=docSnapshot.data();
-           
-           if (data.search.toLowerCase().includes(searchItem)){
+           const item = new RegExp(`\\b${searchItem}\\b`, 'gi');
+           if (data["search"].search(item) !== -1){
           accu=[...accu,data]
            }
-         
-          accumulator={...accumulator ,[searchItem]:accu};
-         console.log("accum",accumulator)
-           return accumulator;
+           return accu
          },[])
-         console.log("accum",accumulator)
-         return accumulator
-       }
+      
+         accum={...accum ,[searchItem]:res};
+          return accum;
+      }
        )
-     }))
+     },Promise.resolve({}))
+ 
+   
+      accumulator=[...accumulator, result]
+     return accumulator;
+  },Promise.resolve([]))
+
+
+  const filteredQuery=queryItems.filter((queryItem)=>{
+    const emptyField= Object.values(queryItem).find(value => value.length===0)
+    return !emptyField
+
+  })
+
+const intersectionQuery=filteredQuery.reduce((accum,queryItem)=>{
+let objectValues=Object.values(queryItem)
+ const res=objectValues[0].filter(item => objectValues.slice(1).every(everyItem => { return everyItem.find(findItem => findItem.id===item.id)}));
+ accum.push(res)
+ return accum
+},[])
+
+
+  const searchQuery = intersectionQuery.reduce((accum, item) => {
+    return [...accum, ...item];
+  }, []);
  
 
-    //   accumulator={...accumulator, result}
-    //   console.log("accu",accumulator)
-    //  return accumulator;
-  },Promise.resolve({})))
+  const supplementaryQueryItems = await searchQuery.reduce(
+    async (prevPromise, queryItem) => {
+      let accumulator = await prevPromise;
+      const data = await collectionsRefs.reduce(
+        async (previousPromise, colRef) => {
+          let accum = await previousPromise;
 
-console.log("queryItems",queryItems);
-return queryItems;
+          return await colRef
+            .where("reference", "==", queryItem.reference)
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.docs.filter((docSnapshot) => {
+                const data = docSnapshot.data();
+                if (data.color.code !== queryItem.color.code) {
+                  return (accum = { ...accum, ...data });
+                }
+              });
+              return accum;
+            });
+        },
+        Promise.resolve({})
+      );
+
+      if (Object.entries(data).length !== 0 && data.constructor === Object) {
+        accumulator = [...accumulator, data];
+      }
+
+      return accumulator;
+    },
+    Promise.resolve([])
+  );
+
+ 
+  const extendedQueryItems = searchQuery.concat(supplementaryQueryItems);
+
+
+  const filteredQueryItems = extendedQueryItems.filter(
+    (item, index, arrayItem) =>
+      arrayItem.findIndex(
+        (itemIndex) =>
+          itemIndex.reference === item.reference &&
+          itemIndex.color.code === item.color.code
+      ) === index
+  );
+
+ 
+  return filteredQueryItems;
   } catch (error) {
     throw new Error(error);
   }

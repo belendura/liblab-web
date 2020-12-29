@@ -76,6 +76,7 @@ const ShopItem = ({ initialColor, reference, params }) => {
   };
 
   return (
+  
     <Container
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}

@@ -30,6 +30,8 @@ import {
   fetchItemByConditionOverallFailure,
   fetchPicturesSuccess,
   fetchPicturesFailure,
+  fetchSearchSuccess,
+  fetchSearchFailure
 } from "../actions/collections.actions";
 
 export function* fetchHeader() {
@@ -50,10 +52,9 @@ export function* fetchCollectionsByCondition({ payload }) {
 
   try {
     const response = yield axiosConfig.get(
-      `/shop/featured/${toServerEnumerate[condition.replace(" ", "")]}`
+      `/shop/featured/${toServerEnumerate[condition.replace(" ", "")]}`, {params:{}}
     );
     const { collectionsItems, pictures } = response.data;
-
     const updatedSectionWishlist = updateSectionWishlist(
       collectionsItems,
       wishlistItems
@@ -131,8 +132,6 @@ export function* onFetchCollectionStart() {
   yield takeLatest(collectionsActionTypes.FETCH_COLLECTION_START, fetchCollection);
 }
 
-
-
 export function* fetchSection({ payload }) {
   const { collection, section, wishlistItems } = payload;
 
@@ -199,7 +198,6 @@ export function* onFetchItemByConditionStart() {
 export function* fetchItemByConditionOverall({ payload: {  condition, reference, color, wishlistItems} }) {
   try {
     const response = yield axiosConfig.get(`/shop/${toServerEnumerate[condition.replace(" ", "")]}/${reference}/${color}`);
-
 const updatedSectionWishlist = updateSectionWishlist(
 response.data,
   wishlistItems
@@ -229,6 +227,20 @@ export function* onFetchPicturesStart() {
   yield takeLatest(collectionsActionTypes.FETCH_PICTURES_START, fetchPictures);
 }
 
+export function* onFetchSearch({payload}) {
+ try{
+ const response= yield axiosConfig.post(`/search/`, payload);
+ const availableColorsSection = getAvailableColorsSection(response.data);
+    const extendedSection = getExtendedSection(availableColorsSection );   
+  yield put(fetchSearchSuccess(extendedSection));
+} catch (error) {
+  yield put(fetchSearchFailure(error));
+  
+}}
+
+export function* onFetchSearchStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_SEARCH_START, onFetchSearch);
+}
 export function* collectionsSagas() {
   yield all([
     call(onFetchHeaderStart),
@@ -240,5 +252,6 @@ export function* collectionsSagas() {
     call(onFetchItemStart),
     call(onFetchItemByConditionStart),
     call(onFetchItemByConditionOverallStart),
+    call(onFetchSearchStart),
   ]);
 }

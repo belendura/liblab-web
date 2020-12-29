@@ -14,11 +14,11 @@ export const WOMEN_SCRUB_TOPS = [
       { size: "l", units: 0 },
       { size: "xl", units: 0 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
-      { material: "Polyester", percent: 71 },
+      { material: "Cotton", percent: 71 },
       { material: "Rayon", percent: 21 },
       { material: "Spandex", percent: 7 },
     ],
@@ -41,6 +41,7 @@ export const WOMEN_SCRUB_TOPS = [
     sustainable: true,
     organic: true,
     recycled: false,
+    search: "DIANA Women Two-Pocket Green Organic Cotton Top Relaxed",
   },
   {
     collection: "women",
@@ -85,6 +86,7 @@ export const WOMEN_SCRUB_TOPS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "BERTA Women Three-Pocket Notched Purple Polyester Top Regular",
   },
   {
     collection: "women",
@@ -101,11 +103,11 @@ export const WOMEN_SCRUB_TOPS = [
       { size: "l", units: 100 },
       { size: "xl", units: 0 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
-      { material: "Polyester", percent: 71 },
+      { material: "Cotton", percent: 71 },
       { material: "Rayon", percent: 21 },
       { material: "Spandex", percent: 7 },
     ],
@@ -128,6 +130,7 @@ export const WOMEN_SCRUB_TOPS = [
     sustainable: true,
     organic: true,
     recycled: false,
+    search: "DIANA Women Two-Pocket Pastel Blue Organic Cotton Top Relaxed",
   },
   {
     collection: "women",
@@ -144,7 +147,7 @@ export const WOMEN_SCRUB_TOPS = [
       { size: "l", units: 0 },
       { size: "xl", units: 100 },
     ],
-    fit: "Petite",
+    fit: "Regular",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
@@ -171,6 +174,7 @@ export const WOMEN_SCRUB_TOPS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "BERTA Women Three-Pocket Notched Burdeos Polyester Top Regular",
   },
   {
     collection: "women",
@@ -215,6 +219,7 @@ export const WOMEN_SCRUB_TOPS = [
     sustainable: true,
     organic: false,
     recycled: true,
+    search: "SARAH Women Two-Pocket Slide-Rib Grey Recycled Polyester Top Petite",
   },
   {
     collection: "women",
@@ -259,5 +264,6 @@ export const WOMEN_SCRUB_TOPS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "CLAUDIA Women Three-Pocket Mock Wrap Blue Electric Polyester Top Tall",
   },
 ];

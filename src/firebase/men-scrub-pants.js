@@ -14,17 +14,16 @@ export const MEN_SCRUB_PANTS = [
       { size: "42", units: 0 },
       { size: "44", units: 0 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
-      { material: "Polyester", percent: 71 },
+      { material: "Cotton", percent: 71 },
       { material: "Rayon", percent: 21 },
       { material: "Spandex", percent: 7 },
     ],
     care: ["No dry", "Iron"],
     price: 45,
-
     newItem: false,
     bestSeller: true,
     sale: true,
@@ -42,6 +41,7 @@ export const MEN_SCRUB_PANTS = [
     sustainable: true,
     organic: true,
     recycled: false,
+    search: "TOM Men Two-Pocket Green Organic Cotton Pants Relaxed",
   },
   {
     collection: "men",
@@ -86,6 +86,7 @@ export const MEN_SCRUB_PANTS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search: "BRAD Men Three-Pocket Notched Black Polyester Pants Regular",
   },
   {
     collection: "men",
@@ -102,11 +103,11 @@ export const MEN_SCRUB_PANTS = [
       { size: "42", units: 100 },
       { size: "44", units: 0 },
     ],
-    fit: "Regular",
+    fit: "Relaxed",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
-      { material: "Polyester", percent: 71 },
+      { material: "Cotton", percent: 71 },
       { material: "Rayon", percent: 21 },
       { material: "Spandex", percent: 7 },
     ],
@@ -129,12 +130,13 @@ export const MEN_SCRUB_PANTS = [
     sustainable: true,
     organic: true,
     recycled: false,
+    search: "TOM Men Two-Pocket Pastel Blue Organic Cotton Pants Relaxed",
   },
   {
     collection: "men",
     section: "scrub pants",
     reference: "REFSPM20003WH",
-    name: "BRAd",
+    name: "BRAD",
     description: "Three-Pocket Notched Pants",
     color: { code: "#57026F", name: "burdeos", dark: false },
     season: "SS20",
@@ -145,7 +147,7 @@ export const MEN_SCRUB_PANTS = [
       { size: "42", units: 0 },
       { size: "44", units: 100 },
     ],
-    fit: "Petite",
+    fit: "Regular",
     details:
       "When one pocket just isn't enough. With a modern V-neck, tailored fit and three pockets, the DIANA fulfills all your stashing needs",
     fabric: [
@@ -172,6 +174,7 @@ export const MEN_SCRUB_PANTS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search:"BRAD Men Three-Pocket Notched Burdeos Polyester Pants Regular"
   },
   {
     collection: "men",
@@ -216,6 +219,7 @@ export const MEN_SCRUB_PANTS = [
     sustainable: true,
     organic: false,
     recycled: true,
+    search:"HARRY Men Two-Pocket Slide-Rib Grey Recycled Polyester Pants Petite"
   },
   {
     collection: "men",
@@ -259,5 +263,6 @@ export const MEN_SCRUB_PANTS = [
     sustainable: false,
     organic: false,
     recycled: false,
+    search:"OSCAR Men Three-Pocket Mock Wrap Blue Electric Polyester Pants Tall"
   },
 ];

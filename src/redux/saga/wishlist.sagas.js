@@ -34,8 +34,8 @@ export function* removeItemFromDropup({ payload }) {
   yield put(removeItemFromWishlist(item));
 }
 
-export function* onAddItemFromDropup() {
-  yield takeLatest(cartActionTypes.ADD_ITEM_FROM_DROPUP, removeItemFromDropup);
+export function* onAddItemFromDropupOrCart() {
+  yield takeLatest(cartActionTypes.ADD_ITEM_FROM_DROPUP_OR_CART, removeItemFromDropup);
 }
 
 export function* removeItem({ payload }) {
@@ -50,7 +50,7 @@ export function* wishlistSagas() {
   yield all([
     call(onToggleSectionWishlist),
     call(onSignOutSucces),
-    call(onAddItemFromDropup),
+    call(onAddItemFromDropupOrCart),
     call(onAddItemFromWishlist),
   ]);
 }

@@ -20,11 +20,12 @@ const {
   fetchItemByCondition,
   fetchItemByConditionOverall,
   fetchPictures,
+  fetchSearch
 } = require("./handlers/collections-management");
 
 const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
 
-const { postSizeRequest , fetchSearch} = require("./handlers/shop-management");
+const { postSizeRequest} = require("./handlers/shop-management");
 
 const {
   checkIfAuthenticated,

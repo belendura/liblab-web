@@ -19,7 +19,6 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case cartActionTypes.TOGGLE_CART_HIDDEN:
       return {
         ...state,
-
         hidden: !state.hidden,
       };
     case cartActionTypes.ADD_ITEM:
@@ -31,7 +30,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           state.selectedSize
         ),
       };
-    case cartActionTypes.ADD_ITEM_FROM_DROPUP:
+    case cartActionTypes.ADD_ITEM_FROM_DROPUP_OR_CART:
       return {
         ...state,
         cartItems: addItemToCart(

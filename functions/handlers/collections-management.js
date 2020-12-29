@@ -8,6 +8,7 @@ const {
   getItemByConditionDocument,
   getItemByConditionOverallDocument,
   getPictures,
+  getSearchResults
 } = require("../helpers/firestore");
 
 //Menu Collection/Section
@@ -63,7 +64,7 @@ exports.fetchCollectionsByCondition = async (req, res) => {
   try {
     const collectionsItems = await getCollectionsByConditionDocuments(condition);
     const pictures = await getPictures(arrayCollection, condition);
-    console.log("pictures",pictures.length)
+    
     return res.status(200).send({ collectionsItems, pictures });
   } catch (error) {
     return res
@@ -144,5 +145,19 @@ exports.fetchPictures = async (req, res) => {
     return res.status(200).send(webPictures);
   } catch (error) {
     return res.status(500).send(`Error getting pictures from section ${error}`);
+  }
+};
+
+//Search
+exports.fetchSearch= async (req, res) => {                                  
+  const { search } = req.body;                                                                                                 
+  const searchParams=search.split(" ");
+
+  try {
+   const results= await getSearchResults(searchParams);
+  
+    return res.status(200).send(results);
+  } catch (error) {
+    return res.status(500).send(`Error getting search results ${error}`);
   }
 };

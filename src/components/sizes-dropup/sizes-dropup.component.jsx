@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-  addItemFromDropup,
+  addItemFromDropupOrCart,
   displayCart,
 } from "../../redux/actions/cart.actions";
 
@@ -33,7 +33,7 @@ const SizesDropUp = ({
                 wishlist={wishlist}
                 selectedSize={selectedSize}
                 onClick={() => {
-                  dispatch(addItemFromDropup(currentItem, size));
+                  dispatch(addItemFromDropupOrCart(currentItem, size));
                   cartHidden && dispatch(displayCart());
                 }}
               >
