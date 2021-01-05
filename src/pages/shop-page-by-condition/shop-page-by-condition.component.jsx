@@ -46,7 +46,7 @@ const ShopPageByCondition = () => {
           <Title>{condition}</Title>
         </TitleContainer>
       </CoverContainer>
-      <CollectionFilter />
+      <CollectionFilter condition={toServerEnumerate[condition.replace(" ", "")]}/>
       <CollectionList
         condition={toServerEnumerate[condition.replace(" ", "")]}
         params={params}

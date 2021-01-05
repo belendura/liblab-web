@@ -22,15 +22,16 @@ import {
   UpperInfoContainer,
   UpperInfo,
   Footer,
-  FooterDetails,
+  FooterUpper,
   Name,
   Description,
-  PriceContainer,
+  FooterBottom,
   Price,
   ColorsContainer,
   BasketContainer,
   Basket,
   ButtonContainer,
+  NewItem,
 } from "./wishlist-item.styles";
 
 const WishlistItem = ({ item }) => {
@@ -71,11 +72,6 @@ const WishlistItem = ({ item }) => {
               <UpperInfo>{discount}%</UpperInfo>
             </UpperInfoContainer>
           )}
-          {newItem && (
-            <UpperInfoContainer sale={sale} new={newItem}>
-              <UpperInfo>NEW</UpperInfo>
-            </UpperInfoContainer>
-          )}
           {visibility && (
             <SizesDropUp
               sizes={sizes}
@@ -88,14 +84,16 @@ const WishlistItem = ({ item }) => {
         </Picture>
       </PictureContainer>
       <Footer>
+      <NewItem newItem={newItem}>NEW</NewItem>
+
+        <FooterUpper>
         <Name>{name}</Name>
-        <FooterDetails>
-          <Description>{description}</Description>
           <BasketContainer>
             <Basket onClick={() => dispatch(removeItemFromWishlist(item))} />
           </BasketContainer>
-        </FooterDetails>
-        <PriceContainer>
+        </FooterUpper>
+        <FooterBottom>
+        <Description>{description}</Description>
           {
             <Price sale={sale} discounted={false}>
               {price}EUR
@@ -106,7 +104,7 @@ const WishlistItem = ({ item }) => {
               {lastPrice}EUR
             </Price>
           )}
-        </PriceContainer>
+        </FooterBottom>
         <ColorsContainer>
           <Circle
             code={color.code}
@@ -124,11 +122,19 @@ const WishlistItem = ({ item }) => {
               if (wishlistItem.selectedSize) {
                 dispatch(addItemFromWishlist(item));
                 cartHidden && dispatch(displayCart());
-              } else {
+              } else if (availableUnits>0){
                 dispatch(
                   openModal("WISHLIST_SELECT_SIZE", {
                     text,
                     item,
+                  })
+                );
+              }
+              else {
+                const text="Item is currently not available"
+                dispatch(
+                  openModal("ALERTS", {
+                    text,
                   })
                 );
               }

@@ -33,8 +33,8 @@ const SizesDropUp = ({
                 wishlist={wishlist}
                 selectedSize={selectedSize}
                 onClick={() => {
-                  dispatch(addItemFromDropupOrCart(currentItem, size));
-                  cartHidden && dispatch(displayCart());
+                  units>0 && dispatch(addItemFromDropupOrCart(currentItem, size));
+                  units>0 && cartHidden && dispatch(displayCart());
                 }}
               >
                 {size}

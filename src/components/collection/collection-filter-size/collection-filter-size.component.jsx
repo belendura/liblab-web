@@ -17,14 +17,14 @@ import {
   OptionContainer,
 } from "./collection-filter-size.styles";
 
-const CollectionFilterSize = () => {
+const CollectionFilterSize = ({condition}) => {
   const [sizes, setSizes] = useState([]);
   const dispatch = useDispatch();
 
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
   const sizeOptions = useSelector(
-    (state) => selectSectionSizeOptions(state, filteredColors, filteredFit),
+    (state) => selectSectionSizeOptions(state, condition,filteredColors, filteredFit),
     shallowEqual
   );
 
@@ -62,7 +62,7 @@ const CollectionFilterSize = () => {
           : null}
         {sizeOptions
           ? sizeOptions.map((sizeItem, index) => {
-              if (sizeItem !== "xxs" || sizeItem !== "32")
+              if (sizeItem !== "xxs" && sizeItem !== "32")
                 return (
                   <label key={index}>
                     <CollectionFilterSizeOption

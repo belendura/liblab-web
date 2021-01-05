@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-import { setSectionFilter } from "../utils/collections.utils";
+import { setSectionFilter, getFilteredColorOptions, getFilteredSizeOptions, getFilteredFitOptions} from "../utils/collections.utils";
 
 const selectCollection = (state) => state.collections;
 
@@ -76,147 +76,26 @@ export const selectDescendingOrder = createSelector(
 );
 
 export const selectSectionColorOptions = createSelector(
-  [selectSection, (_, sizes, fit) => ({ sizes, fit })],
-  (section, { sizes, fit }) =>
-    section
-      ? section
-          .reduce((accumulator, arrayItem) => {
-            sizes.length &&
-              fit.length &&
-              sizes.forEach((sizeItem) => {
-                if (arrayItem.sizes.size === sizeItem)
-                  fit.forEach((fitItem) => {
-                    if (arrayItem.fit === fitItem)
-                      accumulator = [...accumulator, arrayItem.color];
-                    return accumulator;
-                  });
-              });
-            !sizes.length &&
-              fit.length &&
-              fit.forEach((fitItem) => {
-                if (arrayItem.fit === fitItem)
-                  accumulator = [...accumulator, arrayItem.color];
-                return accumulator;
-              });
-            sizes.length &&
-              !fit.length &&
-              sizes.forEach((sizeItem) => {
-                arrayItem.sizes.forEach((item) => {
-                  if (item.size === sizeItem)
-                    accumulator = [...accumulator, arrayItem.color];
-                  return accumulator;
-                });
-              });
-            !sizes.length &&
-              !fit.length &&
-              arrayItem &&
-              accumulator.push(arrayItem.color);
-            return accumulator;
-          }, [])
-          .reduce((accum, item) => {
-            if (accum.some((newItem) => newItem.code === item.code)) {
-              accum = [...accum];
-            } else {
-              accum = [...accum, item];
-            }
-            return accum;
-          }, [])
+  [selectSection,selectSearchParams, (_, condition, sizes, fit) => ({ condition, sizes, fit })],
+  (section, searchParams, { condition, sizes, fit }) =>
+    section ? getFilteredColorOptions(section,searchParams, condition,sizes,fit)        
       : null
+      
 );
 
 export const selectSectionSizeOptions = createSelector(
-  [selectSection, (_, colors, fit) => ({ colors, fit })],
-  (section, { colors, fit }) =>
+  [selectSection,selectSearchParams, (_, condition, colors, fit) => ({ condition, colors, fit })],
+  (section,searchParams, { condition, colors, fit }) =>
     section
-      ? section
-          .reduce((accumulator, arrayItem) => {
-            colors.length &&
-              fit.length &&
-              colors.forEach((colorItem) => {
-                if (arrayItem.color.code === colorItem)
-                  fit.forEach((fitItem) => {
-                    if (arrayItem.fit === fitItem)
-                      arrayItem.sizes.map((item) => {
-                        accumulator = [...accumulator, item.size];
-                      });
-                    return accumulator;
-                  });
-              });
-            !colors.length &&
-              fit.length &&
-              fit.forEach((fitItem) => {
-                if (arrayItem.fit === fitItem)
-                  arrayItem.sizes.map((item) => {
-                    accumulator = [...accumulator, item.size];
-                  });
-                return accumulator;
-              });
-            colors.length &&
-              !fit.length &&
-              colors.forEach((colorItem) => {
-                if (arrayItem.color.code === colorItem)
-                  arrayItem.sizes.map((item) => {
-                    accumulator = [...accumulator, item.size];
-                  });
-                return accumulator;
-              });
-            !colors.length &&
-              !fit.length &&
-              arrayItem &&
-              arrayItem.sizes.map((item) => {
-                accumulator = [...accumulator, item.size];
-              });
-            return accumulator;
-          }, [])
-          .reduce((accum, item) => {
-            return accum.includes(item) ? accum : [...accum, item];
-          }, [])
+      ? getFilteredSizeOptions(section,searchParams,condition,colors,fit)    
       : null
 );
 
 export const selectSectionFitOptions = createSelector(
-  [selectSection, (_, colors, sizes) => ({ colors, sizes })],
-  (section, { colors, sizes }) =>
+  [selectSection, selectSearchParams,(_, condition, colors, sizes) => ({ condition, colors, sizes })],
+  (section, searchParams,{ condition,colors, sizes }) =>
     section
-      ? section
-          .reduce((accumulator, arrayItem) => {
-            colors.length &&
-              sizes.length &&
-              colors.forEach((colorItem) => {
-                if (arrayItem.color.code === colorItem)
-                  sizes.forEach((sizeItem) => {
-                    arrayItem.sizes.forEach((item) => {
-                      if (item.size === sizeItem)
-                        accumulator = [...accumulator, arrayItem.fit];
-                      return accumulator;
-                    });
-                  });
-              });
-            !colors.length &&
-              sizes.length &&
-              sizes.forEach((sizeItem) => {
-                arrayItem.sizes.forEach((item) => {
-                  if (item.size === sizeItem)
-                    accumulator = [...accumulator, arrayItem.fit];
-                  return accumulator;
-                });
-              });
-            colors.length &&
-              !sizes.length &&
-              colors.forEach((colorItem) => {
-                if (arrayItem.color.code === colorItem)
-                  accumulator = [...accumulator, arrayItem.fit];
-                return accumulator;
-              });
-            !colors.length &&
-              !sizes.length &&
-              arrayItem &&
-              accumulator.push(arrayItem.fit);
-            return accumulator;
-          }, [])
-          .reduce((accum, item) => {
-            return accum.includes(item) ? accum : [...accum, item];
-          }, [])
+      ?getFilteredFitOptions(section,searchParams,condition,colors,sizes) 
       : null
 );
 

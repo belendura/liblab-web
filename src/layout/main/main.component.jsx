@@ -110,7 +110,7 @@ const Main = () => {
             path="/shop/:condition/:description&:reference/:color"
             component={ShopItemPageCollectionsByCondition}
           />
-          <Route exact path="/shop/:collection/:section" component={ShopPage} />  
+          <Route exact path="/shop/:collection/:section" component={ShopPage} />   
           <Route exact path="/search" component={SearchPage} />
           <Route
             exact

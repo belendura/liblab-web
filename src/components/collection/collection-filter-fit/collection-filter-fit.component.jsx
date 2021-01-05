@@ -17,7 +17,7 @@ import {
   OptionsContainer,
 } from "./collection-filter-fit.styles";
 
-const CollectionFilterFit = () => {
+const CollectionFilterFit = ({condition}) => {
   const [fit, setFit] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const CollectionFilterFit = () => {
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
 
   const fitOptions = useSelector(
-    (state) => selectSectionFitOptions(state, filteredColors, filteredSizes),
+    (state) => selectSectionFitOptions(state,condition, filteredColors, filteredSizes),
     shallowEqual
   );
 

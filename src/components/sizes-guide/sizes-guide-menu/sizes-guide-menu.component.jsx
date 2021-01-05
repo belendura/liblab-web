@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { openModal } from "../../../redux/actions/modal.actions";
+import { openSecondModal } from "../../../redux/actions/modal.actions";
 
 import { Container, Hanger, Title } from "./sizes-guide-menu.styles";
 
@@ -11,12 +11,12 @@ const SizesGuideMenu = ({ collection, section }) => {
     <Container>
       <Hanger
         onClick={() =>
-          dispatch(openModal("SIZES_GUIDE", { collection, section }))
+          dispatch(openSecondModal("SIZES_GUIDE", { collection, section }))
         }
       />
       <Title
         onClick={() =>
-          dispatch(openModal("SIZES_GUIDE", { collection, section }))
+          dispatch(openSecondModal("SIZES_GUIDE", { collection, section }))
         }
       >
         Sizes Guide

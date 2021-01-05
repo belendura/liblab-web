@@ -85,29 +85,28 @@ export const Footer = styled.div`
   ${"" /* border: thin solid black; */}
 `;
 
-export const FooterDetails = styled.div`
+export const FooterUpper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${"" /* border: thin solid black; */}
+ ${'' /* border: thin solid black; */}
 `;
 
 export const Name = styled.span`
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  padding-bottom: 5px;
 `;
 
 export const Description = styled.span`
   font-size: 10px;
 `;
 
-export const PriceContainer = styled.div`
+export const FooterBottom = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 5px 0;
-  ${"" /* border: thin solid black; */}
+ ${'' /* border: thin solid black; */}
 `;
 
 export const Price = styled.span`
@@ -123,7 +122,7 @@ export const ColorsContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  ${"" /* border: thin solid black; */}
+${'' /* border: thin solid black; */}
 `;
 
 export const BasketContainer = styled.div`
@@ -131,7 +130,7 @@ export const BasketContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${"" /* border: thin solid black;  */}
+  ${'' /* border: thin solid black;  */}
 `;
 
 export const Basket = styled(BasketLogo)`
@@ -147,3 +146,13 @@ export const ButtonContainer = styled.div`
   margin: 0 auto;
   padding-top: 5px;
 `;
+
+export const NewItem = styled.span`
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0 auto 5px;
+  color: ${(props) => {
+    return props.newItem ? "black" : "transparent";
+  }};
+  `

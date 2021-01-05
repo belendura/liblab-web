@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
 import { closeModal } from "../../../redux/actions/modal.actions";
+import {fetchSizesGuideStart } from "../../../redux/actions/sizes-guide.actions";
 import {
   displayCart,
   addItemFromWishlist,
@@ -11,7 +12,7 @@ import {
 import SelectSize from "../../select-size/select-size.component";
 import CustomButton from "../../custom-button/custom-button.component";
 import WishlistSizeDropDown from "../wishlist-select-size-dropdown/wishlist-select-size-dropdown.component";
-import SizesGuide from "../../sizes-guide/sizes-guide-menu/sizes-guide-menu.component";
+import SizesGuideMenu from "../../sizes-guide/sizes-guide-menu/sizes-guide-menu.component";
 
 import {
   Container,
@@ -26,7 +27,12 @@ const WishlistSelectSizeModal = ({ text, item }) => {
   const wishlistItem = useSelector((state) =>
     selectWishlistItem(state, item, shallowEqual)
   );
-  const { sizes, collection, section } = item;
+  const { sizes, collection, section} = item;
+
+  useEffect(() => {
+    dispatch(fetchSizesGuideStart(collection, section));
+  }, [fetchSizesGuideStart, collection, section]);
+
   return (
     <Container>
       <TextContainer>{text}</TextContainer>
@@ -45,7 +51,7 @@ const WishlistSelectSizeModal = ({ text, item }) => {
         )}
       </SelectSizeContainer>
       <SizesGuideContainer>
-        <SizesGuide collection={collection} section={section} />
+        <SizesGuideMenu collection={collection} section={section} />
       </SizesGuideContainer>
       <CustomButton
         color="standard"

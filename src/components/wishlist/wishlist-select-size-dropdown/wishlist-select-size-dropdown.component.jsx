@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { useDispatch } from "react-redux";
 
 import { selectSize } from "../../../redux/actions/wishlist.actions";
@@ -15,10 +15,10 @@ const WishlistSelectSizeDropDown = ({
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <Fragment>
       <ClickOutside action={() => setSelectSizeVisible(false)}>
         <Container>
-          {sizes &&
+          {sizes && 
             sizes.map((item, index) => {
               const { units, size } = item;
               return (
@@ -37,7 +37,7 @@ const WishlistSelectSizeDropDown = ({
             })}
         </Container>
       </ClickOutside>
-    </div>
+    </Fragment>
   );
 };
 

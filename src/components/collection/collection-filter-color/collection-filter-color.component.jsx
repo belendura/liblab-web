@@ -16,7 +16,7 @@ import {
   OptionsContainer,
 } from "./collection-filter-color.styles";
 
-const CollectionFilterColor = () => {
+const CollectionFilterColor = ({condition}) => {
   const [colors, setColors] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const CollectionFilterColor = () => {
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
 
   const colorOptions = useSelector(
-    (state) => selectSectionColorOptions(state, filteredSizes, filteredFit),
+    (state) => selectSectionColorOptions(state, condition, filteredSizes, filteredFit),
     shallowEqual
   );
 

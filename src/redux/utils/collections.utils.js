@@ -164,3 +164,198 @@ export const setSectionFilter = (section, colors, sizes, fit) => {
 
   return data;
 };
+
+export const getFilteredColorOptions=  (section, searchParams, condition, sizes, fit)=>{
+ 
+const newSection= [...section]
+  if (condition){
+  newSection.filter(arrayItem=>arrayItem.condition===true)
+  }
+
+  let searchedSection=[...newSection];
+if (searchParams){
+  searchedSection= newSection.filter(item => {
+  const searchParamsArray=  searchParams.split(" ")
+return searchParamsArray.reduce((accum,searchParamsItem)=>{
+    const searchParamsRE= new RegExp(`\\b${searchParamsItem}\\b`, 'gi');
+  if (item["search"].search(searchParamsRE) !== -1){
+     accum=true}
+     else{
+      accum=false;
+     }
+     return accum;
+  },0)
+})
+}
+
+const filteredSection=searchedSection.reduce((accumulator, arrayItem) => {
+  sizes.length &&
+    fit.length &&
+    sizes.forEach((sizeItem) => {
+      if (arrayItem.sizes.size === sizeItem)
+        fit.forEach((fitItem) => {
+          if (arrayItem.fit === fitItem)
+            accumulator = [...accumulator, arrayItem.color];
+          return accumulator;
+        });
+    });
+  !sizes.length &&
+    fit.length &&
+    fit.forEach((fitItem) => {
+      if (arrayItem.fit === fitItem)
+        accumulator = [...accumulator, arrayItem.color];
+      return accumulator;
+    });
+  sizes.length &&
+    !fit.length &&
+    sizes.forEach((sizeItem) => {
+      arrayItem.sizes.forEach((item) => {
+        if (item.size === sizeItem)
+          accumulator = [...accumulator, arrayItem.color];
+        return accumulator;
+      });
+    });
+  !sizes.length &&
+    !fit.length &&
+    arrayItem &&
+    accumulator.push(arrayItem.color);
+  return accumulator;
+}, [])
+
+const updatedSection=filteredSection.reduce((accum, item) => {
+  if (accum.some((newItem) => newItem.code === item.code)) {
+    accum = [...accum];
+  } else {
+    accum = [...accum, item];
+  }
+  return accum;
+}, [])
+return updatedSection;
+}
+
+export const getFilteredSizeOptions=  (section, searchParams, condition, colors, fit)=>{
+  const newSection= [...section];
+    if (condition){
+    newSection.filter(arrayItem=>arrayItem.condition===true)
+    }
+    let searchedSection=[...newSection];
+    if (searchParams){
+      searchedSection= newSection.filter(item => {
+      const searchParamsArray=  searchParams.split(" ")
+    return searchParamsArray.reduce((accum,searchParamsItem)=>{
+        const searchParamsRE= new RegExp(`\\b${searchParamsItem}\\b`, 'gi');
+      if (item["search"].search(searchParamsRE) !== -1){
+         accum=true}
+         else{
+          accum=false;
+         }
+         return accum;
+      },0)
+    })
+    }
+    const filteredSection=searchedSection.reduce((accumulator, arrayItem) => {
+      colors.length &&
+        fit.length &&
+        colors.forEach((colorItem) => {
+          if (arrayItem.color.code === colorItem)
+            fit.forEach((fitItem) => {
+              if (arrayItem.fit === fitItem)
+                arrayItem.sizes.map((item) => {
+                  accumulator = [...accumulator, item.size];
+                });
+              return accumulator;
+            });
+        });
+      !colors.length &&
+        fit.length &&
+        fit.forEach((fitItem) => {
+          if (arrayItem.fit === fitItem)
+            arrayItem.sizes.map((item) => {
+              accumulator = [...accumulator, item.size];
+            });
+          return accumulator;
+        });
+      colors.length &&
+        !fit.length &&
+        colors.forEach((colorItem) => {
+          if (arrayItem.color.code === colorItem)
+            arrayItem.sizes.map((item) => {
+              accumulator = [...accumulator, item.size];
+            });
+          return accumulator;
+        });
+      !colors.length &&
+        !fit.length &&
+        arrayItem &&
+        arrayItem.sizes.map((item) => {
+          accumulator = [...accumulator, item.size];
+        });
+      return accumulator;
+    }, [])
+    const updatedSection=filteredSection.reduce((accum, item) => {
+      return accum.includes(item) ? accum : [...accum, item];
+    }, [])
+return updatedSection;
+}
+
+export const getFilteredFitOptions=  (section, searchParams,condition, colors, sizes)=>{
+    const newSection= [...section];
+      if (condition){
+      newSection.filter(arrayItem=>arrayItem.condition===true)
+      }
+      let searchedSection=[...newSection];
+      if (searchParams){
+        searchedSection= newSection.filter(item => {
+        const searchParamsArray=  searchParams.split(" ")
+      return searchParamsArray.reduce((accum,searchParamsItem)=>{
+          const searchParamsRE= new RegExp(`\\b${searchParamsItem}\\b`, 'gi');
+        if (item["search"].search(searchParamsRE) !== -1){
+           accum=true}
+           else{
+            accum=false;
+           }
+           return accum;
+        },0)
+      })
+      }
+      const filteredSection=searchedSection.reduce((accumulator, arrayItem) => {
+        colors.length &&
+          sizes.length &&
+          colors.forEach((colorItem) => {
+            if (arrayItem.color.code === colorItem)
+              sizes.forEach((sizeItem) => {
+                arrayItem.sizes.forEach((item) => {
+                  if (item.size === sizeItem)
+                    accumulator = [...accumulator, arrayItem.fit];
+                  return accumulator;
+                });
+              });
+          });
+        !colors.length &&
+          sizes.length &&
+          sizes.forEach((sizeItem) => {
+            arrayItem.sizes.forEach((item) => {
+              if (item.size === sizeItem)
+                accumulator = [...accumulator, arrayItem.fit];
+              return accumulator;
+            });
+          });
+        colors.length &&
+          !sizes.length &&
+          colors.forEach((colorItem) => {
+            if (arrayItem.color.code === colorItem)
+              accumulator = [...accumulator, arrayItem.fit];
+            return accumulator;
+          });
+        !colors.length &&
+          !sizes.length &&
+          arrayItem &&
+          accumulator.push(arrayItem.fit);
+        return accumulator;
+      }, [])
+      const updatedSection=filteredSection.reduce((accum, item) => {
+        return accum.includes(item) ? accum : [...accum, item];
+      }, [])
+      return updatedSection;
+}
+

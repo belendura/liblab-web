@@ -4,7 +4,7 @@ import CollectionFilterDropDown from "./collection-filter-dropdown/collection-fi
 
 import { Container, FilterMenu, Title } from "./collection-filter-menu.styles";
 
-const CollectionFilterMenu = () => {
+const CollectionFilterMenu = ({condition}) => {
   const [visibility, setVisibility] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const CollectionFilterMenu = () => {
       <Container>
         <FilterMenu onClick={() => setVisibility(!visibility)} />
         <Title onClick={() => setVisibility(!visibility)}>Filter</Title>
-        {visibility && <CollectionFilterDropDown />}
+        {visibility && <CollectionFilterDropDown condition={condition} />}
       </Container>
     </div>
   );

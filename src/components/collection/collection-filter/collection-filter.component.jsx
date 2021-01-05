@@ -11,12 +11,12 @@ import {
   OrderContainer,
 } from "./collection-filter.styles";
 
-const CollectionFilter = () => {
+const CollectionFilter = ({condition}) => {
   return (
     <Container>
       <FilterContainer>
         <CollectionSidebarMenu />
-        <CollectionFilterMenu />
+        <CollectionFilterMenu condition={condition}/>
       </FilterContainer>
       <OrderContainer>
         <CollectionOrder />

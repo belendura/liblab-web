@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  
-  display flex;
- justify-content:center; 
-  ${"" /* align-items:center; */}
-  border: thick solid pink;
+  max-width: 997px;
+ text-align:center;
+  overflow: hidden;
+ ${'' /* border: thin solid black;  */}
 `;
 
 export const WishlistContainer = styled.div`
@@ -15,9 +14,10 @@ export const WishlistContainer = styled.div`
   object-fit: cover;
   grid-gap: 20px;
   padding: 10px;
-  border: thick solid yellow;
+
 `;
 
 export const Text = styled.span`
-  ${"" /* text-align: center; */}
+font-size:12px;
+
 `;
