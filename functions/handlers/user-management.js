@@ -75,13 +75,16 @@ exports.logInWithEmailAndPassword = async (req, res) => {
 
 //LogIn with Google
 exports.logInWithGoogle = async (req, res) => {
-  const { userData, cart, wishlist } = req.body;
+  const { user, cart, wishlist } = req.body;
+// console.log("req",req.body);
   try {
-    const user = await createUserDocument(userData);
-    const updatedCart = await updateUserCartDocument(user, cart);
-    const updatedWishlist = await updateUserWishlistDocument(user, wishlist);
-
-    return res.status(200).json(user, updatedCart, updatedWishlist);
+    const userData = await createUserDocument(user);
+ console.log("userData",userData);
+    const updatedCart = await updateUserCartDocument(userData, cart);
+     console.log("updatedCart",updatedCart.length);
+     const updatedWishlist = await updateUserWishlistDocument(userData, wishlist);
+     console.log("updatedWishlist",updatedWishlist.length);
+    return res.status(200).json({userData, updatedCart, updatedWishlist});
   } catch (error) {
     return res.status(500).send(`Error Google login ${error}`);
   }

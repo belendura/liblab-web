@@ -53,8 +53,12 @@ const LoginPage = React.lazy(() =>
   import("../../pages/user-page/login/login-page.component")
 );
 
+const CheckOutLoginPage = React.lazy(() =>
+  import("../../pages/check-out-page/check-out-login/check-out-login-page.component")
+);
+
 const CheckOutPage = React.lazy(() =>
-  import("../../pages/user-page/check-out/check-out-page.component")
+  import("../../pages/check-out-page/check-out/check-out-page.component")
 );
 
 const RegisterPage = React.lazy(() =>
@@ -69,9 +73,22 @@ const UserPage = React.lazy(() =>
   import("../../pages/user-page/user/user-page.component")
 );
 
+const UserProfilePage = React.lazy(() =>
+  import("../../pages/user-page/user/user-profile/user-profile-page.component")
+);
+
+const UserWishlistPage = React.lazy(() =>
+  import("../../pages/user-page/user/user-wishlist/user-wishlist-page.component")
+);
+
+const UserPurchasesPage = React.lazy(() =>
+  import("../../pages/user-page/user/user-purchases/user-purchases-page.component")
+);
+
 const WishlistPage = React.lazy(() =>
   import("../../pages/wishlist-page/wishlist-page.component")
 );
+
 
 const Main = () => {
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
@@ -115,7 +132,7 @@ const Main = () => {
           <Route
             exact
             path="/login"
-            render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
+            render={() => (currentUser ? <Redirect to="/user" /> : <LoginPage />)}
           />
           <Route
             exact
@@ -138,11 +155,41 @@ const Main = () => {
               currentUser ? (
                 <Redirect to="/checkout/shipping" />
               ) : (
-                <CheckOutPage />
+                <CheckOutLoginPage />
               )
             }
           />
-          <Route exact path="/user" component={UserPage} />
+          <Route exact path="/user" render={() =>
+              !currentUser ? (
+                <Redirect to="/" />
+              
+              ) : (
+                <UserPage/>
+              )
+            } />
+              <Route exact path="/user/profile"  render={() =>
+              !currentUser ? (
+                <Redirect to="/" />
+              
+              ) : (
+                <UserProfilePage/>
+              )
+            } />
+              <Route exact path="/user/my-purchases"  render={()=>!currentUser ? (
+                <Redirect to="/" />
+              
+              ) : (
+                <UserPurchasesPage/>
+              )
+            }  />
+              <Route exact path="/user/wishlist"  render={()=>!currentUser ? (
+                <Redirect to="/" />
+              
+              ) : (
+                <UserWishlistPage/>
+              )
+            }   />
+          <Route exact path="/checkout/shipping" component={CheckOutPage} />
           <Route exact path="/wishlist" component={WishlistPage} />
         </Suspense>
       </Switch>

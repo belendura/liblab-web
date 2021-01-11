@@ -28,15 +28,17 @@ import {
 export function* signInWithGoogle({ payload }) {
   const { cart, wishlist } = payload;
   try {
+ 
     const { user, credential } = yield auth.signInWithPopup(googleProvider);
     const token = credential.accessToken;
     yield call(saveToken, token);
     const response = yield axiosConfig.post(
       "/loginOAuth",
-      user,
+    {user,
       cart,
       wishlist
-    );
+    });
+    console.log("response",response.data);
     yield put(signInSuccess(response.data));
   } catch (error) {
     yield put(signInFailure(error));

@@ -34,8 +34,7 @@ const LoginPage = () => {
 
   const cart = useSelector(selectCartItems, shallowEqual);
   const wishlist = useSelector(selectWishlistItems, shallowEqual);
-  console.log("wishlist", wishlist);
-
+ 
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserData({ ...userData, [name]: value });

@@ -10,12 +10,6 @@ import modalReducer from "../redux/reducers/modal.reducer";
 import sizesGuideReducer from "../redux/reducers/sizes-guide.reducer";
 import shopReducer from "../redux/reducers/shop.reducer";
 
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["cart"],
-};
-
 const rootReducer = combineReducers({
   user: userReducer,
   collections: collectionsReducer,
@@ -25,5 +19,11 @@ const rootReducer = combineReducers({
   sizesGuide: sizesGuideReducer,
   shop: shopReducer,
 });
+
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["cart"]
+};
 
 export default persistReducer(persistConfig, rootReducer);

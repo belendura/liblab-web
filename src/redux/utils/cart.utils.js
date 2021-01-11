@@ -10,9 +10,7 @@ export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
     lastPrice,
     color,
   } = cartItemToAdd;
-  console.log("cartItems",cartItems);
-  console.log("cartItemToAdd",cartItemToAdd);
-  console.log("selectedSize",selectedSize)
+
 
   const existingCartItem =
     cartItems.length &&
@@ -20,7 +18,6 @@ export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
       (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
     );
 
-    console.log("existingCartItem",existingCartItem)
    if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === id && cartItem.selectedSize === selectedSize

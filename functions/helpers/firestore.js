@@ -1,6 +1,7 @@
 const { firestore } = require("./admin");
 
 exports.createUserDocument = async (userAuth, additionalData) => {
+
   if (!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -30,6 +31,9 @@ exports.createUserDocument = async (userAuth, additionalData) => {
     } catch (error) {
       throw new Error(error);
     }
+  }
+  else if(snapShot.exists){
+    return userAuth;
   }
 };
 
@@ -548,7 +552,7 @@ return await colRef
 exports.updateUserCartDocument = async (user, cart) => {
   if (!user) return cart;
 
-  const cartRef = firestore.doc(`carts/${user.id}`);
+  const cartRef = firestore.doc(`carts/${user.uid}`);
 
   const snapShot = await cartRef.get();
 
@@ -582,8 +586,7 @@ exports.updateUserCartDocument = async (user, cart) => {
         const filteredCart = cart.reduce((accumulator, cartItem) => {
           const existingCartItem = oldUserCart.find(
             (userCartItem) =>
-              userCartItem.Reference === cartItem.Reference &&
-              userCartItem.Color.name === cartItem.Color.name &&
+              userCartItem.id === cartItem.id &&
               userCartItem.selectedSize === cartItem.selectedSize
           );
           if (!existingCartItem) {
@@ -596,18 +599,17 @@ exports.updateUserCartDocument = async (user, cart) => {
           (accumulator, userCartItem) => {
             const existingCartItem = cart.some(
               (cartItem) =>
-                userCartItem.Reference === cartItem.Reference &&
-                userCartItem.Color.name === cartItem.Color.name &&
+                userCartItem.id === cartItem.id &&
                 userCartItem.selectedSize === cartItem.selectedSize
             );
 
             if (existingCartItem) {
               const updatedUserCartItem = {
-                reference: userCartItem.Reference,
-                url: userCartItem.Url,
-                name: userCartItem.Name,
-                lastPrice: userCartItem.LastPrice,
-                color: userCartItem.Color,
+                reference: userCartItem.reference,
+                url: userCartItem.url,
+                name: userCartItem.name,
+                lastPrice: userCartItem.lastPrice,
+                color: userCartItem.color,
                 selectedSize: userCartItem.selectedSize,
                 quantity: userCartItem.quantity + 1,
               };
@@ -621,14 +623,14 @@ exports.updateUserCartDocument = async (user, cart) => {
           },
           []
         );
-        console.log("filteredUserCart", filteredUserCart);
+        // console.log("filteredUserCart", filteredUserCart);
         const newUserCart = filteredUserCart.concat(filteredCart);
-        console.log("newUserCart", newUserCart);
+        // console.log("newUserCart", newUserCart);
         await cartRef.update({ cart: newUserCart }, { merge: true });
       }
       const updatedSnapShot = await cartRef.get();
       const updatedUserCart = updatedSnapShot.data();
-      console.log("updatedUserCart", updatedUserCart);
+      //  console.log("updatedUserCart", updatedUserCart.cart);
       return updatedUserCart.cart;
     } catch (error) {
       throw new Error(error);
@@ -639,7 +641,7 @@ exports.updateUserCartDocument = async (user, cart) => {
 exports.updateUserWishlistDocument = async (user, wishlist) => {
   if (!user) return wishlist;
 
-  const wishlistRef = firestore.doc(`wishlists/${user.id}`);
+  const wishlistRef = firestore.doc(`wishlists/${user.uid}`);
 
   const snapShot = await wishlistRef.get();
 
@@ -657,9 +659,8 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
   } else {
     try {
       const userWishlist = snapShot.data();
-      console.log("userWishlist", userWishlist);
       const oldUserWishlist = userWishlist.wishlist;
-      console.log("oldUserWishlist", oldUserWishlist);
+      // console.log("oldUserWishlist", oldUserWishlist);
 
       //if wishlist is empty and userWishlist is not empty
       if (wishlist.length === 0 && oldUserWishlist.length > 0) {
@@ -672,27 +673,27 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
       }
       //if wishlist is not empty and userWishlist is not empty
       else if (wishlist.length > 0 && oldUserWishlist.length > 0) {
-        console.log("he hecho merge");
+        // console.log("he hecho merge");
         const filteredWishlist = wishlist.reduce(
           (accumulator, wishlistItem) => {
             const existingWishlistItem = oldUserWishlist.some(
               (userWishlistItem) =>
-                userWishlistItem.Reference === wishlistItem.Reference &&
-                userWishlistItem.Color.name === wishlistItem.Color.name
+                userWishlistItem.id === wishlistItem.id
+               
             );
 
-            console.log("existingWishlistItem", existingWishlistItem);
+            // console.log("existingWishlistItem", existingWishlistItem);
             if (!existingWishlistItem) {
               accumulator.push(wishlistItem);
             }
-            console.log("accumulator", accumulator);
+            // console.log("accumulator", accumulator);
             return accumulator;
           },
           []
         );
 
         const newUserWishlist = oldUserWishlist.concat(filteredWishlist);
-        console.log("newUserWishlist", newUserWishlist);
+        // console.log("newUserWishlist", newUserWishlist);
         await wishlistRef.update(
           { wishlist: newUserWishlist },
           { merge: true }
@@ -700,7 +701,7 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
       }
       const updatedSnapShot = await wishlistRef.get();
       const updatedUserWishlist = updatedSnapShot.data();
-      console.log("updatedUserWishlist", updatedUserWishlist);
+      // console.log("updatedUserWishlist", updatedUserWishlist);
       return updatedUserWishlist.wishlist;
     } catch (error) {
       throw new Error(error);

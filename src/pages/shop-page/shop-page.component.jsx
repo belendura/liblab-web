@@ -34,9 +34,6 @@ const ShopPage = () => {
 
   return (
     <Container>
-    {
-      console.log("eyyy")
-    }
       <CoverContainer>
         <PictureContainer>
           {picture && <Picture src={Object.values(picture)} />}
