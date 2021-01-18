@@ -549,40 +549,35 @@ return await colRef
   }
 };
 
-exports.updateUserCartDocument = async (user, cart) => {
+exports.mergeUserwishlistDocument = async (user, cart) => {
   if (!user) return cart;
 
   const cartRef = firestore.doc(`carts/${user.uid}`);
 
   const snapShot = await cartRef.get();
 
-  //if document does not exist
+
   if (!snapShot.exists) {
     try {
       if (cart.length > 0) {
         await cartRef.set({ cart: cart });
       }
-      return cart;
     } catch (error) {
       throw new Error(error);
     }
-    //if document exists
+
   } else {
     try {
       const userCart = snapShot.data();
       const oldUserCart = userCart.cart;
 
-      //if cart is empty and usercart is not empty
-      if (cart.length === 0 && oldUserCart.length > 0) {
-        return oldUserCart;
-      }
-      //if userCart is empty
-      else if (oldUserCart.length === 0) {
+    if (cart.length > 0){
+     if (oldUserCart.length === 0) {
         await cartRef.set({ cart: cart });
-        return cart;
+ 
       }
-      //if cart is not empty and usercart is not empty
-      else if (cart.length > 0 && oldUserCart.length > 0) {
+
+      else {
         const filteredCart = cart.reduce((accumulator, cartItem) => {
           const existingCartItem = oldUserCart.find(
             (userCartItem) =>
@@ -594,7 +589,7 @@ exports.updateUserCartDocument = async (user, cart) => {
           }
           return accumulator;
         }, []);
-
+  
         const filteredUserCart = oldUserCart.reduce(
           (accumulator, userCartItem) => {
             const existingCartItem = cart.some(
@@ -602,18 +597,24 @@ exports.updateUserCartDocument = async (user, cart) => {
                 userCartItem.id === cartItem.id &&
                 userCartItem.selectedSize === cartItem.selectedSize
             );
+            const updatedUserCartItem = {
+             id: userCartItem.id,
+              reference: userCartItem.reference,
+              url: userCartItem.url[0],
+              name: userCartItem.name,
+              description:userCartItem.description,
+              price:userCartItem.price,
+              lastPrice: userCartItem.lastPrice,          
+              sale:userCartItem.sale,
+              color: userCartItem.color,
+              selectedSize: userCartItem.selectedSize
+            }
 
             if (existingCartItem) {
-              const updatedUserCartItem = {
-                reference: userCartItem.reference,
-                url: userCartItem.url,
-                name: userCartItem.name,
-                lastPrice: userCartItem.lastPrice,
-                color: userCartItem.color,
-                selectedSize: userCartItem.selectedSize,
+             updatedUserCartItem = {
+               ...updatedUserCartItem,
                 quantity: userCartItem.quantity + 1,
               };
-
               accumulator.push(updatedUserCartItem);
             } else {
               accumulator.push(userCartItem);
@@ -623,19 +624,19 @@ exports.updateUserCartDocument = async (user, cart) => {
           },
           []
         );
-        // console.log("filteredUserCart", filteredUserCart);
+     
         const newUserCart = filteredUserCart.concat(filteredCart);
-        // console.log("newUserCart", newUserCart);
-        await cartRef.update({ cart: newUserCart }, { merge: true });
+        await cartRef.update({ cart: newUserCart },{merge:true});
       }
-      const updatedSnapShot = await cartRef.get();
-      const updatedUserCart = updatedSnapShot.data();
-      //  console.log("updatedUserCart", updatedUserCart.cart);
-      return updatedUserCart.cart;
+    }
     } catch (error) {
       throw new Error(error);
     }
   }
+    const updatedSnapShot = await cartRef.get();
+    const updatedUserCart = updatedSnapShot.data();
+    // console.log("updatedUserCart", updatedUserCart.cart);
+      return updatedUserCart.cart;
 };
 
 exports.updateUserWishlistDocument = async (user, wishlist) => {
@@ -651,57 +652,293 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
       if (wishlist.length > 0) {
         await wishlistRef.set({ wishlist: wishlist });
       }
-      return wishlist;
+
     } catch (error) {
       throw new Error(error);
     }
-    //if document exists
+
   } else {
     try {
       const userWishlist = snapShot.data();
       const oldUserWishlist = userWishlist.wishlist;
-      // console.log("oldUserWishlist", oldUserWishlist);
-
-      //if wishlist is empty and userWishlist is not empty
-      if (wishlist.length === 0 && oldUserWishlist.length > 0) {
-        return oldUserWishlist;
-      }
-      //if userWishlist is empty
-      else if (oldUserWishlist.length === 0) {
+  
+      if (wishlist.length > 0){ 
+        
+        if( oldUserWishlist.length === 0) {
         await wishlistRef.set({ wishlist: wishlist });
-        return wishlist;
-      }
-      //if wishlist is not empty and userWishlist is not empty
-      else if (wishlist.length > 0 && oldUserWishlist.length > 0) {
-        // console.log("he hecho merge");
+        }
+  
+      else {
         const filteredWishlist = wishlist.reduce(
           (accumulator, wishlistItem) => {
             const existingWishlistItem = oldUserWishlist.some(
               (userWishlistItem) =>
-                userWishlistItem.id === wishlistItem.id
-               
+                userWishlistItem.id === wishlistItem.id 
             );
-
-            // console.log("existingWishlistItem", existingWishlistItem);
             if (!existingWishlistItem) {
               accumulator.push(wishlistItem);
             }
-            // console.log("accumulator", accumulator);
             return accumulator;
           },
           []
         );
 
         const newUserWishlist = oldUserWishlist.concat(filteredWishlist);
-        // console.log("newUserWishlist", newUserWishlist);
+    
         await wishlistRef.update(
           { wishlist: newUserWishlist },
           { merge: true }
         );
       }
+    }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  const updatedSnapShot = await wishlistRef.get();
+  const updatedUserWishlist = updatedSnapShot.data();
+ 
+  return updatedUserWishlist.wishlist;
+};
+
+exports.addItemToUserCartDocument = async (itemToAdd,selectedSize, user) => {
+
+  if (!user || !itemToAdd) return;
+
+  const { id} = itemToAdd;
+  const cartRef = firestore.doc(`carts/${user.uid}`);
+  const snapShot = await cartRef.get();
+
+  const shortItem={
+    id: itemToAdd.id,
+    reference: itemToAdd.reference,
+    url: itemToAdd.url[0],
+    name: itemToAdd.name,
+    description:itemToAdd.description,
+    price:itemToAdd.price,
+    lastPrice: itemToAdd.lastPrice,          
+    sale:itemToAdd.sale,
+    color: itemToAdd.color,
+    selectedSize: selectedSize,
+    quantity: 1,
+  };
+
+  let updatedCart=[];
+
+  if (!snapShot.exists) {
+    try {
+   
+      updatedCart.push(shortItem);
+      await cartRef.set({ cart:updatedCart });
+
+    } catch (error) {
+      throw new Error(error);
+    }
+
+} else {
+  try{
+      const userCart = snapShot.data();
+      const oldUserCart = userCart.cart;
+  
+      if (oldUserCart.length === 0) {
+        updatedCart.push(shortItem);
+        await cartRef.set({ cart: updatedCart});
+      }
+      else {
+        const existingCartItem =
+        oldUserCart.find(
+          (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
+        );
+
+       if (existingCartItem) {
+        updatedCart= oldUserCart.map((cartItem) =>{
+       return (cartItem.id === id && cartItem.selectedSize === selectedSize)
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+              }
+            : cartItem
+            });
+          }
+        else{
+         updatedCart=[...oldUserCart, shortItem];
+        }
+        await cartRef.set({ cart: updatedCart });
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+    const updatedSnapShot = await cartRef.get();
+    const updatedUserCart = updatedSnapShot.data();
+    return updatedUserCart.cart;
+};
+
+exports.removeItemFromUserCartDocument = async (itemToRemove,user) => {
+  if (!user || !itemToRemove) return;
+
+  const { id, selectedSize } = itemToRemove;
+
+  const cartRef = firestore.doc(`carts/${user.uid}`);
+  const snapShot = await cartRef.get();
+
+  if (!snapShot.exists) {
+      throw new Error(error);
+  } else {
+    try {
+
+      const userCart = snapShot.data();
+      const oldUserCart = userCart.cart;
+
+      const existingCartItem = oldUserCart.find(
+        (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
+      );
+    
+      let updatedCart=[];
+      
+      if (existingCartItem){
+      if (existingCartItem.quantity > 1) {
+        updatedCart=oldUserCart.map((cartItem) =>
+          cartItem.id === id && cartItem.selectedSize === selectedSize
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        );
+      } else {
+      updatedCart= oldUserCart.filter(
+          (cartItem) =>
+            cartItem.id !== id ||
+            (cartItem.id === id && cartItem.selectedSize !== selectedSize)
+        );
+      }
+    }
+    if (!existingCartItem){
+      updatedCart= [...oldUserCart];
+    }
+   
+      await cartRef.set({ cart: updatedCart });
+      const updatedSnapShot = await cartRef.get();
+      const updatedUserCart = updatedSnapShot.data();
+
+      return updatedUserCart.cart;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+};
+
+exports.clearItemFromUserCartDocument = async (itemToRemove,user) => {
+
+  if (!user || !itemToRemove) return;
+
+  const { id, selectedSize } = itemToRemove;
+
+  const cartRef = firestore.doc(`carts/${user.uid}`);
+  const snapShot = await cartRef.get();
+
+  if (!snapShot.exists) {
+      throw new Error(error);
+  } else {
+    try {
+
+      const userCart = snapShot.data();
+      const oldUserCart = userCart.cart;
+
+ 
+      updatedCart= oldUserCart.filter(
+          (cartItem) =>
+            cartItem.id !== id ||
+            (cartItem.id === id && cartItem.selectedSize !== selectedSize)
+        );
+   
+      await cartRef.set({ cart: updatedCart });
+      const updatedSnapShot = await cartRef.get();
+      const updatedUserCart = updatedSnapShot.data();
+  
+      return updatedUserCart.cart;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+};
+
+exports.toggleItemFromWishlistDocument = async (item, user) => {
+
+  if (!user || !item) return;
+
+  const { id} = item;
+  const wishlistRef = firestore.doc(`wishlists/${user.uid}`);
+  const snapShot = await wishlistRef.get();
+
+  let updatedWishlist=[];
+
+  if (!snapShot.exists) {
+    try {
+   
+      updatedWishlist.push(item);
+      await wishlistRef.set({ wishlist:updatedWishlist });
+
+    } catch (error) {
+      throw new Error(error);
+    }
+
+} else {
+  try{
+      const userWishlist = snapShot.data();
+      const oldUserWishlist = userWishlist.wishlist;
+  
+      if (oldUserWishlist.length === 0) {
+        updatedWishlist.push(item);
+        await wishlistRef.set({ wishlist:updatedWishlist});
+      }
+      else {
+        const existingWishlistItem =
+        oldUserWishlist.find(
+          (wishlistItem) => wishlistItem.id === id
+        );
+
+       if (existingWishlistItem) {
+        updatedWishlist= oldUserWishlist.filter(wishlistItem=> wishlistItem.id!==id);
+          }
+        else {
+         updatedWishlist=[...oldUserWishlist,item];
+        }
+        await wishlistRef.set({ wishlist:updatedWishlist});
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+    const updatedSnapShot = await wishlistRef.get();
+    const updatedUserWishlist = updatedSnapShot.data();
+    return updatedUserWishlist.wishlist;
+};
+
+exports.removeItemFromUserWishlistDocument = async (itemToRemove,user) => {
+
+  if (!user || !itemToRemove) return;
+
+  const { id} = itemToRemove;
+
+  const wishlistRef = firestore.doc(`wishlists/${user.uid}`);
+  const snapShot = await wishlistRef.get();
+
+  if (!snapShot.exists) {
+      throw new Error(error);
+  } else {
+    try {
+
+      const userWishlist = snapShot.data();
+      const oldUserWishlist = userWishlist.wishlist;
+
+ 
+      updatedWishlist= oldUserWishlist.filter(
+          (wishlistItem) =>
+            wishlistItem.id !== id);
+   
+      await wishlistRef.set({ wishlist: updatedWishlist });
       const updatedSnapShot = await wishlistRef.get();
       const updatedUserWishlist = updatedSnapShot.data();
-      // console.log("updatedUserWishlist", updatedUserWishlist);
+  
       return updatedUserWishlist.wishlist;
     } catch (error) {
       throw new Error(error);

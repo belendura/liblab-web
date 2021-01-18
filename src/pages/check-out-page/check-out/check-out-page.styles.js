@@ -20,7 +20,8 @@ export const CartContainer = styled.div`
   flex-direction: column;
   align-items:space-between;
   width:100%;
-
+  margin: 10px 0;
+border-bottom: 1px solid grey;
 `;
 
 export const Header = styled.header`
@@ -28,7 +29,7 @@ export const Header = styled.header`
   justify-content:space-between;
   align-items:center;
   margin-bottom: 10px;
-border: thin solid black; 
+${'' /* border: thin solid black;  */}
 text-align:center;
 `;
 
@@ -55,3 +56,21 @@ export const Empty = styled.span`
 font-size:12px;
 text-align: center;
 `;
+
+export const Total = styled.span`
+font-size:12px;
+text-transform:uppercase;
+font-weight:bold;
+margin-left: auto;
+padding:5px;
+`;
+
+
+export const PaymentExtras = styled.div`
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  border:thin solid black;
+`;
+

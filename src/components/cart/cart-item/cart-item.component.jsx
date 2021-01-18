@@ -1,7 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector,shallowEqual } from "react-redux";
 
-// import { addItemToFirestore, removeItemFromFirestore } from "../../../redux/actions/cart.actions";
+import {selectCurrentUser} from "../../../redux/selectors/user.selectors";
+import { addItem, removeItem } from "../../../redux/actions/cart.actions";
 import {
   Container,
   PictureContainer,
@@ -27,10 +28,9 @@ const CartItem = ({ item }) => {
     selectedSize,
   } = item;
   const dispatch = useDispatch();
+  const user=useSelector(selectCurrentUser,shallowEqual);
   return (
-    <Container>{
-      console.log("item",item)
-    }
+    <Container>
       <PictureContainer>
         <Picture src={url} alt="Name" />
       </PictureContainer>
@@ -39,11 +39,11 @@ const CartItem = ({ item }) => {
           <Details>{color.name}</Details>
           <Details>{selectedSize}</Details>
           <QuantityContainer>
-            <QuantitySymbol onClick={() => console.log("Add Item to FIRESTORE")}>
+            <QuantitySymbol onClick={() => dispatch(addItem(item,selectedSize,user))}>
               &#43;
             </QuantitySymbol>
             <Details>{quantity}</Details>
-            <QuantitySymbol onClick={() => console.log("Remove Item from FIRESTORE")}>
+            <QuantitySymbol onClick={() => dispatch(removeItem(item,user))}>
               &#45;
             </QuantitySymbol>
           </QuantityContainer>

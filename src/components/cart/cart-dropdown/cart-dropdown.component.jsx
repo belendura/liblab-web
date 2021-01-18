@@ -9,6 +9,9 @@ import {
   selectCartItemsCount,
   selectCartTotal,
 } from "../../../redux/selectors/cart.selectors";
+import {
+  selectCurrentUser
+} from "../../../redux/selectors/user.selectors";
 
 import CartDropDownItem from "../cart-dropdown-item/cart-dropdown-item.component";
 import CustomButton from "../../custom-button/custom-button.component";
@@ -31,6 +34,7 @@ const CartDropDown = () => {
   const cartItems = useSelector(selectCartItems, shallowEqual);
   const cartTotal = useSelector(selectCartTotal, shallowEqual);
   const cartItemsCount = useSelector(selectCartItemsCount, shallowEqual);
+  const user = useSelector(selectCurrentUser, shallowEqual);
 
   return (
     <Container>
@@ -42,7 +46,7 @@ const CartDropDown = () => {
       ) : null}
       <ItemsContainer>
         {cartItems && cartItems.length ? (
-          cartItems.map((item, index) => <CartDropDownItem key={index} item={item} />)
+          cartItems.map((item, index) => <CartDropDownItem key={index} item={item} user={user} />)
         ) : (
           <Empty>Your cart is Empty</Empty>
         )} 

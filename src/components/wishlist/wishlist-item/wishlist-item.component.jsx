@@ -3,10 +3,11 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
 import { selectCartHidden } from "../../../redux/selectors/cart.selectors";
+import { selectCurrentUser } from "../../../redux/selectors/user.selectors";
 
 import { removeItemFromWishlist } from "../../../redux/actions/wishlist.actions";
 import {
-  addItemFromWishlist,
+  addItem,
   displayCart,
 } from "../../../redux/actions/cart.actions";
 import { openModal } from "../../../redux/actions/modal.actions";
@@ -44,6 +45,7 @@ const WishlistItem = ({ item }) => {
   );
 
   const cartHidden = useSelector(selectCartHidden, shallowEqual);
+  const user = useSelector(selectCurrentUser, shallowEqual);
 
   const {
     url,
@@ -120,13 +122,14 @@ const WishlistItem = ({ item }) => {
               const text = "Please select size!";
               !wishlistItem.selectedSize && setVisibility(true);
               if (wishlistItem.selectedSize) {
-                dispatch(addItemFromWishlist(item));
+                dispatch(addItem(item,wishlistItem.selectedSize,user));
                 cartHidden && dispatch(displayCart());
               } else if (availableUnits>0){
                 dispatch(
                   openModal("WISHLIST_SELECT_SIZE", {
                     text,
                     item,
+                    user
                   })
                 );
               }

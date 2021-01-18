@@ -8,19 +8,9 @@ export const displayCart = () => ({
   type: cartActionTypes.DISPLAY_CART,
 });
 
-export const addItemFromDropupOrCart= (item, size) => ({
-  type: cartActionTypes.ADD_ITEM_FROM_DROPUP_OR_CART,
-  payload: { item, size },
-});
-
-export const addItem = (item) => ({
+export const addItem = (item,selectedSize,user) => ({
   type: cartActionTypes.ADD_ITEM,
-  payload: item,
-});
-
-export const addItemFromWishlist = (item) => ({
-  type: cartActionTypes.ADD_ITEM_FROM_WISHLIST,
-  payload: item,
+  payload: {item,selectedSize, user}
 });
 
 export const selectSize = (item) => ({
@@ -32,9 +22,14 @@ export const clearSize = () => ({
   type: cartActionTypes.CLEAR_SIZE,
 });
 
-export const removeItem = (item) => ({
+export const removeItem = (item,user) => ({
   type: cartActionTypes.REMOVE_ITEM,
-  payload: item,
+  payload: {item,user }
+});
+
+export const clearItemFromCart= (item,user) =>({
+  type: cartActionTypes.CLEAR_ITEM_FROM_CART,
+  payload:{item,user}
 });
 
 export const clearCart = () => ({
@@ -51,7 +46,12 @@ export const updateCartFailure = (error) => ({
   payload: error,
 });
 
-// export const clearItemFromCart = (item) => ({
-//   type: cartActionTypes.CLEAR_ITEM_FROM_CART,
-//   payload: item,
-// });
+export const updateCartFromCheckOutSuccess = (updatedCart) => ({
+  type: cartActionTypes.UPDATE_CART_FROM_CHECKOUT_SUCCESS,
+  payload: updatedCart,
+});
+
+export const updateCartFromCheckOutFailure = (error) => ({
+  type: cartActionTypes.UPDATE_CART_FROM_CHECKOUT_FAILURE,
+  payload: error,
+});

@@ -26,6 +26,8 @@ const {
 const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
 
 const { postSizeRequest} = require("./handlers/shop-management");
+const {addItemToUserCart, removeItemFromUserCart, clearItemFromUserCart} = require("./handlers/cart-management");
+const {toggleItemFromWishlist, removeItemFromUserWishlist} = require("./handlers/wishlist-management");
 
 const {
   checkIfAuthenticated,
@@ -70,5 +72,15 @@ app.post("/search", fetchSearch);
 app.post("/pictures/:pictures", fetchPictures);
 
 app.post("/request-item/", checkIfAuthenticated, postSizeRequest);
+
+app.post("/addItem", addItemToUserCart);
+
+app.post("/removeItem", removeItemFromUserCart);
+
+app.post("/clearItem", clearItemFromUserCart);
+
+app.post("/toggleWishlisItem", toggleItemFromWishlist);
+
+app.post("/removeWishlistItem", removeItemFromUserWishlist);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

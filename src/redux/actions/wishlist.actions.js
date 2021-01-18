@@ -28,3 +28,13 @@ export const updateWishlistFailure = (error) => ({
   type: wishlistActionTypes.UPDATE_WISHLIST_FAILURE,
   payload: error,
 });
+
+export const updateWishlistFromCheckOutSuccess = (updatedWishlist) => ({
+  type: wishlistActionTypes.UPDATE_WISHLIST_FROM_CHECKOUT_SUCCESS,
+  payload: updatedWishlist,
+});
+
+export const updateWishlistFromCheckOutFailure = (error) => ({
+  type: wishlistActionTypes.UPDATE_WISHLIST_FROM_CHECKOUT_FAILURE,
+  payload: error,
+});

@@ -14,7 +14,9 @@ import {
   selectCartHidden,
   selectSizeItem,
 } from "../../../../redux/selectors/cart.selectors";
-
+import {
+  selectCurrentUser,
+} from "../../../../redux/selectors/user.selectors";
 
 import Circle from "../../../circle/circle.component";
 import CustomButton from "../../../custom-button/custom-button.component";
@@ -85,8 +87,8 @@ const ShopItemData = ({ collection, section, item }) => {
     shallowEqual
   );
 
-  const selectedSize = useSelector(selectSizeItem, shallowEqual);
-
+   const selectedSize = useSelector(selectSizeItem, shallowEqual);
+  const user = useSelector(selectCurrentUser, shallowEqual);
   return (
     <Container>
       {collection ? (
@@ -177,7 +179,7 @@ const ShopItemData = ({ collection, section, item }) => {
           onClick={() => {
             const text = "Please select size!";
             if (selectedSize) {
-              dispatch(addItem(item, selectedSize));
+              dispatch(addItem(item, selectedSize,user));
               selectedCartDropdownHidden && dispatch(toggleCartHidden());
             } else dispatch(openModal("ALERTS", { text }));
           }}

@@ -91,9 +91,6 @@ function App() {
 
   return (
     <Fragment>
-    {
-      console.log("showModal",showModal)
-    }
       <GlobalStyle />
       <Ticker />
       <Header />

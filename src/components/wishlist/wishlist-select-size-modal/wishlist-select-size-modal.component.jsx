@@ -6,7 +6,7 @@ import { closeModal } from "../../../redux/actions/modal.actions";
 import {fetchSizesGuideStart } from "../../../redux/actions/sizes-guide.actions";
 import {
   displayCart,
-  addItemFromWishlist,
+  addItem,
 } from "../../../redux/actions/cart.actions";
 
 import SelectSize from "../../select-size/select-size.component";
@@ -21,7 +21,7 @@ import {
   SizesGuideContainer,
 } from "./wishlist-select-size-modal.styles.js";
 
-const WishlistSelectSizeModal = ({ text, item }) => {
+const WishlistSelectSizeModal = ({ text, item,user }) => {
   const [selectSizeVisible, setSelectSizeVisible] = useState(false);
   const dispatch = useDispatch();
   const wishlistItem = useSelector((state) =>
@@ -57,7 +57,7 @@ const WishlistSelectSizeModal = ({ text, item }) => {
         color="standard"
         onClick={() => {
           if (wishlistItem.selectedSize) {
-            dispatch(addItemFromWishlist(wishlistItem));
+            dispatch(addItem(wishlistItem,wishlistItem.selectedSize,user));
             dispatch(displayCart());
           }
           dispatch(closeModal());

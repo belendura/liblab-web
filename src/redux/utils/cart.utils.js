@@ -10,7 +10,7 @@ export const addItemToCart = (cartItems, cartItemToAdd, selectedSize) => {
     lastPrice,
     color,
   } = cartItemToAdd;
-
+console.log("selectedSize",selectedSize);
 
   const existingCartItem =
     cartItems.length &&

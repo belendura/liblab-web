@@ -22,7 +22,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
- border: thin solid black; 
+ ${'' /* border: thin solid black;  */}
 `;
 
 export const PictureContainer = styled.div`

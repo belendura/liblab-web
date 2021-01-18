@@ -29,8 +29,8 @@ const WishlistSelectSizeModal = React.lazy(() =>
   )
 );
 
-const ShippingInfo = React.lazy(() =>
-  import("../shipping-info/shipping-info.component")
+const ShippingTerms = React.lazy(() =>
+  import("../shipping-terms/shipping-terms.component")
 );
 
 const ExtendedView = React.lazy(() =>
@@ -42,7 +42,7 @@ const ExtendedView = React.lazy(() =>
 const MODALS = {
   ALERTS: Alerts,
   // SIZES_GUIDE: SizesGuideModal,
-  SHIPPING_INFO: ShippingInfo,
+  SHIPPING_TERMS: ShippingTerms,
   REQUEST_ITEM: RequestItemModal,
   EXTENDED_VIEW: ExtendedView,
   WISHLIST_SELECT_SIZE: WishlistSelectSizeModal,

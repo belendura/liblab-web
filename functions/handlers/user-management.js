@@ -3,7 +3,7 @@ const { auth } = require("../helpers/firebase");
 const {
   createUserDocument,
   getUserDocument,
-  updateUserCartDocument,
+  mergeUserCartDocument,
   updateUserWishlistDocument,
 } = require("../helpers/firestore");
 
@@ -79,11 +79,11 @@ exports.logInWithGoogle = async (req, res) => {
 // console.log("req",req.body);
   try {
     const userData = await createUserDocument(user);
- console.log("userData",userData);
-    const updatedCart = await updateUserCartDocument(userData, cart);
-     console.log("updatedCart",updatedCart.length);
+  
+    const updatedCart = await mergeUserCartDocument(userData, cart);
+ 
      const updatedWishlist = await updateUserWishlistDocument(userData, wishlist);
-     console.log("updatedWishlist",updatedWishlist.length);
+  
     return res.status(200).json({userData, updatedCart, updatedWishlist});
   } catch (error) {
     return res.status(500).send(`Error Google login ${error}`);
