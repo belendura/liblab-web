@@ -18,7 +18,7 @@ exports.removeItemFromUserWishlist = async (req, res) => {
   const { item, user } = req.body;
   try {
     const wishlist = await removeItemFromUserWishlistDocument(item, user);
-    return res.status(200).json(Wishlist);
+    return res.status(200).json(wishlist);
   } catch (error) {
     return res.status(400).send(error);
   }

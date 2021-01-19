@@ -46,6 +46,7 @@ export const PictureContainer = styled.div`
   height: 0;
   padding-top: 128.28%;
   overflow: hidden;
+  cursor:pointer;
 `;
 
 export const Picture = styled.img`

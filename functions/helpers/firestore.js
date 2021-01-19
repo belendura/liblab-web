@@ -327,8 +327,8 @@ exports.getCollectionsByConditionDocuments = async (condition) => {
             return queryItems;
           });
       }))
-    
-
+    // console.log("queryItems in getCollectionsByConditionDocuments",queryItems);
+//Se puede hacer un flat?
     const collectionsItems = queryItems.reduce((accum, item) => {
       return [...accum, ...item];
     }, []);
@@ -549,7 +549,7 @@ return await colRef
   }
 };
 
-exports.mergeUserwishlistDocument = async (user, cart) => {
+exports.updateUserCartDocument = async (user, cart) => {
   if (!user) return cart;
 
   const cartRef = firestore.doc(`carts/${user.uid}`);
@@ -559,9 +559,9 @@ exports.mergeUserwishlistDocument = async (user, cart) => {
 
   if (!snapShot.exists) {
     try {
-      if (cart.length > 0) {
+      // if (cart.length > 0) {
         await cartRef.set({ cart: cart });
-      }
+      // }
     } catch (error) {
       throw new Error(error);
     }
@@ -646,12 +646,14 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
 
   const snapShot = await wishlistRef.get();
 
-  //if document does not exist
+
+
   if (!snapShot.exists) {
+ 
     try {
-      if (wishlist.length > 0) {
+      // if (wishlist.length > 0) {
         await wishlistRef.set({ wishlist: wishlist });
-      }
+      // }
 
     } catch (error) {
       throw new Error(error);
@@ -862,7 +864,7 @@ exports.clearItemFromUserCartDocument = async (itemToRemove,user) => {
 };
 
 exports.toggleItemFromWishlistDocument = async (item, user) => {
-
+console
   if (!user || !item) return;
 
   const { id} = item;
@@ -930,15 +932,14 @@ exports.removeItemFromUserWishlistDocument = async (itemToRemove,user) => {
       const userWishlist = snapShot.data();
       const oldUserWishlist = userWishlist.wishlist;
 
- 
-      updatedWishlist= oldUserWishlist.filter(
+  const updatedWishlist= oldUserWishlist.filter(
           (wishlistItem) =>
             wishlistItem.id !== id);
-   
+
       await wishlistRef.set({ wishlist: updatedWishlist });
       const updatedSnapShot = await wishlistRef.get();
       const updatedUserWishlist = updatedSnapShot.data();
-  
+ 
       return updatedUserWishlist.wishlist;
     } catch (error) {
       throw new Error(error);

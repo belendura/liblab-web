@@ -12,13 +12,13 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
     case wishlistActionTypes.TOGGLE_WISHLIST_ITEM:
       return {
         ...state,
-        wishlistItems: updateWishlist(state.wishlistItems, action.payload),
+        wishlistItems: updateWishlist(state.wishlistItems, action.payload.item),
       };
     case wishlistActionTypes.REMOVE_ITEM_FROM_WISHLIST:
       return {
         ...state,
         wishlistItems: state.wishlistItems.filter((item) => {
-          return item.id !== action.payload.id;
+          return item.id !== action.payload.item.id;
         }),
       };
     case wishlistActionTypes.SELECT_SIZE:
@@ -37,6 +37,8 @@ const wishlistReducer = (state = INITIAL_STATE, action) => {
         wishlistItems: [],
       };
     case wishlistActionTypes.UPDATE_WISHLIST_SUCCESS:
+      
+    case wishlistActionTypes.UPDATE_WISHLIST_FROM_CHECKOUT_SUCCESS:
       return {
         ...state,
         wishlistItems: action.payload,

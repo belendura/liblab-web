@@ -76,7 +76,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
     case collectionsActionTypes.TOGGLE_SECTION_WISHLIST:
       return {
         ...state,
-        section: toggleSectionWishlist(state.section, action.payload),
+        section: toggleSectionWishlist(state.section, action.payload.item),
       };
     case collectionsActionTypes.FILTER_COLORS:
       return { ...state, filteredColors: action.payload, error: null };

@@ -1,13 +1,13 @@
 import wishlistActionTypes from "../types/wishlist.types";
 
-export const toggleWishlistItem = (item) => ({
+export const toggleWishlistItem = (item,user) => ({
   type: wishlistActionTypes.TOGGLE_WISHLIST_ITEM,
-  payload: item,
+  payload: {item,user}
 });
 
-export const removeItemFromWishlist = (item) => ({
+export const removeItemFromWishlist = (item,user) => ({
   type: wishlistActionTypes.REMOVE_ITEM_FROM_WISHLIST,
-  payload: item,
+  payload: {item,user }
 });
 
 export const selectSize = (item, size) => ({

@@ -14,14 +14,16 @@ import {
   updateWishlistFromCheckOutFailure
 } from "../actions/wishlist.actions";
 
-export function* addToWishlist({ payload }) {
-  yield put(toggleWishlistItem(payload));
+export function* toggleWishlist({ payload }) {
+  const{ item,user}=payload;
+  yield put(toggleWishlistItem(item,user));
 }
 
 export function* onToggleSectionWishlist() {
+
   yield takeLatest(
     collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
-    addToWishlist
+   toggleWishlist
   );
 }
 
@@ -42,7 +44,7 @@ export function* onAddItem() {
   yield takeLatest(cartActionTypes.ADD_ITEM, removeItem);
 }
 
-export function* toggleWishlist({payload}) {
+export function* toggleUserWishlist({payload}) {
   const {item,user}=payload;
     try {
       if (user!==null && user!==undefined){
@@ -55,7 +57,7 @@ export function* toggleWishlist({payload}) {
   }
   
   export function* onToggleWishlistItem() {
-    yield takeLatest(wishlistActionTypes.TOGGLE_WISHLIST_ITEM, toggleWishlist);
+    yield takeLatest(wishlistActionTypes.TOGGLE_WISHLIST_ITEM, toggleUserWishlist);
   }
   
   export function* removeItemFromUserWishlist({payload}) {

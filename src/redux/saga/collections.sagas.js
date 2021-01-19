@@ -52,7 +52,7 @@ export function* fetchCollectionsByCondition({ payload }) {
 
   try {
     const response = yield axiosConfig.get(
-      `/shop/featured/${toServerEnumerate[condition.replace(" ", "")]}`, {params:{}}
+      `/shop/featured/${toServerEnumerate[condition]}`, {params:{}}
     );
     const { collectionsItems, pictures } = response.data;
     const updatedSectionWishlist = updateSectionWishlist(

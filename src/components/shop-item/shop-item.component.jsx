@@ -31,7 +31,7 @@ import {
 
 const ShopItem = ({ initialColor, reference, params }) => {
   const history = useHistory();
-  const { collection, section, condition } = params;
+  const { collection, condition } = params;
 
   const [visibility, setVisibility] = useState(false);
   const [displayedView, setDisplayedView] = useState(0);
@@ -49,6 +49,7 @@ const ShopItem = ({ initialColor, reference, params }) => {
 
   const {
     url,
+    section,
     color,
     description,
     price,

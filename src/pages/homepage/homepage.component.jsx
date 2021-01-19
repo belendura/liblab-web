@@ -37,7 +37,7 @@ const HomePage = () => {
   const section = useSelector(selectSection, shallowEqual);
 
   useEffect(() => {
-    dispatch(fetchCollectionsByConditionStart("best sellers", wishlistItems));
+    dispatch(fetchCollectionsByConditionStart("bestsellers", wishlistItems));
   }, [fetchCollectionsByConditionStart, wishlistItems]);
 
   useEffect(() => {

@@ -193,9 +193,9 @@ export const setGridView = () => ({
   type: collectionsActionTypes.SET_GRID_VIEW,
 });
 
-export const toggleSectionWishlist = (item) => ({
+export const toggleSectionWishlist = (item,user) => ({
   type: collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
-  payload: item,
+  payload:{item,user}
 });
 
 export const clearSection = () => ({

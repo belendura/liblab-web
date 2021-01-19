@@ -17,7 +17,7 @@ const user=useSelector(selectCurrentUser,shallowEqual);
       size={size}
       onClick={() => {
         setSelected(!selected);
-        dispatch(toggleSectionWishlist(item,user));
+       dispatch(toggleSectionWishlist(item,user));
       }}
     />
   ) : (
@@ -26,7 +26,7 @@ const user=useSelector(selectCurrentUser,shallowEqual);
       size={size}
       onClick={() => {
         setSelected(!selected);
-        dispatch(toggleSectionWishlist(item,user));
+         dispatch(toggleSectionWishlist(item,user));
       }}
     />
   );

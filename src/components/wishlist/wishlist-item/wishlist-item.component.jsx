@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import {useHistory} from "react-router-dom";
 
 import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
 import { selectCartHidden } from "../../../redux/selectors/cart.selectors";
@@ -39,6 +40,7 @@ const WishlistItem = ({ item }) => {
   const [visibility, setVisibility] = useState(false);
 
   const dispatch = useDispatch();
+  const history=useHistory();
 
   const wishlistItem = useSelector((state) =>
     selectWishlistItem(state, item, shallowEqual)
@@ -48,6 +50,9 @@ const WishlistItem = ({ item }) => {
   const user = useSelector(selectCurrentUser, shallowEqual);
 
   const {
+    collection,
+    section,
+    reference,
     url,
     name,
     description,
@@ -66,6 +71,11 @@ const WishlistItem = ({ item }) => {
       <PictureContainer>
         <Picture
           url={url[0]}
+          onClick={() =>
+            history.push(
+              `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
+            )            
+          }
           onMouseEnter={() => setVisibility(true)}
           onMouseLeave={() => setVisibility(false)}
         >
@@ -91,7 +101,7 @@ const WishlistItem = ({ item }) => {
         <FooterUpper>
         <Name>{name}</Name>
           <BasketContainer>
-            <Basket onClick={() => dispatch(removeItemFromWishlist(item))} />
+            <Basket onClick={() => dispatch(removeItemFromWishlist(item,user))} />
           </BasketContainer>
         </FooterUpper>
         <FooterBottom>

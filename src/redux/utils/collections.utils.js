@@ -59,8 +59,7 @@ export const updateSectionWishlist = (section, wishlistItems) => {
     wishlistItems.length &&
       wishlistItems.map((wishlistItem) => {
         if (
-          wishlistItem.name === sectionItem.name &&
-          wishlistItem.color.name === sectionItem.color.name
+          wishlistItem.id === sectionItem.id
         ) {
           return (sectionItem.wishlist = true);
         }
@@ -76,8 +75,7 @@ export const updateSectionWishlist = (section, wishlistItems) => {
 export const toggleSectionWishlist = (section, item) => {
   const newSection = section.map((sectionItem) => {
     if (
-      sectionItem.reference === item.reference &&
-      sectionItem.color === item.color
+      sectionItem.id === item.id
     )
       sectionItem.wishlist = !sectionItem.wishlist;
 

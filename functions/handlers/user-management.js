@@ -3,7 +3,7 @@ const { auth } = require("../helpers/firebase");
 const {
   createUserDocument,
   getUserDocument,
-  mergeUserCartDocument,
+  updateUserCartDocument,
   updateUserWishlistDocument,
 } = require("../helpers/firestore");
 
@@ -76,11 +76,11 @@ exports.logInWithEmailAndPassword = async (req, res) => {
 //LogIn with Google
 exports.logInWithGoogle = async (req, res) => {
   const { user, cart, wishlist } = req.body;
-// console.log("req",req.body);
+
   try {
     const userData = await createUserDocument(user);
   
-    const updatedCart = await mergeUserCartDocument(userData, cart);
+    const updatedCart = await updateUserCartDocument(userData, cart);
  
      const updatedWishlist = await updateUserWishlistDocument(userData, wishlist);
   
