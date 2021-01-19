@@ -72,6 +72,7 @@ const ShopItemData = ({ collection, section, item }) => {
     details,
     fabric,
     care,
+    url,
   } = item;
 
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -80,7 +81,7 @@ const ShopItemData = ({ collection, section, item }) => {
 
   useEffect(() => {
     dispatch(clearSize());
-  }, []);
+  }, [dispatch]);
 
   const selectedCartDropdownHidden = useSelector(
     selectCartHidden,
@@ -206,7 +207,7 @@ const ShopItemData = ({ collection, section, item }) => {
         />
       </DetailsContainer>
       <Share>
-        <ShareMenu />
+        <ShareMenu image={url[0]}/>
       </Share>
     </Container>
   );

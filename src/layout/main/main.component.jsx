@@ -89,6 +89,7 @@ const WishlistPage = React.lazy(() =>
   import("../../pages/wishlist-page/wishlist-page.component")
 );
 
+const TestPage = React.lazy(() => import('../../pages/test-page'))
 
 const Main = () => {
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
@@ -107,7 +108,7 @@ const Main = () => {
             path="/shop/featured/:condition"
             component={ShopPageCollectionsByCondition}
           />
-        
+
           <Route
             exact
             path="/shop/:collection/featured/:condition"
@@ -127,7 +128,7 @@ const Main = () => {
             path="/shop/:condition/:description&:reference/:color"
             component={ShopItemPageCollectionsByCondition}
           />
-          <Route exact path="/shop/:collection/:section" component={ShopPage} />   
+          <Route exact path="/shop/:collection/:section" component={ShopPage} />
           <Route exact path="/search" component={SearchPage} />
           <Route
             exact
@@ -162,7 +163,7 @@ const Main = () => {
           <Route exact path="/user" render={() =>
               !currentUser ? (
                 <Redirect to="/" />
-              
+
               ) : (
                 <UserPage/>
               )
@@ -170,27 +171,29 @@ const Main = () => {
               <Route exact path="/user/profile"  render={() =>
               !currentUser ? (
                 <Redirect to="/" />
-              
+
               ) : (
                 <UserProfilePage/>
               )
             } />
               <Route exact path="/user/my-purchases"  render={()=>!currentUser ? (
                 <Redirect to="/" />
-              
+
               ) : (
                 <UserPurchasesPage/>
               )
             }  />
               <Route exact path="/user/wishlist"  render={()=>!currentUser ? (
                 <Redirect to="/" />
-              
+
               ) : (
                 <UserWishlistPage/>
               )
             }   />
           <Route exact path="/checkout/shipping" component={CheckOutPage} />
           <Route exact path="/wishlist" component={WishlistPage} />
+          <Route exact path='/test/:collection' component={TestPage} />
+          <Route exact path='/test/:collection/:section' component={TestPage} />
         </Suspense>
       </Switch>
     </Container>

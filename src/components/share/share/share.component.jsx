@@ -1,4 +1,5 @@
 import React from "react";
+import {useLocation} from "react-router-dom"
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -12,27 +13,27 @@ import {
 
 import { Container } from "./share.styles";
 
-const Share = ({ props }) => {
+const Share = ({ image }) => {
+    const {pathname} = useLocation()
+    const baseUrl = "http://localhost:3000"
   return (
     <Container>
       <FacebookShareButton
-        url={"http://localhost:3000/"}
+        url={`${baseUrl}${pathname}`}
         quote={"LibLab - World is yours to explore"}
         hashtag="#liblab"
-        //className={classes.socialMediaButton}
-      >
+     >
         <FacebookIcon size={20}/>
       </FacebookShareButton>
       <PinterestShareButton
-        media={
-          "https://firebasestorage.googleapis.com/v0/b/liblab-web.appspot.com/o/Collections%2FWomen%2Fw_tops04.jpg?alt=media&token=a2383afc-af8d-4be3-b00e-13f4f07b654e"
-        }
+        media={image}
         description={"By LibLab"}
+        url={`${baseUrl}${pathname}`}
       >
         <PinterestIcon size={20}/>
       </PinterestShareButton>
       <WhatsappShareButton
-         url={"http://localhost:3000/"}
+          url={`${baseUrl}${pathname}`}
         title={"LibLab - World is yours to explore"}
       separator=":: "
       >
@@ -41,9 +42,12 @@ const Share = ({ props }) => {
       <EmailShareButton
         subject={"Liblab"}
         body={
-          "belen.dura@gmail.com http://localhost:3000/shop/women/scrub-tops/DIANA-REFSCW20001BG/sand"
+          "hey check my website"
         }
         separator={" "}
+        url={`${baseUrl}${pathname}`}
+        onClick={() => {}}
+        openShareDialogOnClick
       >
         <EmailIcon size={20}/>
       </EmailShareButton>

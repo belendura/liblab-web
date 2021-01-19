@@ -20,18 +20,30 @@ const {
   fetchItemByCondition,
   fetchItemByConditionOverall,
   fetchPictures,
-  fetchSearch
+  fetchSearch,
 } = require("./handlers/collections-management");
 
 const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
 
-const { postSizeRequest} = require("./handlers/shop-management");
-const {addItemToUserCart, removeItemFromUserCart, clearItemFromUserCart} = require("./handlers/cart-management");
-const {toggleItemFromWishlist, removeItemFromUserWishlist} = require("./handlers/wishlist-management");
+const { postSizeRequest } = require("./handlers/shop-management");
+const {
+  addItemToUserCart,
+  removeItemFromUserCart,
+  clearItemFromUserCart,
+} = require("./handlers/cart-management");
+const {
+  toggleItemFromWishlist,
+  removeItemFromUserWishlist,
+} = require("./handlers/wishlist-management");
 
 const {
   checkIfAuthenticated,
 } = require("../functions/middlewares/authenticate");
+
+const {
+  testCollectionHandler,
+  testSectionHandler,
+} = require("./handlers/test-handler");
 
 const app = express();
 
@@ -59,11 +71,14 @@ app.get("/shop/:collection/featured/:condition", fetchCollectionByCondition);
 
 app.get("/shop/:collection/:section/:reference/:color", fetchItem);
 
-app.get("/shop/:collection/featured/:condition/:reference/:color", fetchItemByCondition);
+app.get(
+  "/shop/:collection/featured/:condition/:reference/:color",
+  fetchItemByCondition
+);
 
 app.get("/shop/:condition/:reference/:color", fetchItemByConditionOverall);
 
- app.get("/shop/:collection/:section", fetchSection);
+app.get("/shop/:collection/:section", fetchSection);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
 
@@ -82,5 +97,9 @@ app.post("/clearItem", clearItemFromUserCart);
 app.post("/toggleWishlisItem", toggleItemFromWishlist);
 
 app.post("/removeWishlistItem", removeItemFromUserWishlist);
+
+app.get("/test/:collection", testCollectionHandler);
+
+app.get("/test/:collection/:section", testSectionHandler);
 
 exports.backendServer = functions.region("europe-west3").https.onRequest(app);

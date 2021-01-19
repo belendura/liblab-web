@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import queryString from "query-string";
 
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
 import { selectSection } from "../../redux/selectors/collections.selectors";
@@ -38,17 +39,36 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchCollectionsByConditionStart("best sellers", wishlistItems));
-  }, [fetchCollectionsByConditionStart, wishlistItems]);
+  }, [dispatch, wishlistItems]);
 
   useEffect(() => {
     dispatch(fetchPicturesStart(["carousel", "collections"]));
-  }, [fetchPicturesStart]);
+  }, [dispatch]);
+
+  const fakeCollection = "women";
+  const fakeSection = "scrub";
+  const labels = {
+    bestSeller: "best-seller",
+    new: "new",
+    sale: "sale",
+  };
+  const query = {
+    labels: `${labels.new},${labels.sale},${labels.bestSeller}`,
+    colors: "red,blue,green",
+  };
+  const buttonUrl = `/test/${fakeCollection}/${fakeSection}?${queryString.stringify(
+    query,
+    {
+      arrayFormat: "comma",
+    }
+  )}`;
 
   return (
     <Container>
       <CarouselContainer>
         <Carousel />
       </CarouselContainer>
+      <button onClick={() => history.push(buttonUrl)}>TestPage</button>
       {section && (
         <BestSellersContainer>
           <BestSellersTitle>
