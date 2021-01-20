@@ -10,8 +10,7 @@ import {
   selectFilteredSection,
   selectAscendingOrder,
   selectDescendingOrder,
-  selectGridView,
-  selectSection, 
+  selectInPairsView, 
   selectSearchLoaded, 
   selectSearchParams
 } from "../../../redux/selectors/collections.selectors";
@@ -32,7 +31,7 @@ const SearchList = () => {
 
   const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
   const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
-  const gridView = useSelector(selectGridView, shallowEqual);
+  const inPairsView = useSelector(selectInPairsView, shallowEqual);
 
   const filteredSection = useSelector(
     (state) =>
@@ -52,7 +51,7 @@ const SearchList = () => {
     <Container>
     {/* {searchLoaded && <Title>SEARCH RESULTS FOR <span style={{fontWeight:"bold"}}>"{searchParams.toUpperCase()}"</span></Title>} */}
       {(!updatedSection|| updatedSection.length===0) && searchLoaded ?   <Text>Not results found</Text>:(
-        <SearchListContainer  gridView={gridView}>
+        <SearchListContainer  inPairsView={inPairsView}>
           {updatedSection &&  searchLoaded &&   
             updatedSection.filter(item => {
           const searchParamsArray=  searchParams.split(" ")

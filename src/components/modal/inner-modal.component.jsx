@@ -35,7 +35,7 @@ const ShippingTerms = React.lazy(() =>
 
 const ExtendedView = React.lazy(() =>
   import(
-    "../shop-item/shop-item-detailed/extended-view/extended-view.component"
+    "../shop-item/shop-item-extended/extended-view/extended-view.component"
   )
 );
 

@@ -8,7 +8,7 @@ import {
 
 import {clearSection,resetSearchLoaded } from "../../redux/actions/collections.actions"
 
-import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
+import FilterBar from "../../components/filter-bar/filter-bar.component";
 import SearchList from "../../components/search/search-list/search-list.component";
 
 import {
@@ -31,7 +31,7 @@ dispatch(resetSearchLoaded())
   return (
     <Container>
     { searchLoaded && <Title>SEARCH RESULTS FOR <span style={{fontWeight:"bold"}}>"{searchParams.toUpperCase()}"</span></Title>}
-    { searchLoaded && <CollectionFilter /> }
+    { searchLoaded && <FilterBar/> }
        <SearchList/>
     </Container>
   );

@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import queryString from "query-string";
+
+// import { toServerEnumerate } from "../../firebase/collections-enumerate";
 
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
 import { selectSection } from "../../redux/selectors/collections.selectors";
 
 import {
-  fetchCollectionsByConditionStart,
+  fetchShopItemsStart,
   fetchPicturesStart,
 } from "../../redux/actions/collections.actions";
 
@@ -31,18 +34,39 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const title = "Best Sellers";
   const subtitle = "Shop our most wanted items.";
-  const url = "best-sellers";
 
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
   const section = useSelector(selectSection, shallowEqual);
 
+  const collection = "featured";
+
+  const labels = {
+    bestSeller: "best-sellers",
+  };
+
+  const query = {
+    labels: `${labels.bestSeller}`,
+  };
+
+  const pathName=`/shop/${collection}?${queryString.stringify(
+      query,
+      {
+        arrayFormat: "comma",
+      }
+  )}`;
+  const hasSection = !!section || null;
+  
+  const url = hasSection
+  ? `/shop/${collection}/${section}`
+  : `/shop/${collection}`;
+
   useEffect(() => {
-    dispatch(fetchCollectionsByConditionStart("bestsellers", wishlistItems));
-  }, [fetchCollectionsByConditionStart, wishlistItems]);
+    dispatch(fetchShopItemsStart(url, query, wishlistItems));
+  }, [wishlistItems]);
 
   useEffect(() => {
     dispatch(fetchPicturesStart(["carousel", "collections"]));
-  }, [fetchPicturesStart]);
+  }, [dispatch]);                                                                                               
 
   return (
     <Container>
@@ -52,10 +76,10 @@ const HomePage = () => {
       {section && (
         <BestSellersContainer>
           <BestSellersTitle>
-            <CollectionTitle title={title} subtitle={subtitle} url={url} />
+            <CollectionTitle title={title} subtitle={subtitle} url={labels.bestSellers} />
             <CustomButton
               color="standard"
-              onClick={() => history.push(`/shop/${url}`)}
+              onClick={() => history.push(pathName)}
             >
               SHOP NOW
             </CustomButton>

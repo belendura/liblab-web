@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
 import { selectCollectionsPictures } from "../../../redux/selectors/collections.selectors";
-import { fromServerEnumerate } from "../../../firebase/collections-enumerate";
+import { fromServerEnumerate } from "../../../firebase/enumerate";
 
 import CollectionOverview from "../collection-overview/collection-overview.component";
 

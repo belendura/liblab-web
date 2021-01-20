@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
+
 import { setSectionOrder } from "../../../redux/utils/collections.utils";
 
 import {
@@ -10,14 +11,14 @@ import {
   selectFilteredSection,
   selectAscendingOrder,
   selectDescendingOrder,
-  selectGridView,
+  selectInPairsView,
 } from "../../../redux/selectors/collections.selectors";
 
 import ShopItem from "../../shop-item/shop-item.component";
 
 import { Container } from "./collection-list.styles";
 
-const CollectionList = ({ condition, params }) => {
+const CollectionList = ({ labels, params }) => {
   const [updatedSection, setUpdatedSection] = useState(null);
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
@@ -25,7 +26,7 @@ const CollectionList = ({ condition, params }) => {
 
   const ascendingOrder = useSelector(selectAscendingOrder, shallowEqual);
   const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
-  const gridView = useSelector(selectGridView, shallowEqual);
+  const inPairsView = useSelector(selectInPairsView, shallowEqual);
 
   const filteredSection = useSelector(
     (state) =>
@@ -42,12 +43,12 @@ const CollectionList = ({ condition, params }) => {
   }, [filteredSection, ascendingOrder, descendingOrder]);
 
   return (
-    <Container gridView={gridView}>
+    <Container inPairsView={inPairsView}>
       {/* {!updatedSection && <span>No Items found</span>} */}
       {updatedSection &&
         updatedSection
           .filter((item, index) => {
-            return condition === null ? item : item[condition] === true;
+            return labels === undefined ? item : item[labels] === true;
           })
           .map((item, index) => {
             const { color, reference, id } = item;

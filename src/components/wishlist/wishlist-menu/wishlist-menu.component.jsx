@@ -11,7 +11,7 @@ const WishlistMenu = () => {
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
   return (
     <Container onClick={() => history.push("/wishlist")}>
-      {wishlistItems && wishlistItems.length ? <WishlistRed /> : <Wishlist />}
+      {wishlistItems && wishlistItems.length>0? <WishlistRed /> : <Wishlist />}
     </Container>
   );
 };

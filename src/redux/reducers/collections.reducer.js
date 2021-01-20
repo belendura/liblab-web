@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   filteredSizes: [],
   filteredFit: [],
   filteredType: [],
-  gridgridView: false,
+  inPairsView: false,
   ascendingOrder: false,
   descendingOrder: false,
   error: null,
@@ -42,10 +42,10 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: action.payload,
         error: null,
       };
-      case collectionsActionTypes.FETCH_COLLECTION_SUCCESS:
-    case collectionsActionTypes.FETCH_SECTION_SUCCESS:
-    case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
-    case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS:
+      case collectionsActionTypes.FETCH_SHOP_ITEMS_SUCCESS:
+    // case collectionsActionTypes.FETCH_SECTION_SUCCESS:
+    // case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
+    // case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS:
       return {
         ...state,
         section: action.payload.items,
@@ -53,7 +53,7 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
           state.pictures,
           action.payload.sectionPictures
         ),
-        gridView: false,
+        inPairsView: false,
         ascendingOrder: false,
         descendingOrder: false,
         error: null,
@@ -107,22 +107,22 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         descendingOrder: false,
         error: null,
       };
-    case collectionsActionTypes.RESET_GRID_VIEW:
+    case collectionsActionTypes.RESET_IN_PAIRS_VIEW:
       return {
         ...state,
-        gridView: false,
+        inPairsView: false,
         error: null,
       };
-    case collectionsActionTypes.SET_GRID_VIEW:
+    case collectionsActionTypes.SET_IN_PAIRS_VIEW:
       return {
         ...state,
-        gridView: true,
+        inPairsView: true,
         error: null,
       };
-    case collectionsActionTypes.FETCH_COLLECTION_FAILURE:
-    case collectionsActionTypes.FETCH_SECTION_FAILURE:
-    case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE:
-    case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE:
+    case collectionsActionTypes.FETCH_SHOP_ITEMS_FAILURE:
+    // case collectionsActionTypes.FETCH_SECTION_FAILURE:
+    // case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE:
+    // case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE:
       return {
         ...state,
         section: null,

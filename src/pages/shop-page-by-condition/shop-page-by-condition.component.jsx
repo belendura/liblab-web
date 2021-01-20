@@ -7,7 +7,7 @@ import { selectSectionPicture } from "../../redux/selectors/collections.selector
 
 import { fetchCollectionByConditionStart } from "../../redux/actions/collections.actions";
 
-import CollectionFilter from "../../components/collection/collection-filter/collection-filter.component";
+import FilterBar from "../../components/filter-bar/filter-bar.component";
 import CollectionList from "../../components/collection/collection-list/collection-list.component";
 
 import { toServerEnumerate } from "../../firebase/collections-enumerate";
@@ -46,7 +46,7 @@ const ShopPageByCondition = () => {
           <Title>{condition}</Title>
         </TitleContainer>
       </CoverContainer>
-      <CollectionFilter condition={toServerEnumerate[condition.replace(" ", "")]}/>
+      <FilterBar condition={toServerEnumerate[condition.replace(" ", "")]}/>
       <CollectionList
         condition={toServerEnumerate[condition.replace(" ", "")]}
         params={params}

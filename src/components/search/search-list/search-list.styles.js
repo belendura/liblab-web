@@ -13,7 +13,7 @@ export const SearchListContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: ${(props) =>
-    props.gridView
+    props.inPairsView
       ? "repeat(4, minmax(200px, 1fr))"
       : "repeat(2, minmax(200px, 1fr))"};
   object-fit: cover;

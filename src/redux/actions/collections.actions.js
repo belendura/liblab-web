@@ -29,68 +29,70 @@ export const fetchPicturesFailure = (error) => ({
   payload: error,
 });
 
-export const fetchCollectionsByConditionStart = (condition, wishlistItems) => ({
-  type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_START,
-  payload: { condition, wishlistItems },
+// export const fetchCollectionsByConditionStart = (condition, wishlistItems) => ({
+//   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_START,
+//   payload: { condition, wishlistItems },
+// });
+
+// export const fetchCollectionsByConditionSuccess = (items, sectionPictures) => ({
+//   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS,
+//   payload: { items, sectionPictures },
+// });
+
+// export const fetchCollectionsByConditionFailure = (error) => ({
+//   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE,
+//   payload: error,
+// });
+
+// export const fetchCollectionByConditionStart = (
+//   collection,
+//   condition,
+//   wishlistItems
+// ) => ({
+//   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
+//   payload: { collection, condition, wishlistItems },
+// });
+
+// export const fetchCollectionByConditionSuccess = (items, sectionPictures) => ({
+//   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS,
+//   payload: { items, sectionPictures },
+// });
+
+// export const fetchCollectionByConditionFailure = (error) => ({
+//   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE,
+//   payload: error,
+// });
+
+export const fetchShopItemsStart = (url,query, wishlistItems) => ({
+  type: collectionsActionTypes.FETCH_SHOP_ITEMS_START,
+  payload: { url,query, wishlistItems },
 });
 
-export const fetchCollectionsByConditionSuccess = (items, sectionPictures) => ({
-  type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS,
+export const fetchShopItemsSuccess = (items, sectionPictures) => ({
+  type: collectionsActionTypes.FETCH_SHOP_ITEMS_SUCCESS,
   payload: { items, sectionPictures },
 });
 
-export const fetchCollectionsByConditionFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE,
+export const fetchShopItemsFailure = (error) => ({
+  type: collectionsActionTypes.FETCH_SHOP_ITEMS_FAILURE,
   payload: error,
 });
 
-export const fetchCollectionByConditionStart = (
-  collection,
-  condition,
-  wishlistItems
-) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
-  payload: { collection, condition, wishlistItems },
-});
 
-export const fetchCollectionByConditionSuccess = (items, sectionPictures) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS,
-  payload: { items, sectionPictures },
-});
+// export const fetchSectionStart = (collection, section, wishlistItems) => ({
+//   type: collectionsActionTypes.FETCH_SECTION_START,
+//   payload: { collection, section, wishlistItems },
+// });
 
-export const fetchCollectionByConditionFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE,
-  payload: error,
-});
+// export const fetchSectionSuccess = (items, sectionPictures) => ({
+//   type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
+//   payload: { items, sectionPictures },
+// });
 
-export const fetchCollectionStart = (collection, wishlistItems) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_START,
-  payload: { collection, wishlistItems },
-});
-
-export const fetchCollectionSuccess = (items, sectionPictures) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_SUCCESS,
-  payload: { items, sectionPictures },
-});
-
-export const fetchCollectionFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_COLLECTION_FAILURE,
-  payload: error,
-});
-export const fetchSectionStart = (collection, section, wishlistItems) => ({
-  type: collectionsActionTypes.FETCH_SECTION_START,
-  payload: { collection, section, wishlistItems },
-});
-
-export const fetchSectionSuccess = (items, sectionPictures) => ({
-  type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
-  payload: { items, sectionPictures },
-});
-
-export const fetchSectionFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_SECTION_FAILURE,
-  payload: error,
-});
+// export const fetchSectionFailure = (error) => ({
+//   type: collectionsActionTypes.FETCH_SECTION_FAILURE,
+//   payload: error,
+// });
 
 
 export const fetchItemStart = (collection, section, reference, color, wishlistItems) => ({
@@ -185,12 +187,12 @@ export const resetOrder = () => ({
   type: collectionsActionTypes.RESET_ORDER_SECTION,
 });
 
-export const resetGridView = () => ({
-  type: collectionsActionTypes.RESET_GRID_VIEW,
+export const resetInPairsView = () => ({
+  type: collectionsActionTypes.RESET_IN_PAIRS_VIEW,
 });
 
-export const setGridView = () => ({
-  type: collectionsActionTypes.SET_GRID_VIEW,
+export const setInPairsView = () => ({
+  type: collectionsActionTypes.SET_IN_PAIRS_VIEW,
 });
 
 export const toggleSectionWishlist = (item,user) => ({

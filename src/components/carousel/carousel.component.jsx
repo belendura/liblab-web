@@ -4,7 +4,7 @@ import Slider from "react-slick";
 
 import { selectCarousel } from "../../redux/selectors/collections.selectors";
 
-import { fromServerEnumerate } from "../../firebase/collections-enumerate";
+import { fromServerEnumerate } from "../../firebase/enumerate";
 
 import { Container, Picture, Title } from "./carousel.styles";
 
@@ -33,7 +33,7 @@ const Carousel = () => {
               return (
                 <Container key={index}>
                   <Picture src={value} />
-                  <Title>{fromServerEnumerate[key]}</Title>
+                  <Title>{fromServerEnumerate[key].replace("-"," ")}</Title>
                 </Container>
               );
             })}

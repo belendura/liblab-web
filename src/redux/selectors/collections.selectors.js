@@ -60,9 +60,9 @@ export const selectFilteredFit = createSelector(
   (collections) => (collections ? collections.filteredFit : null)
 );
 
-export const selectGridView = createSelector(
+export const selectInPairsView = createSelector(
   [selectCollection],
-  (collections) => (collections ? collections.gridView : null)
+  (collections) => (collections ? collections.inPairsView : null)
 );
 
 export const selectAscendingOrder = createSelector(

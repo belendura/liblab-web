@@ -13,21 +13,21 @@ const ShopPage = React.lazy(() =>
   import("../../pages/shop-page/shop-page.component")
 );
 
-const ShopPageCollection = React.lazy(() =>
-  import(
-    "../../pages/shop-page-collection/shop-page-collection.component"
-  )
-);
+// const ShopPageCollection = React.lazy(() =>
+//   import(
+//     "../../pages/shop-page-collection/shop-page-collection.component"
+//   )
+// );
 
-const ShopPageByCondition = React.lazy(() =>
-  import("../../pages/shop-page-by-condition/shop-page-by-condition.component")
-);
+// const ShopPageByCondition = React.lazy(() =>
+//   import("../../pages/shop-page-by-condition/shop-page-by-condition.component")
+// );
 
-const ShopPageCollectionsByCondition = React.lazy(() =>
-  import(
-    "../../pages/shop-page-collections-by-condition/shop-page-collections-by-condition.component"
-  )
-);
+// const ShopPageCollectionsByCondition = React.lazy(() =>
+//   import(
+//     "../../pages/shop-page-collections-by-condition/shop-page-collections-by-condition.component"
+//   )
+// );
 
 const ShopItemPage = React.lazy(() =>
   import("../../pages/shop-item-page/shop-item-page.component")
@@ -97,7 +97,7 @@ const Main = () => {
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>
           <Route exact path="/" component={HomePage} />
-          <Route
+          {/* <Route
             exact
             path="/shop/:collection"
             component={ShopPageCollection}
@@ -112,8 +112,8 @@ const Main = () => {
             exact
             path="/shop/:collection/featured/:condition"
             component={ShopPageByCondition}
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact path="/shop/:collection/:section/:description&:reference/:color"
             component={ShopItemPage}
           />
@@ -126,7 +126,8 @@ const Main = () => {
             exact
             path="/shop/:condition/:description&:reference/:color"
             component={ShopItemPageCollectionsByCondition}
-          />
+          /> */}
+          <Route exact path="/shop/:collection" component={ShopPage} /> 
           <Route exact path="/shop/:collection/:section" component={ShopPage} />   
           <Route exact path="/search" component={SearchPage} />
           <Route
@@ -162,7 +163,6 @@ const Main = () => {
           <Route exact path="/user" render={() =>
               !currentUser ? (
                 <Redirect to="/" />
-              
               ) : (
                 <UserPage/>
               )
@@ -170,21 +170,18 @@ const Main = () => {
               <Route exact path="/user/profile"  render={() =>
               !currentUser ? (
                 <Redirect to="/" />
-              
               ) : (
                 <UserProfilePage/>
               )
             } />
               <Route exact path="/user/my-purchases"  render={()=>!currentUser ? (
                 <Redirect to="/" />
-              
               ) : (
                 <UserPurchasesPage/>
               )
             }  />
               <Route exact path="/user/wishlist"  render={()=>!currentUser ? (
                 <Redirect to="/" />
-              
               ) : (
                 <UserWishlistPage/>
               )

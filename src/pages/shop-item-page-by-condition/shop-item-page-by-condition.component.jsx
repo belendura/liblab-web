@@ -10,9 +10,9 @@ import { selectItemByColor } from "../../redux/selectors/collections.selectors";
 import { selectWishlistItems} from "../../redux/selectors/wishlist.selectors";
 
 
-import ShopItemPictures from "../../components/shop-item/shop-item-detailed/shop-item-pictures/shop-item-pictures.component";
-import ShopItemData from "../../components/shop-item/shop-item-detailed/shop-item-data/shop-item-data.component";
-import RecentView from "../../components/shop-item/shop-item-detailed/recent-view/recent-view.component"
+import ItemPictures from "../../components/shop-item/shop-item-extended/item-pictures/item-pictures.component";
+import ItemData from "../../components/shop-item/shop-item-extended/item-data/item-data.component";
+import RecentView from "../../components/shop-item/shop-item-extended/recent-view/recent-view.component"
 
 import {
   Container,
@@ -82,9 +82,9 @@ const ShopItemPageByCondition = () => {
   return (
     <Container>
       <ShopItemContainer>
-        {currentItem && <ShopItemPictures url={currentItem.url} />}
+        {currentItem && <ItemPictures url={currentItem.url} />}
         {currentItem && (
-          <ShopItemData
+          <ItemData
             collection={collection}
             section={`featured/${condition}`}
             item={currentItem}

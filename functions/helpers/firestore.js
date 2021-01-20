@@ -51,7 +51,7 @@ exports.getUserDocument = async (userId) => {
 
 exports.getPictures = async (collections, section) => {
   if (!collections.length) return;
-
+console.log("section",section);
   try {
     const webPictures = await collections.reduce(
       async (previousPromise, item) => {
@@ -72,7 +72,7 @@ exports.getPictures = async (collections, section) => {
       },
       Promise.resolve({})
     );
-
+console.log(webPictures)
     return webPictures;
   } catch (error) {
     throw new Error(error);

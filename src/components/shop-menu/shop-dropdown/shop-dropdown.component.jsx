@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
+import queryString from "query-string";
 
 import {
   selectShopMenu,
@@ -8,7 +9,7 @@ import {
 
 import CollectionOverview from "../../collections/collection-overview/collection-overview.component";
 
-import { fromServerEnumerate } from "../../../firebase/collections-enumerate";
+import { fromServerEnumerate } from "../../../firebase/enumerate";
 import {
   Container,
   CollectionsContainer,
@@ -21,6 +22,7 @@ import {
 const ShopDropDown = () => {
   const shopMenu = useSelector(selectShopMenu, shallowEqual);
   const shopMenuPictures = useSelector(selectShopMenuPictures, shallowEqual);
+
 
   return (
     <Container>
@@ -36,18 +38,26 @@ const ShopDropDown = () => {
                     key={index}
                     to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
                   >
-                    {fromServerEnumerate[sectionItem]}
+                    {fromServerEnumerate[sectionItem].replace("-"," ")}
                   </SectionLink>
                 ))}
-                {value["featuredSections"].map((sectionItem, index) => (
+                {value["featuredSections"].map((sectionItem, index) =>{
+                  const query = {labels: `${fromServerEnumerate[sectionItem]}`,};
+
+            const url=`/shop/${key}?${queryString.stringify(
+            query,
+              {
+        arrayFormat: "comma",
+      }
+        )}`;          return(
                   <SectionLink
                     section={fromServerEnumerate[sectionItem]}
                     key={index}
-                    to={`/shop/${key}/featured/${fromServerEnumerate[sectionItem]}`}
+                    to={url}
                   >
-                    {fromServerEnumerate[sectionItem]}
+                    {fromServerEnumerate[sectionItem].replace("-"," ")}
                   </SectionLink>
-                ))}
+                )})}
               </CollectionContainer>
             );
           })}

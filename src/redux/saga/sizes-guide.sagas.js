@@ -3,7 +3,7 @@ import { all, call, takeLatest, put } from "redux-saga/effects";
 import axiosConfig from "../../helpers/axiosConfig.helpers";
 
 import sizesGuideActionTypes from "../types/sizes-guide.types";
-import { toServerEnumerate } from "../../firebase/collections-enumerate";
+import { toServerEnumerate } from "../../firebase/enumerate";
 
 import {
   fetchSizesGuideSuccess,

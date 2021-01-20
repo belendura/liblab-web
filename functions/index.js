@@ -12,15 +12,15 @@ const {
 
 const {
   fetchHeader,
-  fetchCollectionByCondition,
-  fetchCollectionsByCondition,
+  // fetchCollectionByCondition,
+  // fetchCollectionsByCondition,
   fetchCollection,
   fetchSection,
-  fetchItem,
-  fetchItemByCondition,
-  fetchItemByConditionOverall,
+  // fetchItem,
+  // fetchItemByCondition,
+  // fetchItemByConditionOverall,
   fetchPictures,
-  fetchSearch
+  fetchSearch,
 } = require("./handlers/collections-management");
 
 const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
@@ -53,17 +53,17 @@ app.get("/header", fetchHeader);
 
 app.get("/shop/:collection", fetchCollection);
 
-app.get("/shop/featured/:condition", fetchCollectionsByCondition);
-
-app.get("/shop/:collection/featured/:condition", fetchCollectionByCondition);
-
-app.get("/shop/:collection/:section/:reference/:color", fetchItem);
-
-app.get("/shop/:collection/featured/:condition/:reference/:color", fetchItemByCondition);
-
-app.get("/shop/:condition/:reference/:color", fetchItemByConditionOverall);
-
  app.get("/shop/:collection/:section", fetchSection);
+
+// app.get("/shop/featured/:condition", fetchCollectionsByCondition);
+
+// app.get("/shop/:collection/featured/:condition", fetchCollectionByCondition);
+
+// app.get("/shop/:collection/:section/:reference/:color", fetchItem);
+
+//app.get("/shop/:collection/featured/:condition/:reference/:color", fetchItemByCondition);
+
+// app.get("/shop/:condition/:reference/:color", fetchItemByConditionOverall);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
 
