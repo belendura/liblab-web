@@ -13,36 +13,8 @@ const ShopPage = React.lazy(() =>
   import("../../pages/shop-page/shop-page.component")
 );
 
-// const ShopPageCollection = React.lazy(() =>
-//   import(
-//     "../../pages/shop-page-collection/shop-page-collection.component"
-//   )
-// );
-
-// const ShopPageByCondition = React.lazy(() =>
-//   import("../../pages/shop-page-by-condition/shop-page-by-condition.component")
-// );
-
-// const ShopPageCollectionsByCondition = React.lazy(() =>
-//   import(
-//     "../../pages/shop-page-collections-by-condition/shop-page-collections-by-condition.component"
-//   )
-// );
-
 const ShopItemPage = React.lazy(() =>
   import("../../pages/shop-item-page/shop-item-page.component")
-);
-
-const ShopItemPageByCondition = React.lazy(() =>
-  import(
-    "../../pages/shop-item-page-by-condition/shop-item-page-by-condition.component"
-  )
-);
-
-const ShopItemPageCollectionsByCondition = React.lazy(() =>
-  import(
-    "../../pages/shop-item-page-collections-by-condition/shop-item-page-collections-by-condition.component"
-  )
 );
 
 const SearchPage = React.lazy(() =>
@@ -54,7 +26,9 @@ const LoginPage = React.lazy(() =>
 );
 
 const CheckOutLoginPage = React.lazy(() =>
-  import("../../pages/check-out-page/check-out-login/check-out-login-page.component")
+  import(
+    "../../pages/check-out-page/check-out-login/check-out-login-page.component"
+  )
 );
 
 const CheckOutPage = React.lazy(() =>
@@ -78,17 +52,20 @@ const UserProfilePage = React.lazy(() =>
 );
 
 const UserWishlistPage = React.lazy(() =>
-  import("../../pages/user-page/user/user-wishlist/user-wishlist-page.component")
+  import(
+    "../../pages/user-page/user/user-wishlist/user-wishlist-page.component"
+  )
 );
 
 const UserPurchasesPage = React.lazy(() =>
-  import("../../pages/user-page/user/user-purchases/user-purchases-page.component")
+  import(
+    "../../pages/user-page/user/user-purchases/user-purchases-page.component"
+  )
 );
 
 const WishlistPage = React.lazy(() =>
   import("../../pages/wishlist-page/wishlist-page.component")
 );
-
 
 const Main = () => {
   const currentUser = useSelector(selectCurrentUser, shallowEqual);
@@ -97,43 +74,24 @@ const Main = () => {
       <Switch>
         <Suspense fallback={<div>...Is Loading</div>}>
           <Route exact path="/" component={HomePage} />
-          {/* <Route
-            exact
-            path="/shop/:collection"
-            component={ShopPageCollection}
-          />
-           <Route
-            exact
-            path="/shop/featured/:condition"
-            component={ShopPageCollectionsByCondition}
-          />
-        
+          <Route exact path="/shop/:urlCollection" component={ShopPage} />
           <Route
             exact
-            path="/shop/:collection/featured/:condition"
-            component={ShopPageByCondition}
-          /> */}
-          {/* <Route
-            exact path="/shop/:collection/:section/:description&:reference/:color"
+            path="/shop/:urlCollection/:urlSection"
+            component={ShopPage}
+          />
+          <Route
+            exact
+            path="/shop/:urlCollection/:urlSection/:urlReference"
             component={ShopItemPage}
           />
-          <Route
-            exact
-            path="/shop/:collection/featured/:condition/:description&:reference/:color"
-            component={ShopItemPageByCondition}
-          />
-          <Route
-            exact
-            path="/shop/:condition/:description&:reference/:color"
-            component={ShopItemPageCollectionsByCondition}
-          /> */}
-          <Route exact path="/shop/:collection" component={ShopPage} /> 
-          <Route exact path="/shop/:collection/:section" component={ShopPage} />   
           <Route exact path="/search" component={SearchPage} />
           <Route
             exact
             path="/login"
-            render={() => (currentUser ? <Redirect to="/user" /> : <LoginPage />)}
+            render={() =>
+              currentUser ? <Redirect to="/user" /> : <LoginPage />
+            }
           />
           <Route
             exact
@@ -160,32 +118,32 @@ const Main = () => {
               )
             }
           />
-          <Route exact path="/user" render={() =>
-              !currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <UserPage/>
-              )
-            } />
-              <Route exact path="/user/profile"  render={() =>
-              !currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <UserProfilePage/>
-              )
-            } />
-              <Route exact path="/user/my-purchases"  render={()=>!currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <UserPurchasesPage/>
-              )
-            }  />
-              <Route exact path="/user/wishlist"  render={()=>!currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <UserWishlistPage/>
-              )
-            }   />
+          <Route
+            exact
+            path="/user"
+            render={() => (!currentUser ? <Redirect to="/" /> : <UserPage />)}
+          />
+          <Route
+            exact
+            path="/user/profile"
+            render={() =>
+              !currentUser ? <Redirect to="/" /> : <UserProfilePage />
+            }
+          />
+          <Route
+            exact
+            path="/user/my-purchases"
+            render={() =>
+              !currentUser ? <Redirect to="/" /> : <UserPurchasesPage />
+            }
+          />
+          <Route
+            exact
+            path="/user/wishlist"
+            render={() =>
+              !currentUser ? <Redirect to="/" /> : <UserWishlistPage />
+            }
+          />
           <Route exact path="/checkout/shipping" component={CheckOutPage} />
           <Route exact path="/wishlist" component={WishlistPage} />
         </Suspense>

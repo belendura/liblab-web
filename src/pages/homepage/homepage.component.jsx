@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import queryString from "query-string";
 
 // import { toServerEnumerate } from "../../firebase/collections-enumerate";
 
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
-import { selectSection } from "../../redux/selectors/collections.selectors";
+import { selectShopItems } from "../../redux/selectors/collections.selectors";
 
 import {
   fetchShopItemsStart,
@@ -36,9 +36,9 @@ const HomePage = () => {
   const subtitle = "Shop our most wanted items.";
 
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
-  const section = useSelector(selectSection, shallowEqual);
+  const shopItems = useSelector(selectShopItems, shallowEqual);
 
-  const collection = "featured";
+  const urlCollection = "featured";
 
   const labels = {
     bestSeller: "best-sellers",
@@ -48,17 +48,11 @@ const HomePage = () => {
     labels: `${labels.bestSeller}`,
   };
 
-  const pathName=`/shop/${collection}?${queryString.stringify(
-      query,
-      {
-        arrayFormat: "comma",
-      }
-  )}`;
-  const hasSection = !!section || null;
-  
-  const url = hasSection
-  ? `/shop/${collection}/${section}`
-  : `/shop/${collection}`;
+  const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
+    arrayFormat: "comma",
+  })}`;
+
+  const url = `/shop/${urlCollection}`;
 
   useEffect(() => {
     dispatch(fetchShopItemsStart(url, query, wishlistItems));
@@ -66,17 +60,21 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchPicturesStart(["carousel", "collections"]));
-  }, [dispatch]);                                                                                               
+  }, [dispatch]);
 
   return (
     <Container>
       <CarouselContainer>
         <Carousel />
       </CarouselContainer>
-      {section && (
+      {shopItems && (
         <BestSellersContainer>
           <BestSellersTitle>
-            <CollectionTitle title={title} subtitle={subtitle} url={labels.bestSellers} />
+            <CollectionTitle
+              title={title}
+              subtitle={subtitle}
+              url={labels.bestSellers}
+            />
             <CustomButton
               color="standard"
               onClick={() => history.push(pathName)}
@@ -85,7 +83,7 @@ const HomePage = () => {
             </CustomButton>
           </BestSellersTitle>
           <BestSellersListContainer>
-            <BestSellersList section={section} />
+            <BestSellersList shopItems={shopItems} />
           </BestSellersListContainer>
         </BestSellersContainer>
       )}

@@ -2,8 +2,8 @@ const getSalePrice = (price, discount) => {
   return Math.round(price - (discount * price) / 100);
 };
 
-export const updatePictures = (pictures, sectionPictures) => {
-  const updatedPictures = { ...pictures, sectionPictures };
+export const updatePictures = (pictures, shopItemsPictures) => {
+  const updatedPictures = { ...pictures, shopItemsPictures };
   return updatedPictures;
 };
 
@@ -14,139 +14,137 @@ export const getAvailableUnits = (sizes) => {
   return availableUnits;
 };
 
-const getAvailableColors = (section, reference) => {
-  const availableColors = section.reduce((accumulator, arrayItem) => {
-    if (arrayItem.reference === reference) {
-      accumulator = [...accumulator, arrayItem.color];
+const getAvailableColors = (shopItems, reference) => {
+  const availableColors = shopItems.reduce((accumulator, shopItem) => {
+    if (shopItem.reference === reference) {
+      accumulator = [...accumulator, shopItem.color];
     }
     return accumulator;
   }, []);
   return availableColors;
 };
 
-export const getAvailableColorsSection = (section) => {
-  const extendedSection = section.reduce((accumulator, item) => {
+export const getAvailableColorsShopItems = (shopItems) => {
+  const extendedShopItems = shopItems.reduce((accumulator, shopItem) => {
     return (accumulator = [
       ...accumulator,
       {
-        ...item,
-        availableColors: getAvailableColors(section, item.reference),
-       },
-    ]);
-  }, []);
-  return extendedSection;
-};
-
-export const getExtendedSection = (section) => {
-  const extendedSection = section.reduce((accumulator, item) => {
-    return (accumulator = [
-      ...accumulator,
-      {
-        ...item,
-        lastPrice: getSalePrice(item.price, item.discount),
-        availableUnits: getAvailableUnits(item.sizes),
+        ...shopItem,
+        availableColors: getAvailableColors(shopItems, shopItem.reference),
       },
     ]);
   }, []);
-  return extendedSection;
-}
+  return extendedShopItems;
+};
 
-export const updateSectionWishlist = (section, wishlistItems) => {
- 
-  const updatedSection = section.reduce((accumulator, sectionItem) => {
-    sectionItem.wishlist = false;
+export const getExtendedShopItems = (shopItems) => {
+  const extendedShopItems = shopItems.reduce((accumulator, shopItem) => {
+    return (accumulator = [
+      ...accumulator,
+      {
+        ...shopItem,
+        lastPrice: getSalePrice(shopItem.price, shopItem.discount),
+        availableUnits: getAvailableUnits(shopItem.sizes),
+      },
+    ]);
+  }, []);
+  return extendedShopItems;
+};
+
+export const updateShopItemsWishlist = (shopItems, wishlistItems) => {
+  const updatedShopItems = shopItems.reduce((accumulator, shopItem) => {
+    shopItem.wishlist = false;
 
     wishlistItems.length &&
       wishlistItems.map((wishlistItem) => {
-        if (
-          wishlistItem.id === sectionItem.id
-        ) {
-          return (sectionItem.wishlist = true);
+        if (wishlistItem.id === shopItem.id) {
+          return (shopItem.wishlist = true);
         }
       });
 
-    accumulator.push(sectionItem);
+    accumulator.push(shopItem);
     return accumulator;
   }, []);
 
-  return updatedSection;
+  return updatedShopItems;
 };
 
-export const toggleSectionWishlist = (section, item) => {
-  const newSection = section.map((sectionItem) => {
-    if (
-      sectionItem.id === item.id
-    )
-      sectionItem.wishlist = !sectionItem.wishlist;
+export const toggleShopItemsWishlist = (shopItems, item) => {
+  const updatedShopItems = shopItems.map((shopItem) => {
+    if (shopItem.id === item.id) shopItem.wishlist = !item.wishlist;
 
-    return sectionItem;
+    return shopItem;
   });
-  return newSection;
+  return updatedShopItems;
 };
 
-export const setSectionOrder = (section, ascendingOrder, descendingOrder) => {
-  // if (!section) return;
-  let updatedSection = [];
-  updatedSection = section.map((item) => {
+export const setShopItemsOrder = (
+  shopItems,
+  ascendingOrder,
+  descendingOrder
+) => {
+  // if (!ShopItems) return;
+  let updatedShopItems = [];
+  updatedShopItems = shopItems.map((item) => {
     return item;
   });
   if (ascendingOrder)
-    return updatedSection.sort((i, j) => {
+    return updatedShopItems.sort((i, j) => {
       return i.lastPrice - j.lastPrice;
     });
   else if (descendingOrder)
-    return updatedSection.sort((i, j) => {
+    return updatedShopItems.sort((i, j) => {
       return j.lastPrice - i.lastPrice;
     });
-  return updatedSection;
+  return updatedShopItems;
 };
 
-export const setSectionColorsFilter = (section, colors) => {
+export const setShopItemsColorsFilter = (shopItems, colors) => {
   return (
-    (!colors.length && section) ||
+    (!colors.length && shopItems) ||
     (colors.length &&
-      section.reduce((accu, sectionItem) => {
-        colors.includes(sectionItem.color.code) && accu.push(sectionItem);
+      shopItems.reduce((accu, shopItem) => {
+        colors.includes(shopItem.color.code) && accu.push(shopItem);
         return accu;
       }, []))
   );
 };
 
-export const setSectionSizesFilter = (section, sizes) => {
+export const setShopItemsSizesFilter = (shopItems, sizes) => {
   return (
-    (!sizes.length && section) ||
+    (!sizes.length && shopItems) ||
     (sizes.length &&
-      section.reduce((accu, sectionItem) => {
-        sectionItem.sizes.map((sizeItem) => {
-          return sizes.includes(sizeItem.size) && accu.push(sectionItem);
+      shopItems.reduce((accu, shopItems) => {
+        shopItems.sizes.map((sizeItem) => {
+          return sizes.includes(sizeItem.size) && accu.push(shopItems);
         });
         return accu;
       }, []))
   );
 };
 
-export const setSectionFitFilter = (section, fit) => {
+export const setShopItemsFitFilter = (shopItems, fit) => {
   return (
-    (!fit.length && section) ||
+    (!fit.length && shopItems) ||
     (fit.length &&
-      section.reduce((accu, sectionItem) => {
-        fit.includes(sectionItem.fit) && accu.push(sectionItem);
+      shopItems.reduce((accu, shopItem) => {
+        fit.includes(shopItem.fit) && accu.push(shopItem);
         return accu;
       }, []))
   );
 };
 
-export const setSectionFilter = (section, colors, sizes, fit) => {
-  const filteredColorsSection = setSectionColorsFilter(section, colors);
+export const setShopItemsFilter = (shopItems, colors, sizes, fit) => {
+  const filteredColorsShopItems = setShopItemsColorsFilter(shopItems, colors);
 
-  const filteredSizesSection = setSectionSizesFilter(section, sizes);
+  const filteredSizesShopItems = setShopItemsSizesFilter(shopItems, sizes);
 
-  const filteredFitSection = setSectionFitFilter(section, fit);
+  const filteredFitShopItems = setShopItemsFitFilter(shopItems, fit);
 
-  const newSection = filteredSizesSection.reduce((accu, sizeItem) => {
-    filteredColorsSection.filter((colorItem) => {
+  const newShopItems = filteredSizesShopItems.reduce((accu, sizeItem) => {
+    filteredColorsShopItems.filter((colorItem) => {
       if (sizeItem.color.code === colorItem.color.code)
-        return filteredFitSection.filter((fitItem) => {
+        return filteredFitShopItems.filter((fitItem) => {
           if (
             sizeItem.color.code === colorItem.color.code &&
             fitItem.fit === sizeItem.fit
@@ -156,109 +154,124 @@ export const setSectionFilter = (section, colors, sizes, fit) => {
     });
     return accu;
   }, []);
-  const data = newSection.reduce((accum, item) => {
+  const filteredShopItems = newShopItems.reduce((accum, item) => {
     return accum.includes(item) ? accum : [...accum, item];
   }, []);
 
-  return data;
+  return filteredShopItems;
 };
 
-export const getFilteredColorOptions=  (section, searchParams, condition, sizes, fit)=>{
- 
-const newSection= [...section]
-  if (condition){
-  newSection.filter(arrayItem=>arrayItem.condition===true)
+export const getFilteredColorOptions = (
+  shopItems,
+  searchParams,
+  condition,
+  sizes,
+  fit
+) => {
+  const newShopItems = [...shopItems];
+  if (condition) {
+    newShopItems.filter((shopItem) => shopItem.condition === true);
   }
 
-  let searchedSection=[...newSection];
-if (searchParams){
-  searchedSection= newSection.filter(item => {
-  const searchParamsArray=  searchParams.split(" ")
-return searchParamsArray.reduce((accum,searchParamsItem)=>{
-    const searchParamsRE= new RegExp(`\\b${searchParamsItem}\\b`, 'gi');
-  if (item["search"].search(searchParamsRE) !== -1){
-     accum=true}
-     else{
-      accum=false;
-     }
-     return accum;
-  },0)
-})
-}
+  let searchedShopItems = [...newShopItems];
+  if (searchParams) {
+    searchedShopItems = newShopItems.filter((item) => {
+      const searchParamsArray = searchParams.split(" ");
+      return searchParamsArray.reduce((accum, searchParamsItem) => {
+        const searchParamsRE = new RegExp(`\\b${searchParamsItem}\\b`, "gi");
+        if (item["search"].search(searchParamsRE) !== -1) {
+          accum = true;
+        } else {
+          accum = false;
+        }
+        return accum;
+      }, 0);
+    });
+  }
 
-const filteredSection=searchedSection.reduce((accumulator, arrayItem) => {
-  sizes.length &&
-    fit.length &&
-    sizes.forEach((sizeItem) => {
-      if (arrayItem.sizes.size === sizeItem)
+  const filteredShopItems = searchedShopItems.reduce(
+    (accumulator, shopItem) => {
+      sizes.length &&
+        fit.length &&
+        sizes.forEach((sizeItem) => {
+          if (shopItem.sizes.size === sizeItem)
+            fit.forEach((fitItem) => {
+              if (shopItem.fit === fitItem)
+                accumulator = [...accumulator, shopItem.color];
+              return accumulator;
+            });
+        });
+      !sizes.length &&
+        fit.length &&
         fit.forEach((fitItem) => {
-          if (arrayItem.fit === fitItem)
-            accumulator = [...accumulator, arrayItem.color];
+          if (shopItem.fit === fitItem)
+            accumulator = [...accumulator, shopItem.color];
           return accumulator;
         });
-    });
-  !sizes.length &&
-    fit.length &&
-    fit.forEach((fitItem) => {
-      if (arrayItem.fit === fitItem)
-        accumulator = [...accumulator, arrayItem.color];
+      sizes.length &&
+        !fit.length &&
+        sizes.forEach((sizeItem) => {
+          shopItem.sizes.forEach((item) => {
+            if (item.size === sizeItem)
+              accumulator = [...accumulator, shopItem.color];
+            return accumulator;
+          });
+        });
+      !sizes.length &&
+        !fit.length &&
+        shopItem &&
+        accumulator.push(shopItem.color);
       return accumulator;
-    });
-  sizes.length &&
-    !fit.length &&
-    sizes.forEach((sizeItem) => {
-      arrayItem.sizes.forEach((item) => {
-        if (item.size === sizeItem)
-          accumulator = [...accumulator, arrayItem.color];
-        return accumulator;
-      });
-    });
-  !sizes.length &&
-    !fit.length &&
-    arrayItem &&
-    accumulator.push(arrayItem.color);
-  return accumulator;
-}, [])
+    },
+    []
+  );
 
-const updatedSection=filteredSection.reduce((accum, item) => {
-  if (accum.some((newItem) => newItem.code === item.code)) {
-    accum = [...accum];
-  } else {
-    accum = [...accum, item];
+  const updatedShopItems = filteredShopItems.reduce((accum, item) => {
+    if (accum.some((newItem) => newItem.code === item.code)) {
+      accum = [...accum];
+    } else {
+      accum = [...accum, item];
+    }
+    return accum;
+  }, []);
+  return updatedShopItems;
+};
+
+export const getFilteredSizeOptions = (
+  shopItems,
+  searchParams,
+  condition,
+  colors,
+  fit
+) => {
+  const newShopItems = [...shopItems];
+  if (condition) {
+    newShopItems.filter((shopItem) => shopItem.condition === true);
   }
-  return accum;
-}, [])
-return updatedSection;
-}
-
-export const getFilteredSizeOptions=  (section, searchParams, condition, colors, fit)=>{
-  const newSection= [...section];
-    if (condition){
-    newSection.filter(arrayItem=>arrayItem.condition===true)
-    }
-    let searchedSection=[...newSection];
-    if (searchParams){
-      searchedSection= newSection.filter(item => {
-      const searchParamsArray=  searchParams.split(" ")
-    return searchParamsArray.reduce((accum,searchParamsItem)=>{
-        const searchParamsRE= new RegExp(`\\b${searchParamsItem}\\b`, 'gi');
-      if (item["search"].search(searchParamsRE) !== -1){
-         accum=true}
-         else{
-          accum=false;
-         }
-         return accum;
-      },0)
-    })
-    }
-    const filteredSection=searchedSection.reduce((accumulator, arrayItem) => {
+  let searchedShopItems = [...newShopItems];
+  if (searchParams) {
+    searchedShopItems = newShopItems.filter((item) => {
+      const searchParamsArray = searchParams.split(" ");
+      return searchParamsArray.reduce((accum, searchParamsItem) => {
+        const searchParamsRE = new RegExp(`\\b${searchParamsItem}\\b`, "gi");
+        if (item["search"].search(searchParamsRE) !== -1) {
+          accum = true;
+        } else {
+          accum = false;
+        }
+        return accum;
+      }, 0);
+    });
+  }
+  const filteredShopItems = searchedShopItems.reduce(
+    (accumulator, shopItem) => {
       colors.length &&
         fit.length &&
         colors.forEach((colorItem) => {
-          if (arrayItem.color.code === colorItem)
+          if (shopItem.color.code === colorItem)
             fit.forEach((fitItem) => {
-              if (arrayItem.fit === fitItem)
-                arrayItem.sizes.map((item) => {
+              if (shopItem.fit === fitItem)
+                shopItem.sizes.map((item) => {
                   accumulator = [...accumulator, item.size];
                 });
               return accumulator;
@@ -267,8 +280,8 @@ export const getFilteredSizeOptions=  (section, searchParams, condition, colors,
       !colors.length &&
         fit.length &&
         fit.forEach((fitItem) => {
-          if (arrayItem.fit === fitItem)
-            arrayItem.sizes.map((item) => {
+          if (shopItem.fit === fitItem)
+            shopItem.sizes.map((item) => {
               accumulator = [...accumulator, item.size];
             });
           return accumulator;
@@ -276,84 +289,94 @@ export const getFilteredSizeOptions=  (section, searchParams, condition, colors,
       colors.length &&
         !fit.length &&
         colors.forEach((colorItem) => {
-          if (arrayItem.color.code === colorItem)
-            arrayItem.sizes.map((item) => {
+          if (shopItem.color.code === colorItem)
+            shopItem.sizes.map((item) => {
               accumulator = [...accumulator, item.size];
             });
           return accumulator;
         });
       !colors.length &&
         !fit.length &&
-        arrayItem &&
-        arrayItem.sizes.map((item) => {
+        shopItem &&
+        shopItem.sizes.map((item) => {
           accumulator = [...accumulator, item.size];
         });
       return accumulator;
-    }, [])
-    const updatedSection=filteredSection.reduce((accum, item) => {
-      return accum.includes(item) ? accum : [...accum, item];
-    }, [])
-return updatedSection;
-}
+    },
+    []
+  );
+  const updatedShopItems = filteredShopItems.reduce((accum, item) => {
+    return accum.includes(item) ? accum : [...accum, item];
+  }, []);
+  return updatedShopItems;
+};
 
-export const getFilteredFitOptions=  (section, searchParams,condition, colors, sizes)=>{
-    const newSection= [...section];
-      if (condition){
-      newSection.filter(arrayItem=>arrayItem.condition===true)
-      }
-      let searchedSection=[...newSection];
-      if (searchParams){
-        searchedSection= newSection.filter(item => {
-        const searchParamsArray=  searchParams.split(" ")
-      return searchParamsArray.reduce((accum,searchParamsItem)=>{
-          const searchParamsRE= new RegExp(`\\b${searchParamsItem}\\b`, 'gi');
-        if (item["search"].search(searchParamsRE) !== -1){
-           accum=true}
-           else{
-            accum=false;
-           }
-           return accum;
-        },0)
-      })
-      }
-      const filteredSection=searchedSection.reduce((accumulator, arrayItem) => {
-        colors.length &&
-          sizes.length &&
-          colors.forEach((colorItem) => {
-            if (arrayItem.color.code === colorItem)
-              sizes.forEach((sizeItem) => {
-                arrayItem.sizes.forEach((item) => {
-                  if (item.size === sizeItem)
-                    accumulator = [...accumulator, arrayItem.fit];
-                  return accumulator;
-                });
+export const getFilteredFitOptions = (
+  shopItems,
+  searchParams,
+  condition,
+  colors,
+  sizes
+) => {
+  const newShopItems = [...shopItems];
+  if (condition) {
+    newShopItems.filter((shopItem) => shopItem.condition === true);
+  }
+  let searchedShopItems = [...newShopItems];
+  if (searchParams) {
+    searchedShopItems = newShopItems.filter((item) => {
+      const searchParamsArray = searchParams.split(" ");
+      return searchParamsArray.reduce((accum, searchParamsItem) => {
+        const searchParamsRE = new RegExp(`\\b${searchParamsItem}\\b`, "gi");
+        if (item["search"].search(searchParamsRE) !== -1) {
+          accum = true;
+        } else {
+          accum = false;
+        }
+        return accum;
+      }, 0);
+    });
+  }
+  const filteredShopItems = searchedShopItems.reduce(
+    (accumulator, shopItem) => {
+      colors.length &&
+        sizes.length &&
+        colors.forEach((colorItem) => {
+          if (shopItem.color.code === colorItem)
+            sizes.forEach((sizeItem) => {
+              shopItem.sizes.forEach((item) => {
+                if (item.size === sizeItem)
+                  accumulator = [...accumulator, shopItem.fit];
+                return accumulator;
               });
-          });
-        !colors.length &&
-          sizes.length &&
-          sizes.forEach((sizeItem) => {
-            arrayItem.sizes.forEach((item) => {
-              if (item.size === sizeItem)
-                accumulator = [...accumulator, arrayItem.fit];
-              return accumulator;
             });
-          });
-        colors.length &&
-          !sizes.length &&
-          colors.forEach((colorItem) => {
-            if (arrayItem.color.code === colorItem)
-              accumulator = [...accumulator, arrayItem.fit];
+        });
+      !colors.length &&
+        sizes.length &&
+        sizes.forEach((sizeItem) => {
+          shopItem.sizes.forEach((item) => {
+            if (item.size === sizeItem)
+              accumulator = [...accumulator, shopItem.fit];
             return accumulator;
           });
-        !colors.length &&
-          !sizes.length &&
-          arrayItem &&
-          accumulator.push(arrayItem.fit);
-        return accumulator;
-      }, [])
-      const updatedSection=filteredSection.reduce((accum, item) => {
-        return accum.includes(item) ? accum : [...accum, item];
-      }, [])
-      return updatedSection;
-}
-
+        });
+      colors.length &&
+        !sizes.length &&
+        colors.forEach((colorItem) => {
+          if (shopItem.color.code === colorItem)
+            accumulator = [...accumulator, shopItem.fit];
+          return accumulator;
+        });
+      !colors.length &&
+        !sizes.length &&
+        shopItem &&
+        accumulator.push(shopItem.fit);
+      return accumulator;
+    },
+    []
+  );
+  const updatedShopItems = filteredShopItems.reduce((accum, item) => {
+    return accum.includes(item) ? accum : [...accum, item];
+  }, []);
+  return updatedShopItems;
+};

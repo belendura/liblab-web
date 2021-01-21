@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 import {
   addItem,
@@ -14,9 +15,7 @@ import {
   selectCartHidden,
   selectSizeItem,
 } from "../../../../redux/selectors/cart.selectors";
-import {
-  selectCurrentUser,
-} from "../../../../redux/selectors/user.selectors";
+import { selectCurrentUser } from "../../../../redux/selectors/user.selectors";
 
 import Circle from "../../../circle/circle.component";
 import CustomButton from "../../../custom-button/custom-button.component";
@@ -26,7 +25,6 @@ import Details from "../item-details/item-details.component";
 import SelectSize from "../../../select-size/select-size.component";
 import ShareMenu from "../../../share/share-menu/share-menu.component";
 import SelectSizeDropDown from "../../../select-size/select-size-dropdown/select-size-dropdown.component";
-
 
 import {
   Container,
@@ -55,9 +53,10 @@ import {
   Share,
 } from "./item-data.styles";
 
-const ItemData = ({ collection, section, item }) => {
+const ItemData = ({ collection, section, item, query }) => {
   const [selectSizeVisible, setSelectSizeVisible] = useState(false);
   const history = useHistory();
+
   const {
     reference,
     description,
@@ -88,18 +87,17 @@ const ItemData = ({ collection, section, item }) => {
     shallowEqual
   );
 
-   const selectedSize = useSelector(selectSizeItem, shallowEqual);
+  const selectedSize = useSelector(selectSizeItem, shallowEqual);
   const user = useSelector(selectCurrentUser, shallowEqual);
+
   return (
     <Container>
       {collection ? (
         <NavRoute
-          onClick={() => history.push(`/shop/${collection}/${section}`)}
+          onClick={() => history.goBack()}
         >{`${collection}/${section}`}</NavRoute>
       ) : (
-        <NavRoute
-          onClick={() => history.push(`/shop/${section}`)}
-        >{`${section}`}</NavRoute>
+        <NavRoute onClick={() => history.goBack()}>{`${section}`}</NavRoute>
       )}
       <NameContainer>
         <Name>{name}</Name>
@@ -131,17 +129,20 @@ const ItemData = ({ collection, section, item }) => {
         <ColorsOptionContainer>
           {availableColors.map((item, index) => {
             const { code, name } = item;
+            console.log("name", name);
             return (
               <div
                 key={index}
                 onClick={() => {
-                  collection?
-                  history.push(
-                    `/shop/${collection}/${section}/${description}&${reference}/${name}`
-                  ):
-                  history.push(
-                    `/shop/${section}/${description}&${reference}/${name}`
-                  )
+                  query["colors"] = `${name.replace(" ", "-")}`;
+                  const pathName = `/shop/${collection}/${section.replace(
+                    " ",
+                    "-"
+                  )}/${reference}?${queryString.stringify(query, {
+                    arrayFormat: "comma",
+                  })}`;
+                  console.log("pathName", pathName);
+                  history.push(pathName);
                 }}
               >
                 <Circle
@@ -180,7 +181,7 @@ const ItemData = ({ collection, section, item }) => {
           onClick={() => {
             const text = "Please select size!";
             if (selectedSize) {
-              dispatch(addItem(item, selectedSize,user));
+              dispatch(addItem(item, selectedSize, user));
               selectedCartDropdownHidden && dispatch(toggleCartHidden());
             } else dispatch(openModal("ALERTS", { text }));
           }}
@@ -207,7 +208,7 @@ const ItemData = ({ collection, section, item }) => {
         />
       </DetailsContainer>
       <Share>
-        <ShareMenu image={url[0]}/>
+        <ShareMenu image={url[0]} />
       </Share>
     </Container>
   );

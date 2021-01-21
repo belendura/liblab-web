@@ -5,18 +5,15 @@ const {
   getCollectionDocuments,
   getSectionDocuments,
   getItemDocument,
-  getItemByConditionDocument,
-  getItemByConditionOverallDocument,
   getPictures,
-  getSearchResults
+  getSearchResults,
 } = require("../helpers/firestore");
 
-const {
-  toServerEnumerate
-} = require("../helpers/enumerate");
+const { toServerEnumerate } = require("../helpers/enumerate");
 
 const isObject = (value) => typeof value === "object";
-const isEmptyObject = (object) => !isObject(object) || (isObject(object) && Object.keys(object).length === 0);
+const isEmptyObject = (object) =>
+  !isObject(object) || (isObject(object) && Object.keys(object).length === 0);
 
 //Menu Collection/Section
 exports.fetchHeader = async (req, res) => {
@@ -28,39 +25,39 @@ exports.fetchHeader = async (req, res) => {
   }
 };
 
-exports.fetchCollection= async (req, res) => {
-
+exports.fetchCollection = async (req, res) => {
   const { query, params } = req;
-  console.log("query",query);
- 
-  console.log(params);
 
-  const {collection}=params;
-  
-  const {labels}=query;
+  const { urlCollection } = params;
 
-  const arrayPictures= ["collections"];
-  
+  const { labels } = query;
+  console.log("query", query);
+  console.log("params", params);
+
+  const arrayPictures = ["collections"];
+
   try {
-    let collectionsItems=[];
-    let pictures=[];
+    let collectionsItems = [];
+    let pictures = [];
 
-    if (!isEmptyObject(query)){
-    const serverLabels= toServerEnumerate[labels.replace("-","")];
-    pictures = await getPictures(arrayPictures, serverLabels);
-    if (collection==="featured"){
-    collectionsItems = await getCollectionsByConditionDocuments(serverLabels);
+    if (!isEmptyObject(query)) {
+      const serverLabels = toServerEnumerate[labels.replace("-", "")];
+      pictures = await getPictures(arrayPictures, serverLabels);
+      if (urlCollection === "featured") {
+        collectionsItems = await getCollectionsByConditionDocuments(
+          serverLabels
+        );
+      } else {
+        collectionsItems = await getCollectionByConditionDocuments(
+          urlCollection,
+          serverLabels
+        );
+      }
+    } else {
+      collectionsItems = await getCollectionDocuments(urlCollection);
+      pictures = await getPictures(arrayPictures, urlCollection);
     }
-    else{
-    collectionsItems = await getCollectionByConditionDocuments(collection, serverLabels);
- 
-   }
-  }
-   else{
-   collectionsItems = await getCollectionDocuments(collection);
-   pictures = await getPictures(arrayPictures, collection);
-  }
-    console.log("collectionsItems",collectionsItems.length);
+    console.log("collectionsItems", collectionsItems.length);
     return res.status(200).send({ collectionsItems, pictures });
   } catch (error) {
     return res
@@ -69,20 +66,22 @@ exports.fetchCollection= async (req, res) => {
   }
 };
 
-exports.fetchSection= async (req, res) => {
-
+exports.fetchSection = async (req, res) => {
   const { params } = req;
- 
-  console.log(params);
 
-  const {collection, section}=params;
+  const { urlCollection, urlSection } = params;
 
-  const arrayPictures= [collection];
-  
+  const arrayPictures = [urlCollection];
+
   try {
-  
- const collectionsItems = await getSectionDocuments(collection, toServerEnumerate[section.replace("-","")]);
-  const pictures = await getPictures(arrayPictures, toServerEnumerate[section.replace("-","")]);
+    const collectionsItems = await getSectionDocuments(
+      urlCollection,
+      toServerEnumerate[urlSection.replace("-", "")]
+    );
+    const pictures = await getPictures(
+      arrayPictures,
+      toServerEnumerate[urlSection.replace("-", "")]
+    );
 
     return res.status(200).send({ collectionsItems, pictures });
   } catch (error) {
@@ -91,77 +90,24 @@ exports.fetchSection= async (req, res) => {
       .send(`Error getting documents from collection ${error}`);
   }
 };
-
-// //Shop Collections By Condition
-// exports.fetchCollectionsByCondition = async (req, res) => {
-//   const { condition } = req.params;
-//   const arrayPictures = ["collections"];
-
-//   try {
-//     const collectionsItems = await getCollectionsByConditionDocuments(condition);
-//     const pictures = await getPictures(arrayPictures, condition);
-    
-//     return res.status(200).send({ collectionsItems, pictures });
-//   } catch (error) {
-//     return res
-//       .status(500)
-//       .send(`Error getting documents from collection ${error}`);
-//   }
-// };
-
-// //Shop Collection by Condition
-// exports.fetchCollectionByCondition = async (req, res) => {
-//   const { collection, condition } = req.params;
-//   const arrayPictures = collection.split(",");
- 
-//   try {
-//     const collectionItems = await getCollectionByConditionDocuments(collection, condition);
-
-//     const pictures = await getPictures(arrayPictures, condition);
-
-//     return res.status(200).send({ collectionItems, pictures });
-//   } catch (error) {
-//     return res
-//       .status(500)
-//       .send(`Error getting documents from collection ${error}`);
-//   }
-// };
 
 //Shop Item
-exports.fetchItem= async (req, res) => {
-  const { collection,section,reference,color } = req.params;
-  
-  try {
-    const item = await getItemDocument( collection,section,reference,color);
-     return res.status(200).send(item);
-  } catch (error) {
-    return res
-      .status(500)
-      .send(`Error getting document from collection ${error}`);
-  }
-};
+exports.fetchItem = async (req, res) => {
+  const { query, params } = req;
 
-//Shop Item By Condition
-exports.fetchItemByCondition= async (req, res) => {
-  const { collection,condition,reference,color } = req.params;
- 
-  try {
-    const item = await getItemByConditionDocument( collection,condition,reference,color);
-     return res.status(200).send(item);
-  } catch (error) {
-    return res
-      .status(500)
-      .send(`Error getting document from collection ${error}`);
-  }
-};
+  const { urlCollection, urlSection, urlReference } = params;
 
-//Shop Item By Condition
-exports.fetchItemByConditionOverall= async (req, res) => {
-  const {condition,reference,color } = req.params;
+  const { colors } = query;
 
   try {
-    const item = await getItemByConditionOverallDocument(condition,reference,color);
-     return res.status(200).send(item);
+    const item = await getItemDocument(
+      urlCollection,
+      toServerEnumerate[urlSection.replace("-", "")],
+      urlReference,
+      colors.replace("-", " ")
+    );
+
+    return res.status(200).send(item);
   } catch (error) {
     return res
       .status(500)
@@ -185,13 +131,13 @@ exports.fetchPictures = async (req, res) => {
 };
 
 //Search
-exports.fetchSearch= async (req, res) => {                                  
-  const { search } = req.body;                                                                                                 
-  const searchParams=search.split(" ");
+exports.fetchSearch = async (req, res) => {
+  const { search } = req.body;
+  const searchParams = search.split(" ");
 
   try {
-   const results= await getSearchResults(searchParams);
-  
+    const results = await getSearchResults(searchParams);
+
     return res.status(200).send(results);
   } catch (error) {
     return res.status(500).send(`Error getting search results ${error}`);

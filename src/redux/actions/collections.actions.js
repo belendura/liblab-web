@@ -29,48 +29,14 @@ export const fetchPicturesFailure = (error) => ({
   payload: error,
 });
 
-// export const fetchCollectionsByConditionStart = (condition, wishlistItems) => ({
-//   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_START,
-//   payload: { condition, wishlistItems },
-// });
-
-// export const fetchCollectionsByConditionSuccess = (items, sectionPictures) => ({
-//   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS,
-//   payload: { items, sectionPictures },
-// });
-
-// export const fetchCollectionsByConditionFailure = (error) => ({
-//   type: collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE,
-//   payload: error,
-// });
-
-// export const fetchCollectionByConditionStart = (
-//   collection,
-//   condition,
-//   wishlistItems
-// ) => ({
-//   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_START,
-//   payload: { collection, condition, wishlistItems },
-// });
-
-// export const fetchCollectionByConditionSuccess = (items, sectionPictures) => ({
-//   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS,
-//   payload: { items, sectionPictures },
-// });
-
-// export const fetchCollectionByConditionFailure = (error) => ({
-//   type: collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE,
-//   payload: error,
-// });
-
-export const fetchShopItemsStart = (url,query, wishlistItems) => ({
+export const fetchShopItemsStart = (url, query, wishlistItems) => ({
   type: collectionsActionTypes.FETCH_SHOP_ITEMS_START,
-  payload: { url,query, wishlistItems },
+  payload: { url, query, wishlistItems },
 });
 
-export const fetchShopItemsSuccess = (items, sectionPictures) => ({
+export const fetchShopItemsSuccess = (items, shopItemsPictures) => ({
   type: collectionsActionTypes.FETCH_SHOP_ITEMS_SUCCESS,
-  payload: { items, sectionPictures },
+  payload: { items, shopItemsPictures },
 });
 
 export const fetchShopItemsFailure = (error) => ({
@@ -78,31 +44,14 @@ export const fetchShopItemsFailure = (error) => ({
   payload: error,
 });
 
-
-// export const fetchSectionStart = (collection, section, wishlistItems) => ({
-//   type: collectionsActionTypes.FETCH_SECTION_START,
-//   payload: { collection, section, wishlistItems },
-// });
-
-// export const fetchSectionSuccess = (items, sectionPictures) => ({
-//   type: collectionsActionTypes.FETCH_SECTION_SUCCESS,
-//   payload: { items, sectionPictures },
-// });
-
-// export const fetchSectionFailure = (error) => ({
-//   type: collectionsActionTypes.FETCH_SECTION_FAILURE,
-//   payload: error,
-// });
-
-
-export const fetchItemStart = (collection, section, reference, color, wishlistItems) => ({
+export const fetchItemStart = (url, query, wishlistItems) => ({
   type: collectionsActionTypes.FETCH_ITEM_START,
-  payload: { collection, section,reference, color, wishlistItems },
+  payload: { url, query, wishlistItems },
 });
 
 export const fetchItemSuccess = (item) => ({
   type: collectionsActionTypes.FETCH_ITEM_SUCCESS,
-  payload:  item,
+  payload: item,
 });
 
 export const fetchItemFailure = (error) => ({
@@ -110,14 +59,20 @@ export const fetchItemFailure = (error) => ({
   payload: error,
 });
 
-export const fetchItemByConditionStart = (collection, condition, reference, color, wishlistItems) => ({
+export const fetchItemByConditionStart = (
+  collection,
+  condition,
+  reference,
+  color,
+  wishlistItems
+) => ({
   type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_START,
-  payload: { collection, condition,reference, color, wishlistItems },
+  payload: { collection, condition, reference, color, wishlistItems },
 });
 
 export const fetchItemByConditionSuccess = (item) => ({
   type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_SUCCESS,
-  payload:  item,
+  payload: item,
 });
 
 export const fetchItemByConditionFailure = (error) => ({
@@ -125,14 +80,19 @@ export const fetchItemByConditionFailure = (error) => ({
   payload: error,
 });
 
-export const fetchItemByConditionOverallStart = ( condition, reference, color, wishlistItems) => ({
+export const fetchItemByConditionOverallStart = (
+  condition,
+  reference,
+  color,
+  wishlistItems
+) => ({
   type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_START,
-  payload: { condition,reference, color, wishlistItems },
+  payload: { condition, reference, color, wishlistItems },
 });
 
 export const fetchItemByConditionOverallSuccess = (item) => ({
   type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_SUCCESS,
-  payload:  item,
+  payload: item,
 });
 
 export const fetchItemByConditionOverallFailure = (error) => ({
@@ -142,7 +102,7 @@ export const fetchItemByConditionOverallFailure = (error) => ({
 
 export const fetchSearchStart = (search) => ({
   type: collectionsActionTypes.FETCH_SEARCH_START,
-  payload: {search },
+  payload: { search },
 });
 
 export const fetchSearchSuccess = (searchResults) => ({
@@ -176,15 +136,15 @@ export const filterType = (type) => ({
 });
 
 export const setAscendingOrder = () => ({
-  type: collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING,
+  type: collectionsActionTypes.ORDER_SHOP_ITEMS_PRICE_ASCENDING,
 });
 
 export const setDescendingOrder = () => ({
-  type: collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING,
+  type: collectionsActionTypes.ORDER_SHOP_ITEMS_PRICE_DESCENDING,
 });
 
 export const resetOrder = () => ({
-  type: collectionsActionTypes.RESET_ORDER_SECTION,
+  type: collectionsActionTypes.RESET_ORDER_SHOP_ITEMS,
 });
 
 export const resetInPairsView = () => ({
@@ -195,17 +155,15 @@ export const setInPairsView = () => ({
   type: collectionsActionTypes.SET_IN_PAIRS_VIEW,
 });
 
-export const toggleSectionWishlist = (item,user) => ({
-  type: collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
-  payload:{item,user}
+export const toggleShopItemsWishlist = (item, user) => ({
+  type: collectionsActionTypes.TOGGLE_SHOP_ITEMS_WISHLIST,
+  payload: { item, user },
 });
 
-export const clearSection = () => ({
-  type: collectionsActionTypes.CLEAR_SECTION,
-
+export const clearShopItems = () => ({
+  type: collectionsActionTypes.CLEAR_SHOP_ITEMS,
 });
 
 export const resetSearchLoaded = () => ({
   type: collectionsActionTypes.RESET_SEARCH_LOADED,
-
 });

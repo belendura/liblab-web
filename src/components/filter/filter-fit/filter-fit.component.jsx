@@ -4,20 +4,16 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { filterFit } from "../../../redux/actions/collections.actions";
 
 import {
-  selectSectionFitOptions,
+  selectShopItemsFitOptions,
   selectFilteredColors,
   selectFilteredSizes,
 } from "../../../redux/selectors/collections.selectors";
 
 import FilterFitOption from "./filter-fit-option/filter-fit-option.component";
 
-import {
-  Container,
-  Title,
-  OptionsContainer,
-} from "./filter-fit.styles";
+import { Container, Title, OptionsContainer } from "./filter-fit.styles";
 
-const FilterFit = ({condition}) => {
+const FilterFit = ({ condition }) => {
   const [fit, setFit] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,7 +21,13 @@ const FilterFit = ({condition}) => {
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
 
   const fitOptions = useSelector(
-    (state) => selectSectionFitOptions(state,condition, filteredColors, filteredSizes),
+    (state) =>
+      selectShopItemsFitOptions(
+        state,
+        condition,
+        filteredColors,
+        filteredSizes
+      ),
     shallowEqual
   );
 
@@ -50,10 +52,7 @@ const FilterFit = ({condition}) => {
         {fitOptions
           ? fitOptions.map((fitItem, index) => (
               <label key={index}>
-                <FilterFitOption
-                  id={fitItem}
-                  handleChange={handleChange}
-                />
+                <FilterFitOption id={fitItem} handleChange={handleChange} />
               </label>
             ))
           : null}

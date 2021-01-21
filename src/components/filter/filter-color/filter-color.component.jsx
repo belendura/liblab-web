@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 import {
-  selectSectionColorOptions,
+  selectShopItemsColorOptions,
   selectFilteredSizes,
   selectFilteredFit,
 } from "../../../redux/selectors/collections.selectors";
@@ -10,13 +10,9 @@ import { filterColors } from "../../../redux/actions/collections.actions";
 
 import FilterColorOption from "./filter-color-option/filter-color-option.component";
 
-import {
-  Container,
-  Title,
-  OptionsContainer,
-} from "./filter-color.styles";
+import { Container, Title, OptionsContainer } from "./filter-color.styles";
 
-const FilterColor = ({condition}) => {
+const FilterColor = ({ condition }) => {
   const [colors, setColors] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,7 +21,8 @@ const FilterColor = ({condition}) => {
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
 
   const colorOptions = useSelector(
-    (state) => selectSectionColorOptions(state, condition, filteredSizes, filteredFit),
+    (state) =>
+      selectShopItemsColorOptions(state, condition, filteredSizes, filteredFit),
     shallowEqual
   );
 

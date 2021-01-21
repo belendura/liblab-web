@@ -11,19 +11,18 @@ import {
   clearWishlist,
   removeItemFromWishlist,
   updateWishlistFromCheckOutSuccess,
-  updateWishlistFromCheckOutFailure
+  updateWishlistFromCheckOutFailure,
 } from "../actions/wishlist.actions";
 
 export function* toggleWishlist({ payload }) {
-  const{ item,user}=payload;
-  yield put(toggleWishlistItem(item,user));
+  const { item, user } = payload;
+  yield put(toggleWishlistItem(item, user));
 }
 
-export function* onToggleSectionWishlist() {
-
+export function* onToggleShopItemsWishlist() {
   yield takeLatest(
-    collectionsActionTypes.TOGGLE_SECTION_WISHLIST,
-   toggleWishlist
+    collectionsActionTypes.TOGGLE_SHOP_ITEMS_WISHLIST,
+    toggleWishlist
   );
 }
 
@@ -44,41 +43,53 @@ export function* onAddItem() {
   yield takeLatest(cartActionTypes.ADD_ITEM, removeItem);
 }
 
-export function* toggleUserWishlist({payload}) {
-  const {item,user}=payload;
-    try {
-      if (user!==null && user!==undefined){
-      const response = yield axiosConfig.post("/toggleWishlisItem", {item, user});
+export function* toggleUserWishlist({ payload }) {
+  const { item, user } = payload;
+  try {
+    if (user !== null && user !== undefined) {
+      const response = yield axiosConfig.post("/toggleWishlisItem", {
+        item,
+        user,
+      });
       yield put(updateWishlistFromCheckOutSuccess(response.data));
-      }
-    } catch (error) {
-      yield put(updateWishlistFromCheckOutFailure(error));
     }
+  } catch (error) {
+    yield put(updateWishlistFromCheckOutFailure(error));
   }
-  
-  export function* onToggleWishlistItem() {
-    yield takeLatest(wishlistActionTypes.TOGGLE_WISHLIST_ITEM, toggleUserWishlist);
-  }
-  
-  export function* removeItemFromUserWishlist({payload}) {
-    const {item, user}=payload;
-    try {
-      if (user!==null && user!==undefined){
-      const response = yield axiosConfig.post("/removeWishlistItem", {item, user});
+}
+
+export function* onToggleWishlistItem() {
+  yield takeLatest(
+    wishlistActionTypes.TOGGLE_WISHLIST_ITEM,
+    toggleUserWishlist
+  );
+}
+
+export function* removeItemFromUserWishlist({ payload }) {
+  const { item, user } = payload;
+  try {
+    if (user !== null && user !== undefined) {
+      const response = yield axiosConfig.post("/removeWishlistItem", {
+        item,
+        user,
+      });
       yield put(updateWishlistFromCheckOutSuccess(response.data));
-      }
-    } catch (error) {
-      yield put(updateWishlistFromCheckOutFailure(error));
     }
+  } catch (error) {
+    yield put(updateWishlistFromCheckOutFailure(error));
   }
-  
-  export function* onRemoveItemFromUserWishlist() {
-    yield takeLatest(wishlistActionTypes.REMOVE_ITEM_FROM_WISHLIST, removeItemFromUserWishlist);
-  }
+}
+
+export function* onRemoveItemFromUserWishlist() {
+  yield takeLatest(
+    wishlistActionTypes.REMOVE_ITEM_FROM_WISHLIST,
+    removeItemFromUserWishlist
+  );
+}
 
 export function* wishlistSagas() {
   yield all([
-    call(onToggleSectionWishlist),
+    call(onToggleShopItemsWishlist),
     call(onSignOutSucces),
     call(onAddItem),
     call(onToggleWishlistItem),

@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from "react";
-import { useDispatch, useSelector, shallowEqual} from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-import {selectCurrentUser} from "../../redux/selectors/user.selectors";
-import { toggleSectionWishlist } from "../../redux/actions/collections.actions";
+import { selectCurrentUser } from "../../redux/selectors/user.selectors";
+import { toggleShopItemsWishlist } from "../../redux/actions/collections.actions";
 
 import { WishlistMenu, WishlistRedMenu } from "./wishlist.styles";
 
@@ -10,14 +10,14 @@ const Wishlist = ({ theme, size, item }) => {
   const dispatch = useDispatch();
   const { wishlist } = item;
   const [selected, setSelected] = useState(wishlist);
-const user=useSelector(selectCurrentUser,shallowEqual);
+  const user = useSelector(selectCurrentUser, shallowEqual);
   return wishlist ? (
     <WishlistRedMenu
       theme={theme}
       size={size}
       onClick={() => {
         setSelected(!selected);
-       dispatch(toggleSectionWishlist(item,user));
+        dispatch(toggleShopItemsWishlist(item, user));
       }}
     />
   ) : (
@@ -26,7 +26,7 @@ const user=useSelector(selectCurrentUser,shallowEqual);
       size={size}
       onClick={() => {
         setSelected(!selected);
-         dispatch(toggleSectionWishlist(item,user));
+        dispatch(toggleShopItemsWishlist(item, user));
       }}
     />
   );

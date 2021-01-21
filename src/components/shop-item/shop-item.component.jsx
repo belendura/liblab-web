@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import queryString from "query-string";
+
+import { fromServerEnumerate } from "../../firebase/enumerate";
 
 import { selectItemByColor } from "../../redux/selectors/collections.selectors";
 
@@ -29,9 +32,13 @@ import {
   ColorsContainer,
 } from "./shop-item.styles";
 
-const ShopItem = ({ initialColor, reference, params }) => {
+const ShopItem = ({ initialColor, reference, labels }) => {
   const history = useHistory();
-  const { collection, condition } = params;
+  // const location = useLocation();
+
+  // const { pathname, search, state } = location;
+  // console.log("patnhame", pathname);
+  // console.log("state", state);
 
   const [visibility, setVisibility] = useState(false);
   const [displayedView, setDisplayedView] = useState(0);
@@ -49,6 +56,7 @@ const ShopItem = ({ initialColor, reference, params }) => {
 
   const {
     url,
+    collection,
     section,
     color,
     description,
@@ -76,8 +84,20 @@ const ShopItem = ({ initialColor, reference, params }) => {
       : setDisplayedView(url.length - 1);
   };
 
+  const query = {
+    labels: `${fromServerEnumerate[labels]}`,
+    details: `${description.replace(" ", "-")}`,
+    colors: `${color.name.replace(" ", "-")}`,
+  };
+
+  const pathName = `/shop/${collection}/${section.replace(
+    " ",
+    "-"
+  )}/${reference}?${queryString.stringify(query, {
+    arrayFormat: "comma",
+  })}`;
+
   return (
-  
     <Container
       onMouseEnter={() => setVisibility(true)}
       onMouseLeave={() => setVisibility(false)}
@@ -88,19 +108,7 @@ const ShopItem = ({ initialColor, reference, params }) => {
           {visibility && <ArrowRight onClick={displayedViewForward} />}
           <Picture
             onClick={() => {
-              if (collection && section) {
-                history.push(
-                  `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
-                );
-              } else if (collection && condition) {
-                history.push(
-                  `/shop/${collection}/featured/${condition}/${description}&${reference}/${color.name}`
-                );
-              } else if (!collection && condition) {
-                history.push(
-                  `/shop/${condition}/${description}&${reference}/${color.name}`
-                );
-              }
+              history.push(pathName);
             }}
             src={url[displayedView]}
           />

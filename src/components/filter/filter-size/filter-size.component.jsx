@@ -4,27 +4,24 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { filterSizes } from "../../../redux/actions/collections.actions";
 
 import {
-  selectSectionSizeOptions,
+  selectShopItemsSizeOptions,
   selectFilteredColors,
   selectFilteredFit,
 } from "../../../redux/selectors/collections.selectors";
 
 import FilterSizeOption from "./filter-size-option/filter-size-option.component";
 
-import {
-  Container,
-  Title,
-  OptionContainer,
-} from "./filter-size.styles";
+import { Container, Title, OptionContainer } from "./filter-size.styles";
 
-const FilterSize = ({condition}) => {
+const FilterSize = ({ condition }) => {
   const [sizes, setSizes] = useState([]);
   const dispatch = useDispatch();
 
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
   const sizeOptions = useSelector(
-    (state) => selectSectionSizeOptions(state, condition,filteredColors, filteredFit),
+    (state) =>
+      selectShopItemsSizeOptions(state, condition, filteredColors, filteredFit),
     shallowEqual
   );
 

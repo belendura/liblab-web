@@ -12,22 +12,25 @@ const {
 
 const {
   fetchHeader,
-  // fetchCollectionByCondition,
-  // fetchCollectionsByCondition,
   fetchCollection,
   fetchSection,
-  // fetchItem,
-  // fetchItemByCondition,
-  // fetchItemByConditionOverall,
+  fetchItem,
   fetchPictures,
   fetchSearch,
 } = require("./handlers/collections-management");
 
 const { fetchSizesGuide } = require("./handlers/sizes-guide-management");
 
-const { postSizeRequest} = require("./handlers/shop-management");
-const {addItemToUserCart, removeItemFromUserCart, clearItemFromUserCart} = require("./handlers/cart-management");
-const {toggleItemFromWishlist, removeItemFromUserWishlist} = require("./handlers/wishlist-management");
+const { postSizeRequest } = require("./handlers/shop-management");
+const {
+  addItemToUserCart,
+  removeItemFromUserCart,
+  clearItemFromUserCart,
+} = require("./handlers/cart-management");
+const {
+  toggleItemFromWishlist,
+  removeItemFromUserWishlist,
+} = require("./handlers/wishlist-management");
 
 const {
   checkIfAuthenticated,
@@ -51,15 +54,11 @@ app.post("/reset-password", resetPassword);
 
 app.get("/header", fetchHeader);
 
-app.get("/shop/:collection", fetchCollection);
+app.get("/shop/:urlCollection", fetchCollection);
 
- app.get("/shop/:collection/:section", fetchSection);
+app.get("/shop/:urlCollection/:urlSection", fetchSection);
 
-// app.get("/shop/featured/:condition", fetchCollectionsByCondition);
-
-// app.get("/shop/:collection/featured/:condition", fetchCollectionByCondition);
-
-// app.get("/shop/:collection/:section/:reference/:color", fetchItem);
+app.get("/shop/:urlCollection/:urlSection/:urlReference/", fetchItem);
 
 //app.get("/shop/:collection/featured/:condition/:reference/:color", fetchItemByCondition);
 

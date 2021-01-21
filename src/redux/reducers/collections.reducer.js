@@ -1,13 +1,13 @@
 import collectionsActionTypes from "../types/collections.types";
 import {
-  toggleSectionWishlist,
+  toggleShopItemsWishlist,
   updatePictures,
 } from "../utils/collections.utils";
 
 const INITIAL_STATE = {
   shopMenu: null,
   shopMenuPictures: null,
-  section: null,
+  shopItems: null,
   pictures: null,
   filteredColors: [],
   filteredSizes: [],
@@ -17,8 +17,8 @@ const INITIAL_STATE = {
   ascendingOrder: false,
   descendingOrder: false,
   error: null,
-  searchLoaded:false,
-  searchParams:"",
+  searchLoaded: false,
+  searchParams: "",
 };
 
 export const collectionsReducer = (state = INITIAL_STATE, action) => {
@@ -42,41 +42,39 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: action.payload,
         error: null,
       };
-      case collectionsActionTypes.FETCH_SHOP_ITEMS_SUCCESS:
-    // case collectionsActionTypes.FETCH_SECTION_SUCCESS:
-    // case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_SUCCESS:
-    // case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_SUCCESS:
+    case collectionsActionTypes.FETCH_SHOP_ITEMS_SUCCESS:
       return {
         ...state,
-        section: action.payload.items,
+        shopItems: action.payload.items,
         pictures: updatePictures(
           state.pictures,
-          action.payload.sectionPictures
+          action.payload.shopItemsPictures
         ),
         inPairsView: false,
         ascendingOrder: false,
         descendingOrder: false,
         error: null,
       };
-      case collectionsActionTypes.FETCH_ITEM_SUCCESS:
-      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_SUCCESS:
-      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_SUCCESS:
-        return {
-          ...state,
-          section: action.payload,
-        error:null,                  
-        };
-        case collectionsActionTypes.FETCH_SEARCH_SUCCESS:
-          return {
-            ...state,
-            section: action.payload,
-            searchLoaded:true,
-          error:null,                  
-          };
-    case collectionsActionTypes.TOGGLE_SECTION_WISHLIST:
+    case collectionsActionTypes.FETCH_ITEM_SUCCESS:
       return {
         ...state,
-        section: toggleSectionWishlist(state.section, action.payload.item),
+        shopItems: action.payload,
+        error: null,
+      };
+    case collectionsActionTypes.FETCH_SEARCH_SUCCESS:
+      return {
+        ...state,
+        shopItems: action.payload,
+        searchLoaded: true,
+        error: null,
+      };
+    case collectionsActionTypes.TOGGLE_SHOP_ITEMS_WISHLIST:
+      return {
+        ...state,
+        shopItems: toggleShopItemsWishlist(
+          state.shopItems,
+          action.payload.item
+        ),
       };
     case collectionsActionTypes.FILTER_COLORS:
       return { ...state, filteredColors: action.payload, error: null };
@@ -86,21 +84,21 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, filteredFit: action.payload, error: null };
     case collectionsActionTypes.FILTER_TYPE:
       return { ...state, filteredType: action.payload, error: null };
-    case collectionsActionTypes.ORDER_SECTION_PRICE_ASCENDING:
+    case collectionsActionTypes.ORDER_SHOP_ITEMS_PRICE_ASCENDING:
       return {
         ...state,
         ascendingOrder: true,
         descendingOrder: false,
         error: null,
       };
-    case collectionsActionTypes.ORDER_SECTION_PRICE_DESCENDING:
+    case collectionsActionTypes.ORDER_SHOP_ITEMS_PRICE_DESCENDING:
       return {
         ...state,
         ascendingOrder: false,
         descendingOrder: true,
         error: null,
       };
-    case collectionsActionTypes.RESET_ORDER_SECTION:
+    case collectionsActionTypes.RESET_ORDER_SHOP_ITEMS:
       return {
         ...state,
         ascendingOrder: false,
@@ -120,12 +118,9 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     case collectionsActionTypes.FETCH_SHOP_ITEMS_FAILURE:
-    // case collectionsActionTypes.FETCH_SECTION_FAILURE:
-    // case collectionsActionTypes.FETCH_COLLECTIONS_BY_CONDITION_FAILURE:
-    // case collectionsActionTypes.FETCH_COLLECTION_BY_CONDITION_FAILURE:
       return {
         ...state,
-        section: null,
+        shopItems: null,
         pictures: null,
         ascendingOrder: false,
         descendingOrder: false,
@@ -144,31 +139,29 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         pictures: null,
         error: action.payload,
       };
-      case collectionsActionTypes.FETCH_ITEM_FAILURE:
-      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_FAILURE:
-      case collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_FAILURE:
-        return {
-          ...state,
-          section: null,
-          error: action.payload,
-        };
-        case collectionsActionTypes.CLEAR_SECTION:
-          return {
-            ...state,
-            section: null,
-          };
-        case collectionsActionTypes.FETCH_SEARCH_FAILURE:
-            return {
-              ...state,
-              section: null,
-              error: action.payload,
-              searchLoaded: true,
-            };
-            case collectionsActionTypes.RESET_SEARCH_LOADED:
-              return {
-                ...state,
-                searchLoaded: false,
-              };
+    case collectionsActionTypes.FETCH_ITEM_FAILURE:
+      return {
+        ...state,
+        shopItems: null,
+        error: action.payload,
+      };
+    case collectionsActionTypes.CLEAR_SHOP_ITEMS:
+      return {
+        ...state,
+        shopItems: null,
+      };
+    case collectionsActionTypes.FETCH_SEARCH_FAILURE:
+      return {
+        ...state,
+        shopItems: null,
+        error: action.payload,
+        searchLoaded: true,
+      };
+    case collectionsActionTypes.RESET_SEARCH_LOADED:
+      return {
+        ...state,
+        searchLoaded: false,
+      };
     default:
       return state;
   }

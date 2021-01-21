@@ -1,7 +1,6 @@
 const { firestore } = require("./admin");
 
 exports.createUserDocument = async (userAuth, additionalData) => {
-
   if (!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -31,8 +30,7 @@ exports.createUserDocument = async (userAuth, additionalData) => {
     } catch (error) {
       throw new Error(error);
     }
-  }
-  else if(snapShot.exists){
+  } else if (snapShot.exists) {
     return userAuth;
   }
 };
@@ -51,7 +49,7 @@ exports.getUserDocument = async (userId) => {
 
 exports.getPictures = async (collections, section) => {
   if (!collections.length) return;
-console.log("section",section);
+
   try {
     const webPictures = await collections.reduce(
       async (previousPromise, item) => {
@@ -72,7 +70,7 @@ console.log("section",section);
       },
       Promise.resolve({})
     );
-console.log(webPictures)
+    console.log(webPictures);
     return webPictures;
   } catch (error) {
     throw new Error(error);
@@ -195,14 +193,12 @@ exports.getCollectionDocuments = async (collection) => {
     const queryItems = await collectionsRefs.reduce(
       async (previousPromise, colRef) => {
         let accum = await previousPromise;
-        return await colRef
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.docs.map((docSnapshot) =>
-              accum.push(docSnapshot.data())
-            );
-            return accum;
-          });
+        return await colRef.get().then((querySnapshot) => {
+          querySnapshot.docs.map((docSnapshot) =>
+            accum.push(docSnapshot.data())
+          );
+          return accum;
+        });
       },
       Promise.resolve([])
     );
@@ -294,8 +290,7 @@ exports.getCollectionByConditionDocuments = async (collection, condition) => {
 };
 
 exports.getCollectionsByConditionDocuments = async (condition) => {
-  if (!condition)
-  return
+  if (!condition) return;
 
   const documentRefs = await firestore
     .collection("collections")
@@ -314,21 +309,22 @@ exports.getCollectionsByConditionDocuments = async (condition) => {
   );
 
   try {
-    const queryItems = await
-      Promise.all(collectionsRefs.map(async colRef => {
+    const queryItems = await Promise.all(
+      collectionsRefs.map(async (colRef) => {
         return await colRef
           .where(condition, "==", true)
           .get()
           .then((querySnapshot) => {
-            const queryItems = querySnapshot.docs.map((docSnapshot) =>{
-             const data= docSnapshot.data()
-             return data;
+            const queryItems = querySnapshot.docs.map((docSnapshot) => {
+              const data = docSnapshot.data();
+              return data;
             });
             return queryItems;
           });
-      }))
-    // console.log("queryItems in getCollectionsByConditionDocuments",queryItems);
-//Se puede hacer un flat?
+      })
+    );
+
+    //Se puede hacer un flat?
     const collectionsItems = queryItems.reduce((accum, item) => {
       return [...accum, ...item];
     }, []);
@@ -365,185 +361,37 @@ exports.getSectionDocuments = async (collection, section) => {
 exports.getItemDocument = async (collection, section, reference, color) => {
   if (!collection || !section || !reference || !color) return;
 
-  const colRef= await firestore
-  .collection(`collections/${collection}/${section}`)
-
-try{
-
-  const availableColors= await colRef
-        .where("reference", "==", reference)
-        .get()
-        .then((querySnapshot) => {
-      return   querySnapshot.docs.reduce((accum,docSnapshot) =>{
-        const data=docSnapshot.data();
-        return  accum=[...accum, data.color]
-        
-         },[])}       
+  const colRef = await firestore.collection(
+    `collections/${collection}/${section}`
   );
 
-  const queryItem = await colRef
-        .where("reference", "==", reference)
-        .get()
-        .then((querySnapshot) => {
-      return   querySnapshot.docs.reduce((accum,docSnapshot) =>{
-        const data=docSnapshot.data();
-  
-        if (data.color.name===color){
-          data.availableColors=availableColors
-          accum.push(data)
-          
-        }
-        return accum
-         },[])}       
-  );
+  try {
+    const availableColors = await colRef
+      .where("reference", "==", reference)
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.reduce((accum, docSnapshot) => {
+          const data = docSnapshot.data();
+          return (accum = [...accum, data.color]);
+        }, []);
+      });
+
+    const queryItem = await colRef
+      .where("reference", "==", reference)
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.reduce((accum, docSnapshot) => {
+          const data = docSnapshot.data();
+
+          if (data.color.name === color) {
+            data.availableColors = availableColors;
+            accum.push(data);
+          }
+          return accum;
+        }, []);
+      });
 
     return queryItem;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-exports.getItemByConditionDocument = async (collection, condition, reference, color) => {
-  if (!collection || !condition || !reference || !color) return;
-
-
-  const collectionsRefs = await firestore
-  .doc(`collections/${collection}`)
-  .listCollections();
-
-try {
-  const availableColors = await collectionsRefs.reduce(
-    async (previousPromise, colRef) => {
-      let accum = await previousPromise;
-return await colRef
-     .where("reference", "==", reference)
-     .get()
-     .then((querySnapshot) => {
- querySnapshot.docs.map((docSnapshot) =>{                                     
-       const data=docSnapshot.data();
-       accum.push(data.color)
-               return accum
-        })
-        return accum
-      }  
-   )
-    },Promise.resolve([]))
-
- 
-  const queryItems = await collectionsRefs.reduce(
-    async (previousPromise, colRef) => {
-      let accum = await previousPromise;
-
-  return await colRef
-         .where(condition, "==", true)
-        .where("reference", "==", reference)
-        .get()
-        .then((querySnapshot) => {
-           querySnapshot.docs.map((docSnapshot) =>{
-              const data=docSnapshot.data();
-              if (data.color.name===color){
-                data.availableColors=availableColors;
-                accum.push(data)
-              }
-              return accum;
-            })
-            return accum
-          }
-          )
-        },Promise.resolve([]));
-
- 
-  const filteredQueryItems = queryItems.filter(
-    (item, index, arrayItem) =>
-      arrayItem.findIndex(
-        (itemIndex) =>
-          itemIndex.reference === item.reference &&
-          itemIndex.color.code === item.color.code
-      ) === index
-  );
-
-  return filteredQueryItems;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-exports.getItemByConditionOverallDocument = async ( condition, reference, color) => {
-  if (!condition || !reference || !color) return;
-
-
-  const documentRefs = await firestore
-  .collection(`collections`)
-  .listDocuments();
-
-  const collectionsRefs = await documentRefs.reduce(
-    async (previousPromise, docRef) => {
-      let accum = await previousPromise;
-      const colRef = await docRef.listCollections();
-
-      accum = [...accum, ...colRef];
-
-      return accum;
-    },
-    Promise.resolve([])
-  );
-
-try {
-  const availableColors = await collectionsRefs.reduce(
-    async (previousPromise, colRef) => {
-      let accum = await previousPromise;
-return await colRef
-     .where("reference", "==", reference)
-     .get()
-     .then((querySnapshot) => {
- querySnapshot.docs.map((docSnapshot) =>{                                     
-       const data=docSnapshot.data();
-       accum.push(data.color)
-               return accum
-        })
-        return accum
-      }  
-   )
-    },Promise.resolve([]))
-
- 
- 
-  const queryItems = await collectionsRefs.reduce(
-    async (previousPromise, colRef) => {
-      let accum = await previousPromise;
-  return await colRef
-         .where(condition, "==", true)
-        .where("reference", "==", reference)
-        .get()
-        .then((querySnapshot) => {
-           querySnapshot.docs.map((docSnapshot) =>{
-              const data=docSnapshot.data();
-         
-              if (data.color.name===color){
-              
-                data.availableColors=availableColors;
-                accum.push(data)
-              }
-              return accum;
-            })
-         
-            return accum
-          }
-          )
-        },Promise.resolve([]));
-
-    
- 
-  const filteredQueryItems = queryItems.filter(
-    (item, index, arrayItem) =>
-      arrayItem.findIndex(
-        (itemIndex) =>
-          itemIndex.reference === item.reference &&
-          itemIndex.color.code === item.color.code
-      ) === index
-  );
-
-  return filteredQueryItems;
   } catch (error) {
     throw new Error(error);
   }
@@ -556,87 +404,82 @@ exports.updateUserCartDocument = async (user, cart) => {
 
   const snapShot = await cartRef.get();
 
-
   if (!snapShot.exists) {
     try {
       // if (cart.length > 0) {
-        await cartRef.set({ cart: cart });
+      await cartRef.set({ cart: cart });
       // }
     } catch (error) {
       throw new Error(error);
     }
-
   } else {
     try {
       const userCart = snapShot.data();
       const oldUserCart = userCart.cart;
 
-    if (cart.length > 0){
-     if (oldUserCart.length === 0) {
-        await cartRef.set({ cart: cart });
- 
-      }
-
-      else {
-        const filteredCart = cart.reduce((accumulator, cartItem) => {
-          const existingCartItem = oldUserCart.find(
-            (userCartItem) =>
-              userCartItem.id === cartItem.id &&
-              userCartItem.selectedSize === cartItem.selectedSize
-          );
-          if (!existingCartItem) {
-            accumulator.push(cartItem);
-          }
-          return accumulator;
-        }, []);
-  
-        const filteredUserCart = oldUserCart.reduce(
-          (accumulator, userCartItem) => {
-            const existingCartItem = cart.some(
-              (cartItem) =>
+      if (cart.length > 0) {
+        if (oldUserCart.length === 0) {
+          await cartRef.set({ cart: cart });
+        } else {
+          const filteredCart = cart.reduce((accumulator, cartItem) => {
+            const existingCartItem = oldUserCart.find(
+              (userCartItem) =>
                 userCartItem.id === cartItem.id &&
                 userCartItem.selectedSize === cartItem.selectedSize
             );
-            const updatedUserCartItem = {
-             id: userCartItem.id,
-              reference: userCartItem.reference,
-              url: userCartItem.url[0],
-              name: userCartItem.name,
-              description:userCartItem.description,
-              price:userCartItem.price,
-              lastPrice: userCartItem.lastPrice,          
-              sale:userCartItem.sale,
-              color: userCartItem.color,
-              selectedSize: userCartItem.selectedSize
+            if (!existingCartItem) {
+              accumulator.push(cartItem);
             }
-
-            if (existingCartItem) {
-             updatedUserCartItem = {
-               ...updatedUserCartItem,
-                quantity: userCartItem.quantity + 1,
-              };
-              accumulator.push(updatedUserCartItem);
-            } else {
-              accumulator.push(userCartItem);
-            }
-
             return accumulator;
-          },
-          []
-        );
-     
-        const newUserCart = filteredUserCart.concat(filteredCart);
-        await cartRef.update({ cart: newUserCart },{merge:true});
+          }, []);
+
+          const filteredUserCart = oldUserCart.reduce(
+            (accumulator, userCartItem) => {
+              const existingCartItem = cart.some(
+                (cartItem) =>
+                  userCartItem.id === cartItem.id &&
+                  userCartItem.selectedSize === cartItem.selectedSize
+              );
+              const updatedUserCartItem = {
+                id: userCartItem.id,
+                reference: userCartItem.reference,
+                url: userCartItem.url[0],
+                name: userCartItem.name,
+                description: userCartItem.description,
+                price: userCartItem.price,
+                lastPrice: userCartItem.lastPrice,
+                sale: userCartItem.sale,
+                color: userCartItem.color,
+                selectedSize: userCartItem.selectedSize,
+              };
+
+              if (existingCartItem) {
+                updatedUserCartItem = {
+                  ...updatedUserCartItem,
+                  quantity: userCartItem.quantity + 1,
+                };
+                accumulator.push(updatedUserCartItem);
+              } else {
+                accumulator.push(userCartItem);
+              }
+
+              return accumulator;
+            },
+            []
+          );
+
+          const newUserCart = filteredUserCart.concat(filteredCart);
+          await cartRef.update({ cart: newUserCart }, { merge: true });
+        }
       }
-    }
     } catch (error) {
       throw new Error(error);
     }
   }
-    const updatedSnapShot = await cartRef.get();
-    const updatedUserCart = updatedSnapShot.data();
-    // console.log("updatedUserCart", updatedUserCart.cart);
-      return updatedUserCart.cart;
+  const updatedSnapShot = await cartRef.get();
+  const updatedUserCart = updatedSnapShot.data();
+  // console.log("updatedUserCart", updatedUserCart.cart);
+  return updatedUserCart.cart;
 };
 
 exports.updateUserWishlistDocument = async (user, wishlist) => {
@@ -646,124 +489,109 @@ exports.updateUserWishlistDocument = async (user, wishlist) => {
 
   const snapShot = await wishlistRef.get();
 
-
-
   if (!snapShot.exists) {
- 
     try {
       // if (wishlist.length > 0) {
-        await wishlistRef.set({ wishlist: wishlist });
+      await wishlistRef.set({ wishlist: wishlist });
       // }
-
     } catch (error) {
       throw new Error(error);
     }
-
   } else {
     try {
       const userWishlist = snapShot.data();
       const oldUserWishlist = userWishlist.wishlist;
-  
-      if (wishlist.length > 0){ 
-        
-        if( oldUserWishlist.length === 0) {
-        await wishlistRef.set({ wishlist: wishlist });
-        }
-  
-      else {
-        const filteredWishlist = wishlist.reduce(
-          (accumulator, wishlistItem) => {
-            const existingWishlistItem = oldUserWishlist.some(
-              (userWishlistItem) =>
-                userWishlistItem.id === wishlistItem.id 
-            );
-            if (!existingWishlistItem) {
-              accumulator.push(wishlistItem);
-            }
-            return accumulator;
-          },
-          []
-        );
 
-        const newUserWishlist = oldUserWishlist.concat(filteredWishlist);
-    
-        await wishlistRef.update(
-          { wishlist: newUserWishlist },
-          { merge: true }
-        );
+      if (wishlist.length > 0) {
+        if (oldUserWishlist.length === 0) {
+          await wishlistRef.set({ wishlist: wishlist });
+        } else {
+          const filteredWishlist = wishlist.reduce(
+            (accumulator, wishlistItem) => {
+              const existingWishlistItem = oldUserWishlist.some(
+                (userWishlistItem) => userWishlistItem.id === wishlistItem.id
+              );
+              if (!existingWishlistItem) {
+                accumulator.push(wishlistItem);
+              }
+              return accumulator;
+            },
+            []
+          );
+
+          const newUserWishlist = oldUserWishlist.concat(filteredWishlist);
+
+          await wishlistRef.update(
+            { wishlist: newUserWishlist },
+            { merge: true }
+          );
+        }
       }
-    }
     } catch (error) {
       throw new Error(error);
     }
   }
   const updatedSnapShot = await wishlistRef.get();
   const updatedUserWishlist = updatedSnapShot.data();
- 
+
   return updatedUserWishlist.wishlist;
 };
 
-exports.addItemToUserCartDocument = async (itemToAdd,selectedSize, user) => {
-
+exports.addItemToUserCartDocument = async (itemToAdd, selectedSize, user) => {
   if (!user || !itemToAdd) return;
 
-  const { id} = itemToAdd;
+  const { id } = itemToAdd;
   const cartRef = firestore.doc(`carts/${user.uid}`);
   const snapShot = await cartRef.get();
 
-  const shortItem={
+  const shortItem = {
     id: itemToAdd.id,
     reference: itemToAdd.reference,
     url: itemToAdd.url[0],
     name: itemToAdd.name,
-    description:itemToAdd.description,
-    price:itemToAdd.price,
-    lastPrice: itemToAdd.lastPrice,          
-    sale:itemToAdd.sale,
+    description: itemToAdd.description,
+    price: itemToAdd.price,
+    lastPrice: itemToAdd.lastPrice,
+    sale: itemToAdd.sale,
     color: itemToAdd.color,
     selectedSize: selectedSize,
     quantity: 1,
   };
 
-  let updatedCart=[];
+  let updatedCart = [];
 
   if (!snapShot.exists) {
     try {
-   
       updatedCart.push(shortItem);
-      await cartRef.set({ cart:updatedCart });
-
+      await cartRef.set({ cart: updatedCart });
     } catch (error) {
       throw new Error(error);
     }
-
-} else {
-  try{
+  } else {
+    try {
       const userCart = snapShot.data();
       const oldUserCart = userCart.cart;
-  
+
       if (oldUserCart.length === 0) {
         updatedCart.push(shortItem);
-        await cartRef.set({ cart: updatedCart});
-      }
-      else {
-        const existingCartItem =
-        oldUserCart.find(
-          (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
+        await cartRef.set({ cart: updatedCart });
+      } else {
+        const existingCartItem = oldUserCart.find(
+          (cartItem) =>
+            cartItem.id === id && cartItem.selectedSize === selectedSize
         );
 
-       if (existingCartItem) {
-        updatedCart= oldUserCart.map((cartItem) =>{
-       return (cartItem.id === id && cartItem.selectedSize === selectedSize)
-            ? {
-                ...cartItem,
-                quantity: cartItem.quantity + 1,
-              }
-            : cartItem
-            });
-          }
-        else{
-         updatedCart=[...oldUserCart, shortItem];
+        if (existingCartItem) {
+          updatedCart = oldUserCart.map((cartItem) => {
+            return cartItem.id === id && cartItem.selectedSize === selectedSize
+              ? {
+                  ...cartItem,
+                  quantity: cartItem.quantity + 1,
+                }
+              : cartItem;
+          });
+        } else {
+          updatedCart = [...oldUserCart, shortItem];
         }
         await cartRef.set({ cart: updatedCart });
       }
@@ -771,12 +599,12 @@ exports.addItemToUserCartDocument = async (itemToAdd,selectedSize, user) => {
       throw new Error(error);
     }
   }
-    const updatedSnapShot = await cartRef.get();
-    const updatedUserCart = updatedSnapShot.data();
-    return updatedUserCart.cart;
+  const updatedSnapShot = await cartRef.get();
+  const updatedUserCart = updatedSnapShot.data();
+  return updatedUserCart.cart;
 };
 
-exports.removeItemFromUserCartDocument = async (itemToRemove,user) => {
+exports.removeItemFromUserCartDocument = async (itemToRemove, user) => {
   if (!user || !itemToRemove) return;
 
   const { id, selectedSize } = itemToRemove;
@@ -785,38 +613,38 @@ exports.removeItemFromUserCartDocument = async (itemToRemove,user) => {
   const snapShot = await cartRef.get();
 
   if (!snapShot.exists) {
-      throw new Error(error);
+    throw new Error(error);
   } else {
     try {
-
       const userCart = snapShot.data();
       const oldUserCart = userCart.cart;
 
       const existingCartItem = oldUserCart.find(
-        (cartItem) => cartItem.id === id && cartItem.selectedSize === selectedSize
-      );
-    
-      let updatedCart=[];
-      
-      if (existingCartItem){
-      if (existingCartItem.quantity > 1) {
-        updatedCart=oldUserCart.map((cartItem) =>
+        (cartItem) =>
           cartItem.id === id && cartItem.selectedSize === selectedSize
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        );
-      } else {
-      updatedCart= oldUserCart.filter(
-          (cartItem) =>
-            cartItem.id !== id ||
-            (cartItem.id === id && cartItem.selectedSize !== selectedSize)
-        );
+      );
+
+      let updatedCart = [];
+
+      if (existingCartItem) {
+        if (existingCartItem.quantity > 1) {
+          updatedCart = oldUserCart.map((cartItem) =>
+            cartItem.id === id && cartItem.selectedSize === selectedSize
+              ? { ...cartItem, quantity: cartItem.quantity - 1 }
+              : cartItem
+          );
+        } else {
+          updatedCart = oldUserCart.filter(
+            (cartItem) =>
+              cartItem.id !== id ||
+              (cartItem.id === id && cartItem.selectedSize !== selectedSize)
+          );
+        }
       }
-    }
-    if (!existingCartItem){
-      updatedCart= [...oldUserCart];
-    }
-   
+      if (!existingCartItem) {
+        updatedCart = [...oldUserCart];
+      }
+
       await cartRef.set({ cart: updatedCart });
       const updatedSnapShot = await cartRef.get();
       const updatedUserCart = updatedSnapShot.data();
@@ -828,8 +656,7 @@ exports.removeItemFromUserCartDocument = async (itemToRemove,user) => {
   }
 };
 
-exports.clearItemFromUserCartDocument = async (itemToRemove,user) => {
-
+exports.clearItemFromUserCartDocument = async (itemToRemove, user) => {
   if (!user || !itemToRemove) return;
 
   const { id, selectedSize } = itemToRemove;
@@ -838,24 +665,22 @@ exports.clearItemFromUserCartDocument = async (itemToRemove,user) => {
   const snapShot = await cartRef.get();
 
   if (!snapShot.exists) {
-      throw new Error(error);
+    throw new Error(error);
   } else {
     try {
-
       const userCart = snapShot.data();
       const oldUserCart = userCart.cart;
 
- 
-      updatedCart= oldUserCart.filter(
-          (cartItem) =>
-            cartItem.id !== id ||
-            (cartItem.id === id && cartItem.selectedSize !== selectedSize)
-        );
-   
+      updatedCart = oldUserCart.filter(
+        (cartItem) =>
+          cartItem.id !== id ||
+          (cartItem.id === id && cartItem.selectedSize !== selectedSize)
+      );
+
       await cartRef.set({ cart: updatedCart });
       const updatedSnapShot = await cartRef.get();
       const updatedUserCart = updatedSnapShot.data();
-  
+
       return updatedUserCart.cart;
     } catch (error) {
       throw new Error(error);
@@ -864,82 +689,76 @@ exports.clearItemFromUserCartDocument = async (itemToRemove,user) => {
 };
 
 exports.toggleItemFromWishlistDocument = async (item, user) => {
-console
+  console;
   if (!user || !item) return;
 
-  const { id} = item;
+  const { id } = item;
   const wishlistRef = firestore.doc(`wishlists/${user.uid}`);
   const snapShot = await wishlistRef.get();
 
-  let updatedWishlist=[];
+  let updatedWishlist = [];
 
   if (!snapShot.exists) {
     try {
-   
       updatedWishlist.push(item);
-      await wishlistRef.set({ wishlist:updatedWishlist });
-
+      await wishlistRef.set({ wishlist: updatedWishlist });
     } catch (error) {
       throw new Error(error);
     }
-
-} else {
-  try{
+  } else {
+    try {
       const userWishlist = snapShot.data();
       const oldUserWishlist = userWishlist.wishlist;
-  
+
       if (oldUserWishlist.length === 0) {
         updatedWishlist.push(item);
-        await wishlistRef.set({ wishlist:updatedWishlist});
-      }
-      else {
-        const existingWishlistItem =
-        oldUserWishlist.find(
+        await wishlistRef.set({ wishlist: updatedWishlist });
+      } else {
+        const existingWishlistItem = oldUserWishlist.find(
           (wishlistItem) => wishlistItem.id === id
         );
 
-       if (existingWishlistItem) {
-        updatedWishlist= oldUserWishlist.filter(wishlistItem=> wishlistItem.id!==id);
-          }
-        else {
-         updatedWishlist=[...oldUserWishlist,item];
+        if (existingWishlistItem) {
+          updatedWishlist = oldUserWishlist.filter(
+            (wishlistItem) => wishlistItem.id !== id
+          );
+        } else {
+          updatedWishlist = [...oldUserWishlist, item];
         }
-        await wishlistRef.set({ wishlist:updatedWishlist});
+        await wishlistRef.set({ wishlist: updatedWishlist });
       }
     } catch (error) {
       throw new Error(error);
     }
   }
-    const updatedSnapShot = await wishlistRef.get();
-    const updatedUserWishlist = updatedSnapShot.data();
-    return updatedUserWishlist.wishlist;
+  const updatedSnapShot = await wishlistRef.get();
+  const updatedUserWishlist = updatedSnapShot.data();
+  return updatedUserWishlist.wishlist;
 };
 
-exports.removeItemFromUserWishlistDocument = async (itemToRemove,user) => {
-
+exports.removeItemFromUserWishlistDocument = async (itemToRemove, user) => {
   if (!user || !itemToRemove) return;
 
-  const { id} = itemToRemove;
+  const { id } = itemToRemove;
 
   const wishlistRef = firestore.doc(`wishlists/${user.uid}`);
   const snapShot = await wishlistRef.get();
 
   if (!snapShot.exists) {
-      throw new Error(error);
+    throw new Error(error);
   } else {
     try {
-
       const userWishlist = snapShot.data();
       const oldUserWishlist = userWishlist.wishlist;
 
-  const updatedWishlist= oldUserWishlist.filter(
-          (wishlistItem) =>
-            wishlistItem.id !== id);
+      const updatedWishlist = oldUserWishlist.filter(
+        (wishlistItem) => wishlistItem.id !== id
+      );
 
       await wishlistRef.set({ wishlist: updatedWishlist });
       const updatedSnapShot = await wishlistRef.get();
       const updatedUserWishlist = updatedSnapShot.data();
- 
+
       return updatedUserWishlist.wishlist;
     } catch (error) {
       throw new Error(error);
@@ -1057,123 +876,121 @@ exports.createSizeRequestDocument = async (
   }
 };
 
-exports.getSearchResults=async (searchParams)=>{
+exports.getSearchResults = async (searchParams) => {
+  if (!searchParams) return;
 
-if (!searchParams)
-return;
+  const documentRefs = await firestore
+    .collection("collections")
+    .listDocuments();
 
-const documentRefs = await firestore
-.collection("collections")
-.listDocuments();
-
-const collectionsRefs = await documentRefs.reduce(
-  async (previousPromise, docRef) => {
-    let accum = await previousPromise;
-    const colRef = await docRef.listCollections();
+  const collectionsRefs = await documentRefs.reduce(
+    async (previousPromise, docRef) => {
+      let accum = await previousPromise;
+      const colRef = await docRef.listCollections();
 
       accum = [...accum, ...colRef];
 
-  return accum;
-},
-Promise.resolve([])
-);
-
-try {
-
-const queryItems = await collectionsRefs.reduce(async (prevPromise,colRef) => {
-let accumulator= await prevPromise;
-const result=await searchParams.reduce(async (previousPromise,searchItem)=>{
-  let accum = await previousPromise;
-           return await colRef
-          .get()
-      .then((querySnapshot) => {
-        const res=querySnapshot.docs.reduce((accu,docSnapshot) =>{
-           const data=docSnapshot.data();
-           const item = new RegExp(`\\b${searchItem}\\b`, 'gi');
-           if (data["search"].search(item) !== -1){
-          accu=[...accu,data]
-           }
-           return accu
-         },[])
-      
-         accum={...accum ,[searchItem]:res};
-          return accum;
-      }
-       )
-     },Promise.resolve({}))
- 
-   
-      accumulator=[...accumulator, result]
-     return accumulator;
-  },Promise.resolve([]))
-
-
-  const filteredQuery=queryItems.filter((queryItem)=>{
-    const emptyField= Object.values(queryItem).find(value => value.length===0)
-    return !emptyField
-
-  })
-
-const intersectionQuery=filteredQuery.reduce((accum,queryItem)=>{
-let objectValues=Object.values(queryItem)
- const res=objectValues[0].filter(item => objectValues.slice(1).every(everyItem => { return everyItem.find(findItem => findItem.id===item.id)}));
- accum.push(res)
- return accum
-},[])
-
-
-  const searchQuery = intersectionQuery.reduce((accum, item) => {
-    return [...accum, ...item];
-  }, []);
- 
-
-  const supplementaryQueryItems = await searchQuery.reduce(
-    async (prevPromise, queryItem) => {
-      let accumulator = await prevPromise;
-      const data = await collectionsRefs.reduce(
-        async (previousPromise, colRef) => {
-          let accum = await previousPromise;
-
-          return await colRef
-            .where("reference", "==", queryItem.reference)
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.docs.filter((docSnapshot) => {
-                const data = docSnapshot.data();
-                if (data.color.code !== queryItem.color.code) {
-                  return (accum = { ...accum, ...data });
-                }
-              });
-              return accum;
-            });
-        },
-        Promise.resolve({})
-      );
-
-      if (Object.entries(data).length !== 0 && data.constructor === Object) {
-        accumulator = [...accumulator, data];
-      }
-
-      return accumulator;
+      return accum;
     },
     Promise.resolve([])
   );
 
- 
-  const extendedQueryItems = searchQuery.concat(supplementaryQueryItems);
+  try {
+    const queryItems = await collectionsRefs.reduce(
+      async (prevPromise, colRef) => {
+        let accumulator = await prevPromise;
+        const result = await searchParams.reduce(
+          async (previousPromise, searchItem) => {
+            let accum = await previousPromise;
+            return await colRef.get().then((querySnapshot) => {
+              const res = querySnapshot.docs.reduce((accu, docSnapshot) => {
+                const data = docSnapshot.data();
+                const item = new RegExp(`\\b${searchItem}\\b`, "gi");
+                if (data["search"].search(item) !== -1) {
+                  accu = [...accu, data];
+                }
+                return accu;
+              }, []);
 
+              accum = { ...accum, [searchItem]: res };
+              return accum;
+            });
+          },
+          Promise.resolve({})
+        );
 
-  const filteredQueryItems = extendedQueryItems.filter(
-    (item, index, arrayItem) =>
-      arrayItem.findIndex(
-        (itemIndex) =>
-          itemIndex.reference === item.reference &&
-          itemIndex.color.code === item.color.code
-      ) === index
-  );
+        accumulator = [...accumulator, result];
+        return accumulator;
+      },
+      Promise.resolve([])
+    );
 
- 
-  return filteredQueryItems;
+    const filteredQuery = queryItems.filter((queryItem) => {
+      const emptyField = Object.values(queryItem).find(
+        (value) => value.length === 0
+      );
+      return !emptyField;
+    });
+
+    const intersectionQuery = filteredQuery.reduce((accum, queryItem) => {
+      let objectValues = Object.values(queryItem);
+      const res = objectValues[0].filter((item) =>
+        objectValues.slice(1).every((everyItem) => {
+          return everyItem.find((findItem) => findItem.id === item.id);
+        })
+      );
+      accum.push(res);
+      return accum;
+    }, []);
+
+    const searchQuery = intersectionQuery.reduce((accum, item) => {
+      return [...accum, ...item];
+    }, []);
+
+    const supplementaryQueryItems = await searchQuery.reduce(
+      async (prevPromise, queryItem) => {
+        let accumulator = await prevPromise;
+        const data = await collectionsRefs.reduce(
+          async (previousPromise, colRef) => {
+            let accum = await previousPromise;
+
+            return await colRef
+              .where("reference", "==", queryItem.reference)
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.docs.filter((docSnapshot) => {
+                  const data = docSnapshot.data();
+                  if (data.color.code !== queryItem.color.code) {
+                    return (accum = { ...accum, ...data });
+                  }
+                });
+                return accum;
+              });
+          },
+          Promise.resolve({})
+        );
+
+        if (Object.entries(data).length !== 0 && data.constructor === Object) {
+          accumulator = [...accumulator, data];
+        }
+
+        return accumulator;
+      },
+      Promise.resolve([])
+    );
+
+    const extendedQueryItems = searchQuery.concat(supplementaryQueryItems);
+
+    const filteredQueryItems = extendedQueryItems.filter(
+      (item, index, arrayItem) =>
+        arrayItem.findIndex(
+          (itemIndex) =>
+            itemIndex.reference === item.reference &&
+            itemIndex.color.code === item.color.code
+        ) === index
+    );
+
+    return filteredQueryItems;
   } catch (error) {
     throw new Error(error);
   }

@@ -14,7 +14,7 @@ import {
   Container,
   CollectionsContainer,
   CollectionContainer,
-  CollectionTitle,
+  CollectionLink,
   SectionLink,
   CollectionOverviewContainer,
 } from "./shop-dropdown.styles";
@@ -23,41 +23,43 @@ const ShopDropDown = () => {
   const shopMenu = useSelector(selectShopMenu, shallowEqual);
   const shopMenuPictures = useSelector(selectShopMenuPictures, shallowEqual);
 
-
   return (
     <Container>
       <CollectionsContainer>
         {shopMenu &&
-          Object.entries(shopMenu).map(([key, value]) => {
+          Object.entries(shopMenu).map(([key, value], index) => {
             return (
               <CollectionContainer key={key}>
-                <CollectionTitle>{key}</CollectionTitle>
+                <CollectionLink key={index} to={`/shop/${key}`}>
+                  {key}
+                </CollectionLink>
                 {value["sections"].map((sectionItem, index) => (
                   <SectionLink
                     section={fromServerEnumerate[sectionItem]}
                     key={index}
                     to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
                   >
-                    {fromServerEnumerate[sectionItem].replace("-"," ")}
+                    {fromServerEnumerate[sectionItem].replace("-", " ")}
                   </SectionLink>
                 ))}
-                {value["featuredSections"].map((sectionItem, index) =>{
-                  const query = {labels: `${fromServerEnumerate[sectionItem]}`,};
+                {value["featuredSections"].map((sectionItem, index) => {
+                  const query = {
+                    labels: `${fromServerEnumerate[sectionItem]}`,
+                  };
 
-            const url=`/shop/${key}?${queryString.stringify(
-            query,
-              {
-        arrayFormat: "comma",
-      }
-        )}`;          return(
-                  <SectionLink
-                    section={fromServerEnumerate[sectionItem]}
-                    key={index}
-                    to={url}
-                  >
-                    {fromServerEnumerate[sectionItem].replace("-"," ")}
-                  </SectionLink>
-                )})}
+                  const url = `/shop/${key}?${queryString.stringify(query, {
+                    arrayFormat: "comma",
+                  })}`;
+                  return (
+                    <SectionLink
+                      section={fromServerEnumerate[sectionItem]}
+                      key={index}
+                      to={url}
+                    >
+                      {fromServerEnumerate[sectionItem].replace("-", " ")}
+                    </SectionLink>
+                  );
+                })}
               </CollectionContainer>
             );
           })}

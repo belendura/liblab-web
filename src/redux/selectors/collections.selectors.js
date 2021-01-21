@@ -1,6 +1,11 @@
 import { createSelector } from "reselect";
 
-import { setSectionFilter, getFilteredColorOptions, getFilteredSizeOptions, getFilteredFitOptions} from "../utils/collections.utils";
+import {
+  setShopItemsFilter,
+  getFilteredColorOptions,
+  getFilteredSizeOptions,
+  getFilteredFitOptions,
+} from "../utils/collections.utils";
 
 const selectCollection = (state) => state.collections;
 
@@ -28,21 +33,24 @@ export const selectCarousel = createSelector([selectPictures], (pictures) =>
   pictures ? pictures.carousel : null
 );
 
-export const selectSectionPicture = createSelector(
+export const selectShopItemsPicture = createSelector(
   [selectPictures],
-  (pictures) => (pictures ? pictures.sectionPictures : null)
+  (pictures) => (pictures ? pictures.shopItemsPictures : null)
 );
 
-export const selectSection = createSelector([selectCollection], (collections) =>
-  collections ? collections.section : null
+export const selectShopItems = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.shopItems : null)
 );
 
-export const selectSearchLoaded = createSelector([selectCollection], (collections) =>
-  collections ? collections.searchLoaded : null
+export const selectSearchLoaded = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.searchLoaded : null)
 );
 
-export const selectSearchParams = createSelector([selectCollection], (collections) =>
-  collections ? collections.searchParams : null
+export const selectSearchParams = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.searchParams : null)
 );
 
 export const selectFilteredColors = createSelector(
@@ -75,34 +83,46 @@ export const selectDescendingOrder = createSelector(
   (collections) => (collections ? collections.descendingOrder : null)
 );
 
-export const selectSectionColorOptions = createSelector(
-  [selectSection,selectSearchParams, (_, condition, sizes, fit) => ({ condition, sizes, fit })],
-  (section, searchParams, { condition, sizes, fit }) =>
-    section ? getFilteredColorOptions(section,searchParams, condition,sizes,fit)        
-      : null
-      
-);
-
-export const selectSectionSizeOptions = createSelector(
-  [selectSection,selectSearchParams, (_, condition, colors, fit) => ({ condition, colors, fit })],
-  (section,searchParams, { condition, colors, fit }) =>
-    section
-      ? getFilteredSizeOptions(section,searchParams,condition,colors,fit)    
+export const selectShopItemsColorOptions = createSelector(
+  [
+    selectShopItems,
+    selectSearchParams,
+    (_, condition, sizes, fit) => ({ condition, sizes, fit }),
+  ],
+  (shopItems, searchParams, { condition, sizes, fit }) =>
+    shopItems
+      ? getFilteredColorOptions(shopItems, searchParams, condition, sizes, fit)
       : null
 );
 
-export const selectSectionFitOptions = createSelector(
-  [selectSection, selectSearchParams,(_, condition, colors, sizes) => ({ condition, colors, sizes })],
-  (section, searchParams,{ condition,colors, sizes }) =>
-    section
-      ?getFilteredFitOptions(section,searchParams,condition,colors,sizes) 
+export const selectShopItemsSizeOptions = createSelector(
+  [
+    selectShopItems,
+    selectSearchParams,
+    (_, condition, colors, fit) => ({ condition, colors, fit }),
+  ],
+  (shopItems, searchParams, { condition, colors, fit }) =>
+    shopItems
+      ? getFilteredSizeOptions(shopItems, searchParams, condition, colors, fit)
       : null
 );
 
-export const selectFilteredSection = createSelector(
-  [selectSection, (_, colors, sizes, fit) => ({ colors, sizes, fit })],
-  (section, { colors, sizes, fit }) =>
-    section ? setSectionFilter(section, colors, sizes, fit) : null
+export const selectShopItemsFitOptions = createSelector(
+  [
+    selectShopItems,
+    selectSearchParams,
+    (_, condition, colors, sizes) => ({ condition, colors, sizes }),
+  ],
+  (shopItems, searchParams, { condition, colors, sizes }) =>
+    shopItems
+      ? getFilteredFitOptions(shopItems, searchParams, condition, colors, sizes)
+      : null
+);
+
+export const selectFilteredShopItems = createSelector(
+  [selectShopItems, (_, colors, sizes, fit) => ({ colors, sizes, fit })],
+  (shopItems, { colors, sizes, fit }) =>
+    shopItems ? setShopItemsFilter(shopItems, colors, sizes, fit) : null
 );
 
 export const selectItem = createSelector([selectCollection], (collections) =>
@@ -110,15 +130,15 @@ export const selectItem = createSelector([selectCollection], (collections) =>
 );
 
 export const selectItemByColor = createSelector(
-  [selectSection, (_, reference, color) => ({ reference, color })],
-  (section, { reference, color }) =>
-    section
-      ? section.find((arrayItem) => {
+  [selectShopItems, (_, reference, color) => ({ reference, color })],
+  (shopItems, { reference, color }) =>
+    shopItems
+      ? shopItems.find((shopItem) => {
           if (
-            arrayItem.reference === reference &&
-            arrayItem.color.name === color
+            shopItem.reference === reference &&
+            shopItem.color.name === color
           ) {
-            return arrayItem;
+            return shopItem;
           }
         })
       : null

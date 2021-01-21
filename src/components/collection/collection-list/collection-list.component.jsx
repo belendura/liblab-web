@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-
-import { setSectionOrder } from "../../../redux/utils/collections.utils";
+import { setShopItemsOrder } from "../../../redux/utils/collections.utils";
 
 import {
   selectFilteredColors,
   selectFilteredSizes,
   selectFilteredFit,
-  selectFilteredSection,
+  selectFilteredShopItems,
   selectAscendingOrder,
   selectDescendingOrder,
   selectInPairsView,
@@ -18,8 +17,8 @@ import ShopItem from "../../shop-item/shop-item.component";
 
 import { Container } from "./collection-list.styles";
 
-const CollectionList = ({ labels, params }) => {
-  const [updatedSection, setUpdatedSection] = useState(null);
+const CollectionList = ({ params, labels }) => {
+  const [updatedShopItems, setUpdatedShopItems] = useState(null);
   const filteredColors = useSelector(selectFilteredColors, shallowEqual);
   const filteredSizes = useSelector(selectFilteredSizes, shallowEqual);
   const filteredFit = useSelector(selectFilteredFit, shallowEqual);
@@ -28,36 +27,40 @@ const CollectionList = ({ labels, params }) => {
   const descendingOrder = useSelector(selectDescendingOrder, shallowEqual);
   const inPairsView = useSelector(selectInPairsView, shallowEqual);
 
-  const filteredSection = useSelector(
+  const filteredShopItems = useSelector(
     (state) =>
-      selectFilteredSection(state, filteredColors, filteredSizes, filteredFit),
+      selectFilteredShopItems(
+        state,
+        filteredColors,
+        filteredSizes,
+        filteredFit
+      ),
     shallowEqual
   );
 
   useEffect(() => {
-    setUpdatedSection(
+    setUpdatedShopItems(
       () =>
-        filteredSection &&
-        setSectionOrder(filteredSection, ascendingOrder, descendingOrder)
+        filteredShopItems &&
+        setShopItemsOrder(filteredShopItems, ascendingOrder, descendingOrder)
     );
-  }, [filteredSection, ascendingOrder, descendingOrder]);
+  }, [filteredShopItems, ascendingOrder, descendingOrder]);
 
   return (
     <Container inPairsView={inPairsView}>
-      {/* {!updatedSection && <span>No Items found</span>} */}
-      {updatedSection &&
-        updatedSection
-          .filter((item, index) => {
+      {updatedShopItems &&
+        updatedShopItems
+          .filter((item) => {
             return labels === undefined ? item : item[labels] === true;
           })
-          .map((item, index) => {
+          .map((item) => {
             const { color, reference, id } = item;
             return (
               <ShopItem
                 key={id}
                 initialColor={color.name}
                 reference={reference}
-                params={params}
+                labels={labels}
               />
             );
           })}

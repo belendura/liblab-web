@@ -1,6 +1,7 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { shallowEqual, useSelector} from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
+import queryString from "query-string";
 
 import { selectCurrentUser } from "../../redux/selectors/user.selectors";
 import { selectCartHidden } from "../../redux/selectors/cart.selectors";
@@ -29,7 +30,6 @@ import {
   Close,
 } from "./header.styles";
 
-
 const Header = () => {
   const [searchVisibility, setSearchVisibility] = useState(false);
   const [visibility, setVisibility] = useState(false);
@@ -42,39 +42,64 @@ const Header = () => {
   );
   const searchLoaded = useSelector(selectSearchLoaded, shallowEqual);
 
-  useEffect(()=>{
-    if(searchLoaded)
-    setSearchVisibility(false)
-  },[searchLoaded])
+  const urlCollection = "featured";
+
+  const labels = {
+    sale: "sale",
+  };
+
+  const query = {
+    labels: `${labels.sale}`,
+  };
+
+  const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
+    arrayFormat: "comma",
+  })}`;
+
+  useEffect(() => {
+    if (searchLoaded) setSearchVisibility(false);
+  }, [searchLoaded]);
 
   return (
     <Container>
       <NavContainer>
         <HeaderContainer>
-          <LibLab onClick={() =>{ 
-            history.push("/");
-            setSearchField("");
-           }} />
-         {!searchVisibility && <ShopContainer>
-            <LinkContainer onMouseLeave={() => setVisibility(false)}>
-              <ShopMenu visibility={visibility} setVisibility={setVisibility} />
-            </LinkContainer>
-            <LinkContainer>
-              <ShopLink to="/about">ABOUT</ShopLink>
-            </LinkContainer>
-            <LinkContainer>
-              <ShopLink to="/shop/featured/sale">SALE</ShopLink>
-            </LinkContainer>
-            <LinkContainer>
-              <ShopLink to="/contact">CONTACT</ShopLink>
-            </LinkContainer>
-            <LinkContainer>
-              <Instagram onClick={() => history.push("/instagram")} />
-            </LinkContainer>
-          </ShopContainer>}
-          {
-            searchVisibility && <SearchMenu searchField={searchField} setSearchField={setSearchField} searchLoaded={searchLoaded} setSearchVisibility={setSearchVisibility}/>
-          }
+          <LibLab
+            onClick={() => {
+              history.push("/");
+              setSearchField("");
+            }}
+          />
+          {!searchVisibility && (
+            <ShopContainer>
+              <LinkContainer onMouseLeave={() => setVisibility(false)}>
+                <ShopMenu
+                  visibility={visibility}
+                  setVisibility={setVisibility}
+                />
+              </LinkContainer>
+              <LinkContainer>
+                <ShopLink to="/about">ABOUT</ShopLink>
+              </LinkContainer>
+              <LinkContainer>
+                <ShopLink to={pathName}>SALE</ShopLink>
+              </LinkContainer>
+              <LinkContainer>
+                <ShopLink to="/contact">CONTACT</ShopLink>
+              </LinkContainer>
+              <LinkContainer>
+                <Instagram onClick={() => history.push("/instagram")} />
+              </LinkContainer>
+            </ShopContainer>
+          )}
+          {searchVisibility && (
+            <SearchMenu
+              searchField={searchField}
+              setSearchField={setSearchField}
+              searchLoaded={searchLoaded}
+              setSearchVisibility={setSearchVisibility}
+            />
+          )}
         </HeaderContainer>
         <UserContainer>
           <UserLinkContainer>

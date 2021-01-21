@@ -1,5 +1,6 @@
 import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import queryString from "query-string";
 
 import { selectShopMenu } from "../../../redux/selectors/collections.selectors";
 
@@ -16,30 +17,39 @@ const Sidebar = () => {
   return (
     <Container>
       {shopMenu &&
-        Object.entries(shopMenu).map(([key, value]) => {
+        Object.entries(shopMenu).map(([key, value], index) => {
           return (
             <CollectionContainer key={key}>
-              <CollectionLink to={`shop/${key}/${value["sections"][0]}`}>
+              <CollectionLink key={index} to={`/shop/${key}`}>
                 {key}
               </CollectionLink>
               {value["sections"].map((sectionItem, index) => (
                 <SectionLink
-                             section={fromServerEnumerate[sectionItem]}
-                    key={index}
-                    to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
-                  >
-                    {fromServerEnumerate[sectionItem]}
+                  section={fromServerEnumerate[sectionItem]}
+                  key={index}
+                  to={`/shop/${key}/${fromServerEnumerate[sectionItem]}`}
+                >
+                  {fromServerEnumerate[sectionItem].replace("-", " ")}
                 </SectionLink>
               ))}
-              {value["featuredSections"].map((sectionItem, index) => (
-                <SectionLink
-                     section={fromServerEnumerate[sectionItem]}
+              {value["featuredSections"].map((sectionItem, index) => {
+                const query = {
+                  labels: `${fromServerEnumerate[sectionItem]}`,
+                };
+
+                const url = `/shop/${key}?${queryString.stringify(query, {
+                  arrayFormat: "comma",
+                })}`;
+                return (
+                  <SectionLink
+                    section={fromServerEnumerate[sectionItem]}
                     key={index}
-                    to={`/shop/${key}/featured/${fromServerEnumerate[sectionItem]}`}
+                    to={url}
                   >
-                    {fromServerEnumerate[sectionItem]}
-                </SectionLink>
-              ))}
+                    {fromServerEnumerate[sectionItem].replace("-", " ")}
+                  </SectionLink>
+                );
+              })}
             </CollectionContainer>
           );
         })}
