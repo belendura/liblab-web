@@ -3,8 +3,6 @@ import { useSelector, shallowEqual } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
-import { fromServerEnumerate } from "../../firebase/enumerate";
-
 import { selectItemByColor } from "../../redux/selectors/collections.selectors";
 
 import Circle from "../circle/circle.component";
@@ -32,7 +30,7 @@ import {
   ColorsContainer,
 } from "./shop-item.styles";
 
-const ShopItem = ({ initialColor, reference, labels }) => {
+const ShopItem = ({ initialColor, reference }) => {
   const history = useHistory();
   // const location = useLocation();
 
@@ -85,7 +83,7 @@ const ShopItem = ({ initialColor, reference, labels }) => {
   };
 
   const query = {
-    labels: `${fromServerEnumerate[labels]}`,
+    // labels: `${fromServerEnumerate[labels]}`,
     details: `${description.replace(" ", "-")}`,
     colors: `${color.name.replace(" ", "-")}`,
   };

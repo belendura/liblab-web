@@ -1,3 +1,4 @@
+const { object } = require("firebase-functions/lib/providers/storage");
 const { firestore } = require("./admin");
 
 exports.createUserDocument = async (userAuth, additionalData) => {
@@ -70,7 +71,7 @@ exports.getPictures = async (collections, section) => {
       },
       Promise.resolve({})
     );
-    console.log(webPictures);
+
     return webPictures;
   } catch (error) {
     throw new Error(error);
@@ -86,6 +87,26 @@ const getHeaderPictures = async () => {
     if (documentSnapshot.exists) {
       const data = documentSnapshot.data();
       return data;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getfeaturedShopMenu = async () => {
+  const documentRef = firestore.doc(`header/shopMenu`);
+
+  try {
+    const documentSnapshot = await documentRef.get();
+
+    if (documentSnapshot.exists) {
+      const data = documentSnapshot.data();
+      const shopMenu = Object.entries(data).reduce((accum, [key, value]) => {
+        value && accum.push(key);
+        return accum;
+      }, []);
+
+      return shopMenu;
     }
   } catch (error) {
     throw new Error(error);
@@ -172,13 +193,15 @@ const getShopMenu = async () => {
   }
 };
 
-exports.getHeader = async () => {
+exports.getShopMenuDocuments = async () => {
   try {
     const shopMenu = await getShopMenu();
 
+    const featuredShopMenu = await getfeaturedShopMenu();
+    console.log("featuredShopMenu", featuredShopMenu);
     const shopMenuPictures = await getHeaderPictures();
 
-    return { shopMenu, shopMenuPictures };
+    return { shopMenu, featuredShopMenu, shopMenuPictures };
   } catch (error) {
     throw new Error(error);
   }

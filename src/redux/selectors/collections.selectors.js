@@ -13,7 +13,10 @@ export const selectShopMenu = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.shopMenu : null)
 );
-
+export const selectFeaturedShopMenu = createSelector(
+  [selectCollection],
+  (collections) => (collections ? collections.featuredShopMenu : null)
+);
 export const selectShopMenuPictures = createSelector(
   [selectCollection],
   (collections) => (collections ? collections.shopMenuPictures : null)

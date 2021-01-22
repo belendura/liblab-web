@@ -11,7 +11,7 @@ const {
 } = require("./handlers/user-management");
 
 const {
-  fetchHeader,
+  fetchShopMenu,
   fetchCollection,
   fetchSection,
   fetchItem,
@@ -52,17 +52,13 @@ app.get("/logout", logOut);
 
 app.post("/reset-password", resetPassword);
 
-app.get("/header", fetchHeader);
+app.get("/shopMenu", fetchShopMenu);
 
 app.get("/shop/:urlCollection", fetchCollection);
 
 app.get("/shop/:urlCollection/:urlSection", fetchSection);
 
 app.get("/shop/:urlCollection/:urlSection/:urlReference/", fetchItem);
-
-//app.get("/shop/:collection/featured/:condition/:reference/:color", fetchItemByCondition);
-
-// app.get("/shop/:condition/:reference/:color", fetchItemByConditionOverall);
 
 app.get("/sizes-guide/:collection/:section", fetchSizesGuide);
 

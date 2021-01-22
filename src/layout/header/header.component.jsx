@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
-import queryString from "query-string";
+// import queryString from "query-string";
 
 import { selectCurrentUser } from "../../redux/selectors/user.selectors";
 import { selectCartHidden } from "../../redux/selectors/cart.selectors";
 import { selectSearchLoaded } from "../../redux/selectors/collections.selectors";
 
 import ShopMenu from "../../components/shop-menu/shop-menu.component";
+import FeaturedShopMenuList from "../../components/featured-shop-menu/featured-shop-menu-list/featured-shop-menu-list.component";
 import CartMenu from "../../components/cart/cart-menu/cart-menu.component";
 import WishlistMenu from "../../components/wishlist/wishlist-menu/wishlist-menu.component";
 import CartDropdown from "../../components/cart/cart-dropdown/cart-dropdown.component";
@@ -42,19 +43,19 @@ const Header = () => {
   );
   const searchLoaded = useSelector(selectSearchLoaded, shallowEqual);
 
-  const urlCollection = "featured";
+  // const urlCollection = "featured";
 
-  const labels = {
-    sale: "sale",
-  };
+  // const labels = {
+  //   sale: "sale",
+  // };
 
-  const query = {
-    labels: `${labels.sale}`,
-  };
+  // const query = {
+  //   labels: `${labels.sale}`,
+  // };
 
-  const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
-    arrayFormat: "comma",
-  })}`;
+  // const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
+  //   arrayFormat: "comma",
+  // })}`;
 
   useEffect(() => {
     if (searchLoaded) setSearchVisibility(false);
@@ -82,7 +83,8 @@ const Header = () => {
                 <ShopLink to="/about">ABOUT</ShopLink>
               </LinkContainer>
               <LinkContainer>
-                <ShopLink to={pathName}>SALE</ShopLink>
+                <FeaturedShopMenuList />
+                {/* <ShopLink to={pathName}>SALE</ShopLink> */}
               </LinkContainer>
               <LinkContainer>
                 <ShopLink to="/contact">CONTACT</ShopLink>

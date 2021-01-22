@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 import Wishlist from "../../wishlist/wishlist.component";
 
@@ -41,17 +42,22 @@ const ShopItemPreview = ({ item }) => {
     organic,
   } = item;
 
+  const query = {
+    details: `${description.replace(" ", "-")}`,
+    colors: `${color.name.replace(" ", "-")}`,
+  };
+
+  const pathName = `/shop/${collection}/${section.replace(
+    " ",
+    "-"
+  )}/${reference}?${queryString.stringify(query, {
+    arrayFormat: "comma",
+  })}`;
+
   return (
     <Container>
       <PictureContainer>
-        <Picture
-          src={url[0]}
-          onClick={() =>
-            history.push(
-              `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
-            )            
-          }
-        />
+        <Picture src={url[0]} onClick={() => history.push(pathName)} />
         {sale && (
           <UpperInfoContainer sale={sale} new={newItem}>
             <UpperInfo>{discount}%</UpperInfo>

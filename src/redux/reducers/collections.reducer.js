@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
   shopMenu: null,
+  featuredShopMenu: [],
   shopMenuPictures: null,
   shopItems: null,
   pictures: null,
@@ -29,10 +30,11 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         searchParams: action.payload.search,
         error: null,
       };
-    case collectionsActionTypes.FETCH_HEADER_SUCCESS:
+    case collectionsActionTypes.FETCH_SHOP_MENU_SUCCESS:
       return {
         ...state,
         shopMenu: action.payload.shopMenu,
+        featuredShopMenu: action.payload.featuredShopMenu,
         shopMenuPictures: action.payload.shopMenuPictures,
         error: null,
       };
@@ -126,10 +128,11 @@ export const collectionsReducer = (state = INITIAL_STATE, action) => {
         descendingOrder: false,
         error: action.payload,
       };
-    case collectionsActionTypes.FETCH_HEADER_FAILURE:
+    case collectionsActionTypes.FETCH_SHOP_MENU_FAILURE:
       return {
         ...state,
         shopMenu: null,
+        featuredShopMenu: [],
         shopMenuPictures: null,
         error: action.payload,
       };

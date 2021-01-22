@@ -46,7 +46,7 @@ export const PictureContainer = styled.div`
   height: 0;
   padding-top: 128.28%;
   overflow: hidden;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 export const Picture = styled.img`
@@ -100,9 +100,7 @@ export const NewItem = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   margin: 0 auto 5px;
-  color: ${(props) => {
-    return props.newItem ? "black" : "transparent";
-  }};
+  color: ${(props) => (props.newItem ? "black" : "transparent")};
 `;
 
 export const BottomInfoContainer = styled.div`

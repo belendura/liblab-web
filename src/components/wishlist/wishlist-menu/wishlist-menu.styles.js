@@ -16,11 +16,11 @@ export const Container = styled.div`
 `;
 
 export const Wishlist = styled(WishlistLogo)`
-  width: 28px;
+  width: 20px;
   }
 `;
 
 export const WishlistRed = styled(WishlistRedLogo)`
-  width: 28px;
+  width: 20px;
   }
 `;

@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 import { selectWishlistItem } from "../../../redux/selectors/wishlist.selectors";
 import { selectCartHidden } from "../../../redux/selectors/cart.selectors";
 import { selectCurrentUser } from "../../../redux/selectors/user.selectors";
 
 import { removeItemFromWishlist } from "../../../redux/actions/wishlist.actions";
-import {
-  addItem,
-  displayCart,
-} from "../../../redux/actions/cart.actions";
+import { addItem, displayCart } from "../../../redux/actions/cart.actions";
 import { openModal } from "../../../redux/actions/modal.actions";
 
 import CustomButton from "../../custom-button/custom-button.component";
@@ -40,7 +38,7 @@ const WishlistItem = ({ item }) => {
   const [visibility, setVisibility] = useState(false);
 
   const dispatch = useDispatch();
-  const history=useHistory();
+  const history = useHistory();
 
   const wishlistItem = useSelector((state) =>
     selectWishlistItem(state, item, shallowEqual)
@@ -66,16 +64,24 @@ const WishlistItem = ({ item }) => {
     availableUnits,
   } = item;
 
+  const query = {
+    details: `${description.replace(" ", "-")}`,
+    colors: `${color.name.replace(" ", "-")}`,
+  };
+
+  const pathName = `/shop/${collection}/${section.replace(
+    " ",
+    "-"
+  )}/${reference}?${queryString.stringify(query, {
+    arrayFormat: "comma",
+  })}`;
+
   return (
     <Container>
       <PictureContainer>
         <Picture
           url={url[0]}
-          onClick={() =>
-            history.push(
-              `/shop/${collection}/${section}/${description}&${reference}/${color.name}`
-            )            
-          }
+          onClick={() => history.push(pathName)}
           onMouseEnter={() => setVisibility(true)}
           onMouseLeave={() => setVisibility(false)}
         >
@@ -96,16 +102,18 @@ const WishlistItem = ({ item }) => {
         </Picture>
       </PictureContainer>
       <Footer>
-      <NewItem newItem={newItem}>NEW</NewItem>
+        <NewItem newItem={newItem}>NEW</NewItem>
 
         <FooterUpper>
-        <Name>{name}</Name>
+          <Name>{name}</Name>
           <BasketContainer>
-            <Basket onClick={() => dispatch(removeItemFromWishlist(item,user))} />
+            <Basket
+              onClick={() => dispatch(removeItemFromWishlist(item, user))}
+            />
           </BasketContainer>
         </FooterUpper>
         <FooterBottom>
-        <Description>{description}</Description>
+          <Description>{description}</Description>
           {
             <Price sale={sale} discounted={false}>
               {price}EUR
@@ -132,19 +140,18 @@ const WishlistItem = ({ item }) => {
               const text = "Please select size!";
               !wishlistItem.selectedSize && setVisibility(true);
               if (wishlistItem.selectedSize) {
-                dispatch(addItem(item,wishlistItem.selectedSize,user));
+                dispatch(addItem(item, wishlistItem.selectedSize, user));
                 cartHidden && dispatch(displayCart());
-              } else if (availableUnits>0){
+              } else if (availableUnits > 0) {
                 dispatch(
                   openModal("WISHLIST_SELECT_SIZE", {
                     text,
                     item,
-                    user
+                    user,
                   })
                 );
-              }
-              else {
-                const text="Item is currently not available"
+              } else {
+                const text = "Item is currently not available";
                 dispatch(
                   openModal("ALERTS", {
                     text,

@@ -11,8 +11,8 @@ import {
 } from "../utils/collections.utils";
 
 import {
-  fetchHeaderSuccess,
-  fetchHeaderFailure,
+  fetchShopMenuSuccess,
+  fetchShopMenuFailure,
   fetchShopItemsSuccess,
   fetchShopItemsFailure,
   fetchItemSuccess,
@@ -23,17 +23,17 @@ import {
   fetchSearchFailure,
 } from "../actions/collections.actions";
 
-export function* fetchHeader() {
+export function* fetchShopMenu() {
   try {
-    const response = yield axiosConfig.get(`/header`);
-    yield put(fetchHeaderSuccess(response.data));
+    const response = yield axiosConfig.get(`/shopMenu`);
+    yield put(fetchShopMenuSuccess(response.data));
   } catch (error) {
-    yield put(fetchHeaderFailure(error));
+    yield put(fetchShopMenuFailure(error));
   }
 }
 
-export function* onFetchHeaderStart() {
-  yield takeLatest(collectionsActionTypes.FETCH_HEADER_START, fetchHeader);
+export function* onFetchShopMenuStart() {
+  yield takeLatest(collectionsActionTypes.FETCH_SHOP_MENU_START, fetchShopMenu);
 }
 
 export function* fetchShopItems({ payload }) {
@@ -72,7 +72,7 @@ export function* fetchItem({ payload }) {
 
   try {
     const response = yield axiosConfig.get(url, {
-      params: query.colors,
+      params: { colors: query.colors },
     });
     const updatedShopItemsWishlist = updateShopItemsWishlist(
       response.data,
@@ -119,7 +119,7 @@ export function* onFetchSearchStart() {
 }
 export function* collectionsSagas() {
   yield all([
-    call(onFetchHeaderStart),
+    call(onFetchShopMenuStart),
     call(onFetchShopItemsStart),
     call(onFetchPicturesStart),
     call(onFetchItemStart),

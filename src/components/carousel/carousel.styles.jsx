@@ -28,4 +28,11 @@ export const Title = styled.span`
   font-weight: bold;
   font-size: 50px;
   text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: gold;
+    text-decoration-line: underline;
+  }
 `;

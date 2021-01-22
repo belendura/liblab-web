@@ -1,5 +1,5 @@
 const {
-  getHeader,
+  getShopMenuDocuments,
   getCollectionByConditionDocuments,
   getCollectionsByConditionDocuments,
   getCollectionDocuments,
@@ -16,9 +16,10 @@ const isEmptyObject = (object) =>
   !isObject(object) || (isObject(object) && Object.keys(object).length === 0);
 
 //Menu Collection/Section
-exports.fetchHeader = async (req, res) => {
+exports.fetchShopMenu = async (req, res) => {
   try {
-    const shopMenu = await getHeader();
+    const shopMenu = await getShopMenuDocuments();
+
     return res.status(200).send(shopMenu);
   } catch (error) {
     return res.status(500).send(`Error getting shop menu ${error}`);
@@ -31,8 +32,6 @@ exports.fetchCollection = async (req, res) => {
   const { urlCollection } = params;
 
   const { labels } = query;
-  console.log("query", query);
-  console.log("params", params);
 
   const arrayPictures = ["collections"];
 
@@ -57,7 +56,7 @@ exports.fetchCollection = async (req, res) => {
       collectionsItems = await getCollectionDocuments(urlCollection);
       pictures = await getPictures(arrayPictures, urlCollection);
     }
-    console.log("collectionsItems", collectionsItems.length);
+
     return res.status(200).send({ collectionsItems, pictures });
   } catch (error) {
     return res

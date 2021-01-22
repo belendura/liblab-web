@@ -68,6 +68,7 @@ export const LinkContainer = styled.li`
 `;
 
 export const ShopLink = styled(Link)`
+  font-size: 12px;
   cursor: pointer;
 
   &:hover {
@@ -78,7 +79,7 @@ export const ShopLink = styled(Link)`
 
 export const Instagram = styled(InstagramLogo)`
   height: 100%;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
 
   &:hover {
@@ -102,7 +103,7 @@ export const UserLinkContainer = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 15px;
   ${"" /* border: thin solid purple; */}
 `;
 

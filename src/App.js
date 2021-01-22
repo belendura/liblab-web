@@ -31,9 +31,12 @@ import "./styles/slick.css";
 import { getToken } from "./helpers/axiosTokens.helpers";
 
 import { checkUserSession } from "./redux/actions/user.actions";
-import { fetchHeaderStart } from "./redux/actions/collections.actions";
+import { fetchShopMenuStart } from "./redux/actions/collections.actions";
 
-import { selectShowModal, selectShowSecondModal } from "./redux/selectors/modal.selectors";
+import {
+  selectShowModal,
+  selectShowSecondModal,
+} from "./redux/selectors/modal.selectors";
 
 import Modal from "./components/modal/modal.component";
 import InnerModal from "./components/modal/inner-modal.component";
@@ -58,7 +61,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchHeaderStart());
+    dispatch(fetchShopMenuStart());
   }, []);
 
   // useEffect(() => {

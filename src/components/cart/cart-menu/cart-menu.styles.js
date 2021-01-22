@@ -16,12 +16,12 @@ export const Container = styled.div`
 `;
 
 export const Cart = styled(CartLogo)`
-  width: 28px;
+  width: 20px;
 `;
 
 export const Count = styled.span`
   position: absolute;
-  top: 10px;
-  font-size: 12px;
+  top: 7px;
+  font-size: 10px;
   font-weight: bold;
 `;

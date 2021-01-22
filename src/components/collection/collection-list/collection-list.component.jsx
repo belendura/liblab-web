@@ -60,7 +60,6 @@ const CollectionList = ({ params, labels }) => {
                 key={id}
                 initialColor={color.name}
                 reference={reference}
-                labels={labels}
               />
             );
           })}
