@@ -1,22 +1,14 @@
-import React, { useState } from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import Slider from "react-slick";
-import queryString from "query-string";
+import { SliderContainer } from "./carousel.styles";
+import Card from "./components/card";
+import { getPathName } from "./util";
 
-import { selectCarousel } from "../../redux/selectors/collections.selectors";
-
-import { fromServerEnumerate } from "../../firebase/enumerate";
-
-import { Container, Picture, Title } from "./carousel.styles";
-
-const Carousel = () => {
+const Carousel = ({ items }) => {
   const history = useHistory();
-  const [oldSlide, setOldSlide] = useState(0);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [nextSlide, setNextSlide] = useState(0);
   const settings = {
-    dots: true,
+    dots: false,
     autoplay: true,
     fade: true,
     infinite: true,
@@ -24,49 +16,30 @@ const Carousel = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     cssEase: "linear",
-    beforeChange: (current, next) => {
-      setOldSlide(current);
-      setCurrentSlide(next);
-    },
-    afterChange: (current) => setNextSlide(current),
   };
+  const handleClick = useCallback((pathName) => history.push(pathName), [
+    history,
+  ]);
 
-  const carousel = useSelector(selectCarousel, shallowEqual);
-  let pathName = [];
   return (
-    <div>
-      {carousel && (
-        <Slider {...settings}>
-          {Object.entries(carousel)
-            .filter((item, index) => index < 7)
-            .map((item, index) => {
-              const [key, value] = item;
-
-              const query = {
-                labels: `${fromServerEnumerate[key]}`,
-              };
-
-              pathName[index] =
-                key !== "women" && key !== "men" && key !== "unisex"
-                  ? `/shop/featured?${queryString.stringify(query, {
-                      arrayFormat: "comma",
-                    })}`
-                  : `/shop/${key}`;
-              return (
-                <Container key={index}>
-                  <Picture src={value} />
-                  <Title
-                    key={index}
-                    onClick={() => history.push(pathName[currentSlide])}
-                  >
-                    {fromServerEnumerate[key].replace("-", " ")}
-                  </Title>
-                </Container>
-              );
-            })}
-        </Slider>
-      )}
-    </div>
+    <SliderContainer>
+      <Slider {...settings}>
+        {Object.entries(items)
+          .filter((item, index) => index < 7)
+          .map((item, index) => {
+            const [key, value] = item;
+            const pathName = getPathName(key);
+            return (
+              <Card
+                onClick={() => handleClick(pathName)}
+                index={index}
+                key={key}
+                value={value}
+              />
+            );
+          })}
+      </Slider>
+    </SliderContainer>
   );
 };
 

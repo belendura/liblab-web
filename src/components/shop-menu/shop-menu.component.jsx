@@ -1,17 +1,12 @@
 import React, { Fragment } from "react";
 import queryString from "query-string";
-
 import ShopDropDown from "./shop-dropdown/shop-dropdown.component";
-
-import { ShopLink } from "./shop-menu.styles";
+import HeaderLink from "../../layout/header/components/header-link";
 
 const ShopMenu = ({ visibility, setVisibility }) => {
   const urlCollection = "women";
-
   const urlSection = "scrub-tops";
-
   const query = {};
-
   const pathName = `/shop/${urlCollection}/${urlSection}?${queryString.stringify(
     query,
     {
@@ -21,9 +16,13 @@ const ShopMenu = ({ visibility, setVisibility }) => {
 
   return (
     <Fragment>
-      <ShopLink onMouseEnter={() => setVisibility(true)} to={pathName}>
+      <HeaderLink
+        to={pathName}
+        onMouseEnter={() => setVisibility(true)}
+        onMouseLeave={() => setVisibility(false)}
+      >
         SHOP
-      </ShopLink>
+      </HeaderLink>
       {visibility && <ShopDropDown />}
     </Fragment>
   );

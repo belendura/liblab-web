@@ -1,26 +1,29 @@
-import React, { Fragment } from "react";
+import React from "react";
 import queryString from "query-string";
-
+import { useLocation } from "react-router-dom";
 import { fromServerEnumerate } from "../../firebase/enumerate";
-
-import { ShopLink } from "./featured-shop-menu.styles";
+import HeaderLink from "../../layout/header/components/header-link";
 
 const FeaturedShopMenu = ({ item }) => {
+  const { pathname, search } = useLocation();
   const urlCollection = "featured";
   const query = {
     labels: `${fromServerEnumerate[item]}`,
   };
-
   const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
     arrayFormat: "comma",
   })}`;
+  const baseColor = item === "sale" ? "red" : "black";
 
   return (
-    <Fragment>
-      <ShopLink item={item} to={pathName}>
+      <HeaderLink baseColor={baseColor} to={{
+        pathname: pathName,
+        state: {
+          from: `${pathname}${search}`,
+        },
+      }}>
         {fromServerEnumerate[item]}
-      </ShopLink>
-    </Fragment>
+      </HeaderLink>
   );
 };
 

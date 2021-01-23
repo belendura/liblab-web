@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import queryString from "query-string";
-
 // import { toServerEnumerate } from "../../firebase/collections-enumerate";
-
 import { selectWishlistItems } from "../../redux/selectors/wishlist.selectors";
-import { selectShopItems } from "../../redux/selectors/collections.selectors";
-
+import {selectCarousel, selectShopItems} from "../../redux/selectors/collections.selectors";
 import {
   fetchShopItemsStart,
   fetchPicturesStart,
@@ -31,42 +28,39 @@ import {
 
 const HomePage = () => {
   const history = useHistory();
+  const { pathname, search } = useLocation();
   const dispatch = useDispatch();
   const title = "Best Sellers";
   const subtitle = "Shop our most wanted items.";
-
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
   const shopItems = useSelector(selectShopItems, shallowEqual);
-
+  const carousel = useSelector(selectCarousel, shallowEqual);
   const urlCollection = "featured";
-
   const labels = {
     bestSeller: "best-sellers",
   };
-
   const query = {
     labels: `${labels.bestSeller}`,
   };
-
   const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
     arrayFormat: "comma",
   })}`;
-
   const url = `/shop/${urlCollection}`;
-
+  const hasCarrousel = !!carousel || null;
   useEffect(() => {
     dispatch(fetchShopItemsStart(url, query, wishlistItems));
-  }, [wishlistItems]);
-
+  }, [dispatch, query, url, wishlistItems]);
   useEffect(() => {
     dispatch(fetchPicturesStart(["carousel", "collections"]));
   }, [dispatch]);
 
   return (
     <Container>
-      <CarouselContainer>
-        <Carousel />
-      </CarouselContainer>
+      {hasCarrousel && (
+        <CarouselContainer>
+          <Carousel items={carousel} />
+        </CarouselContainer>
+      )}
       {shopItems && (
         <BestSellersContainer>
           <BestSellersTitle>
@@ -77,7 +71,14 @@ const HomePage = () => {
             />
             <CustomButton
               color="standard"
-              onClick={() => history.push(pathName)}
+              onClick={() =>
+                history.push({
+                  pathname: pathName,
+                  state: {
+                    from: `${pathname}${search}`,
+                  },
+                })
+              }
             >
               SHOP NOW
             </CustomButton>

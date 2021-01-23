@@ -1,10 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
-
 import { selectFeaturedShopMenu } from "../../../redux/selectors/collections.selectors";
-
 import FeaturedShopMenu from "../featured-shop-menu.component";
-
 import { Container } from "./featured-shop-menu-list.styles";
 
 const FeaturedShopMenusList = () => {

@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-
 import { ReactComponent as LibLabLogo } from "../../assets/icons/lab.svg";
-import { ReactComponent as InstagramLogo } from "../../assets/icons/camera-logo.svg";
 import { ReactComponent as SearchLogo } from "../../assets/icons/search-logo.svg";
 import { ReactComponent as UserLogo } from "../../assets/icons/user.svg";
 import { ReactComponent as CloseLogo } from "../../assets/icons/close-logo.svg";
@@ -39,8 +36,6 @@ export const LibLab = styled(LibLabLogo)`
   height: 100%;
   cursor: pointer;
   padding: 5px 0;
-  ${"" /* border: thin solid black; */}
-
   &:hover,
   &:focus {
     fill: gold;
@@ -53,38 +48,6 @@ export const ShopContainer = styled.ul`
   align-items: center;
   padding-left: 5px;
   list-style: none;
-
-  ${"" /* border: thin solid black; */}
-`;
-
-export const LinkContainer = styled.li`
-  height: 100%;
-  margin: 0 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ${"" /* border: thin solid purple; */}
-`;
-
-export const ShopLink = styled(Link)`
-  font-size: 12px;
-  cursor: pointer;
-
-  &:hover {
-    color: gold;
-    text-decoration: underline;
-  }
-`;
-
-export const Instagram = styled(InstagramLogo)`
-  height: 100%;
-  padding: 15px;
-  cursor: pointer;
-
-  &:hover {
-    fill: gold;
-  }
 `;
 
 export const UserContainer = styled.ul`
@@ -93,8 +56,6 @@ export const UserContainer = styled.ul`
   align-items: center;
   padding-left: 5px;
   list-style: none;
-
-  ${"" /* border: thin solid black; */}
 `;
 
 export const UserLinkContainer = styled.li`
@@ -104,7 +65,6 @@ export const UserLinkContainer = styled.li`
   align-items: center;
   justify-content: center;
   padding: 15px;
-  ${"" /* border: thin solid purple; */}
 `;
 
 export const Search = styled(SearchLogo)`
