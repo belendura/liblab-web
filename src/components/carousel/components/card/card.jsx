@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { fromServerEnumerate } from "../../../../firebase/enumerate";
 import { Container, Title, Picture } from "./card.styled";
 
-const Card = ({ index, value, onClick, key }) => {
+const Card = ({ url, onClick, name }) => {
   return (
-    <Container key={index}>
-      <Picture src={value} />
+    <Container>
+      <Picture src={url} />
       <Title onClick={onClick}>
-        {fromServerEnumerate[key].replace("-", " ")}
+        {fromServerEnumerate[name].replace("-", " ")}
       </Title>
     </Container>
   );
@@ -16,9 +16,9 @@ const Card = ({ index, value, onClick, key }) => {
 
 Card.propTypes = {
   index: PropTypes.number,
-  value: PropTypes.string,
+  url: PropTypes.string,
   onClick: PropTypes.func,
-  key: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default Card;

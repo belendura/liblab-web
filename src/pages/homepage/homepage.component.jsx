@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useMemo} from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import queryString from "query-string";
@@ -39,9 +39,9 @@ const HomePage = () => {
   const labels = {
     bestSeller: "best-sellers",
   };
-  const query = {
+  const query = useMemo(() =>({
     labels: `${labels.bestSeller}`,
-  };
+  }), [labels.bestSeller]);
   const pathName = `/shop/${urlCollection}?${queryString.stringify(query, {
     arrayFormat: "comma",
   })}`;

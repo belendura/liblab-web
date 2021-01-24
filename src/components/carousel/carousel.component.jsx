@@ -32,9 +32,9 @@ const Carousel = ({ items }) => {
             return (
               <Card
                 onClick={() => handleClick(pathName)}
-                index={index}
-                key={key}
-                value={value}
+                name={key}
+                url={value}
+                key={index}
               />
             );
           })}
