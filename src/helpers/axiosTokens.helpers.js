@@ -1,4 +1,4 @@
-export const TOKEN_KEY = "accessToken";
+import { TOKEN_KEY } from "../utils/variables";
 
 export const checkToken = () => localStorage.getItem(TOKEN_KEY) !== null;
 
@@ -9,6 +9,5 @@ export const saveToken = (token) => {
 };
 
 export const removeToken = () => {
-  console.log("borrar token");
   localStorage.removeItem(TOKEN_KEY);
 };

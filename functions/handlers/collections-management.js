@@ -9,17 +9,14 @@ const {
   getSearchResults,
 } = require("../helpers/firestore");
 
-const { toServerEnumerate } = require("../helpers/enumerate");
+const { toServerEnumerate } = require("../utils/enumerate");
 
-const isObject = (value) => typeof value === "object";
-const isEmptyObject = (object) =>
-  !isObject(object) || (isObject(object) && Object.keys(object).length === 0);
+const { isEmptyObject } = require("../utils/objects");
 
 //Menu Collection/Section
 exports.fetchShopMenu = async (req, res) => {
   try {
     const shopMenu = await getShopMenuDocuments();
-
     return res.status(200).send(shopMenu);
   } catch (error) {
     return res.status(500).send(`Error getting shop menu ${error}`);

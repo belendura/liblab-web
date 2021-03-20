@@ -2,6 +2,7 @@ const { adminAuth } = require("../helpers/admin");
 
 exports.checkIfAuthenticated = async (req, res, next) => {
   const { authorization } = req.headers;
+  console.log("reqBody", req.body);
 
   let authToken;
 

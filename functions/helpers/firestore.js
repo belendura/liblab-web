@@ -1,4 +1,4 @@
-const { object } = require("firebase-functions/lib/providers/storage");
+// const { object } = require("firebase-functions/lib/providers/storage");
 const { firestore } = require("./admin");
 
 exports.createUserDocument = async (userAuth, additionalData) => {
@@ -13,27 +13,36 @@ exports.createUserDocument = async (userAuth, additionalData) => {
 
     let name = displayName;
     const createdAt = Date();
-    const { firstName, lastName, ...otherData } = additionalData;
 
     if (providerData[0].providerId === "password") {
+      let { firstName, lastName, ...otherData } = additionalData;
       name = `${firstName} ${lastName}`;
+    } else {
+      firstName = displayName.slice(0, displayName.indexOf(" "));
+      lastName = displayName
+        .slice(displayName.indexOf(" "), displyName.indexOf(" "))
+        .trim();
+      otherData = null;
     }
     try {
-      const newUser = {
+      const createdUser = {
         displayName: name,
         email,
         createdAt,
         id: uid,
+        firstName: firstName,
+        lastName: lastName,
         ...otherData,
       };
-      await userRef.set(newUser);
-      return newUser;
+      await userRef.set(createdUser);
     } catch (error) {
       throw new Error(error);
     }
-  } else if (snapShot.exists) {
-    return userAuth;
   }
+  const userSnapShot = await userRef.get();
+  const user = userSnapShot.data();
+
+  return user;
 };
 
 exports.getUserDocument = async (userId) => {
@@ -43,8 +52,7 @@ exports.getUserDocument = async (userId) => {
   const userSnapShot = await userRef.get();
 
   if (userSnapShot.exists) {
-    const user = userSnapShot.data();
-    return user;
+    return (user = userSnapShot.data());
   }
 };
 
@@ -52,27 +60,20 @@ exports.getPictures = async (collections, section) => {
   if (!collections.length) return;
 
   try {
-    const webPictures = await collections.reduce(
-      async (previousPromise, item) => {
-        let accum = await previousPromise;
+    return await collections.reduce(async (previousPromise, item) => {
+      const accum = await previousPromise;
 
-        const documentRef = firestore.doc(`web-pictures/${item}`);
+      const documentRef = firestore.doc(`web-pictures/${item}`);
 
-        const documentSnapshot = await documentRef.get();
-        if (documentSnapshot.exists) {
-          const data = documentSnapshot.data();
-          if (section) {
-            accum = { ...accum, [section]: data[section] };
-          } else {
-            accum = { ...accum, [item]: data };
-          }
+      const documentSnapshot = await documentRef.get();
+      if (documentSnapshot.exists) {
+        const data = documentSnapshot.data();
+        if (section) {
+          return { ...accum, [section]: data[section] };
         }
-        return accum;
-      },
-      Promise.resolve({})
-    );
-
-    return webPictures;
+        return { ...accum, [item]: data };
+      }
+    }, Promise.resolve({}));
   } catch (error) {
     throw new Error(error);
   }
@@ -119,21 +120,26 @@ const getFeaturedSection = async (collectionsRefs, conditions) => {
       async (previousPromise, condition) => {
         let accum = await previousPromise;
 
-        for (collectionRef of collectionsRefs) {
+        const found = collectionsRefs.some(async (collectionRef) => {
           return await collectionRef.get().then((querySnapshot) => {
-            for (doc of querySnapshot.docs) {
+            return querySnapshot.docs.some((doc) => {
               const item = doc.data();
+              return item[condition] === true;
+            });
 
-              if (item[condition]) {
-                accum.push(condition);
-
-                break;
-              }
-            }
-
-            return accum;
+            //   for (doc of querySnapshot.docs) {
+            //     const item = doc.data();
+            //     if (item[condition]) {
+            //       accum.push(condition);
+            //       break;
+            //     }
+            //   }
+            //   return accum;
+            // })
           });
-        }
+        });
+
+        return found ? [...accum, condition] : accum;
       },
       Promise.resolve([])
     );
@@ -198,7 +204,7 @@ exports.getShopMenuDocuments = async () => {
     const shopMenu = await getShopMenu();
 
     const featuredShopMenu = await getfeaturedShopMenu();
-    console.log("featuredShopMenu", featuredShopMenu);
+
     const shopMenuPictures = await getHeaderPictures();
 
     return { shopMenu, featuredShopMenu, shopMenuPictures };
@@ -312,9 +318,7 @@ exports.getCollectionByConditionDocuments = async (collection, condition) => {
   }
 };
 
-exports.getCollectionsByConditionDocuments = async (condition) => {
-  if (!condition) return;
-
+exports.getCollectionsByConditionDocuments = async (condition = "sale") => {
   const documentRefs = await firestore
     .collection("collections")
     .listDocuments();
@@ -463,7 +467,7 @@ exports.updateUserCartDocument = async (user, cart) => {
                   userCartItem.id === cartItem.id &&
                   userCartItem.selectedSize === cartItem.selectedSize
               );
-              const updatedUserCartItem = {
+              let updatedUserCartItem = {
                 id: userCartItem.id,
                 reference: userCartItem.reference,
                 url: userCartItem.url[0],
@@ -474,19 +478,12 @@ exports.updateUserCartDocument = async (user, cart) => {
                 sale: userCartItem.sale,
                 color: userCartItem.color,
                 selectedSize: userCartItem.selectedSize,
+                quantity: existingCartItem ? userCartItem.quantity + 1 : 0,
               };
 
-              if (existingCartItem) {
-                updatedUserCartItem = {
-                  ...updatedUserCartItem,
-                  quantity: userCartItem.quantity + 1,
-                };
-                accumulator.push(updatedUserCartItem);
-              } else {
-                accumulator.push(userCartItem);
-              }
-
-              return accumulator;
+              return existingCartItem
+                ? [...accumulator, updatedUserCartItem]
+                : [...accumulator, userCartItem];
             },
             []
           );
@@ -501,7 +498,7 @@ exports.updateUserCartDocument = async (user, cart) => {
   }
   const updatedSnapShot = await cartRef.get();
   const updatedUserCart = updatedSnapShot.data();
-  // console.log("updatedUserCart", updatedUserCart.cart);
+
   return updatedUserCart.cart;
 };
 
@@ -667,12 +664,11 @@ exports.removeItemFromUserCartDocument = async (itemToRemove, user) => {
       if (!existingCartItem) {
         updatedCart = [...oldUserCart];
       }
-
       await cartRef.set({ cart: updatedCart });
       const updatedSnapShot = await cartRef.get();
       const updatedUserCart = updatedSnapShot.data();
-
-      return updatedUserCart.cart;
+      const { cart } = updatedUserCart;
+      return cart;
     } catch (error) {
       throw new Error(error);
     }
@@ -712,7 +708,6 @@ exports.clearItemFromUserCartDocument = async (itemToRemove, user) => {
 };
 
 exports.toggleItemFromWishlistDocument = async (item, user) => {
-  console;
   if (!user || !item) return;
 
   const { id } = item;
@@ -839,7 +834,7 @@ exports.createSizeRequestDocument = async (
   let requestExists = false;
 
   try {
-    querySnapshot = await colRef.where("email", "==", email).get();
+    const querySnapshot = await colRef.where("email", "==", email).get();
 
     if (!querySnapshot.empty) {
       userExists = true;

@@ -19,9 +19,7 @@ exports.createUser = async (req, res) => {
     );
 
     const token = await userAuth.getIdToken();
-    // const currentUser = auth.currentUser; /////To Delete
-    const currentUser = userAuth;
-    await currentUser.sendEmailVerification(actionCodesettings);
+    await userAuth.sendEmailVerification(actionCodesettings);
     const user = await createUserDocument(userAuth, additionalData);
     return res.status(200).json({ user, token });
   } catch (error) {
@@ -79,12 +77,15 @@ exports.logInWithGoogle = async (req, res) => {
 
   try {
     const userData = await createUserDocument(user);
-  
+
     const updatedCart = await updateUserCartDocument(userData, cart);
- 
-     const updatedWishlist = await updateUserWishlistDocument(userData, wishlist);
-  
-    return res.status(200).json({userData, updatedCart, updatedWishlist});
+
+    const updatedWishlist = await updateUserWishlistDocument(
+      userData,
+      wishlist
+    );
+
+    return res.status(200).json({ userData, updatedCart, updatedWishlist });
   } catch (error) {
     return res.status(500).send(`Error Google login ${error}`);
   }
