@@ -74,36 +74,6 @@ export const fetchItemByConditionStart = (
   payload: { collection, condition, reference, color, wishlistItems },
 });
 
-export const fetchItemByConditionSuccess = (item) => ({
-  type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_SUCCESS,
-  payload: item,
-});
-
-export const fetchItemByConditionFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_FAILURE,
-  payload: error,
-});
-
-export const fetchItemByConditionOverallStart = (
-  condition,
-  reference,
-  color,
-  wishlistItems
-) => ({
-  type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_START,
-  payload: { condition, reference, color, wishlistItems },
-});
-
-export const fetchItemByConditionOverallSuccess = (item) => ({
-  type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_SUCCESS,
-  payload: item,
-});
-
-export const fetchItemByConditionOverallFailure = (error) => ({
-  type: collectionsActionTypes.FETCH_ITEM_BY_CONDITION_OVERALL_FAILURE,
-  payload: error,
-});
-
 export const fetchSearchStart = (search) => ({
   type: collectionsActionTypes.FETCH_SEARCH_START,
   payload: { search },

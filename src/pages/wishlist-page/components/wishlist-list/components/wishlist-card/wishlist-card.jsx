@@ -35,9 +35,9 @@ import {
   Basket,
   ButtonContainer,
   NewItem,
-} from "./wishlist-item.styles";
+} from "./wishlist-card.styles";
 
-const WishlistItem = ({ item }) => {
+const WishlistCard = ({ item }) => {
   const [visibility, setVisibility] = useState(false);
 
   const dispatch = useDispatch();
@@ -68,8 +68,8 @@ const WishlistItem = ({ item }) => {
   } = item;
 
   const query = {
-    details: `${description.replace(" ", "-")}`,
-    colors: `${color.name.replace(" ", "-")}`,
+    queryDetails: `${description.replace(" ", "-")}`,
+    queryColor: `${color.name.replace(" ", "-")}`,
   };
 
   const pathName = `/shop/${collection}/${section.replace(
@@ -80,29 +80,26 @@ const WishlistItem = ({ item }) => {
   })}`;
 
   return (
-    <Container>
+    <Container
+      onMouseEnter={() => setVisibility(true)}
+      onMouseLeave={() => setVisibility(false)}
+    >
       <PictureContainer>
-        <Picture
-          url={url[0]}
-          onClick={() => history.push(pathName)}
-          onMouseEnter={() => setVisibility(true)}
-          onMouseLeave={() => setVisibility(false)}
-        >
-          {sale && (
-            <UpperInfoContainer sale={sale} new={newItem}>
-              <UpperInfo>{discount}%</UpperInfo>
-            </UpperInfoContainer>
-          )}
-          {visibility && (
-            <SizesDropUp
-              sizes={sizes}
-              availableUnits={availableUnits}
-              currentItem={item}
-              wishlist={true}
-              selectedSize={wishlistItem.selectedSize}
-            />
-          )}
-        </Picture>
+        <Picture src={url[0]} onClick={() => history.push(pathName)} />
+        {sale && (
+          <UpperInfoContainer sale={sale} new={newItem}>
+            <UpperInfo>{discount}%</UpperInfo>
+          </UpperInfoContainer>
+        )}
+        {visibility && (
+          <SizesDropUp
+            sizes={sizes}
+            availableUnits={availableUnits}
+            currentItem={item}
+            wishlist={true}
+            selectedSize={wishlistItem.selectedSize}
+          />
+        )}
       </PictureContainer>
       <Footer>
         <NewItem newItem={newItem}>NEW</NewItem>
@@ -171,4 +168,4 @@ const WishlistItem = ({ item }) => {
   );
 };
 
-export default WishlistItem;
+export default WishlistCard;

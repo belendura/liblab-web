@@ -84,8 +84,8 @@ const CollectionCard = ({ initialColor, reference }) => {
 
   const query = {
     // labels: `${fromServerEnumerate[labels]}`,
-    details: `${description.replace(" ", "-")}`,
-    colors: `${color.name.replace(" ", "-")}`,
+    queryDetails: `${description.replace(" ", "-")}`,
+    queryColor: `${color.name.replace(" ", "-")}`,
   };
 
   const pathName = `/shop/${collection}/${section.replace(

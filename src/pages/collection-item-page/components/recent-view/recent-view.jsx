@@ -9,8 +9,8 @@ const RecentView = ({ item }) => {
   const { collection, section, newUrl, description, reference, color } = item;
 
   const query = {
-    details: `${description.replace(" ", "-")}`,
-    colors: `${color.name.replace(" ", "-")}`,
+    queryDetails: `${description.replace(" ", "-")}`,
+    queryColor: `${color.name.replace(" ", "-")}`,
   };
 
   const pathName = `/shop/${collection}/${section.replace(

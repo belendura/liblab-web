@@ -6,16 +6,18 @@ import { openModal } from "../../../../../../../../redux/actions/modal.actions";
 
 import { Container, SizeOption, OrderMenu } from "./select-size-order.styles";
 
-const SelectSizeOrder = ({ size }) => {
+const SelectSizeOrder = ({ size, colors }) => {
   const dispatch = useDispatch();
   const params = useParams();
-  const { reference, color } = params;
+
+  const { urlReference } = params;
+
   return (
     <Container>
       <SizeOption>{`${size} - Not available`}</SizeOption>
       <OrderMenu
         onClick={() =>
-          dispatch(openModal("REQUEST_ITEM", { reference, color, size }))
+          dispatch(openModal("REQUEST_ITEM", { urlReference, colors, size }))
         }
       />
     </Container>

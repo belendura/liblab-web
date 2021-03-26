@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px;
+  padding: 10px;
   ${"" /* border: thin solid black; */}
 `;
 
@@ -16,5 +16,6 @@ export const TextContainer = styled.p`
 `;
 
 export const ButtonContainer = styled.div`
+  margin: 0 auto;
   ${"" /* border: thin solid black; */}
 `;

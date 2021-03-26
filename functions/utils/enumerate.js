@@ -9,7 +9,7 @@ exports.fromServerEnumerate = {
   scrubTops: "scrub-tops",
   scrubPants: "scrub-pants",
   scrubJackets: "scrub-jackets",
-  faceMasks: "face masks",
+  faceMasks: "face-masks",
 };
 
 exports.toServerEnumerate = {

@@ -1,4 +1,6 @@
-const { getSizesGuide } = require("../helpers/firestore");
+const {
+  getSizesGuide,
+} = require("../helpers/firestore/sizes-guide/get-sizes-guide");
 
 //SizesGuide
 exports.fetchSizesGuide = async (req, res) => {

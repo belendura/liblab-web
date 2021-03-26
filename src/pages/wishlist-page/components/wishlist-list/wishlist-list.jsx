@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from "react-redux";
 
 import { selectWishlistItems } from "../../../../redux/selectors/wishlist.selectors";
 
-import WishlistItem from "./components/wishlist-item";
+import WishlistCard from "./components/wishlist-card";
 
 import { Container, WishlistContainer, Text } from "./wishlist-list.styles";
 
@@ -14,7 +14,7 @@ const WishlistList = () => {
       {wishlistItems.length ? (
         <WishlistContainer>
           {wishlistItems.map((item, index) => (
-            <WishlistItem item={item} key={index} />
+            <WishlistCard item={item} key={index} />
           ))}
         </WishlistContainer>
       ) : (

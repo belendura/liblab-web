@@ -40,22 +40,19 @@ export const Container = styled.div`
 
 export const PictureContainer = styled.div`
   position: relative;
-  overflow: hidden;
   height: 0;
-  padding-top: 100%;
+  padding-top: 128.28%;
+  overflow: hidden;
+  cursor: pointer;
 `;
 
-export const Picture = styled.div`
+export const Picture = styled.img`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background-image: url(${(props) => props.url});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
 `;
 
 export const UpperInfoContainer = styled.div`

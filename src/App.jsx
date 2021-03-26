@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import "./styles/slick-theme.css";
 import "./styles/slick.css";
@@ -32,11 +33,13 @@ import { getToken } from "./helpers/axiosTokens.helpers";
 
 import { checkUserSession } from "./redux/actions/user.actions";
 import { fetchShopMenuStart } from "./redux/actions/collections.actions";
+import { toggleCartHidden } from "./redux/actions/cart.actions";
 
 import {
   selectShowModal,
   selectShowSecondModal,
 } from "./redux/selectors/modal.selectors";
+import { selectCartHidden } from "./redux/selectors/cart.selectors";
 
 import Modal from "./components/modal";
 import InnerModal from "./components/inner-modal";
@@ -53,6 +56,8 @@ function App() {
   const dispatch = useDispatch();
   const showModal = useSelector(selectShowModal, shallowEqual);
   const showSecondModal = useSelector(selectShowSecondModal, shallowEqual);
+  const location = useLocation();
+  const cartHidden = useSelector(selectCartHidden, shallowEqual);
 
   useEffect(() => {
     const token = getToken();
@@ -63,6 +68,10 @@ function App() {
   useEffect(() => {
     dispatch(fetchShopMenuStart());
   }, []);
+
+  useEffect(() => {
+    !cartHidden && dispatch(toggleCartHidden());
+  }, [location]);
 
   // useEffect(() => {
   //   updateCollectionsDocuments("unisex", "faceMasks");

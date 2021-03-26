@@ -1,4 +1,6 @@
-const { createSizeRequestDocument } = require("../helpers/firestore");
+const {
+  createSizeRequestDocument,
+} = require("../helpers/firestore/shop/create-size-request-document");
 
 //RequestSize
 exports.postSizeRequest = async (req, res) => {

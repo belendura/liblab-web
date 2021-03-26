@@ -1,14 +1,27 @@
 const {
   getShopMenuDocuments,
-  getCollectionByConditionDocuments,
-  getCollectionsByConditionDocuments,
+} = require("../helpers/firestore/collections/get-shop-menu-documents");
+const {
   getCollectionDocuments,
+} = require("../helpers/firestore/collections/get-collection-documents");
+const {
+  getFeaturedCollectionDocuments,
+} = require("../helpers/firestore/collections/get-featured-collection-documents");
+const {
+  getFeaturedCollectionsDocuments,
+} = require("../helpers/firestore/collections/get-featured-collections-documents");
+const {
   getSectionDocuments,
+} = require("../helpers/firestore/collections/get-section-documents");
+const {
   getItemDocument,
+} = require("../helpers/firestore/collections/get-item-document");
+const {
   getPictures,
+} = require("../helpers/firestore/collections/get-pictures");
+const {
   getSearchResults,
-} = require("../helpers/firestore");
-
+} = require("../helpers/firestore/collections/get-search-results-documents");
 const { toServerEnumerate } = require("../utils/enumerate");
 
 const { isEmptyObject } = require("../utils/objects");
@@ -25,12 +38,10 @@ exports.fetchShopMenu = async (req, res) => {
 
 exports.fetchCollection = async (req, res) => {
   const { query, params } = req;
-
   const { urlCollection } = params;
-
   const { labels } = query;
-
   const arrayPictures = ["collections"];
+  console.log("labels", labels);
 
   try {
     let collectionsItems = [];
@@ -40,17 +51,16 @@ exports.fetchCollection = async (req, res) => {
       const serverLabels = toServerEnumerate[labels.replace("-", "")];
       pictures = await getPictures(arrayPictures, serverLabels);
       if (urlCollection === "featured") {
-        collectionsItems = await getCollectionsByConditionDocuments(
-          serverLabels
-        );
+        collectionsItems = await getFeaturedCollectionsDocuments(serverLabels);
       } else {
-        collectionsItems = await getCollectionByConditionDocuments(
+        collectionsItems = await getFeaturedCollectionDocuments(
           urlCollection,
           serverLabels
         );
       }
     } else {
       collectionsItems = await getCollectionDocuments(urlCollection);
+
       pictures = await getPictures(arrayPictures, urlCollection);
     }
 
@@ -64,9 +74,7 @@ exports.fetchCollection = async (req, res) => {
 
 exports.fetchSection = async (req, res) => {
   const { params } = req;
-
   const { urlCollection, urlSection } = params;
-
   const arrayPictures = [urlCollection];
 
   try {
@@ -93,14 +101,14 @@ exports.fetchItem = async (req, res) => {
 
   const { urlCollection, urlSection, urlReference } = params;
 
-  const { colors } = query;
+  const { color } = query;
 
   try {
     const item = await getItemDocument(
       urlCollection,
       toServerEnumerate[urlSection.replace("-", "")],
       urlReference,
-      colors.replace("-", " ")
+      color.replace("-", " ")
     );
 
     return res.status(200).send(item);

@@ -15,7 +15,7 @@ import {
   Email,
 } from "./request-item-modal.styles";
 
-const RequestItemModal = ({ reference, color, size }) => {
+const RequestItemModal = ({ urlReference, colors, size }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [alertvisibility, setAlertVisibility] = useState(false);
@@ -24,7 +24,7 @@ const RequestItemModal = ({ reference, color, size }) => {
     event.preventDefault();
     dispatch(
       requestItemStart(
-        { reference: reference, color: color, size: size },
+        { reference: urlReference, color: colors, size: size },
         { email: email }
       )
     );

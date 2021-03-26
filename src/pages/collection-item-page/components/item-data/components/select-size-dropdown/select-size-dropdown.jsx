@@ -8,7 +8,7 @@ import ClickOutside from "../../../../../../components/click-outside";
 
 import { Container, SizeOption } from "./select-size-dropdown.styles";
 
-const SelectSizeDropDown = ({ sizes, setSelectSizeVisible }) => {
+const SelectSizeDropDown = ({ sizes, setSelectSizeVisible, colors }) => {
   const dispatch = useDispatch();
 
   return (
@@ -28,7 +28,11 @@ const SelectSizeDropDown = ({ sizes, setSelectSizeVisible }) => {
                       setSelectSizeVisible(false);
                   }}
                 >
-                  {units > 0 ? size : <SelectSizeOrder size={size} />}
+                  {units > 0 ? (
+                    size
+                  ) : (
+                    <SelectSizeOrder size={size} colors={colors} />
+                  )}
                 </SizeOption>
               );
             })}

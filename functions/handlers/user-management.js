@@ -1,11 +1,17 @@
 const { auth } = require("../helpers/firebase");
-// const { firestore } = require("../helpers/admin");
+
 const {
   createUserDocument,
+} = require("../helpers/firestore/user/create-user-document");
+const {
   getUserDocument,
+} = require("../helpers/firestore/user/get-user-document");
+const {
   updateUserCartDocument,
+} = require("../helpers/firestore/user/update-user-cart-document");
+const {
   updateUserWishlistDocument,
-} = require("../helpers/firestore");
+} = require("../helpers/firestore/user/update-user-wishlist-document");
 
 const { actionCodesettings } = require("../config/urlConfig");
 

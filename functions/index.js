@@ -32,9 +32,7 @@ const {
   removeItemFromUserWishlist,
 } = require("./handlers/wishlist-management");
 
-const {
-  checkIfAuthenticated,
-} = require("../functions/middlewares/authenticate");
+const { checkIfAuthenticated } = require("./middlewares/authenticate");
 
 const app = express();
 
@@ -66,7 +64,7 @@ app.post("/search", fetchSearch);
 
 app.post("/pictures/:pictures", fetchPictures);
 
-app.post("/request-item/", checkIfAuthenticated, postSizeRequest);
+app.post("/request-item/", postSizeRequest);
 
 app.post("/addItem", addItemToUserCart);
 

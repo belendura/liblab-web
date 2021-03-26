@@ -38,7 +38,6 @@ export function* onFetchShopMenuStart() {
 
 export function* fetchShopItems({ payload }) {
   const { url, query, wishlistItems } = payload;
-
   try {
     const response = yield axiosConfig.get(url, {
       params: query,
@@ -69,10 +68,10 @@ export function* onFetchShopItemsStart() {
 
 export function* fetchItem({ payload }) {
   const { url, query, wishlistItems } = payload;
-
+  const { queryColor } = query;
   try {
     const response = yield axiosConfig.get(url, {
-      params: { colors: query.colors },
+      params: { color: queryColor },
     });
     const updatedShopItemsWishlist = updateShopItemsWishlist(
       response.data,

@@ -18,7 +18,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       };
     case cartActionTypes.TOGGLE_CART_HIDDEN:
       return {
-        ...state, 
+        ...state,
         hidden: !state.hidden,
       };
     case cartActionTypes.ADD_ITEM:
@@ -29,6 +29,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           action.payload.item,
           action.payload.selectedSize
         ),
+        selectedSize: "",
       };
     case cartActionTypes.UPDATE_CART_SUCCESS:
     case cartActionTypes.UPDATE_CART_FROM_CHECKOUT_SUCCESS:
@@ -51,11 +52,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, action.payload.item),
       };
-      case cartActionTypes.CLEAR_ITEM_FROM_CART:
-        return {
-          ...state,
-          cartItems: state.cartItems.filter(cartItem => cartItem.id !== action.payload.item.id || (cartItem.id===action.payload.item.id && cartItem.selectedSize!== action.payload.item.selectedSize)) 
-        };
+    case cartActionTypes.CLEAR_ITEM_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (cartItem) =>
+            cartItem.id !== action.payload.item.id ||
+            (cartItem.id === action.payload.item.id &&
+              cartItem.selectedSize !== action.payload.item.selectedSize)
+        ),
+      };
     case cartActionTypes.CLEAR_CART:
       return {
         ...state,

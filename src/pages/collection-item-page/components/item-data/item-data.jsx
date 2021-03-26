@@ -74,6 +74,8 @@ const ItemData = ({ collection, section, item, query }) => {
     url,
   } = item;
 
+  const { queryColor, queryDetails } = query;
+
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [fabricVisible, setFabricVisible] = useState(false);
   const dispatch = useDispatch();
@@ -129,16 +131,19 @@ const ItemData = ({ collection, section, item, query }) => {
         <ColorsOptionContainer>
           {availableColors.map((item, index) => {
             const { code, name } = item;
-            console.log("name", name);
+            console.log("item", item);
             return (
               <div
                 key={index}
                 onClick={() => {
-                  query["colors"] = `${name.replace(" ", "-")}`;
+                  const newQuery = {
+                    queryColor: `${name.replace(" ", "-")}`,
+                    queryDetails,
+                  };
                   const pathName = `/shop/${collection}/${section.replace(
                     " ",
                     "-"
-                  )}/${reference}?${queryString.stringify(query, {
+                  )}/${reference}?${queryString.stringify(newQuery, {
                     arrayFormat: "comma",
                   })}`;
                   console.log("pathName", pathName);
@@ -169,6 +174,7 @@ const ItemData = ({ collection, section, item, query }) => {
           <SelectSizeDropDown
             sizes={sizes}
             setSelectSizeVisible={setSelectSizeVisible}
+            colors={queryColor}
           />
         )}
       </SelectSizesContainer>
@@ -189,7 +195,7 @@ const ItemData = ({ collection, section, item, query }) => {
           Add to bag
         </CustomButton>
       </CustomButtonContainer>
-      <ShippingContainer onClick={() => dispatch(openModal("SHIPPING_INFO"))}>
+      <ShippingContainer onClick={() => dispatch(openModal("SHIPPING_TERMS"))}>
         Deliveries & Returns
       </ShippingContainer>
       <DetailsContainer>

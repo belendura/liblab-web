@@ -29,7 +29,7 @@ const CollectionItemPage = () => {
 
   const query = queryString.parse(search, { arrayFormat: "comma" });
 
-  const { colors } = query;
+  const { queryColor } = query;
 
   const wishlistItems = useSelector(selectWishlistItems, shallowEqual);
 
@@ -41,7 +41,7 @@ const CollectionItemPage = () => {
     selectItemByColor(
       state,
       urlReference,
-      colors.replace("-", " "),
+      queryColor.replace("-", " "),
       shallowEqual
     )
   );

@@ -1,9 +1,9 @@
 exports.firebaseConfigKey = {
-  apiKey: "AIzaSyApU3JlL6t8eipLEgUILLQpIq_du3dgqh8",
-  authDomain: "liblab-web.firebaseapp.com",
-  databaseURL: "https://liblab-web.firebaseio.com",
-  projectId: "liblab-web",
-  storageBucket: "liblab-web.appspot.com",
-  messagingSenderId: "900434146028",
-  appId: "1:900434146028:web:b920110a00247f08b82bc9",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
