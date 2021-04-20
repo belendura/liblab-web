@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import CustomButton from "../../../custom-button";
+import ClientAddress from "./components/client-address";
 
 import {
   Container,
@@ -13,22 +14,9 @@ const ClientDataModal = () => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
-    country: "",
-    city: "",
-    state: "",
-    street: "",
-    postCode: "",
-    phone: "",
+    email: "",
   });
-  const {
-    firstName,
-    lastName,
-    email,
-    country,
-    street,
-    city,
-    postCode,
-  } = userData;
+  const { firstName, lastName, email } = userData;
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserData({ ...userData, [name]: value });
@@ -76,6 +64,7 @@ const ClientDataModal = () => {
           </CustomButton>
         </ButtonContainer>
       </Form>
+      <ClientAddress />
     </Container>
   );
 };

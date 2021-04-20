@@ -2,6 +2,7 @@ const { firestore } = require("../../admin");
 
 exports.updateUserCartDocument = async (user, cart) => {
   if (!user) return cart;
+  console.log("hoila");
 
   const cartRef = firestore.doc(`carts/${user.id}`);
 
@@ -56,7 +57,11 @@ exports.updateUserCartDocument = async (user, cart) => {
                 sale: userCartItem.sale,
                 color: userCartItem.color,
                 selectedSize: userCartItem.selectedSize,
-                quantity: existingCartItem ? userCartItem.quantity + 1 : 0,
+                quantity: existingCartItem
+                  ? userCartItem.quantity < 5
+                    ? userCartItem.quantity + 1
+                    : 5
+                  : 0,
               };
 
               return existingCartItem
@@ -65,7 +70,8 @@ exports.updateUserCartDocument = async (user, cart) => {
             },
             []
           );
-
+          console.log("filteredCart", filteredCart);
+          console.log("filteredUserCart", filteredUserCart);
           const newUserCart = filteredUserCart.concat(filteredCart);
           await cartRef.update({ cart: newUserCart }, { merge: true });
         }

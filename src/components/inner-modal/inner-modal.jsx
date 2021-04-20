@@ -52,7 +52,13 @@ const InnerModal = () => {
 
   return (
     <OuterContainer>
-      <ClickOutside action={() => !showSecondModal && dispatch(closeModal())}>
+      <ClickOutside
+        action={() =>
+          modalData.modalType !== "CLIENT_DATA"
+            ? () => !showSecondModal && dispatch(closeModal())
+            : null
+        }
+      >
         <Container>
           <CloseButton
             onClick={() => {

@@ -4,6 +4,7 @@ const ClickOutside = ({ children, action }) => {
   const wrapperRef = useRef(null);
 
   const handleClickOutside = (event) => {
+    // console.log("action in ClickOutside", action);
     if (
       wrapperRef.current &&
       !wrapperRef.current.contains(event.target) &&
@@ -13,7 +14,8 @@ const ClickOutside = ({ children, action }) => {
   };
 
   const handleHideDropdown = (event) => {
-    if ((event.key === "Escape") && action !== undefined) {
+    // console.log("action in HideDropDown", action);
+    if (event.key === "Escape" && action !== undefined) {
       action();
     }
   };
@@ -28,6 +30,7 @@ const ClickOutside = ({ children, action }) => {
       document.removeEventListener("keydown", handleHideDropdown);
     };
   }, [handleClickOutside, handleHideDropdown]);
+
   return <div ref={wrapperRef}>{children}</div>;
 };
 

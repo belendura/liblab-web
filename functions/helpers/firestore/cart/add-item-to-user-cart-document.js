@@ -49,7 +49,7 @@ exports.addItemToUserCartDocument = async (itemToAdd, selectedSize, user) => {
             return cartItem.id === id && cartItem.selectedSize === selectedSize
               ? {
                   ...cartItem,
-                  quantity: cartItem.quantity + 1,
+                  quantity: cartItem.quantity < 5 ? cartItem.quantity + 1 : 5,
                 }
               : cartItem;
           });

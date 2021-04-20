@@ -7,7 +7,7 @@ import { Container, Title, Text } from "./client-data.styles";
 
 const ClientData = ({ client, setClient }) => {
   const dispatch = useDispatch();
-  console.log("client", client);
+  // console.log("client", client);
   const { displayName, email, phoneNumber } = client;
   return (
     <Container>

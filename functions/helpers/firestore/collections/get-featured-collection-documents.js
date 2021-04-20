@@ -35,9 +35,9 @@ exports.getFeaturedCollectionDocuments = async (collection, condition) => {
               .then((querySnapshot) => {
                 querySnapshot.docs.filter((docSnapshot) => {
                   const data = docSnapshot.data();
-                  if (data.color.code !== queryItem.color.code) {
-                    return { ...accum, ...data };
-                  }
+                  return data.color.code !== queryItem.color.code
+                    ? { ...accum, ...data }
+                    : accum;
                 });
                 return accum;
               });

@@ -20,6 +20,7 @@ export const Button = styled.button`
   padding: 10px;
   margin: 5px 0;
   font-size: 15px;
+  margin: 5px;
   text-transform: uppercase;
   cursor: pointer;
 

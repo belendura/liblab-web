@@ -131,7 +131,6 @@ const ItemData = ({ collection, section, item, query }) => {
         <ColorsOptionContainer>
           {availableColors.map((item, index) => {
             const { code, name } = item;
-            console.log("item", item);
             return (
               <div
                 key={index}
