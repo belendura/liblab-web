@@ -3,10 +3,12 @@ import axios from "axios";
 import { getToken } from "./axiosTokens.helpers";
 
 const axiosConfig = axios.create({
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL
+      : process.env.REACT_APP_API_URL_LOCAL,
   headers: {
     "Content-Type": "application/json",
-    // "Content-Type": "application/x-www-form-urlencoded",
   },
 });
 
