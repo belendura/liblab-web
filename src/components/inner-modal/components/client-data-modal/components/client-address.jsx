@@ -32,36 +32,43 @@ const loadScript = (url, callback) => {
 };
 
 const ClientAddress = () => {
-  const [cityAutoComplete, setCityAutoComplete] = useState(null);
   const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
   const [addressAutoComplete, setAddressAutoComplete] = useState(null);
-  const [address, setAddress] = useState("");
-  const [code, setCode] = useState("");
+  const [userAddress, setUserAddress] = useState({
+    shippingAddress: "",
+    address2: "",
+    city: "",
+    state: "",
+    postCode: "",
+  });
 
-  const cityAutoCompleteRef = useRef(null);
+  const { shippingAddress, address2, city, state, postCode } = userAddress;
+
   const addressAutoCompleteRef = useRef(null);
+  const address2Ref = useRef(null);
 
   const handleScriptLoad = () => {
-    setCityAutoComplete(
-      new window.google.maps.places.Autocomplete(cityAutoCompleteRef.current, {
-        types: ["(cities)"],
-        componentRestrictions: { country: "es" },
-      })
+    setAddressAutoComplete(
+      new window.google.maps.places.Autocomplete(
+        addressAutoCompleteRef.current,
+        {
+          componentRestrictions: { country: "es" },
+          fields: ["address_components", "geometry"],
+          types: ["address"],
+        }
+      )
     );
-    cityAutoCompleteRef.current.focus();
   };
 
   const handlePlaceSelect = async () => {
-    const addressObject = cityAutoComplete.getPlace();
-    const address_city = addressObject.formatted_address;
-    setCity(address_city);
+    const addressObject = addressAutoComplete.getPlace();
+    console.log("addressObject", addressObject);
     fillInAddress(addressObject);
   };
 
   const fillInAddress = (addressObject) => {
     let address1 = "";
-    let postcode = "";
+    const postcode = "";
 
     for (const component of addressObject.address_components) {
       const componentType = component.types[0];
@@ -78,16 +85,23 @@ const ClientAddress = () => {
         }
 
         case "postal_code": {
-          postcode = `${component.long_name}${postcode}`;
+          document.querySelector(
+            "#postCode"
+          ).value = `${component.long_name}${postcode}`;
           break;
         }
 
         case "postal_code_suffix": {
-          postcode = `${postcode}-${component.long_name}`;
+          document.querySelector(
+            "#postCode"
+          ).value = `${postcode}-${component.long_name}`;
           break;
         }
+        case "locality":
+          document.querySelector("#city").value = component.long_name;
+          break;
 
-        case "administrative_area_level_1": {
+        case "administrative_area_level_2": {
           document.querySelector("#state").value = component.short_name;
           break;
         }
@@ -95,44 +109,35 @@ const ClientAddress = () => {
           break;
       }
 
-      // address1Field.value = address1;
-      // postalField.value = postcode;
+      addressAutoCompleteRef.current.value = address1;
+      address2Ref.current.focus();
     }
   };
 
-  const handleCityChange = (city) => {
-    setCity("");
+  const handleChange = (event) => {
+    console.log("event", event.target);
+    const { name, value } = event.target;
+    setUserAddress({ ...userAddress, [name]: value });
   };
 
-  const initAutocomplete = () => {
-    setUserAddress(
-      new window.google.maps.places.Autocomplete(
-        addressAutoCompleteRef.current,
-        {
-          componentRestrictions: { country: ["us", "ca"] },
-          fields: ["address_components", "geometry"],
-          types: ["address"],
-        }
-      )
-    );
-    addressAutoCompleteRef.current.focus();
-    // When the user selects an address from the drop-down, populate the
-    // address fields in the form.
-    //autocomplete.addListener("place_changed", fillInAddress);
-  };
+  // const handleAddressChange = (address) => {
+  //   // setAddress("");
+  //   console.log("address change");
+  // };
 
-  const handleAddressChange = (address) => {
-    // setCity("");
-  };
+  // const handlePostCodeChange = (postCode) => {
+  //   // setPostCode("");
+  //   console.log("post code change");
+  // };
 
   const handleCountryChange = (country, event) => {
     setCountry(country);
-    setCity("");
-    if (cityAutoComplete)
-      cityAutoComplete.setComponentRestrictions({
+    if (addressAutoComplete) {
+      addressAutoComplete.setComponentRestrictions({
         country:
-          country.value === undefined ? "us" : country.value.toLowerCase(),
+          country.value === undefined ? "es" : country.value.toLowerCase(),
       });
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -159,52 +164,79 @@ const ClientAddress = () => {
   }, []);
 
   useEffect(() => {
-    if (cityAutoComplete) {
-      cityAutoComplete.setFields(["address_components", "formatted_address"]);
-      cityAutoComplete.addListener("place_changed", () => handlePlaceSelect());
+    if (addressAutoComplete) {
+      addressAutoComplete.setFields([
+        "address_components",
+        "formatted_address",
+      ]);
+      addressAutoComplete.addListener("place_changed", () =>
+        handlePlaceSelect()
+      );
+      addressAutoCompleteRef.current.focus();
     }
-  }, [cityAutoComplete]);
-
-  useEffect(() => {
-    if (cityAutoComplete) {
-      cityAutoComplete.setFields(["address_components", "formatted_address"]);
-      cityAutoComplete.addListener("place_changed", () => handlePlaceSelect());
-    }
-  }, [cityAutoComplete]);
+  }, [addressAutoComplete]);
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} method="get" autocomplete="off">
         <CountrySelector
           country={country}
           handleCountryChange={handleCountryChange}
         />
-        <Label for="city">City*</Label>
+        <Label htmlFor="shippingAddress">Deliver to*</Label>
+        <Input
+          id="shippingAddress"
+          ref={addressAutoCompleteRef}
+          placeholder="Enter address"
+          type="text"
+          name="shippingAddress"
+          value={shippingAddress}
+          onChange={handleChange}
+          onKeyPress="return event.keyCode != 13"
+          autocomplete="off"
+          required
+        />
+        <Label htmlFor="address2">Apartment, suite or floor</Label>
+        <Input
+          id="address2"
+          ref={address2Ref}
+          placeholder="Enter apartment, floor..."
+          type="text"
+          name="address2"
+          value={address2}
+          onChange={handleChange}
+        />
+
+        <Label>City*</Label>
         <Input
           id="city"
-          ref={cityAutoCompleteRef}
-          onChange={handleCityChange}
           placeholder="Enter a city"
           type="text"
           name="city"
           value={city}
-          label="city"
+          onChange={handleChange}
           required
         />
-        <Label for="address">*Label</Label>
+        <Label htmlFor="postal_code">Postal code*</Label>
         <Input
-          id="address"
-          ref={addressAutoCompleteRef}
-          onChange={handleAddressChange}
-          placeholder="Enter address"
+          id="postCode"
+          placeholder="Enter a post code"
           type="text"
-          name="address"
-          value={address}
-          label="address"
+          name="postCode"
+          value={postCode}
+          onChange={handleChange}
           required
         />
-        <Label for="state">State/Province*</Label>
-        <Input id="state" name="state" readonly required />
+        <Label>State/Province*</Label>
+        <Input
+          id="state"
+          placeholder="Enter a state/province"
+          type="text"
+          name="state"
+          value={state}
+          onChange={handleChange}
+          required
+        />
         <ButtonContainer>
           <CustomButton color="standard">ACCEPT</CustomButton>
         </ButtonContainer>

@@ -24,7 +24,8 @@ export const Input = styled.input`
 `;
 
 export const Label = styled.label`
-  fornt-size: 10px;
+  font-size: 10px;
+  padding-top: 5px;
 `;
 export const ButtonContainer = styled.div`
   display: flex;
